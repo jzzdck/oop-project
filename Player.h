@@ -15,9 +15,7 @@ public:
 	Player(std::string spritename, float initial_x, float initial_y, int player_index);
 private:
 	sf::Keyboard::Key m_right, m_left, m_space;
-	int m_player_index;
-	
-	int m_jumpcount;
+	int m_player_index, m_jumpcount;
 	bool is_jumping;
 };
 

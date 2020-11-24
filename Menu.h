@@ -10,7 +10,6 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Config.hpp>
 #include "Scene.h"
-#include "Menu.h"
 #include "Match.h"
 
 class Game;

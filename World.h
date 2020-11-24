@@ -12,11 +12,11 @@ class World {
 public:
 	World(float wdt, float hgt, float gravity);
 	void Draw(sf::RenderWindow &win);
-	bool CollidesWith(Entity &this_one);
+	bool CollidesWith(sf::Sprite &this_one);
 	float GetGravity() { return m_gravity; }
 private:
 	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
-	float m_gravity; // variable global que afecta a todas las entidades del "mundo"
+	float m_gravity; // variable "global" que afecta a todas las entidades del "mundo"
 	float win_width, win_height;
 };
 

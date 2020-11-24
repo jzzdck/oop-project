@@ -1,6 +1,4 @@
 #include "Player.h"
-#include <cmath>
-#include <iostream>
 
 void Player::Update(World &m_world) {
 	
@@ -12,23 +10,25 @@ void Player::Update(World &m_world) {
 		m_sprite.move(-m_speed.x, 0);
 	
 	// jump logic
-	if (!m_world.CollidesWith(*this))
+	if (!m_world.CollidesWith(m_sprite))
 		m_speed.y += m_world.GetGravity();
 	else {
+		// antes de dibujarlo, se mueve arriba del piso
 		m_sprite.move(0, -m_speed.y);
-
+		while(!m_world.CollidesWith(m_sprite))
+			m_sprite.move(0, 1); // se mueve hasta que toque el piso
+		
 		m_speed.y = 0;
 		m_jumpcount = 2;
 	}
-	
 	
 	if (is_jumping != sf::Keyboard::isKeyPressed(m_space)) 
 	{
 		is_jumping = !(is_jumping);
 		if (is_jumping && m_jumpcount > 0) {
-			m_speed.y = -std::sqrt(2*m_world.GetGravity()*100);
+			m_speed.y = -10;
 			--m_jumpcount;
-		} else if (m_speed.y < -2)
+		} else if (m_speed.y < -2) 
 			m_speed.y = -2;
 	}
 	
