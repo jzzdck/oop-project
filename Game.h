@@ -5,26 +5,18 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include "Scene.h"
+#include "Menu.h"
+#include "Match.h"
 
 class Escena;
 
 class Game {
 public:
 	/// metodos
-	/* 
-	
-	 * run es el loop principal de juego *
-	 no es mas que una funcion "englobadora" que organiza el codigo. 
-	 tener en cuenta que el verdadero trabajo de procesar eventos,
-	 actualizar, y dibujar lo hacen los objetos especificos
-	 que lo requieran, nunca/casi nunca la clase Juego 
-	
-	*/
-	
 	void Run(); 
-	void ProcessEvents(); // procesa la pool de eventos
-	void Update(); // actualiza todas las entidades y escenas
-	void Draw(); // las dibuja y muestra en ventana
+	void ProcessEvents(); // procesa la pila de eventos, eventos de juego como ganar una partida, cambiar de escena, etc
+	void Update(); // actualiza todas las entidades y escenas, generalmente va la logica aca
+	void Draw(); // las dibuja y muestra en ventana, no deberia haber mucho aca
 	void SetScene(Escena *new_scene); // setea la escena actual 
 	
 	// constructores/destructores

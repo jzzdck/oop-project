@@ -1,6 +1,5 @@
 #include "Menu.h"
-#include "Match.h"
-using namespace std;
+#include "Game.h"
 
 Menu::Menu(float width, float height) : Escena(width, height), frame_count(0) {
 	// 1* cargar la headlines en memoria
@@ -17,7 +16,7 @@ Menu::Menu(float width, float height) : Escena(width, height), frame_count(0) {
 	m_text1.setCharacterSize(110);
 	m_text1.setFillColor({255, 255, 255});
 	sf::FloatRect text_rect = m_text1.getLocalBounds();
-	m_text1.setPosition((win_width-text_rect.width)/2,win_height/4);
+	m_text1.setPosition((win_width-text_rect.width)/2,win_height/4); /// tratar de posicionar todo relativamente a las dimensiones de la ventana
 	
 	m_text2.setFont(m_font);
 	m_text2.setString(headlines[rand() % headlines.size()]+"!"); // 2* elegir una al azar
@@ -42,7 +41,7 @@ void Menu::Draw (sf::RenderWindow & win) {
 	b = rand()%256;
 	
 	frame_count++;
-	if (frame_count > 6)  { 
+	if (frame_count > 8)  { 
 		m_text2.setFillColor({r, g, b});
 		frame_count = 0;
 	}
