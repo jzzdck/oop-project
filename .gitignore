@@ -1,0 +1,4 @@
+*.dat
+*.bin
+Debug_Linux/
+*.o
