@@ -1,0 +1,3 @@
+*.bin
+Debug_Linux/
+*.o
