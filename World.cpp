@@ -1,14 +1,62 @@
 #include "World.h"
 #include "Entity.h"
+#include <iostream>
 
-bool World::CollidesWith(sf::Sprite &this_one) {
-	auto entity_globals = this_one.getGlobalBounds();
+int World::FloorCollision(sf::Sprite &entity) {
+	auto entity_g = entity.getGlobalBounds();
+	auto entity_l = entity.getLocalBounds();
 	
-	for (const auto &rect : m_platforms)
-		if (rect.getGlobalBounds().intersects(entity_globals))
-			return true;
+	for (const auto &rect : m_platforms) {
+		auto rect_g = rect.getGlobalBounds();
+		auto rect_l = rect.getLocalBounds();
+		
+		auto entity_right = entity_g.left + entity_l.width;
+		auto rect_right = rect_g.left + rect_l.width;
+		
+		if (rect_g.intersects(entity_g) &&
+			rect_g.left <= entity_right && 
+			entity_l.left <= rect_right) 
+		{
+			// floor collision
+			if (rect_g.top >= entity_g.top + entity_l.height) 
+				return 1;
+			
+			// ceiling collision
+			if (rect_g.top+rect_l.height >= entity_g.top) 
+				return 2;
+		}
+	}
 	
-	return false;
+	return 0;
+}
+
+int World::WallCollision(sf::Sprite &entity) {
+	auto entity_g = entity.getGlobalBounds();
+	auto entity_l = entity.getLocalBounds();
+	
+	for (const auto &rect : m_platforms) {
+		auto rect_g = rect.getGlobalBounds();
+		auto rect_l = rect.getLocalBounds();
+		
+		auto entity_bottom = entity_g.top + entity_l.height;
+		auto rect_bottom = rect_g.top + rect_l.height;
+		
+		if (rect_g.intersects(entity_g) &&
+			rect_g.top < entity_bottom && 
+			entity_l.top < rect_bottom) 
+		{
+			// left wall collision
+			if (rect_g.left <= entity_g.left + entity_l.width)
+				return 1;
+			
+			// right wall collision
+			if (rect_g.left + rect_l.width >= entity_g.left) 
+				return -1;
+
+		}
+	}
+	
+	return 0;
 }
 
 void World::Draw (sf::RenderWindow & win) {

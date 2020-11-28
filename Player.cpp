@@ -1,27 +1,16 @@
 #include "Player.h"
+#include <iomanip>
+#include <iostream>
 
-void Player::Update(World &m_world) {
-	
+void Player::Update(World &world) {
 	// sideway movement logic
-	m_speed.x = 5;
+	m_speed.x = can_move ? 5 : 0;	
 	if (sf::Keyboard::isKeyPressed(m_right))
 		m_sprite.move(m_speed.x, 0);
 	if (sf::Keyboard::isKeyPressed(m_left))
 		m_sprite.move(-m_speed.x, 0);
 	
 	// jump logic
-	if (!m_world.CollidesWith(m_sprite))
-		m_speed.y += m_world.GetGravity();
-	else {
-		// antes de dibujarlo, se mueve arriba del piso
-		m_sprite.move(0, -m_speed.y);
-		while(!m_world.CollidesWith(m_sprite))
-			m_sprite.move(0, 1); // se mueve hasta que toque el piso
-		
-		m_speed.y = 0;
-		m_jumpcount = 2;
-	}
-	
 	if (is_jumping != sf::Keyboard::isKeyPressed(m_space)) 
 	{
 		is_jumping = !(is_jumping);
@@ -33,6 +22,7 @@ void Player::Update(World &m_world) {
 	}
 	
 	m_sprite.move(0, m_speed.y);
+	RespondCollision(world);
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -41,9 +31,9 @@ void Player::Draw(sf::RenderWindow & win) {
 
 Player::Player (std::string spritename, float initial_x, float initial_y, int player_index) :
 	Entity(spritename, initial_x, initial_y), m_player_index(player_index), 
-	m_jumpcount(2), is_jumping(false)
+	m_jumpcount(2), is_jumping(false), can_move(true), m_slidespeed(1)
 {
-	m_sprite.scale(2,2);
+	m_sprite.scale(2, 2);
 	
 	switch (m_player_index) {
 	case 0:
@@ -57,11 +47,44 @@ Player::Player (std::string spritename, float initial_x, float initial_y, int pl
 		m_left = sf::Keyboard::Key::A;
 		m_right = sf::Keyboard::Key::D;
 		m_space = sf::Keyboard::Key::B;
-		break;
-	default:
-		m_sprite.setColor({0,0,0});
-		m_left = sf::Keyboard::Key::J;
-		m_right = sf::Keyboard::Key::L;
+	default: 
 		break;
 	}
 }
+
+void Player::RespondCollision(World & world) {
+	// floor collision
+	switch (world.FloorCollision(m_sprite)) {
+	case 0: 
+		// no collision, is in air
+		m_speed.y += world.GetGravity();
+		break;
+	case 1:
+		// floor collision
+		m_sprite.move(0, -m_speed.y);
+		while (!world.FloorCollision(m_sprite))
+			m_sprite.move(0, 1);
+		
+		m_slidespeed = 1;
+		m_speed.y = 0;
+		m_jumpcount = 2;
+		break;
+	case 2: 
+		// ceiling collision
+		m_sprite.move(0, -m_speed.y);
+		m_speed.y = 0;
+		break;
+	}
+	
+	// wall collision
+	int dir = world.WallCollision(m_sprite);
+	if (dir) {
+		can_move = false;
+		while (world.WallCollision(m_sprite))
+			m_sprite.move(dir, 0);
+		
+		m_sprite.move(0, m_slidespeed);
+		m_slidespeed += world.GetGravity();
+	} else can_move = true;
+}
+
