@@ -5,8 +5,8 @@ Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.5)
 {
 	m_players.resize(2);
-	m_players[0] = new Player("square.png", win_width-100, -20 + win_height/2, 0);
-	m_players[1] = new Player("square.png", 100, -20 + win_height/2, 1);
+	m_players[0] = new Player("res/square.png", win_width-100, -20 + win_height/2, 0);
+	m_players[1] = new Player("res/square.png", 100, -20 + win_height/2, 1);
 }
 
 void Match::Update (Game & g) {

@@ -39,7 +39,6 @@ void Game::Draw() {
 
 void Game::SetScene (Escena * next_scene) {
 	m_next_scene = next_scene;
-	
 }
 
 void Game::ProcessEvents() {
@@ -48,5 +47,9 @@ void Game::ProcessEvents() {
 		if (e.type == sf::Event::Closed)
 			m_window.close();
 	}
+}
+
+void Game::Close() {
+	m_window.close();
 }
 

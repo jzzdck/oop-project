@@ -18,9 +18,6 @@ class Entity {
 public:
 	virtual void Update(World &m_world) = 0; // las entidades se actualizan segun el mundo en el que estan
 	virtual void Draw(sf::RenderWindow &win) = 0;
-	sf::FloatRect GetGlobalBounds() const;
-	sf::Vector2f GetSpeed() const { return m_speed; }
-	void SetSpeed(float x, float y) { m_speed = {x, y}; }
 	Entity(std::string spritename, float initial_x, float initial_y);
 protected:
 	std::string m_spritename;

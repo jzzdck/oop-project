@@ -8,7 +8,3 @@ Entity::Entity(std::string spritename, float initial_x, float initial_y) :
 	m_sprite.setPosition(initial_x, initial_y);
 }
 
-sf::FloatRect Entity::GetGlobalBounds() const {
-	return m_sprite.getGlobalBounds();
-}
-

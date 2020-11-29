@@ -18,6 +18,7 @@ public:
 	void Update(); // actualiza todas las entidades y escenas, generalmente va la logica aca
 	void Draw(); // las dibuja y muestra en ventana, no deberia haber mucho aca
 	void SetScene(Escena *new_scene); // setea la escena actual 
+	void Close();
 	
 	// constructores/destructores
 	Game(float width, float height, std::string window_name);

@@ -21,8 +21,8 @@ public:
 	void Draw(sf::RenderWindow &win);
 private:
 	sf::Font m_font;
-	sf::Text m_text1, m_text2;
 	std::vector<sf::Text> m_texts;
+	
 	int frame_count, current_option;
 	bool change_up, change_down;
 };
