@@ -1,5 +1,6 @@
 #include "Controls.h"
 #include <map>
+#include <SFML/Window/Keyboard.hpp>
 using namespace std;
 
 Controls::Controls()
@@ -7,9 +8,9 @@ Controls::Controls()
 	
 }
 
-bool Controls::KeyState(string const& key)
+bool Controls::KeyState(string const& key_function)
 {
-	return sf::Keyboard::isKeyPressed(m_keys[key]);
+	return sf::Keyboard::isKeyPressed(m_keys[key_function]);
 }
 void Controls::BindKey(string const& function_name,sf::Keyboard::Key new_key)
 {
@@ -73,4 +74,11 @@ sf::Keyboard::Key Controls::StringToKey(std::string const& str_key)
 	if(str_key=="Divide ")return sf::Keyboard::Key::Divide ;
 	///si no es ninguna de estas, devuevle Unknown
 	return sf::Keyboard::Key::Unknown ;
+}
+sf::Keyboard::Key Controls::operator<(std::string const& str_key)
+{
+	return StringToKey(str_key);
+}
+bool Controls::operator[](std::string const& key_function){
+	return KeyState(key_function);
 }

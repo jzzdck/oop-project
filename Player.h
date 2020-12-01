@@ -18,7 +18,7 @@ public:
 private:
 	void RespondCollisionWith(World &world);
 	void LoadPlayerConfig();
-	Controls m_InputManager;
+	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;
 	bool is_jumping;
 };

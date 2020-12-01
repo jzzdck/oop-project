@@ -17,7 +17,7 @@ void Player::Update(World &world) {
 	
 	// jump mechanic: a switch
 	// if "on" -> jump. if "on" and then "off" -> jump less
-	if (is_jumping != m_InputManager.KeyState("jump"))
+	if (is_jumping != m_Input["jump"])
 	{
 		is_jumping = !(is_jumping);
 		if (is_jumping && m_jumpcount > 0) {
@@ -27,16 +27,16 @@ void Player::Update(World &world) {
 			m_speed.y = -2;
 	}
 
-	if (m_InputManager.KeyState("right")) {
+	if (m_Input["right"]) {
 		m_sprite.move(m_speed.x, m_speed.y);
 		current_sprite = 0;
-	} else if (m_InputManager.KeyState("left")) {
+	} else if (m_Input["left"]) {
 		m_sprite.move(-m_speed.x, m_speed.y);
 		current_sprite = 1;
 	} else m_sprite.move(0, m_speed.y);
 	
-	if (m_InputManager.KeyState("right") ||
-		m_InputManager.KeyState("left"))
+	if ((m_Input["right"]) ||
+		(m_Input["left"]))
 	{
 		m_speed.x += 0.25;
 		if (m_speed.x > topspeed)
@@ -71,21 +71,21 @@ void Player::LoadPlayerConfig()
 {
 	std::string keyword="player="+std::to_string(m_index);
 	Settings s("player.conf",keyword);
-	sf::Uint8 r, g, b,a;
-	r=stoi(s.GetValue("channel-r"));
-	g=stoi(s.GetValue("channel-g"));
-	b=stoi(s.GetValue("channel-b"));
-	a=stoi(s.GetValue("channel-a"));
+	sf::Uint8 r,g,b,a;
+	r=stoi(s["channel-r"]);
+	g=stoi(s["channel-g"]);
+	b=stoi(s["channel-b"]);
+	a=stoi(s["channel-a"]);
 	m_sprite.setColor({r,g,b,a});
 	
 	std::string str_key;
 	
-	str_key=s.GetValue("key-left");
-	m_InputManager.BindKey("left",m_InputManager.StringToKey(str_key));
+	str_key=s["key-left"];
+	m_Input.BindKey("left",m_Input<str_key);
 	
-	str_key=s.GetValue("key-right");
-	m_InputManager.BindKey("right",m_InputManager.StringToKey(str_key));
+	str_key=s["key-right"];
+	m_Input.BindKey("right",m_Input<str_key);
 	
-	str_key=s.GetValue("key-jump");
-	m_InputManager.BindKey("jump",m_InputManager.StringToKey(str_key));
+	str_key=s["key-jump"];
+	m_Input.BindKey("jump",m_Input<str_key);
 }

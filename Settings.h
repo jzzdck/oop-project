@@ -16,6 +16,7 @@ public:
 	void RestoreAllToDef();
 	void RestoreThisToDef(std::string const&  field);
 	void SaveChanges();
+	std::string operator[](std::string const& field)const;
 private:
 	std::string m_FileName,m_KeyWord,m_divisor;
 	std::vector<std::string> m_lines,m_default;

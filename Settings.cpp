@@ -117,3 +117,7 @@ void Settings::RestoreAllToDef()
 	for(std::string &x:m_lines)
 		RestoreThisToDef(x);
 }
+std::string Settings::operator[](std::string const& field)const
+{
+	return GetValue(field);
+}
