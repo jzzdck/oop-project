@@ -57,6 +57,7 @@ void Settings::LoadFile()
 	archi.close();
 	std::vector<std::string>::iterator it,ite;
 	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),m_KeyWord);
+	std::advance(it,1);
 	ite=std::find(it,v_lines_aux.end(),m_divisor);
 	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
 	for(;it!=ite;++it){
