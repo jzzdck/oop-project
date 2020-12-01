@@ -22,7 +22,6 @@ void Game::Run() {
 		if (m_next_scene) {
 			delete m_current_scene;
 			m_current_scene = m_next_scene;
-			
 			m_next_scene = nullptr;
 		}
 	}
