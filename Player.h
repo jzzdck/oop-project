@@ -18,8 +18,8 @@ private:
 	void RespondCollisionWith(World &world);
 	
 	sf::Keyboard::Key m_right, m_left, m_space;
-	int m_index, m_jumpcount;
-	bool is_jumping, can_move;
+	int m_index, m_jumpcount, current_sprite;
+	bool is_jumping;
 };
 
 #endif
