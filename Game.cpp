@@ -6,7 +6,6 @@ Game::Game(float width, float height, std::string window_name) :
 	m_current_scene(new Menu(width, height))
 {
 	m_window.setFramerateLimit(60);
-	m_next_scene = nullptr;
 }
 
 Game::~Game() {

@@ -26,7 +26,7 @@ public:
 private:
 	sf::RenderWindow m_window;
 	Escena *m_current_scene;
-	Escena *m_next_scene;
+	Escena *m_next_scene = nullptr;
 	
 	float win_width, win_height;
 };
