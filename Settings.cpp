@@ -3,7 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 
-Settings::Settings(std::string const& FileName,std::string const& KeyWord):m_FileName(FileName),m_KeyWord(KeyWord),m_divisor("------------------"),m_BackUpFile_name("/res/configuration-files/Global_Config_Backup.conf")
+Settings::Settings(std::string const& FileName,std::string const& KeyWord):m_FileName(std::string("res/configuration-files/"+FileName)),m_KeyWord(KeyWord),m_divisor("------------------"),m_BackUpFile_name("res/configuration-files/Global_Config_Backup.conf")
 {
 	LoadFile();
 	
@@ -18,10 +18,10 @@ void Settings::LoadFile()
 		v_back_aux.push_back(linea);
 	}
 	archi.close();
-	std::string KeyWordType=m_KeyWord.substr(0,m_KeyWord.find_first_of("=")-1);
+	std::string KeyWordType=m_KeyWord.substr(0,m_KeyWord.find_first_of("="));
 	//al player=0 le sacamos =0
 	int first_appearence=-1,last_appearence=-1;
-	for(size_t i=0;i<v_back_aux.size();++i) 
+	for(unsigned i=0;i<v_back_aux.size();++i) 
 	{
 		if(v_back_aux[i].find(KeyWordType)!=std::string::npos)
 		{
@@ -33,11 +33,9 @@ void Settings::LoadFile()
 	if(first_appearence!=-1)
 	{
 		std::vector<std::string>::iterator it,ite;
-		it=std::next(v_back_aux.begin()+first_appearence);
+		it=std::next(v_back_aux.begin()+first_appearence-1);
 		ite=std::find(std::next(v_back_aux.begin(),last_appearence),v_back_aux.end(),m_divisor);
-		std::advance(ite,1);
-		//ite va a estar despues del divisor de la ultima vez que aparece la palabra clave
-		for(;it!=next(ite);++it)
+		//it va desde player=0 hasta el ultimo(incluido) divisor de un player 	for(;it!=next(ite);++it)
 		   m_default.push_back(*it);
 	}	
 	
@@ -58,11 +56,14 @@ void Settings::LoadFile()
 	}
 	archi.close();
 	std::vector<std::string>::iterator it,ite;
-	it=std::next(std::find(v_lines_aux.begin(),v_lines_aux.end(),m_KeyWord));
-	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
+	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),m_KeyWord);
 	ite=std::find(it,v_lines_aux.end(),m_divisor);
-	for(;it!=ite;++it)
+	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
+	for(;it!=ite;++it){
 		m_lines.push_back(*it); 
+		std::string k=*it;
+		k+="****";
+	}
 }
 
 void Settings::SaveChanges()
@@ -81,7 +82,7 @@ void Settings::SaveChanges()
 	for(std::string x:m_lines)
 	{
 		if(x.find(field)!=std::string::npos){
-			value=x.substr(x.find('='),x.size());
+			value=x.substr(x.find('=')+1,x.size());
 			break;
 		}
 	}

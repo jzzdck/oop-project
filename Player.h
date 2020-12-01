@@ -17,7 +17,7 @@ public:
 	Player(std::string spritename, float initial_x, float initial_y, int player_index);
 private:
 	void RespondCollisionWith(World &world);
-
+	void LoadPlayerConfig();
 	Controls m_InputManager;
 	int m_index, m_jumpcount, current_sprite;
 	bool is_jumping;

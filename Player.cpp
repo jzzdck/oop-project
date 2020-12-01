@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
+#include "Settings.h"
 
 Player::Player (std::string spritename, float initial_x, float initial_y, int player_index) :
 	Entity(spritename, initial_x, initial_y), m_index(player_index), 
@@ -8,30 +9,7 @@ Player::Player (std::string spritename, float initial_x, float initial_y, int pl
 {
 	m_textures.resize(2);
 	m_textures[1].loadFromFile("res/frog_left.png");
-
-	sf::Keyboard::Key right, left, jump;
-	sf::Uint8 r, g, b;
-	switch (m_index) {
-	case 0:
-		r=55; g=144; b=213;
-		left = sf::Keyboard::Key::Left;
-		right = sf::Keyboard::Key::Right;
-		jump = sf::Keyboard::Key::Up;
-		break;
-	case 1:
-		r=213; g=198; b=55;
-		left = sf::Keyboard::Key::A;
-		right = sf::Keyboard::Key::D;
-		jump = sf::Keyboard::Key::W;
-	default: 
-		break;
-	}
-	
-	m_sprite.setColor({r,g,b});
-	m_InputManager.BindKey("left",left);
-	m_InputManager.BindKey("right",right);
-	m_InputManager.BindKey("jump",jump);
-	
+	LoadPlayerConfig();
 }
 
 void Player::Update(World &world) {
@@ -89,3 +67,25 @@ void Player::RespondCollisionWith(World & world) {
 	}
 }
 
+void Player::LoadPlayerConfig()
+{
+	std::string keyword="player="+std::to_string(m_index);
+	Settings s("player.conf",keyword);
+	sf::Uint8 r, g, b,a;
+	r=stoi(s.GetValue("channel-r"));
+	g=stoi(s.GetValue("channel-g"));
+	b=stoi(s.GetValue("channel-b"));
+	a=stoi(s.GetValue("channel-a"));
+	m_sprite.setColor({r,g,b,a});
+	
+	std::string str_key;
+	
+	str_key=s.GetValue("key-left");
+	m_InputManager.BindKey("left",m_InputManager.StringToKey(str_key));
+	
+	str_key=s.GetValue("key-right");
+	m_InputManager.BindKey("right",m_InputManager.StringToKey(str_key));
+	
+	str_key=s.GetValue("key-jump");
+	m_InputManager.BindKey("jump",m_InputManager.StringToKey(str_key));
+}
