@@ -7,19 +7,19 @@ Player::Player (std::string spritename, float initial_x, float initial_y, int pl
 	m_jumpcount(2), is_jumping(false), current_sprite(0)
 {
 	m_textures.resize(2);
-	m_textures[1].loadFromFile("res/frog_right.png");
+	m_textures[1].loadFromFile("res/frog_left.png");
 
 	sf::Keyboard::Key right, left, jump;
 	sf::Uint8 r, g, b;
 	switch (m_index) {
 	case 0:
-		r=255; g=0; b=140;
+		r=55; g=144; b=213;
 		left = sf::Keyboard::Key::Left;
 		right = sf::Keyboard::Key::Right;
 		jump = sf::Keyboard::Key::Up;
 		break;
 	case 1:
-		r=0; g=255; b=140;
+		r=213; g=198; b=55;
 		left = sf::Keyboard::Key::A;
 		right = sf::Keyboard::Key::D;
 		jump = sf::Keyboard::Key::W;
@@ -49,11 +49,12 @@ void Player::Update(World &world) {
 			m_speed.y = -2;
 	}
 
-	if (m_InputManager.KeyState("right"))
+	if (m_InputManager.KeyState("right")) {
 		m_sprite.move(m_speed.x, m_speed.y);
-	else if (m_InputManager.KeyState("left")) {
-		m_sprite.move(-m_speed.x, m_speed.y);
 		current_sprite = 0;
+	} else if (m_InputManager.KeyState("left")) {
+		m_sprite.move(-m_speed.x, m_speed.y);
+		current_sprite = 1;
 	} else m_sprite.move(0, m_speed.y);
 	
 	if (m_InputManager.KeyState("right") ||
