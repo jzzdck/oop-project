@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 	
 	srand(time(nullptr));
 	
-	Game LOVIGAME(1024, 840, "LOVIGAME");
+	Game LOVIGAME(1024, 840, "RIVOGAME");
 	LOVIGAME.Run();
 	
 	return 0;

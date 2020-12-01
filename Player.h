@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <string>
 #include "Entity.h"
+#include "Controls.h"
 
 class Game;
 
@@ -16,8 +17,7 @@ public:
 	Player(std::string spritename, float initial_x, float initial_y, int player_index);
 private:
 	void RespondCollisionWith(World &world);
-	
-	sf::Keyboard::Key m_right, m_left, m_space;
+	Controls m_InputManager;
 	int m_index, m_jumpcount;
 	bool is_jumping, can_move;
 };

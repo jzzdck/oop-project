@@ -15,7 +15,7 @@ Menu::Menu(float width, float height) :
 	
 	m_font.loadFromFile("res/Chava-Regular.ttf");
 	m_texts[0].setFont(m_font);
-	m_texts[0].setString("LOVIGAME");
+	m_texts[0].setString("RIVOGAME");
 	m_texts[0].setCharacterSize(110);
 	m_texts[0].setFillColor({255, 255, 255});
 	sf::FloatRect text_rect = m_texts[0].getLocalBounds();

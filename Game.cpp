@@ -7,6 +7,7 @@ Game::Game(float width, float height, std::string window_name) :
 {
 	m_window.setFramerateLimit(60);
 	m_next_scene = nullptr;
+	
 }
 
 Game::~Game() {
@@ -23,7 +24,6 @@ void Game::Run() {
 		if (m_next_scene) {
 			delete m_current_scene;
 			m_current_scene = m_next_scene;
-			
 			m_next_scene = nullptr;
 		}
 	}

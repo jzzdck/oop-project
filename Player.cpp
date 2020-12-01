@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <iostream>
+#include <SFML/Graphics/Color.hpp>
 
 Player::Player (std::string spritename, float initial_x, float initial_y, int player_index) :
 	Entity(spritename, initial_x, initial_y), m_index(player_index), 
@@ -7,28 +8,34 @@ Player::Player (std::string spritename, float initial_x, float initial_y, int pl
 {
 	m_sprite.scale(2, 2);
 	m_speed = { 0.5, 0 };
-	
+	sf::Keyboard::Key right, left, jump;
+	sf::Uint8 r,g,b;
 	switch (m_index) {
 	case 0:
-		m_sprite.setColor({255,0,140});
-		m_left = sf::Keyboard::Key::Left;
-		m_right = sf::Keyboard::Key::Right;
-		m_space = sf::Keyboard::Key::Up;
+		r=255;g=0;b=140;
+		left = sf::Keyboard::Key::Left;
+		right = sf::Keyboard::Key::Right;
+		jump = sf::Keyboard::Key::Up;
 		break;
 	case 1:
-		m_sprite.setColor({0,255,140});
-		m_left = sf::Keyboard::Key::A;
-		m_right = sf::Keyboard::Key::D;
-		m_space = sf::Keyboard::Key::W;
+		r=0;g=255;b=140;
+		left = sf::Keyboard::Key::A;
+		right = sf::Keyboard::Key::D;
+		jump = sf::Keyboard::Key::W;
 	default: 
 		break;
 	}
+	m_sprite.setColor({r,g,b});
+	m_InputManager.BindKey("left",left);
+	m_InputManager.BindKey("right",right);
+	m_InputManager.BindKey("jump",jump);
+	
 }
 
 void Player::Update(World &world) {
 	float topspeed = 8;
 	
-	if (is_jumping != sf::Keyboard::isKeyPressed(m_space)) 
+	if (is_jumping != m_InputManager.KeyState("jump")) 
 	{
 		is_jumping = !(is_jumping);
 		if (is_jumping && m_jumpcount > 0) {
@@ -38,15 +45,15 @@ void Player::Update(World &world) {
 			m_speed.y = -2;
 	}
 	
-	if (sf::Keyboard::isKeyPressed(m_right))
+	if (m_InputManager.KeyState("right"))
 		m_sprite.move(m_speed.x, m_speed.y);
-	else if (sf::Keyboard::isKeyPressed(m_left))
+	else if (m_InputManager.KeyState("left"))
 		m_sprite.move(-m_speed.x, m_speed.y);
 	else 
 		m_sprite.move(0, m_speed.y);
 	
-	if (sf::Keyboard::isKeyPressed(m_right) ||
-		sf::Keyboard::isKeyPressed(m_left))
+	if (m_InputManager.KeyState("right") ||
+		m_InputManager.KeyState("left"))
 	{
 		m_speed.x += 0.25;
 		if (m_speed.x > topspeed)
