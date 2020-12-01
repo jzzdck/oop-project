@@ -18,8 +18,8 @@ public:
 	void SaveChanges();
 private:
 	std::string m_FileName,m_KeyWord,m_divisor;
-	std::vector<std::string> m_lines;
-	std::string m_BackUpFile;
+	std::vector<std::string> m_lines,m_default;
+	std::string m_BackUpFile_name;
 };
 
 #endif

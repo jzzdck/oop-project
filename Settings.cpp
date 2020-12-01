@@ -3,64 +3,66 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 
-Settings::Settings(std::string const& FileName,std::string const& KeyWord):m_FileName(FileName),m_KeyWord(KeyWord),m_divisor("------------------"),m_BackUpFile("/res/configuration-files/Global_Config_Backup.conf")
+Settings::Settings(std::string const& FileName,std::string const& KeyWord):m_FileName(FileName),m_KeyWord(KeyWord),m_divisor("------------------"),m_BackUpFile_name("/res/configuration-files/Global_Config_Backup.conf")
 {
 	LoadFile();
 	
 }
 void Settings::LoadFile()
 {
-	std::ifstream archi(m_FileName);
-	if(!archi.is_open())
-	{
-		archi.open(m_BackUpFile);
-		std::vector<std::string> v_aux;
-		std::string linea;
-		while(getline(archi,linea))
-		{
-			v_aux.push_back(linea);
-		}
-		archi.close();
-		std::string KeyWordType=m_KeyWord.substr(0,m_KeyWord.find_first_of("=")-1);
-		//al player=0 le sacamos =0
-		int first_appearence=-1,last_appearence=-1;
-		for(size_t i=0;i<v_aux.size();++i) 
-		{
-			if(v_aux[i].find(KeyWordType)!=std::string::npos)
-			{
-				if(first_appearence==-1)first_appearence=i;
-				last_appearence=i;
-			}
-		}
-		//La primera vez que aparece la palabra calve (ej jugador) y la ultima
-		if(first_appearence!=-1)
-		{
-			std::vector<std::string>::iterator it,ite;
-		it=std::next(v_aux.begin()+first_appearence);
-		ite=std::find(std::next(v_aux.begin(),last_appearence),v_aux.end(),m_divisor);
-		std::advance(ite,1);
-		std::ofstream archo(m_FileName);
-		for(;it!=next(ite);++it)
-			archo<<*it+"\n";
-		archo.close();
-		//ite va a estar despues del divisor de la ultima vez que aparece la palabra clave
-		}
-		archi.open(m_FileName);
-	}
-	std::vector<std::string> v_aux;
+	std::ifstream archi(m_BackUpFile_name);
+	std::vector<std::string> v_back_aux;
 	std::string linea;
 	while(getline(archi,linea))
 	{
-		v_aux.push_back(linea);
+		v_back_aux.push_back(linea);
+	}
+	archi.close();
+	std::string KeyWordType=m_KeyWord.substr(0,m_KeyWord.find_first_of("=")-1);
+	//al player=0 le sacamos =0
+	int first_appearence=-1,last_appearence=-1;
+	for(size_t i=0;i<v_back_aux.size();++i) 
+	{
+		if(v_back_aux[i].find(KeyWordType)!=std::string::npos)
+		{
+			if(first_appearence==-1)first_appearence=i;
+			last_appearence=i;
+		}
+	}
+	//La primera vez que aparece la palabra calve (ej jugador) y la ultima
+	if(first_appearence!=-1)
+	{
+		std::vector<std::string>::iterator it,ite;
+		it=std::next(v_back_aux.begin()+first_appearence);
+		ite=std::find(std::next(v_back_aux.begin(),last_appearence),v_back_aux.end(),m_divisor);
+		std::advance(ite,1);
+		//ite va a estar despues del divisor de la ultima vez que aparece la palabra clave
+		for(;it!=next(ite);++it)
+		   m_default.push_back(*it);
+	}	
+	
+	
+	archi.open(m_FileName);
+	if(!archi.is_open())
+	{
+		std::ofstream archo(m_FileName);
+		for(std::string &x:m_default)
+			archo<<x+"\n";
+		archo.close();
+		archi.open(m_FileName);
+	}
+	std::vector<std::string> v_lines_aux;
+	while(getline(archi,linea))
+	{
+		v_lines_aux.push_back(linea);
 	}
 	archi.close();
 	std::vector<std::string>::iterator it,ite;
-	it=std::next(std::find(v_aux.begin(),v_aux.end(),m_KeyWord));
+	it=std::next(std::find(v_lines_aux.begin(),v_lines_aux.end(),m_KeyWord));
 	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
-	ite=std::find(it,v_aux.end(),m_divisor);
+	ite=std::find(it,v_lines_aux.end(),m_divisor);
 	for(;it!=ite;++it)
 		m_lines.push_back(*it); 
-
 }
 
 void Settings::SaveChanges()
@@ -99,23 +101,12 @@ void Settings::ChangeValue(std::string const& field,std::string const& value)
 }
 void Settings::RestoreThisToDef(std::string const& field)
 {
-	std::ifstream archi(m_BackUpFile);
-	std::vector<std::string> v_aux;
-	std::string linea;
-	while(getline(archi,linea))
+	for(std::string &x:m_default)
 	{
-		v_aux.push_back(linea);
-	}
-	archi.close();
-	std::vector<std::string>::iterator it,ite;
-	it=std::find(v_aux.begin(),v_aux.end(),m_KeyWord);
-	ite=std::find(it,v_aux.end(),m_divisor);
-	for(;it!=ite;++it)
-	{
-		if((*it).find(field)!=std::string::npos)
+		if(x.find(field)!=std::string::npos)
 		{
 			std::string value;
-			value=(*it).substr((*it).find('='),(*it).size());
+			value=x.substr(x.find('='),x.size());
 			ChangeValue(field,value);
 			break;
 		}
