@@ -62,8 +62,6 @@ void Settings::LoadFile()
 	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
 	for(;it!=ite;++it){
 		m_lines.push_back(*it); 
-		std::string k=*it;
-		k+="****";
 	}
 }
 
