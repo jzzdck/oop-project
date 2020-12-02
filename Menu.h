@@ -18,19 +18,21 @@ class Game;
 
 class Menu : public Escena {
 public:
-	Menu(float width, float height);
+	Menu(float width, float height,std::string location="principal");
 	void Update(Game &g);
 	void Draw(sf::RenderWindow &win);
 private:
 	void LoadTexts();
+	void LoadKeys();
 	std::string LoadHeadline();
-	
 	sf::Font m_font;
 	std::vector<sf::Text> m_texts;
-	
+	std::string m_location;
 	Controls m_input;
-	int frame_count, current_option;
-	bool change_up, change_down;
+	int current_option;
+	unsigned frame_count ,m_Noptions;
+	bool change_up, change_down,charge_select;
+	
 };
 
 #endif

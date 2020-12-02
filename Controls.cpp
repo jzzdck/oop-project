@@ -66,12 +66,12 @@ sf::Keyboard::Key Controls::StringToKey(std::string const& str_key)
 	if(str_key=="Numpad7")return sf::Keyboard::Key::Numpad7;
 	if(str_key=="Numpad8")return sf::Keyboard::Key::Numpad8;
 	if(str_key=="Numpad9")return sf::Keyboard::Key::Numpad9;
-	if(str_key=="Space ")return sf::Keyboard::Key::Space ;
+	if(str_key=="Space")return sf::Keyboard::Key::Space ;
 	if(str_key=="Enter")return sf::Keyboard::Key::Enter;
-	if(str_key=="Add ")return sf::Keyboard::Key::Add ;
+	if(str_key=="Add")return sf::Keyboard::Key::Add ;
 	if(str_key=="Subtract")return sf::Keyboard::Key::Subtract;
-	if(str_key=="Multiply ")return sf::Keyboard::Key::Multiply ;
-	if(str_key=="Divide ")return sf::Keyboard::Key::Divide ;
+	if(str_key=="Multiply")return sf::Keyboard::Key::Multiply ;
+	if(str_key=="Divide")return sf::Keyboard::Key::Divide ;
 	///si no es ninguna de estas, devuevle Unknown
 	return sf::Keyboard::Key::Unknown ;
 }

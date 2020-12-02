@@ -14,7 +14,6 @@ class Game;
 class Player : public Entity {
 public:
 	void Update() override;
-	void Upd(World &wor);
 	void Draw(sf::RenderWindow &win) override;
 	int GetIndex() const { return m_index; }
 	
@@ -27,6 +26,8 @@ public:
 private:
 	void LoadConfig();
 	void LoadBelly();
+	void LoadKeys();
+	void LoadColor();
 	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;

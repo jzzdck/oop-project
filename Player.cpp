@@ -15,9 +15,10 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
 	m_topspeed = 8;
 	
+	LoadKeys();
 	LoadBelly();
+	LoadColor();
 	LoadTextures();
-	LoadConfig();
 }
 
 void Player::Update() {
@@ -44,7 +45,7 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-/*	if (m_Input["attack"]) m_weapon.Attack();*/
+	if (m_Input["attack"]) m_weapon.Attack();
 	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
 	m_weapon.Update();
 }
@@ -74,20 +75,15 @@ void Player::ApplyForce(float fx, float fy) {
 	m_speed.y += fy;
 }
 
-void Player::LoadConfig()
+void Player::LoadKeys()
 {
-	int r, g, b;
-	std::stringstream ss;
-	std::string keyword="player="+std::to_string(m_index);
-	Settings s("player.conf",keyword);
-	
-	ss << s["color"];
-	ss >> r >> g >> b;
-	m_sprite.setColor(sf::Color(r, g, b));
+	std::string keyword="controls=p"+std::to_string(m_index);
+	Settings s("controls.conf",keyword);
 	
 	m_Input.BindKey("left", m_Input<s["key-left"]);
 	m_Input.BindKey("right", m_Input<s["key-right"]);
 	m_Input.BindKey("jump", m_Input<s["key-jump"]);
+	m_Input.BindKey("attack", m_Input<s["key-attack"]);
 }
 
 void Player::LoadBelly() {
@@ -99,7 +95,20 @@ void Player::LoadBelly() {
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
 }
 
-Player::~Player ( ) {
-//	delete m_weapon;
+void Player::LoadColor ( ) {
+	int r, g, b;
+	std::stringstream ss;
+	Settings s("textures.conf", "player");
+	
+	ss << s["color-p"+std::to_string(m_index)];
+	ss >> r >> g >> b;
+	
+	m_sprite.setColor(sf::Color(r, g, b));
 }
+
+
+Player::~Player ( ) {
+	//	delete m_weapon;
+}
+
 
