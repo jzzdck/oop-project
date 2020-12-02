@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "World.h"
+#include <vector>
 
 class Match : public Escena {
 public:
@@ -16,12 +17,8 @@ public:
 	void Update(Game & g);
 	void Draw(sf::RenderWindow & win);
 private:
-	std::vector<Entity*> m_players;
+	std::vector<Player> m_players;
 	World m_world;
-	/* 
-	World* m_world; 
-	capaz que un puntero a mundo para distintas rondas? 
-	*/
 };
 
 #endif
