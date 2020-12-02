@@ -1,6 +1,7 @@
 #include "World.h"
 #include <string>
 #include <sstream>
+#include "Player.h"
 
 World::World(float wdt, float hgt, float gravity) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity)
@@ -29,7 +30,7 @@ void World::LoadMap ( ) {
 	}
 }
 
-int World::FloorCollision(sf::Sprite &entity) {
+int World::FloorCollision(const sf::Sprite &entity) const {
 	auto entity_g = entity.getGlobalBounds();
 	
 	for (const auto &rect : m_platforms) {
@@ -54,7 +55,7 @@ int World::FloorCollision(sf::Sprite &entity) {
 	return 0;
 }
 
-int World::WallCollision(sf::Sprite &entity) {
+int World::WallCollision(const sf::Sprite &entity) const {
 	auto entity_g = entity.getGlobalBounds();
 	
 	for (const auto &rect : m_platforms) {
@@ -68,7 +69,7 @@ int World::WallCollision(sf::Sprite &entity) {
 		{
 			// right wall collision
 			// -10 para darle margen de error (si no siempre detecta esta)
-			if (rect_g.left + rect_g.width - 10 > entity_g.left) 
+			if (rect_g.left + rect_g.width - 5 > entity_g.left) 
 				return -1;
 			
 			// left wall collision

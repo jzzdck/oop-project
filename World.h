@@ -6,18 +6,18 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Config.hpp>
 #include <vector>
-#include "Entity.h"
 #include "Settings.h"
+#include "Player.h"
 
-class Entity;
+class Player;
 
 class World {
 public:
 	World(float wdt, float hgt, float gravity);
 	void Draw(sf::RenderWindow &win);
-	int FloorCollision(sf::Sprite &this_one);
-	int WallCollision(sf::Sprite &this_one);
-	float GetGravity() { return m_gravity; }
+	int FloorCollision(const sf::Sprite &entity) const;
+	int WallCollision(const sf::Sprite &entity) const;
+	float GetGravity() const { return m_gravity; }
 private:
 	void LoadMap();
 	
