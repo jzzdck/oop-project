@@ -69,7 +69,7 @@ int World::WallCollision(const sf::Sprite &entity) const {
 		{
 			// right wall collision
 			// -10 para darle margen de error (si no siempre detecta esta)
-			if (rect_g.left + rect_g.width - 5 > entity_g.left) 
+			if (rect_g.left + rect_g.width - 10 > entity_g.left) 
 				return -1;
 			
 			// left wall collision
