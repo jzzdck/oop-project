@@ -1,5 +1,6 @@
 #include "World.h"
 #include <string>
+#include <sstream>
 
 World::World(float wdt, float hgt, float gravity) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity)
@@ -8,18 +9,21 @@ World::World(float wdt, float hgt, float gravity) :
 }
 
 void World::LoadMap ( ) {
+	int r, g, b;
+	std::stringstream ss;
 	Settings s("world.conf", "groundRects");
 	m_platforms.resize(stoi(s["size"]));
-	sf::Uint8 r = stoi(s["r"]), g = stoi(s["g"]), b = stoi(s["b"]);
 	
+	ss << s["color"];
+	ss >> r >> g >> b;
 	for (size_t i=0; i<m_platforms.size(); ++i) { 
-		std::string k_rect = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
-		sf::RectangleShape aux(sf::Vector2f( win_width  * stof( s[k_rect+"w"] ), 
-											 win_height * stof( s[k_rect+"h"] ) ));
+		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
+		sf::RectangleShape aux(sf::Vector2f( win_width  * stof( s[key+"w"] ), 
+											 win_height * stof( s[key+"h"] ) ));
 		
-		aux.setFillColor({r, g, b});
-		aux.setPosition(sf::Vector2f( win_width  * stof( s[k_rect+"x"] ), 
-									  win_height * stof( s[k_rect+"y"] ) ));
+		aux.setFillColor(sf::Color(r, g, b));
+		aux.setPosition(sf::Vector2f( win_width  * stof( s[key+"x"] ), 
+									  win_height * stof( s[key+"y"] ) ));
 		
 		m_platforms[i] = aux;
 	}
