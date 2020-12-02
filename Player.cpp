@@ -82,7 +82,7 @@ void Player::LoadConfig()
 }
 
 void Player::LoadTextures() {
-	Settings s("player.conf", "textures");
+	Settings s("textures.conf", "textures");
 	int bsize = stoi(s["belly-size"]);
 	int psize = stoi(s["player-size"]);
 	
