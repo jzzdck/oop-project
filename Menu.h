@@ -11,6 +11,8 @@
 #include <SFML/Config.hpp>
 #include "Scene.h"
 #include "Match.h"
+#include "Controls.h"
+#include <string>
 
 class Game;
 
@@ -20,9 +22,13 @@ public:
 	void Update(Game &g);
 	void Draw(sf::RenderWindow &win);
 private:
+	void LoadTexts();
+	std::string LoadHeadline();
+	
 	sf::Font m_font;
 	std::vector<sf::Text> m_texts;
 	
+	Controls m_input;
 	int frame_count, current_option;
 	bool change_up, change_down;
 };

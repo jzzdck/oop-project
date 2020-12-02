@@ -14,13 +14,18 @@ public:
 	void Update(World &world) override;
 	void Draw(sf::RenderWindow &win) override;
 	int GetIndex() const { return m_index; }
-	Player(std::string spritename, float initial_x, float initial_y, int player_index);
+	Player(float initial_x, float initial_y, int player_index);
 private:
 	void RespondCollisionWith(World &world);
-	void LoadPlayerConfig();
+	void LoadConfig();
+	void LoadTextures();
+	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;
 	bool is_jumping;
+	
+	sf::Sprite ms_belly;
+	std::vector<sf::Texture> mt_belly;
 };
 
 #endif

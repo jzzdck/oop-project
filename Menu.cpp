@@ -1,47 +1,39 @@
 #include "Menu.h"
 #include "Game.h"
+#include <sstream>
 
 Menu::Menu(float width, float height) : 
 	Escena(width, height), frame_count(0), current_option(0), 
 	change_up(false), change_down(false)
 {
-	std::ifstream fin("res/headlines.txt");
-	std::vector<std::string> headlines;
-	m_texts.resize(5);
-	
-	std::string aux;
-	while (getline(fin, aux)) 
-		headlines.push_back(aux);
-	
-	m_font.loadFromFile("res/Chava-Regular.ttf");
-	m_texts[0].setFont(m_font);
-	m_texts[0].setString("RIVOGAME");
-	m_texts[0].setCharacterSize(110);
-	m_texts[0].setFillColor({255, 255, 255});
-	sf::FloatRect text_rect = m_texts[0].getLocalBounds();
-	m_texts[0].setOrigin(text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2);
-	m_texts[0].setPosition(win_width/2, win_height*0.30);
-	
-	m_texts[1].setFont(m_font);
-	m_texts[1].setString(headlines[rand() % headlines.size()]+"!");
-	m_texts[1].setFillColor({255, 255, 255});
-	m_texts[1].setCharacterSize(20);
-	text_rect = m_texts[1].getLocalBounds();
-	m_texts[1].setOrigin(text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2);
-	m_texts[1].setPosition(win_width/2, win_height*0.40);
+	LoadTexts();
+}
 
-	std::vector<std::string> options = { "NEW GAME", "OPTIONS", "EXIT" };
-	for (int i=0; i<3; ++i) { 
-		m_texts[i+2].setFont(m_font);
-		m_texts[i+2].setString(options[i]);
-		m_texts[i+2].setFillColor({150, 150, 150});
-		m_texts[i+2].setCharacterSize(30);
-		text_rect = m_texts[i+2].getLocalBounds();
-		m_texts[i+2].setOrigin(text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2);
-		m_texts[i+2].setPosition(win_width/2, win_height*(0.56+0.12*i));
-	}	
+void Menu::LoadTexts ( ) {
+	Settings s("menu.conf", "texts");
+	m_font.loadFromFile(s["font"] + ".ttf");
+	m_texts.resize( stoi(s["size"]) );
 	
-	m_texts[2].setFillColor({255,255,255});
+	int r, g, b;
+	std::stringstream ss;
+	for (size_t i=0; i<m_texts.size(); ++i) { 
+		m_texts[i].setFont(m_font);
+		
+		std::string key = "str" + std::to_string(i) + "-";
+		std::string str = s[key+"set"];
+		if (str == "HEADLINE")
+			str = LoadHeadline();
+		
+		m_texts[i].setString(str);
+		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
+		
+		ss << s[key+"color"];
+		ss >> r >> g >> b;
+		m_texts[i].setFillColor(sf::Color(r, g, b));
+		sf::FloatRect text_rect = m_texts[i].getLocalBounds();
+		m_texts[i].setOrigin( text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
+		m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
+	}
 }
 
 void Menu::Update (Game & g) {
@@ -100,5 +92,17 @@ void Menu::Draw (sf::RenderWindow & win) {
 		win.draw(text);
 	
 	win.display();
+}
+
+
+std::string Menu::LoadHeadline() {
+	std::ifstream fin("res/headlines.txt");
+	std::vector<std::string> headlines;
+	
+	std::string aux;
+	while (getline(fin, aux)) 
+		headlines.push_back(aux);
+	
+	return headlines[rand() % headlines.size()]+"!";
 }
 
