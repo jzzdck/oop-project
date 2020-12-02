@@ -17,7 +17,7 @@ public:
 	Player(float initial_x, float initial_y, int player_index);
 private:
 	void RespondCollisionWith(World &world);
-	void LoadConfig();
+	void LoadKeys();
 	void LoadTextures();
 	
 	Controls m_Input;

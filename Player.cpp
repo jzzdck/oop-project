@@ -11,7 +11,7 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 	m_sprite.setPosition(initial_x, initial_y);
 	m_topspeed = 8;
 	LoadTextures();
-	LoadConfig();
+	LoadKeys();
 }
 
 void Player::Update(World &world) {
@@ -65,16 +65,10 @@ void Player::RespondCollisionWith(World & world) {
 	if (dir) m_sprite.move(dir*m_speed.x, -m_speed.y);
 }
 
-void Player::LoadConfig()
+void Player::LoadKeys()
 {
-	int r, g, b;
-	std::stringstream ss;
-	std::string keyword="player="+std::to_string(m_index);
-	Settings s("player.conf",keyword);
-	
-	ss << s["color"];
-	ss >> r >> g >> b;
-	m_sprite.setColor(sf::Color(r, g, b));
+	std::string keyword="controls=p"+std::to_string(m_index);
+	Settings s("controls.conf",keyword);
 	
 	m_Input.BindKey("left", m_Input<s["key-left"]);
 	m_Input.BindKey("right", m_Input<s["key-right"]);
@@ -83,6 +77,13 @@ void Player::LoadConfig()
 
 void Player::LoadTextures() {
 	Settings s("textures.conf", "textures");
+	
+	std::stringstream ss;
+	ss << s["color-p"+std::to_string(m_index)];
+	int r, g, b;
+	ss >> r >> g >> b;
+	m_sprite.setColor(sf::Color(r, g, b));
+	
 	int bsize = stoi(s["belly-size"]);
 	int psize = stoi(s["player-size"]);
 	

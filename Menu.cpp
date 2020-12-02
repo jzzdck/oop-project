@@ -1,12 +1,15 @@
 #include "Menu.h"
 #include "Game.h"
 #include <sstream>
+#include "Settings.h"
 
-Menu::Menu(float width, float height) : 
-	Escena(width, height), frame_count(0), current_option(0), 
-	change_up(false), change_down(false)
+Menu::Menu(float width, float height,unsigned IndexMenu) : 
+	Escena(width, height),	frame_count(0),	current_option(0), 
+	change_up(false), change_down(false),
+	m_IndexMenu(IndexMenu)
 {
 	LoadTexts();
+	LoadKeys();
 }
 
 void Menu::LoadTexts ( ) {
@@ -37,23 +40,22 @@ void Menu::LoadTexts ( ) {
 }
 
 void Menu::Update (Game & g) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+	if (m_input["select"]) {
 		switch (current_option) {
 		case 0:
 			g.SetScene(new Match(win_width, win_height));
 			break;
-		/** TO DO 
-		case 1:
-			g.SetScene(new OptionMenu(win_width, win_height));
-			break; // OptionMenu hereda de Menu
-		**/
+//		case 1:
+//			g.SetScene(new Menu(win_width, win_height,1));
+//			break; // OptionMenu hereda de Menu
+//		
 		case 2:
 			g.Close();
 			break;
 		}
 	}
 	
-	if (change_down != sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	if (change_down != m_input["go_down"]) {
 		change_down = !(change_down);
 		if (change_down) {
 			++current_option;
@@ -62,7 +64,7 @@ void Menu::Update (Game & g) {
 		}
 	}
 	
-	if (change_up != sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	if (change_up != m_input["go_up"]) {
 		change_up = !(change_up);
 		if (change_up) {
 			--current_option;
@@ -105,4 +107,10 @@ std::string Menu::LoadHeadline() {
 	
 	return headlines[rand() % headlines.size()]+"!";
 }
-
+void Menu::LoadKeys()
+{
+	Settings s("controls.conf","controls=menu");
+	m_input.BindKey("go_up",m_input<s["key-up"]);
+	m_input.BindKey("go_down",m_input<s["key-down"]);
+	m_input.BindKey("select",m_input<s["key-select"]);
+}
