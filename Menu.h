@@ -18,9 +18,10 @@ class Game;
 
 class Menu : public Escena {
 public:
-	Menu(float width, float height,std::string location="principal");
 	void Update(Game &g);
 	void Draw(sf::RenderWindow &win);
+	
+	Menu(float width, float height,std::string location="principal");
 private:
 	void LoadTexts();
 	void LoadKeys();

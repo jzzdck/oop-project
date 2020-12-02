@@ -12,10 +12,11 @@
 
 class Match : public Escena {
 public:
-	~Match();
-	Match(float width, float height);
 	void Update(Game & g);
 	void Draw(sf::RenderWindow & win);
+	
+	Match(float width, float height);
+	~Match();
 private:
 	std::vector<Player> m_players;
 	World m_world;

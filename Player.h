@@ -15,11 +15,11 @@ class Player : public Entity {
 public:
 	void Update() override;
 	void Draw(sf::RenderWindow &win) override;
-	int GetIndex() const { return m_index; }
 	
 	void RespondFloorCollision();
 	void RespondWallCollision(int dir);
 	void ApplyForce(float fx, float fy);
+	int GetIndex() const { return m_index; }
 	
 	Player(float initial_x, float initial_y, int player_index);
 	~Player();

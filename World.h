@@ -13,11 +13,13 @@ class Player;
 
 class World {
 public:
-	World(float wdt, float hgt, float gravity);
 	void Draw(sf::RenderWindow &win);
+	
 	int FloorCollision(const sf::Sprite &entity) const;
 	int WallCollision(const sf::Sprite &entity) const;
 	float GetGravity() const { return m_gravity; }
+	
+	World(float wdt, float hgt, float gravity);
 private:
 	void LoadMap();
 	

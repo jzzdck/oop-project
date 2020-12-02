@@ -18,9 +18,11 @@ class Entity {
 public:
 	virtual void Update() = 0; // las entidades se actualizan segun el mundo en el que estan
 	virtual void Draw(sf::RenderWindow &win) = 0;
+	
 	void SetKeyword(std::string new_key);
 	bool CollidesWith(const Entity &another);
 	sf::Sprite &GetSprite() { return m_sprite; }
+	
 	Entity(std::string keyword);
 protected:
 	void LoadTextures();

@@ -6,9 +6,10 @@ class Game;
 
 class Escena {
 public:
-	Escena(float width, float height);
 	virtual void Update(Game &g) = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
+	
+	Escena(float width, float height);
 protected:
 	float win_width, win_height;
 };

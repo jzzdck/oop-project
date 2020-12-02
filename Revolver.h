@@ -4,10 +4,11 @@
 
 class Revolver : public Weapon {
 public:
-	Revolver(bool facing, float wdt);
-	void Draw(sf::RenderWindow &win) override;
 	void Update() override;
+	void Draw(sf::RenderWindow &win) override;
 	void Attack() override;
+	
+	Revolver(bool facing, float wdt);
 private:
 };
 

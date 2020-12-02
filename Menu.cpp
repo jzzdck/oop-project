@@ -21,25 +21,25 @@ void Menu::LoadTexts ( )
 	m_Noptions=stoi(s["choosable"]);
 	int r, g, b;
 	std::stringstream ss;
-		for (size_t i=0; i<m_texts.size(); ++i) 
-		{ 
-			m_texts[i].setFont(m_font);
-			
-			std::string key = "str" + std::to_string(i) + "-";
-			std::string str = s[key+"set"];
-			if (str == "HEADLINE")
-				str = LoadHeadline();
-			
-			m_texts[i].setString(str);
-			m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
-			
-			ss << s[key+"color"];
-			ss >> r >> g >> b;
-			m_texts[i].setFillColor(sf::Color(r, g, b));
-			sf::FloatRect text_rect = m_texts[i].getLocalBounds();
-			m_texts[i].setOrigin( text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
-			m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
-		}
+	for (size_t i=0; i<m_texts.size(); ++i) 
+	{ 
+		m_texts[i].setFont(m_font);
+		
+		std::string key = "str" + std::to_string(i) + "-";
+		std::string str = s[key+"set"];
+		if (str == "HEADLINE")
+			str = LoadHeadline();
+		
+		m_texts[i].setString(str);
+		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
+		
+		ss << s[key+"color"];
+		ss >> r >> g >> b;
+		m_texts[i].setFillColor(sf::Color(r, g, b));
+		sf::FloatRect text_rect = m_texts[i].getLocalBounds();
+		m_texts[i].setOrigin( text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
+		m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
+	}
 
 }
 

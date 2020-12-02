@@ -9,7 +9,6 @@ struct Element
 };
 class Settings {
 public:
-	Settings(std::string const& FileName,std::string const& KeyWord);
 	std::string GetValue(std::string const& field)const;
 	void ChangeValue(std::string const& field,std::string const& value);
 	void LoadFile();
@@ -17,7 +16,9 @@ public:
 	void RestoreAllToDef();
 	void RestoreThisToDef(std::string const&  field);
 	void SaveChanges();
-	std::string operator[](std::string const& field)const;
+	
+	std::string operator[](std::string const& field) const;
+	Settings(std::string const& FileName,std::string const& KeyWord);
 private:
 	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
 	std::vector<std::string> m_lines,m_default;
