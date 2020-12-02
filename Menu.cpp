@@ -3,10 +3,9 @@
 #include <sstream>
 #include "Settings.h"
 
-Menu::Menu(float width, float height,unsigned IndexMenu) : 
+Menu::Menu(float width, float height) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
-	change_up(false), change_down(false),
-	m_IndexMenu(IndexMenu)
+	change_up(false), change_down(false),charge_select(true)
 {
 	LoadTexts();
 	LoadKeys();
@@ -40,18 +39,22 @@ void Menu::LoadTexts ( ) {
 }
 
 void Menu::Update (Game & g) {
-	if (m_input["select"]) {
-		switch (current_option) {
-		case 0:
-			g.SetScene(new Match(win_width, win_height));
-			break;
-//		case 1:
-//			g.SetScene(new Menu(win_width, win_height,1));
-//			break; // OptionMenu hereda de Menu
-//		
-		case 2:
-			g.Close();
-			break;
+	if (charge_select != m_input["select"]) {
+		charge_select = !charge_select;
+		if(charge_select)
+		{
+			switch (current_option) {
+			case 0:
+				g.SetScene(new Match(win_width, win_height));
+				break;
+			case 1:
+				g.SetScene(new Menu(win_width, win_height));
+				break; // OptionMenu hereda de Menu
+			
+			case 2:
+				g.Close();
+				break;
+			}
 		}
 	}
 	

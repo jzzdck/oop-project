@@ -18,7 +18,7 @@ class Game;
 
 class Menu : public Escena {
 public:
-	Menu(float width, float height,unsigned IndexMenu);
+	Menu(float width, float height);
 	void Update(Game &g);
 	void Draw(sf::RenderWindow &win);
 private:
@@ -28,10 +28,9 @@ private:
 	unsigned m_IndexMenu;
 	sf::Font m_font;
 	std::vector<sf::Text> m_texts;
-	bool m_selected;
 	Controls m_input;
 	int frame_count, current_option;
-	bool change_up, change_down;
+	bool change_up, change_down,charge_select;
 };
 
 #endif
