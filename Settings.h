@@ -13,12 +13,13 @@ public:
 	std::string GetValue(std::string const& field)const;
 	void ChangeValue(std::string const& field,std::string const& value);
 	void LoadFile();
+	void LoadBackUp();
 	void RestoreAllToDef();
 	void RestoreThisToDef(std::string const&  field);
 	void SaveChanges();
 	std::string operator[](std::string const& field)const;
 private:
-	std::string m_FileName,m_KeyWord,m_divisor;
+	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
 	std::vector<std::string> m_lines,m_default;
 	std::string m_BackUpFile_name;
 };
