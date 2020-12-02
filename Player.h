@@ -6,19 +6,27 @@
 #include <string>
 #include "Entity.h"
 #include "Controls.h"
+#include "Weapon.h"
+#include "Revolver.h"
 
 class Game;
 
 class Player : public Entity {
 public:
-	void Update(World &world) override;
+	void Update() override;
+	void Upd(World &wor);
 	void Draw(sf::RenderWindow &win) override;
 	int GetIndex() const { return m_index; }
+	
+	void RespondFloorCollision();
+	void RespondWallCollision(int dir);
+	void ApplyForce(float fx, float fy);
+	
 	Player(float initial_x, float initial_y, int player_index);
+	~Player();
 private:
-	void RespondCollisionWith(World &world);
 	void LoadConfig();
-	void LoadTextures();
+	void LoadBelly();
 	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;
@@ -26,6 +34,8 @@ private:
 	
 	sf::Sprite ms_belly;
 	std::vector<sf::Texture> mt_belly;
+	
+	Revolver m_weapon;
 };
 
 #endif

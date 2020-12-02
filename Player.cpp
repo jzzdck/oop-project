@@ -3,20 +3,24 @@
 #include <SFML/Graphics/Color.hpp>
 #include "Settings.h"
 #include <sstream>
+#include "Revolver.h"
+#include "World.h"
 
 Player::Player (float initial_x, float initial_y, int player_index) :
-	m_index(player_index), m_jumpcount(2), 
-	is_jumping(false), current_sprite(!player_index)
+	Entity("player"), m_index(player_index), m_jumpcount(2), 
+	is_jumping(false), current_sprite(!player_index), 
+	m_weapon(player_index, 49)
 {
 	m_sprite.setPosition(initial_x, initial_y);
+	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
 	m_topspeed = 8;
+	
+	LoadBelly();
 	LoadTextures();
 	LoadConfig();
 }
 
-void Player::Update(World &world) {
-	// jump mechanic: a switch
-	// if "on" -> jump. if "on" and then "off" -> jump less
+void Player::Update() {
 	if (is_jumping != m_Input["jump"]) {
 		is_jumping = !(is_jumping);
 		if (is_jumping && m_jumpcount > 0) {
@@ -40,7 +44,9 @@ void Player::Update(World &world) {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	RespondCollisionWith(world);
+/*	if (m_Input["attack"]) m_weapon.Attack();*/
+	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
+	m_weapon.Update();
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -48,21 +54,24 @@ void Player::Draw(sf::RenderWindow & win) {
 	ms_belly.setTexture(current_sprite ? mt_belly[1] : mt_belly[0]);
 	ms_belly.setPosition(m_sprite.getPosition()); // belly postion relative to player;
 	
+	m_weapon.Draw(win);
 	win.draw(ms_belly);
 	win.draw(m_sprite);
 }
 
-void Player::RespondCollisionWith(World & world) {
-	// floor collision
-	if (world.FloorCollision(m_sprite)) {
-		m_sprite.move(0, -m_speed.y);
-		m_speed.y = 0;
-		m_jumpcount = 2;
-	} else m_speed.y += world.GetGravity();
-	
-	// wall collision
-	int dir = world.WallCollision(m_sprite);
-	if (dir) m_sprite.move(dir*m_speed.x, -m_speed.y);
+void Player::RespondFloorCollision() {
+	m_sprite.move(0, -m_speed.y);
+	m_speed.y = 0;
+	m_jumpcount = 2;
+}
+
+void Player::RespondWallCollision(int dir) {
+	m_sprite.move(dir*m_speed.x, 0);
+}
+
+void Player::ApplyForce(float fx, float fy) {
+	m_speed.x += fx;
+	m_speed.y += fy;
 }
 
 void Player::LoadConfig()
@@ -81,18 +90,16 @@ void Player::LoadConfig()
 	m_Input.BindKey("jump", m_Input<s["key-jump"]);
 }
 
-void Player::LoadTextures() {
-	Settings s("textures.conf", "textures");
+void Player::LoadBelly() {
+	Settings s("textures.conf", "belly");
 	int bsize = stoi(s["belly-size"]);
-	int psize = stoi(s["player-size"]);
-	
+
 	mt_belly.resize(bsize);
 	for (size_t i=0; i<mt_belly.size(); ++i)
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
-	
-	m_textures.resize(psize);
-	for (size_t i=0; i<m_textures.size(); ++i)
-		m_textures[i].loadFromFile(s["player-texture"+std::to_string(i)] + ".png");
-	
-	// NOTA: no pongo la ruta a la carpeta porque cambiaria segun SO
 }
+
+Player::~Player ( ) {
+//	delete m_weapon;
+}
+
