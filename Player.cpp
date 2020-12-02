@@ -5,9 +5,10 @@
 #include <sstream>
 
 Player::Player (float initial_x, float initial_y, int player_index) :
-	Entity(initial_x, initial_y), m_index(player_index),
-	m_jumpcount(2), is_jumping(false), current_sprite(player_index)
+	m_index(player_index), m_jumpcount(2), 
+	is_jumping(false), current_sprite(!player_index)
 {
+	m_sprite.setPosition(initial_x, initial_y);
 	m_topspeed = 8;
 	LoadTextures();
 	LoadConfig();

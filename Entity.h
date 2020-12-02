@@ -20,7 +20,6 @@ public:
 	virtual void Update(World &m_world) = 0; // las entidades se actualizan segun el mundo en el que estan
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	bool CollidesWith(const Entity &another);
-	Entity(float initial_x, float initial_y);
 protected:
 	sf::Vector2f m_speed;
 	float m_topspeed;
