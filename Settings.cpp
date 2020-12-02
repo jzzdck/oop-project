@@ -3,7 +3,10 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 
-Settings::Settings(std::string const& FileName,std::string const& KeyWord):m_FileName(std::string("res/configuration-files/"+FileName)),m_KeyWord(KeyWord),m_divisor("------------------"),m_BackUpFile_name("res/configuration-files/Global_Config_Backup.conf")
+Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
+	m_FileName(std::string("res/configuration-files/"+FileName)),
+	m_KeyWord(KeyWord), m_divisor("------------------"),
+	m_BackUpFile_name("res/configuration-files/Global_Config_Backup.conf")
 {
 	LoadFile();
 	
