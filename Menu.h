@@ -26,14 +26,26 @@ private:
 	void LoadTexts();
 	void LoadKeys();
 	std::string LoadHeadline();
+	void RandomizeMyColor(unsigned const& text_position);
+	void HighlightCurrentOption();
+	void CopyColorFromPlayer(unsigned const& text_position);
+	void ChangePlayer();
+	void LoadPlayerColor();
+	void LoadSliders();
+	
+	Controls m_input;
 	sf::Font m_font;
 	std::vector<sf::Text> m_texts;
 	std::string m_location;
-	Controls m_input;
 	int current_option;
 	unsigned frame_count ,m_Noptions;
-	bool change_up, change_down,charge_select;
-	
+	bool change_up, change_down,charge_select,m_player_selected;
+	sf::Color m_cp0,m_cp1;
+	std::vector<sf::RectangleShape> m_slider;
+	/*charge select, tiene que estar inicializado con true, 
+	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
+	de la nueva escena la primera opcion.
+	*/
 };
 
 #endif

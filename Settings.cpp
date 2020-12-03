@@ -142,3 +142,18 @@ std::string Settings::operator[](std::string const& field)const
 {
 	return GetValue(field);
 }
+void Settings::Reload(std::string const& FileName,std::string const& KeyWord)
+{
+	m_default.erase(m_default.begin(),m_default.end());
+	m_lines.erase(m_lines.begin(),m_lines.end());
+	m_fields_to_change.erase(m_fields_to_change.begin(),m_fields_to_change.end());
+	m_FileName="res/configuration-files/"+FileName;
+	m_KeyWord=KeyWord;
+	m_BackUpFile_name="res/configuration-files/BackUpConf/B_"+FileName;
+	//reset all variables
+	
+	LoadBackUp();
+	LoadFile();
+	
+	
+}

@@ -12,7 +12,7 @@ World::World(float wdt, float hgt, float gravity) :
 void World::LoadMap ( ) {
 	int r, g, b;
 	std::stringstream ss;
-	Settings s("world.conf", "groundRects");
+	Settings s("figures.conf", "groundRects");
 	m_platforms.resize(stoi(s["size"]));
 	
 	ss << s["color"];

@@ -13,6 +13,7 @@ public:
 	void ChangeValue(std::string const& field,std::string const& value);
 	void LoadFile();
 	void LoadBackUp();
+	void Reload(std::string const& FileName,std::string const& KeyWord);
 	void RestoreAllToDef();
 	void RestoreThisToDef(std::string const&  field);
 	void SaveChanges();
