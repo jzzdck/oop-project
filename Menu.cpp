@@ -15,7 +15,7 @@ Menu::Menu(float width, float height,std::string location) :
 void Menu::LoadTexts ( ) 
 {
 	
-	Settings s("texts.conf", "texts="+m_location);
+	Settings s("texts.conf",m_location);
 	m_font.loadFromFile(s["font"] + ".ttf");
 	m_texts.resize( stoi(s["size"]) );
 	m_Noptions=stoi(s["choosable"]);
@@ -153,7 +153,7 @@ std::string Menu::LoadHeadline() {
 }
 void Menu::LoadKeys()
 {
-	Settings s("controls.conf","controls=menu");
+	Settings s("controls.conf","menu");
 	m_input.BindKey("go_up",m_input<s["key-up"]);
 	m_input.BindKey("go_down",m_input<s["key-down"]);
 	m_input.BindKey("select",m_input<s["key-select"]);

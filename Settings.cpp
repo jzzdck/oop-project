@@ -2,13 +2,14 @@
 #include <fstream>
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
+#include <iostream>
 
 Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
 	m_FileName(std::string("res/configuration-files/"+FileName)),
 	m_KeyWord(KeyWord),
 	m_divisor("------------------"),
 	m_NameSign("[###]"),
-	m_BackUpFile_name("res/configuration-files/Global_Config_Backup.conf")
+	m_BackUpFile_name(std::string("res/configuration-files/BackUpConf/B_"+FileName))
 {
 	LoadBackUp();
 	LoadFile();
@@ -17,80 +18,78 @@ Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
 void Settings::LoadBackUp()
 {
 	std::ifstream archi(m_BackUpFile_name);
-	std::vector<std::string> v_back_aux;
 	std::string linea;
 	while(getline(archi,linea))
 	{
-		v_back_aux.push_back(linea);
+		m_default.push_back(linea);
 	}
 	archi.close();
-	
-	std::string KeyWordType;
-	unsigned pos=m_KeyWord.find_first_of("=");
-	if(pos!=std::string::npos)
-		KeyWordType=m_KeyWord.substr(0,pos);
-	else
-		KeyWordType=m_KeyWord;
-	//al player=0 le sacamos =0
-	int first_appearence=-1,last_appearence=-1;
-	for(unsigned i=0;i<v_back_aux.size();++i) 
-	{
-		if(v_back_aux[i].find(m_NameSign+KeyWordType)!=std::string::npos)
-		{
-			if(first_appearence==-1)first_appearence=i;
-			last_appearence=i;
-		}
-	}
-	//La primera vez que aparece la palabra calve (ej jugador) y la ultima
-	if(first_appearence!=-1)
-	{
-		std::vector<std::string>::iterator it,ite;
-		it=std::next(v_back_aux.begin()+first_appearence-1);
-		ite=std::find(std::next(v_back_aux.begin(),last_appearence),v_back_aux.end(),m_divisor);
-		//it va desde player=0 hasta el ultimo(incluido) divisor de un player 	
-		for(;it!=next(ite);++it)
-			m_default.push_back(*it);
-	}	
-	
-	
 }
 void Settings::LoadFile()
 {
 	
+	std::vector<std::string> v_lines_aux;
 	std::ifstream archi(m_FileName);
 	if(!archi.is_open())
 	{
-		std::ofstream archo(m_FileName);
-		for(std::string &x:m_default)
-			archo<<x+"\n";
-		archo.close();
-		archi.open(m_FileName);
+		RestoreAllToDef();
 	}
-	std::vector<std::string> v_lines_aux;
-	std::string linea;
-	while(getline(archi,linea))
+	else
 	{
-		v_lines_aux.push_back(linea);
+		std::string linea;
+		while(getline(archi,linea))
+		{
+			v_lines_aux.push_back(linea);
+		}
+		archi.close();
 	}
-	archi.close();
 	std::vector<std::string>::iterator it,ite;
-	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),m_NameSign+m_KeyWord);
-	std::advance(it,1);
-	ite=std::find(it,v_lines_aux.end(),m_divisor);
-	// no queremos el identificador de player= ni el divisor, solo los datos de en medio
-	for(;it!=ite;++it){
-		m_lines.push_back(*it); 
+	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),std::string(m_NameSign+m_KeyWord));
+	if(it!=v_lines_aux.end())
+	{
+		std::advance(it,1);
+		ite=std::find(it,v_lines_aux.end(),m_divisor);
+		// no queremos el singo ni el divisor, solo los datos de en medio
+		for(;it!=ite;++it){
+			m_lines.push_back(*it); 
+		}
 	}
+	else std::cerr<<"Palabra clave no encontrada";
 }
 
 void Settings::SaveChanges()
 {
-	std::ofstream arch(m_FileName);
-	for(std::string &x:m_lines)
+	std::vector<std::string> v_saved=m_default;
+	int inicio=0,fin;
+	for(size_t j=0;j<v_saved.size();j++)
 	{
-		arch<<x+"\n";
+		if(v_saved[j]==std::string(m_NameSign+m_KeyWord))
+		   break;
+		++inicio;
 	}
-	arch.close();
+	inicio=fin;
+	for(size_t j=0;j<v_saved.size();j++)
+	{
+		if(v_saved[j]==m_divisor)
+			break;
+		++fin;
+	}
+	for(std::string &x:m_fields_to_change)
+	{
+		for(int i=inicio;i<fin;++i)
+		{
+			if(v_saved[i].find(x)!=std::string::npos)
+			{
+				std::string line;
+				line=x+"="+GetValue(x);
+				v_saved[i]=line;
+			}
+		}
+	}
+	std::ofstream archo(m_FileName,std::ios::trunc);
+	for(std::string &x:v_saved)
+		archo<<x+"\n";
+	archo.close();
 }
 
  std::string Settings::GetValue(std::string const& field)const
@@ -103,6 +102,7 @@ void Settings::SaveChanges()
 			break;
 		}
 	}
+	if(value=="Invalid")std::cerr<<field<<" is not a valid field";
 	return value;
 }
 void Settings::ChangeValue(std::string const& field,std::string const& value)
@@ -129,11 +129,14 @@ void Settings::RestoreThisToDef(std::string const& field)
 			break;
 		}
 	}
+	m_fields_to_change.push_back(field);
 }
 void Settings::RestoreAllToDef()
 {
-	for(std::string &x:m_lines)
-		RestoreThisToDef(x);
+	std::ofstream archo(m_FileName,std::ios::trunc);
+	for(std::string &x:m_default)
+		archo<<x+"\n";
+	archo.close();
 }
 std::string Settings::operator[](std::string const& field)const
 {

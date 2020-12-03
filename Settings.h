@@ -21,7 +21,7 @@ public:
 	Settings(std::string const& FileName,std::string const& KeyWord);
 private:
 	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
-	std::vector<std::string> m_lines,m_default;
+	std::vector<std::string> m_lines,m_default,m_fields_to_change;
 	std::string m_BackUpFile_name;
 };
 

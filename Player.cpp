@@ -77,7 +77,7 @@ void Player::ApplyForce(float fx, float fy) {
 
 void Player::LoadKeys()
 {
-	std::string keyword="controls=p"+std::to_string(m_index);
+	std::string keyword="p"+std::to_string(m_index);
 	Settings s("controls.conf",keyword);
 	
 	m_Input.BindKey("left", m_Input<s["key-left"]);
@@ -100,7 +100,7 @@ void Player::LoadColor ( ) {
 	std::stringstream ss;
 	Settings s("textures.conf", "player");
 	
-	ss << s["color-p"+std::to_string(m_index)];
+	ss << s["p"+std::to_string(m_index)];
 	ss >> r >> g >> b;
 	
 	m_sprite.setColor(sf::Color(r, g, b));
