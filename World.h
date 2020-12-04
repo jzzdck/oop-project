@@ -15,8 +15,8 @@ class World {
 public:
 	void Draw(sf::RenderWindow &win);
 	
-	int FloorCollision(const sf::Sprite &entity) const;
-	int WallCollision(const sf::Sprite &entity) const;
+	int CollidesWith(const sf::Sprite &entity);
+	sf::Vector2<double> GetResponse(const sf::Sprite &entity, int index);
 	float GetGravity() const { return m_gravity; }
 	
 	World(float wdt, float hgt, float gravity);
@@ -26,6 +26,7 @@ private:
 	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
 	float m_gravity; // variable "global" que afecta a todas las entidades del "mundo"
 	float win_width, win_height;
+	sf::Color m_c;
 };
 
 #endif

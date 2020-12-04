@@ -2,6 +2,10 @@
 #include <string>
 #include <sstream>
 #include "Player.h"
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include "phutils.h"
 
 World::World(float wdt, float hgt, float gravity) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity)
@@ -9,76 +13,51 @@ World::World(float wdt, float hgt, float gravity) :
 	LoadMap();
 }
 
-void World::LoadMap ( ) {
-	int r, g, b;
-	std::stringstream ss;
+void World::LoadMap() {
 	Settings s("world.conf", "groundRects");
 	m_platforms.resize(stoi(s["size"]));
 	
-	ss << s["color"];
-	ss >> r >> g >> b;
-	for (size_t i=0; i<m_platforms.size(); ++i) { 
+	m_c = utils::getColor(s["color"]);
+	for (size_t i=0; i<m_platforms.size(); ++i) {
 		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
-		sf::RectangleShape aux(sf::Vector2f( win_width  * stof( s[key+"w"] ), 
-											 win_height * stof( s[key+"h"] ) ));
+		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
+		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
 		
-		aux.setFillColor(sf::Color(r, g, b));
-		aux.setPosition(sf::Vector2f( win_width  * stof( s[key+"x"] ), 
-									  win_height * stof( s[key+"y"] ) ));
-		
+		sf::RectangleShape aux(dim);
+		aux.setFillColor(m_c);
+		aux.setPosition(pos);
 		m_platforms[i] = aux;
 	}
 }
 
-int World::FloorCollision(const sf::Sprite &entity) const {
-	auto entity_g = entity.getGlobalBounds();
+sf::Vector2<double> World::GetResponse(const sf::Sprite &entity, int index) {
+	sf::Rect<float> e = entity.getGlobalBounds();
+	sf::Rect<float> r = m_platforms[index].getGlobalBounds();
+	sf::Vector2f ec = utils::getCenter(e);
+	sf::Vector2f rc = utils::getCenter(r);
 	
-	for (const auto &rect : m_platforms) {
-		auto rect_g = rect.getGlobalBounds();
-		auto entity_right = entity_g.left + entity_g.width;
-		auto rect_right = rect_g.left + rect_g.width;
-		
-		if (rect_g.intersects(entity_g) &&
-			rect_g.left < entity_right && 
-			entity_g.left < rect_right) 
-		{
-			// floor collision
-			if (rect_g.top+2 > entity_g.top + entity_g.height) 
-				return -1;
-			
-			// ceiling collision
-			if (rect_g.top+rect_g.height >= entity_g.top) 
-				return 1;
-		}
+	sf::Vector2<double> delta = { rc.x - ec.x, rc.y - ec.y };
+	sf::Vector2<double> proj = { std::fabs(delta.x) - 0.5*(e.width  + r.width), 
+								 std::fabs(delta.y) - 0.5*(e.height + r.height) };
+	
+	if (std::fabs(proj.x) < std::fabs(proj.y)) {
+		proj.y = 0;
+		if (delta.x < 0) proj.x *= -1;
+	} else {
+		proj.x = 0;
+		if (delta.y < 0) proj.y *= -1;
 	}
 	
-	return 0;
+	return { proj.x, proj.y };
 }
 
-int World::WallCollision(const sf::Sprite &entity) const {
-	auto entity_g = entity.getGlobalBounds();
-	
-	for (const auto &rect : m_platforms) {
-		auto rect_g = rect.getGlobalBounds();
-		auto entity_bottom = entity_g.top + entity_g.height;
-		auto rect_bottom = rect_g.top + rect_g.height;
-		
-		if (rect_g.intersects(entity_g) &&
-			rect_g.top < entity_bottom && 
-			entity_g.top < rect_bottom) 
-		{
-			// right wall collision
-			// -10 para darle margen de error (si no siempre detecta esta)
-			if (rect_g.left + rect_g.width - 10 > entity_g.left) 
-				return -1;
-			
-			// left wall collision
-			if (rect_g.left <= entity_g.left + entity_g.width)
-				return 1;
-		}
-	}
-	
-	return 0;
+int World::CollidesWith(const sf::Sprite &entity) {
+	sf::Rect<float> entity_g = entity.getGlobalBounds();
+	for (size_t i=0; i<m_platforms.size(); ++i)
+		if (m_platforms[i].getGlobalBounds().intersects(entity_g))
+			return i;
+
+	return -1;
 }
 
 void World::Draw (sf::RenderWindow & win) {
