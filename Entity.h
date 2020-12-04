@@ -22,6 +22,7 @@ public:
 	void SetKeyword(std::string new_key);
 	bool CollidesWith(const Entity &another);
 	sf::Sprite &GetSprite() { return m_sprite; }
+	sf::Vector2f &GetSpeed() { return m_speed; }
 	
 	Entity(std::string keyword);
 protected:
