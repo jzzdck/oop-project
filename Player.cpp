@@ -2,7 +2,6 @@
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
 #include "Settings.h"
-#include <sstream>
 #include "Revolver.h"
 #include "World.h"
 #include "phutils.h"
@@ -10,7 +9,7 @@
 Player::Player (float initial_x, float initial_y, int player_index) :
 	Entity("player"), m_index(player_index), m_jumpcount(2), 
 	is_jumping(false), current_sprite(!player_index), 
-	m_weapon(player_index, 49)
+	m_weapon(player_index, 49), m_jumpspeed(-12)
 {
 	m_sprite.setPosition(initial_x, initial_y);
 	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
@@ -26,10 +25,10 @@ void Player::Update() {
 	if (is_jumping != m_Input["jump"]) {
 		is_jumping = !(is_jumping);
 		if (is_jumping && m_jumpcount > 0 ) {
-			m_speed.y = -10;
+			m_speed.y = m_jumpspeed;
 			--m_jumpcount;
-		} else if (m_speed.y < -4)
-			m_speed.y = -4;
+		} else if (m_speed.y < -5)
+			m_speed.y = -5;
 	}
 
 	if (m_Input["right"]) {
@@ -68,6 +67,8 @@ void Player::ApplyResponse(const sf::Vector2<double> &vec) {
 	
 	if (!vec.x) 
 		m_speed.y = 0, m_jumpcount = 2;
+	else
+		m_jumpcount = 2;
 }
 
 void Player::ApplyGravity(float gravity) {

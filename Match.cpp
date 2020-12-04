@@ -18,7 +18,7 @@ void Match::Update (Game & g) {
 		player.Update();
 		
 		int coll_index = m_world.CollidesWith(p_sprite);
-		if (coll_index != -1 && player.GetSpeed().y != -10) {
+		if (coll_index != -1 && player.GetSpeed().y != player.GetJumpSpeed()) {
 			sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
 			player.ApplyResponse(vec);
 		}

@@ -18,6 +18,7 @@ public:
 	
 	void ApplyGravity(float gravity);
 	void ApplyResponse(const sf::Vector2<double> &vec);
+	int GetJumpSpeed() const { return m_jumpspeed; }
 	int GetIndex() const { return m_index; }
 	
 	Player(float initial_x, float initial_y, int player_index);
@@ -30,6 +31,7 @@ private:
 	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;
+	int m_jumpspeed;
 	bool is_jumping;
 	
 	sf::Sprite ms_belly;
