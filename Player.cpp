@@ -5,6 +5,7 @@
 #include <sstream>
 #include "Revolver.h"
 #include "World.h"
+#include "phutils.h"
 
 Player::Player (float initial_x, float initial_y, int player_index) :
 	Entity("player"), m_index(player_index), m_jumpcount(2), 
@@ -24,20 +25,20 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 void Player::Update() {
 	if (is_jumping != m_Input["jump"]) {
 		is_jumping = !(is_jumping);
-		if (is_jumping && m_jumpcount > 0) {
+		if (is_jumping && m_jumpcount > 0 ) {
 			m_speed.y = -10;
 			--m_jumpcount;
-		} else if (m_speed.y < -2)
-			m_speed.y = -2;
+		} else if (m_speed.y < -4)
+			m_speed.y = -4;
 	}
 
 	if (m_Input["right"]) {
-		m_sprite.move(m_speed.x, m_speed.y);
+		m_sprite.move(m_speed.x, 0);
 		current_sprite = 0;
 	} else if (m_Input["left"]) {
-		m_sprite.move(-m_speed.x, m_speed.y);
+		m_sprite.move(-m_speed.x, 0);
 		current_sprite = 1;
-	} else m_sprite.move(0, m_speed.y);
+	} m_sprite.move(0, m_speed.y);
 	
 	if (m_Input["right"] || m_Input["left"]) {
 		m_speed.x += 0.25;
@@ -45,7 +46,9 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"]) m_weapon.Attack();
+	if (m_Input["attack"]) 
+		m_weapon.Attack();
+	
 	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
 	m_weapon.Update();
 }
@@ -60,23 +63,18 @@ void Player::Draw(sf::RenderWindow & win) {
 	win.draw(m_sprite);
 }
 
-void Player::RespondFloorCollision() {
-	m_sprite.move(0, -m_speed.y);
-	m_speed.y = 0;
-	m_jumpcount = 2;
+void Player::ApplyResponse(const sf::Vector2<double> &vec) {
+	m_sprite.move(vec.x, vec.y);
+	
+	if (!vec.x) 
+		m_speed.y = 0, m_jumpcount = 2;
 }
 
-void Player::RespondWallCollision(int dir) {
-	m_sprite.move(dir*m_speed.x, 0);
+void Player::ApplyGravity(float gravity) {
+	m_speed.y += gravity;
 }
 
-void Player::ApplyForce(float fx, float fy) {
-	m_speed.x += fx;
-	m_speed.y += fy;
-}
-
-void Player::LoadKeys()
-{
+void Player::LoadKeys() {
 	std::string keyword="controls=p"+std::to_string(m_index);
 	Settings s("controls.conf",keyword);
 	
@@ -95,17 +93,12 @@ void Player::LoadBelly() {
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
 }
 
-void Player::LoadColor ( ) {
-	int r, g, b;
-	std::stringstream ss;
+void Player::LoadColor() {
 	Settings s("textures.conf", "player");
+	std::string color = s["color-p"+std::to_string(m_index)];
 	
-	ss << s["color-p"+std::to_string(m_index)];
-	ss >> r >> g >> b;
-	
-	m_sprite.setColor(sf::Color(r, g, b));
+	m_sprite.setColor(utils::getColor(color));
 }
-
 
 Player::~Player ( ) {
 	//	delete m_weapon;

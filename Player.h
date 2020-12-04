@@ -16,9 +16,8 @@ public:
 	void Update() override;
 	void Draw(sf::RenderWindow &win) override;
 	
-	void RespondFloorCollision();
-	void RespondWallCollision(int dir);
-	void ApplyForce(float fx, float fy);
+	void ApplyGravity(float gravity);
+	void ApplyResponse(const sf::Vector2<double> &vec);
 	int GetIndex() const { return m_index; }
 	
 	Player(float initial_x, float initial_y, int player_index);
@@ -35,7 +34,6 @@ private:
 	
 	sf::Sprite ms_belly;
 	std::vector<sf::Texture> mt_belly;
-	
 	Revolver m_weapon;
 };
 
