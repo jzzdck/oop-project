@@ -25,6 +25,7 @@ public:
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	
 	Entity(std::string keyword);
+	virtual ~Entity() {}
 protected:
 	void LoadTextures();
 	

@@ -8,8 +8,8 @@ class Escena {
 public:
 	virtual void Update(Game &g) = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
-	
 	Escena(float width, float height);
+	virtual ~Escena() {};
 protected:
 	float win_width, win_height;
 };
