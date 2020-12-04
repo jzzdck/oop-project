@@ -14,7 +14,7 @@ World::World(float wdt, float hgt, float gravity) :
 }
 
 void World::LoadMap() {
-	Settings s("world.conf", "groundRects");
+	Settings s("figures.conf", "groundRects");
 	m_platforms.resize(stoi(s["size"]));
 	
 	m_c = utils::getColor(s["color"]);

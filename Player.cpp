@@ -74,8 +74,9 @@ void Player::ApplyGravity(float gravity) {
 	m_speed.y += gravity;
 }
 
-void Player::LoadKeys() {
-	std::string keyword="controls=p"+std::to_string(m_index);
+void Player::LoadKeys()
+{
+	std::string keyword="p"+std::to_string(m_index);
 	Settings s("controls.conf",keyword);
 	
 	m_Input.BindKey("left", m_Input<s["key-left"]);
@@ -95,8 +96,7 @@ void Player::LoadBelly() {
 
 void Player::LoadColor() {
 	Settings s("textures.conf", "player");
-	std::string color = s["color-p"+std::to_string(m_index)];
-	
+	std::string color = s["p"+std::to_string(m_index)];
 	m_sprite.setColor(utils::getColor(color));
 }
 
