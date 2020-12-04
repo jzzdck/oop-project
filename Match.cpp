@@ -14,15 +14,16 @@ void Match::Update (Game & g) {
 		g.SetScene(new Menu(win_width, win_height));
 	
 	for (auto &player : m_players) {
+		sf::Sprite p_sprite = player.GetSprite();
 		player.Update();
 		
-		if (m_world.FloorCollision(player.GetSprite()))
-			player.RespondFloorCollision();
-		else 
-			player.ApplyForce(0, m_world.GetGravity());
+		int coll_index = m_world.CollidesWith(p_sprite);
+		if (coll_index != -1 && player.GetSpeed().y != -10) {
+			sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
+			player.ApplyResponse(vec);
+		}
 		
-		int dir = m_world.WallCollision(player.GetSprite());
-		if (dir) player.RespondWallCollision(dir);
+		player.ApplyGravity(m_world.GetGravity());
 	}
 }
 
