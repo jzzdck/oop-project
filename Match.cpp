@@ -18,9 +18,11 @@ void Match::Update (Game & g) {
 		player.Update();
 		
 		int coll_index = m_world.CollidesWith(p_sprite);
-		if (coll_index != -1 && player.GetSpeed().y != player.GetJumpSpeed()) {
+		while (coll_index != -1 && player.GetSpeed().y != player.GetJumpSpeed()) {
 			sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
 			player.ApplyResponse(vec);
+			
+			coll_index = m_world.CollidesWith(p_sprite, coll_index+1);
 		}
 		
 		player.ApplyGravity(m_world.GetGravity());

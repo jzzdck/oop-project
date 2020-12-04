@@ -15,7 +15,7 @@ class World {
 public:
 	void Draw(sf::RenderWindow &win);
 	
-	int CollidesWith(const sf::Sprite &entity);
+	int CollidesWith(const sf::Sprite &entity, int index = 0);
 	sf::Vector2<double> GetResponse(const sf::Sprite &entity, int index);
 	float GetGravity() const { return m_gravity; }
 	

@@ -51,9 +51,11 @@ sf::Vector2<double> World::GetResponse(const sf::Sprite &entity, int index) {
 	return { proj.x, proj.y };
 }
 
-int World::CollidesWith(const sf::Sprite &entity) {
+int World::CollidesWith(const sf::Sprite &entity, int index) {
+	if (index >= m_platforms.size()) return -1;
+	
 	sf::Rect<float> entity_g = entity.getGlobalBounds();
-	for (size_t i=0; i<m_platforms.size(); ++i)
+	for (size_t i=index; i<m_platforms.size(); ++i)
 		if (m_platforms[i].getGlobalBounds().intersects(entity_g))
 			return i;
 
