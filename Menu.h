@@ -26,6 +26,7 @@ private:
 	void LoadTexts();
 	void LoadKeys();
 	std::string LoadHeadline();
+	
 	sf::Font m_font;
 	std::vector<sf::Text> m_texts;
 	std::string m_location;
@@ -33,7 +34,6 @@ private:
 	int current_option;
 	unsigned frame_count ,m_Noptions;
 	bool change_up, change_down,charge_select;
-	
 };
 
 #endif
