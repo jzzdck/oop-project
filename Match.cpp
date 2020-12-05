@@ -3,7 +3,7 @@
 #include <iostream>
 
 Match::Match(float width, float height) :
-	Escena(width, height), m_world(width, height, 0.5)
+	Escena(width, height), m_world(width, height, 0.7)
 {
 	m_players.emplace_back( Player(win_width*0.9, win_height*0.5 - 200, 0) );
 	m_players.emplace_back( Player(win_width*0.15, win_height*0.5 - 200, 1) );
