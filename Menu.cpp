@@ -167,14 +167,19 @@ void Menu::LoadKeys()
 }
 void Menu::RandomizeMyColor(unsigned const& text_position)
 {
-	sf::Uint8 r, g, b;
-	r = rand()%256;
-	g = rand()%256;
-	b = rand()%256;
 	
-	frame_count++;
-	if (frame_count % 8 == 0) 
-		m_texts[1].setFillColor({r, g, b});
+//	sf::Uint8 r, g, b;
+//	r = rand()%256;
+//	g = rand()%256;
+//	b = rand()%256;
+//	
+//	frame_count++;
+//	if (frame_count % 8 == 0)
+//		m_texts[text_position].setFillColor({r,g,b});
+	utils::HSV col((frame_count*3)%361, 100, 100);
+	
+	m_texts[text_position].setFillColor(col.MakeRGB());
+	++frame_count;
 }
 
 void Menu::HighlightCurrentOption()

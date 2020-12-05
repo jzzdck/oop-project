@@ -1,6 +1,7 @@
 #include "phutils.h"
 #include <algorithm>
 #include <cstdlib>
+#include <cmath>
 using namespace std;
 
 namespace utils {
@@ -30,22 +31,22 @@ namespace utils {
 		return HSV(h, s, v);
 	}
 	
-	void HSV::SetHue (int hue) {
-		hue %= 360;
+	void HSV::SetHue (float hue) {
+		hue = std::fmod(hue, 100);
 		m_hue = hue;
 	}
 	
-	void HSV::SetSat (int sat) {
-		sat %= 100;
+	void HSV::SetSat (float sat) {
+		sat = std::fmod(sat, 100);
 		m_sat = sat;
 	}
 	
-	void HSV::SetVal (int val) {
-		val %= 100;
+	void HSV::SetVal (float val) {
+		val = std::fmod(val, 100);
 		m_val = val;
 	}
 	
-	HSV::HSV (int hue, int sat, int value) :
+	HSV::HSV (float hue, float sat, float value) :
 		m_hue(hue), m_sat(sat), m_val(value) {  }
 	
 	HSV::HSV (const sf::Color & col) {
@@ -53,20 +54,20 @@ namespace utils {
 	}
 	
 	HSV HSV::MakeHSV (const sf::Color & col) {
-		int max = std::max(col.r, (std::max(col.g, col.b)));
-		int min = std::min(col.r, (std::min(col.g, col.b)));
-		int dif = max - min; 
+		float max = std::max(col.r, (std::max(col.g, col.b)));
+		float min = std::min(col.r, (std::min(col.g, col.b)));
+		float dif = max - min; 
 		
-		int hue, val, sat;
+		float hue, val, sat;
 		
 		if (max == 0 && min == 0) 
 			hue = 0;
 		else if (max == col.r)
-			hue = (60*((col.g-col.b)/dif) + 360) % 360;
+			hue = std::fmod((60*((col.g-col.b)/dif) + 360), 360);
 		else if (max == col.g)
-			hue = (60*((col.b-col.r)/dif) + 120) % 360;
+			hue = std::fmod((60*((col.b-col.r)/dif) + 120), 360);
 		else if (max == col.b)
-			hue = (60*((col.r-col.g)/dif) + 240) % 360;
+			hue = std::fmod((60*((col.r-col.g)/dif) + 240), 360);
 		
 		if (max == 0) 
 			sat = 0;
@@ -79,11 +80,11 @@ namespace utils {
 	}
 	
 	sf::Color HSV::MakeRGB() {
-		int r, g, b;
+		float r, g, b;
 		
-		int C = (m_val/100) * (m_sat/100);
-		int X = C * (1 -  std::abs((m_hue/60)%2 - 1));
-		int m = m_val/100 - C;
+		float C = (m_val/100) * (m_sat/100);
+		float X = C * (1 -  std::fabs(std::fmod(m_hue/60, 2) - 1));
+		float m = m_val/100 - C;
 		
 		if (m_hue < 60)
 			r = C, g = X, b = 0;
