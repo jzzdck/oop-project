@@ -11,16 +11,21 @@ namespace utils {
 	sf::Color getColor(std::string rgb);
 	
 	class HSV {
-		double hue, sat, value;
+		int m_hue, m_sat, m_val;
 	public:
-		HSV() : hue(0), sat(0), value(0) {}
+		HSV() : m_hue(0), m_sat(0), m_val(0) {}
 		HSV(const sf::Color &rgb);
+		HSV(int hue, int sat, int value);
 		HSV MakeHSV(const sf::Color &rgb);
 		sf::Color MakeRGB();
 		
-		double &GetHue() { return hue; }
-		double &GetSat() { return sat; }
-		double &GetVal() { return value; }
+		int GetHue() { return m_hue; }
+		int GetSat() { return m_sat; }
+		int GetVal() { return m_val; }
+		
+		void SetHue(int hue);
+		void SetSat(int sat);
+		void SetVal(int val);
 	};
 }
 
