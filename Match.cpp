@@ -22,6 +22,18 @@ void Match::Update (Game & g) {
 			sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
 			player.ApplyResponse(vec);
 			
+			if (coll_index == m_world.GetBase(0)) {
+				if (player.GetIndex())
+					std::cout << "Player 1 is at enemy base!" << std::endl;
+				else 
+					std::cout << "Player 0 is at home base!" << std::endl;
+			} else if (coll_index == m_world.GetBase(1)) {
+				if (!player.GetIndex())
+					std::cout << "Player 0 is at enemy base!" << std::endl;
+				else 
+					std::cout << "Player 1 is at home base!" << std::endl;
+			}
+			
 			coll_index = m_world.CollidesWith(p_sprite, coll_index+1);
 		}
 		
@@ -30,7 +42,7 @@ void Match::Update (Game & g) {
 }
 
 void Match::Draw (sf::RenderWindow & win) {
-	win.clear({230, 230, 230});
+	win.clear({158, 207, 222});
 	
 	for (auto player : m_players) 
 		player.Draw(win);
