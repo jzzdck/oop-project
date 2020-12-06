@@ -16,16 +16,16 @@ namespace utils {
 		HSV() : m_hue(0), m_sat(0), m_val(0) {}
 		HSV(const sf::Color &rgb);
 		HSV(float hue, float sat, float value);
+		
 		HSV MakeHSV(const sf::Color &rgb);
 		sf::Color MakeRGB();
-		
-		int GetHue() { return m_hue; }
-		int GetSat() { return m_sat; }
-		int GetVal() { return m_val; }
 		
 		void SetHue(float hue);
 		void SetSat(float sat);
 		void SetVal(float val);
+		int GetHue() { return m_hue; }
+		int GetSat() { return m_sat; }
+		int GetVal() { return m_val; }
 	};
 }
 

@@ -24,10 +24,10 @@ public:
 	Player(float initial_x, float initial_y, int player_index);
 	~Player();
 private:
-	void LoadConfig();
 	void LoadBelly();
 	void LoadKeys();
 	void LoadColor();
+	void LoadRandomColor();
 	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;

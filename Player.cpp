@@ -45,9 +45,7 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"]) 
-		m_weapon.Attack();
-	
+	if (m_Input["attack"]) m_weapon.Attack();
 	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
 	m_weapon.Update();
 }
@@ -104,5 +102,3 @@ void Player::LoadColor() {
 Player::~Player ( ) {
 	//	delete m_weapon;
 }
-
-
