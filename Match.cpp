@@ -22,17 +22,14 @@ void Match::Update (Game & g) {
 			sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
 			player.ApplyResponse(vec);
 			
-			if (coll_index == m_world.GetBase(0)) {
-				if (player.GetIndex())
-					std::cout << "Player 1 is at enemy base!" << std::endl;
-				else 
-					std::cout << "Player 0 is at home base!" << std::endl;
-			} else if (coll_index == m_world.GetBase(1)) {
-				if (!player.GetIndex())
-					std::cout << "Player 0 is at enemy base!" << std::endl;
-				else 
-					std::cout << "Player 1 is at home base!" << std::endl;
-			}
+			if (coll_index == m_world.GetBase(0) && player.GetIndex() == 0)
+				std::cout << "Player 0 is at home base!" << std::endl;
+			else if (coll_index == m_world.GetBase(1) && player.GetIndex() == 0)
+				std::cout << "Player 0 is at enemy base!" << std::endl;
+			else if (coll_index == m_world.GetBase(1) && player.GetIndex() == 1)
+				std::cout << "Player 1 is at home base!" << std::endl;
+			else if (coll_index == m_world.GetBase(0) && player.GetIndex() == 1)
+				std::cout << "Player 1 is at enemy base!" << std::endl;
 			
 			coll_index = m_world.CollidesWith(p_sprite, coll_index+1);
 		}
