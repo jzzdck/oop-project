@@ -9,9 +9,8 @@
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),
-	m_map(map_name)
+	m_map(map_name), m_base0(-1), m_base1(-1)
 {
-	// por convencion, los primeros elementos de m_platforms van a ser las bases
 	LoadMap(map_name);
 }
 
@@ -26,8 +25,16 @@ void World::LoadMap(std::string map_name) {
 		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
 		
 		sf::RectangleShape aux(dim);
-		aux.setFillColor(m_c);
 		aux.setPosition(pos);
+		
+		if (s[key+"is-base0"] == "YES") {
+			m_base0 = i;
+			aux.setFillColor(utils::loadPlayerColor("0"));
+		} else if (s[key+"is-base1"] == "YES") {
+			m_base1 = i;
+			aux.setFillColor(utils::loadPlayerColor("1"));
+		} else aux.setFillColor(m_c);
+		
 		m_platforms[i] = aux;
 	}
 }

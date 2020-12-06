@@ -18,6 +18,7 @@ public:
 	int CollidesWith(const sf::Sprite &entity, int index = 0);
 	sf::Vector2<double> GetResponse(const sf::Sprite &entity, int index);
 	float GetGravity() const { return m_gravity; }
+	int GetBase(int which) const { return which ? m_base1 : m_base0; };
 	
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 private:
@@ -27,6 +28,7 @@ private:
 	float m_gravity;
 	float win_width, win_height;
 	std::string m_map;
+	int m_base0, m_base1;
 	sf::Color m_c;
 };
 
