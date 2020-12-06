@@ -7,14 +7,16 @@
 #include <cmath>
 #include "phutils.h"
 
-World::World(float wdt, float hgt, float gravity) : 
-	win_width(wdt), win_height(hgt), m_gravity(gravity)
+World::World(float wdt, float hgt, float gravity, std::string map_name) : 
+	win_width(wdt), win_height(hgt), m_gravity(gravity),
+	m_map(map_name)
 {
-	LoadMap();
+	// por convencion, los primeros elementos de m_platforms van a ser las bases
+	LoadMap(map_name);
 }
 
-void World::LoadMap() {
-	Settings s("figures.conf", "groundRects");
+void World::LoadMap(std::string map_name) {
+	Settings s("maps.conf", map_name);
 	m_platforms.resize(stoi(s["size"]));
 	
 	m_c = utils::getColor(s["color"]);

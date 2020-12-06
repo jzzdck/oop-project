@@ -19,13 +19,14 @@ public:
 	sf::Vector2<double> GetResponse(const sf::Sprite &entity, int index);
 	float GetGravity() const { return m_gravity; }
 	
-	World(float wdt, float hgt, float gravity);
+	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 private:
-	void LoadMap();
-	
+	void LoadMap(std::string map_name);
 	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
-	float m_gravity; // variable "global" que afecta a todas las entidades del "mundo"
+	
+	float m_gravity;
 	float win_width, win_height;
+	std::string m_map;
 	sf::Color m_c;
 };
 
