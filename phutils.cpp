@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
+#include "Settings.h"
+#include <iostream>
 using namespace std;
 
 namespace utils {
@@ -29,6 +31,11 @@ namespace utils {
 		ss >> h >> s >> v;
 		
 		return HSV(h, s, v);
+	}
+	
+	sf::Color loadPlayerColor(std::string player_index) {
+		Settings s("textures.conf","player");
+		return utils::getColor(s["color-p"+player_index]);
 	}
 	
 	void HSV::SetHue (float hue) {

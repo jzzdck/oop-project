@@ -13,7 +13,8 @@ Menu::Menu(float width, float height,std::string location) :
 	LoadKeys();
 	if(m_location=="color-options")
 	{
-		LoadPlayerColor();//El primer texto "color ;D" esta en pos =0
+		m_cp0 = utils::loadPlayerColor("0");//El primer texto "color ;D" esta en pos =0
+		m_cp1 = utils::loadPlayerColor("1");
 //		LoadSliders(); 
 	}
 }
@@ -196,15 +197,6 @@ void Menu::CopyColorFromPlayer(unsigned const& text_position)
 		m_texts[text_position].setFillColor(m_cp0);
 	else
 		m_texts[text_position].setFillColor(m_cp1);
-}
-
-void Menu::LoadPlayerColor()
-{
-	Settings s("textures.conf","player");
-	
-	m_cp0 = utils::getColor(s["color-p0"]);
-	m_cp1 = utils::getColor(s["color-p1"]);
-	
 }
 
 void Menu::ChangePlayer()

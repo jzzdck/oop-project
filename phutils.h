@@ -9,7 +9,8 @@ namespace utils {
 	sf::Vector2f getCenter(const sf::Rect<float> &of_this);
 	// obtener el color de una string del tipo "r g b"
 	sf::Color getColor(std::string rgb);
-	
+	sf::Color loadPlayerColor(std::string player_index);
+		
 	class HSV {
 		float m_hue, m_sat, m_val;
 	public:
