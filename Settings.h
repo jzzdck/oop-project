@@ -3,10 +3,7 @@
 #include <vector>
 #include "Controls.h"
 #include <SFML/Graphics/Color.hpp>
-struct Element
-{
-	std::string field,value;
-};
+/// @brief The most useful class of all time
 class Settings {
 public:
 	std::string GetValue(std::string const& field)const;
@@ -24,6 +21,7 @@ private:
 	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
 	std::vector<std::string> m_lines,m_default,m_fields_to_change;
 	std::string m_BackUpFile_name;
+	struct Element	{ std::string field, value;};
 };
 
 #endif
