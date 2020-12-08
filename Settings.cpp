@@ -44,7 +44,7 @@ void Settings::LoadFile()
 		archi.close();
 	}
 	std::vector<std::string>::iterator it,ite;
-	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),std::string(m_NameSign+m_KeyWord));
+	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),m_NameSign+m_KeyWord);
 	if(it!=v_lines_aux.end())
 	{
 		std::advance(it,1);
@@ -63,7 +63,7 @@ void Settings::SaveChanges()
 	int inicio=0,fin;
 	for(size_t j=0;j<v_saved.size();j++)
 	{
-		if(v_saved[j]==std::string(m_NameSign+m_KeyWord))
+		if(v_saved[j]==m_NameSign+m_KeyWord)
 		   break;
 		++inicio;
 	}

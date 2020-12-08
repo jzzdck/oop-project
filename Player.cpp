@@ -7,17 +7,17 @@
 #include "phutils.h"
 
 Player::Player (float initial_x, float initial_y, int player_index) :
-	Entity("player"), m_index(player_index), m_jumpcount(2), 
-	is_jumping(false), current_sprite(!player_index), 
-	m_weapon(player_index, 49), m_jumpspeed(-12)
+	Entity("player"), m_index(player_index),
+	m_jumpcount(2), m_jumpspeed(-12), is_jumping(false), 
+	current_sprite(!player_index), 
+	m_weapon(nullptr), can_grab(false)
 {
 	m_sprite.setPosition(initial_x, initial_y);
-	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
-	m_topspeed = 8;
+	m_topspeed = 10;
 	
 	LoadKeys();
 	LoadBelly();
-	LoadColor();
+	m_sprite.setColor(utils::loadPlayerColor(m_index));
 	LoadTextures();
 }
 
@@ -40,14 +40,12 @@ void Player::Update() {
 	} m_sprite.move(0, m_speed.y);
 	
 	if (m_Input["right"] || m_Input["left"]) {
-		m_speed.x += 0.25;
+		m_speed.x += 0.5;
 		if (m_speed.x > m_topspeed)
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"]) m_weapon.Attack();
-	m_weapon.SetPos(m_sprite.getPosition(), current_sprite);
-	m_weapon.Update();
+	if (m_Input["attack"] && m_weapon) m_weapon->Attack();
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -55,7 +53,6 @@ void Player::Draw(sf::RenderWindow & win) {
 	ms_belly.setTexture(current_sprite ? mt_belly[1] : mt_belly[0]);
 	ms_belly.setPosition(m_sprite.getPosition()); // belly postion relative to player;
 	
-	m_weapon.Draw(win);
 	win.draw(ms_belly);
 	win.draw(m_sprite);
 }
@@ -91,12 +88,6 @@ void Player::LoadBelly() {
 	mt_belly.resize(bsize);
 	for (size_t i=0; i<mt_belly.size(); ++i)
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
-}
-
-void Player::LoadColor() {
-	Settings s("textures.conf", "player");
-	std::string color = s["p"+std::to_string(m_index)];
-	m_sprite.setColor(utils::getColor(color));
 }
 
 Player::~Player ( ) {

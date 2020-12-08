@@ -11,7 +11,7 @@
 
 class Player;
 
-/** @brief The World's class is the place where the Match occurs **/
+/** @brief The World class is the place where the Match occurs **/
 class World {
 public:
 	/// @brief Draw m_platforms on the current window

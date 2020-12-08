@@ -29,10 +29,10 @@ void World::LoadMap(std::string map_name) {
 		
 		if (s[key+"is-base0"] == "YES") {
 			m_base0 = i;
-			aux.setFillColor(utils::loadPlayerColor("0"));
+			aux.setFillColor(utils::loadPlayerColor(0));
 		} else if (s[key+"is-base1"] == "YES") {
 			m_base1 = i;
-			aux.setFillColor(utils::loadPlayerColor("1"));
+			aux.setFillColor(utils::loadPlayerColor(1));
 		} else aux.setFillColor(m_c);
 		
 		m_platforms[i] = aux;

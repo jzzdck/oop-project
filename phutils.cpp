@@ -33,9 +33,9 @@ namespace utils {
 		return HSV(h, s, v);
 	}
 	
-	sf::Color loadPlayerColor(std::string player_index) {
+	sf::Color loadPlayerColor(int player_index) {
 		Settings s("textures.conf","player");
-		return utils::getColor(s["color-p"+player_index]);
+		return utils::getColor(s["color-p"+std::to_string(player_index)]);
 	}
 	
 	void HSV::SetHue (float hue) {
@@ -60,7 +60,7 @@ namespace utils {
 		*this = MakeHSV(col);
 	}
 	
-	HSV HSV::MakeHSV (const sf::Color & col) {
+	HSV MakeHSV (const sf::Color & col) {
 		float max = std::max(col.r, (std::max(col.g, col.b)));
 		float min = std::min(col.r, (std::min(col.g, col.b)));
 		float dif = max - min; 
@@ -86,7 +86,7 @@ namespace utils {
 		return HSV(hue, sat, val);
 	}
 	
-	sf::Color HSV::MakeRGB() {
+	sf::Color HSV::MakeRGB() const {
 		float r, g, b;
 		
 		float C = (m_val/100) * (m_sat/100);

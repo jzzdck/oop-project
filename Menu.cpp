@@ -13,8 +13,8 @@ Menu::Menu(float width, float height,std::string location) :
 	LoadKeys();
 	if(m_location=="color-options")
 	{
-		m_cp0 = utils::loadPlayerColor("0");//El primer texto "color ;D" esta en pos =0
-		m_cp1 = utils::loadPlayerColor("1");
+		m_cp0 = utils::loadPlayerColor(0);//El primer texto "color ;D" esta en pos =0
+		m_cp1 = utils::loadPlayerColor(1);
 //		LoadSliders(); 
 	}
 }

@@ -16,10 +16,8 @@ namespace utils {
 		/// @brief Make an HSV Color out of hue, saturation or value.
 		HSV(float hue, float sat, float value);
 		
-		/// @brief Return the HSV version of a RGB color
-		HSV MakeHSV(const sf::Color &rgb);
 		/// @brief Return the RGB version of the current HSV color.
-		sf::Color MakeRGB();
+		sf::Color MakeRGB() const;
 		
 		/// @brief Set current HSV color's hue.
 		void SetHue(float hue);
@@ -28,12 +26,15 @@ namespace utils {
 		/// @brief Set current HSV color's value.
 		void SetVal(float val);
 		/// @brief Get current HSV color's hue.
-		int GetHue() { return m_hue; }
+		int GetHue() const { return m_hue; }
 		/// @brief Get current HSV color's saturation.
-		int GetSat() { return m_sat; }
+		int GetSat() const { return m_sat; }
 		/// @brief Get current HSV color's value.
-		int GetVal() { return m_val; }
+		int GetVal() const { return m_val; }
 	};
+	
+	/// @brief Return the HSV version of a RGB color
+	HSV MakeHSV(const sf::Color &rgb);
 
 	/// @brief Get the center point of a rectangle
 	/// @return the x and y coordinates of the center
@@ -51,7 +52,7 @@ namespace utils {
 	
 	/// @brief Load the player current default color
 	/// @return the SFML RGB version of the player's color
-	sf::Color loadPlayerColor(std::string player_index);
+	sf::Color loadPlayerColor(int player_index);
 }
 
 #endif

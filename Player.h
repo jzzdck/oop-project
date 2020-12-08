@@ -8,10 +8,11 @@
 #include "Controls.h"
 #include "Weapon.h"
 #include "Revolver.h"
+#include "Item.h"
 
 class Game;
 
-/// @brief One of the most important class, it relates player's input to the game.
+/// @brief One of the most important classes, it relates players' input to the game.
 class Player : public Entity {
 public:
 	/// @brief Update the player in relation to input.
@@ -44,16 +45,16 @@ public:
 private:
 	void LoadBelly();
 	void LoadKeys();
-	void LoadColor();
 	
 	Controls m_Input;
 	int m_index, m_jumpcount, current_sprite;
 	int m_jumpspeed;
-	bool is_jumping;
+	bool is_jumping, can_grab;
 	
+	Item *m_item;
+	Weapon *m_weapon;
 	sf::Sprite ms_belly;
 	std::vector<sf::Texture> mt_belly;
-	Revolver m_weapon;
 };
 
 #endif
