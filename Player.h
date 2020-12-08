@@ -12,7 +12,7 @@
 
 class Game;
 
-/// @brief One of the most important classes, it relates players' input to the game.
+/// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
 	/// @brief Update the player in relation to input.

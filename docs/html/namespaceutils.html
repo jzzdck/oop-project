@@ -78,6 +78,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a74fcd67e4f22f40a83e7dc52f1b1fdbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutils_1_1HSV.html">HSV</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutils.html#a74fcd67e4f22f40a83e7dc52f1b1fdbe">MakeHSV</a> (const sf::Color &amp;rgb)</td></tr>
+<tr class="memdesc:a74fcd67e4f22f40a83e7dc52f1b1fdbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the <a class="el" href="classutils_1_1HSV.html" title="Utility class for converting SFML&#39;s rgb to HSV.">HSV</a> version of a RGB color.  <a href="namespaceutils.html#a74fcd67e4f22f40a83e7dc52f1b1fdbe">More...</a><br /></td></tr>
+<tr class="separator:a74fcd67e4f22f40a83e7dc52f1b1fdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a875068ffccf54632ba32f1ee99498ed6"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutils.html#a875068ffccf54632ba32f1ee99498ed6">getCenter</a> (const sf::Rect&lt; float &gt; &amp;of_this)</td></tr>
 <tr class="memdesc:a875068ffccf54632ba32f1ee99498ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the center point of a rectangle.  <a href="namespaceutils.html#a875068ffccf54632ba32f1ee99498ed6">More...</a><br /></td></tr>
 <tr class="separator:a875068ffccf54632ba32f1ee99498ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -87,9 +90,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac261c84ffe976e984c9e8f6250554514"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutils_1_1HSV.html">HSV</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutils.html#ac261c84ffe976e984c9e8f6250554514">getColorHSV</a> (std::string hsv)</td></tr>
 <tr class="memdesc:ac261c84ffe976e984c9e8f6250554514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an <a class="el" href="classutils_1_1HSV.html" title="Utility class for converting SFML&#39;s rgb to HSV.">HSV</a> color out of a string.  <a href="namespaceutils.html#ac261c84ffe976e984c9e8f6250554514">More...</a><br /></td></tr>
 <tr class="separator:ac261c84ffe976e984c9e8f6250554514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea227b50dd081449351bec524bd4efa5"><td class="memItemLeft" align="right" valign="top">sf::Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutils.html#aea227b50dd081449351bec524bd4efa5">loadPlayerColor</a> (std::string player_index)</td></tr>
-<tr class="memdesc:aea227b50dd081449351bec524bd4efa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the player current default color.  <a href="namespaceutils.html#aea227b50dd081449351bec524bd4efa5">More...</a><br /></td></tr>
-<tr class="separator:aea227b50dd081449351bec524bd4efa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9322ecfce45674d30353a8155989c3d0"><td class="memItemLeft" align="right" valign="top">sf::Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceutils.html#a9322ecfce45674d30353a8155989c3d0">loadPlayerColor</a> (int player_index)</td></tr>
+<tr class="memdesc:a9322ecfce45674d30353a8155989c3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the player current default color.  <a href="namespaceutils.html#a9322ecfce45674d30353a8155989c3d0">More...</a><br /></td></tr>
+<tr class="separator:a9322ecfce45674d30353a8155989c3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a875068ffccf54632ba32f1ee99498ed6"></a>
@@ -167,8 +170,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aea227b50dd081449351bec524bd4efa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea227b50dd081449351bec524bd4efa5">&#9670;&nbsp;</a></span>loadPlayerColor()</h2>
+<a id="a9322ecfce45674d30353a8155989c3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9322ecfce45674d30353a8155989c3d0">&#9670;&nbsp;</a></span>loadPlayerColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +179,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">sf::Color utils::loadPlayerColor </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>player_index</em></td><td>)</td>
           <td></td>
         </tr>
@@ -185,6 +188,26 @@ Functions</h2></td></tr>
 
 <p>Load the player current default color. </p>
 <dl class="section return"><dt>Returns</dt><dd>the SFML RGB version of the player's color </dd></dl>
+
+</div>
+</div>
+<a id="a74fcd67e4f22f40a83e7dc52f1b1fdbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74fcd67e4f22f40a83e7dc52f1b1fdbe">&#9670;&nbsp;</a></span>MakeHSV()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutils_1_1HSV.html">HSV</a> utils::MakeHSV </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Color &amp;&#160;</td>
+          <td class="paramname"><em>rgb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the <a class="el" href="classutils_1_1HSV.html" title="Utility class for converting SFML&#39;s rgb to HSV.">HSV</a> version of a RGB color. </p>
 
 </div>
 </div>

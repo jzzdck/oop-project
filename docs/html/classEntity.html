@@ -72,6 +72,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> is the highest hierarchy level for any entity in the game.  
+ <a href="classEntity.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="Entity_8h_source.html">Entity.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Entity:</div>
@@ -79,9 +82,10 @@ Inheritance diagram for Entity:</div>
  <div class="center">
   <img src="classEntity.png" usemap="#Entity_map" alt=""/>
   <map id="Entity_map" name="Entity_map">
-<area href="classPlayer.html" title="One of the most important class, it relates player&#39;s input to the game." alt="Player" shape="rect" coords="0,56,63,80"/>
-<area href="classWeapon.html" title="Abstract class where all weapons inherit." alt="Weapon" shape="rect" coords="73,56,136,80"/>
-<area href="classRevolver.html" title="A revolver, the token weapon for now." alt="Revolver" shape="rect" coords="73,112,136,136"/>
+<area href="classItem.html" title="Mother class to all items in the game." alt="Item" shape="rect" coords="0,56,63,80"/>
+<area href="classPlayer.html" title="One of the most important classes, it relates players&#39; input to the game." alt="Player" shape="rect" coords="73,56,136,80"/>
+<area href="classWeapon.html" title="Abstract class where all weapons inherit." alt="Weapon" shape="rect" coords="146,56,209,80"/>
+<area href="classRevolver.html" title="A revolver, the token weapon for now." alt="Revolver" shape="rect" coords="146,112,209,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -92,14 +96,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acba770ce4ad65d71fe59561809f788d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#acba770ce4ad65d71fe59561809f788d4">Draw</a> (sf::RenderWindow &amp;win)=0</td></tr>
 <tr class="separator:acba770ce4ad65d71fe59561809f788d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28c7a5abf246f530979ac24fa7474be9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#a28c7a5abf246f530979ac24fa7474be9">SetKeyword</a> (std::string new_key)</td></tr>
+<tr class="memdesc:a28c7a5abf246f530979ac24fa7474be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change where to search for textures. This method will probably be erased in the future; an <a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> should stay the same along the <a class="el" href="classMatch.html" title="The Match class handles the connection between the elements of the game; World, Player,...">Match</a>.  <a href="classEntity.html#a28c7a5abf246f530979ac24fa7474be9">More...</a><br /></td></tr>
 <tr class="separator:a28c7a5abf246f530979ac24fa7474be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a736a5420f57d682bbb2266e4791b449a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#a736a5420f57d682bbb2266e4791b449a">CollidesWith</a> (const <a class="el" href="classEntity.html">Entity</a> &amp;another)</td></tr>
+<tr class="memdesc:a736a5420f57d682bbb2266e4791b449a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast collision checking method.  <a href="classEntity.html#a736a5420f57d682bbb2266e4791b449a">More...</a><br /></td></tr>
 <tr class="separator:a736a5420f57d682bbb2266e4791b449a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dc8622060a68391c2817428210bccb1"><td class="memItemLeft" align="right" valign="top">sf::Sprite &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#a2dc8622060a68391c2817428210bccb1">GetSprite</a> ()</td></tr>
+<tr class="memdesc:a2dc8622060a68391c2817428210bccb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the entity's m_sprite.  <a href="classEntity.html#a2dc8622060a68391c2817428210bccb1">More...</a><br /></td></tr>
 <tr class="separator:a2dc8622060a68391c2817428210bccb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7d3a5083fac439d9bec950a828d93f5"><td class="memItemLeft" align="right" valign="top">sf::Vector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#af7d3a5083fac439d9bec950a828d93f5">GetSpeed</a> ()</td></tr>
+<tr class="memdesc:af7d3a5083fac439d9bec950a828d93f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the entity's m_speed.  <a href="classEntity.html#af7d3a5083fac439d9bec950a828d93f5">More...</a><br /></td></tr>
 <tr class="separator:af7d3a5083fac439d9bec950a828d93f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed643a24c420d3d256d977a8cfc919eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#aed643a24c420d3d256d977a8cfc919eb">Entity</a> (std::string keyword)</td></tr>
+<tr class="memdesc:aed643a24c420d3d256d977a8cfc919eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an <a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> given its keyword.  <a href="classEntity.html#aed643a24c420d3d256d977a8cfc919eb">More...</a><br /></td></tr>
 <tr class="separator:aed643a24c420d3d256d977a8cfc919eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a588098978eea6a3486b7361605ff3f0f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#a588098978eea6a3486b7361605ff3f0f">~Entity</a> ()</td></tr>
 <tr class="separator:a588098978eea6a3486b7361605ff3f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,7 +131,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a349c6abf10608375164c13b3c39c6fb3"><td class="memItemLeft" align="right" valign="top">sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEntity.html#a349c6abf10608375164c13b3c39c6fb3">m_sprite</a></td></tr>
 <tr class="separator:a349c6abf10608375164c13b3c39c6fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> is the highest hierarchy level for any entity in the game. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aed643a24c420d3d256d977a8cfc919eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed643a24c420d3d256d977a8cfc919eb">&#9670;&nbsp;</a></span>Entity()</h2>
 
@@ -138,6 +149,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Construct an <a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> given its keyword. </p>
+<p>Every entity has its textures in textures.conf, to search an <a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a>'s textures a keyword is needed. For example: to search the player textures, the "player" keyword must be given </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyword</td><td>String to search in textures.conf </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -183,6 +202,14 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Fast collision checking method. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">another</td><td>Check collision with this sprite. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="acba770ce4ad65d71fe59561809f788d4"></a>
@@ -209,7 +236,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classWeapon.html#a514eb9bae8f80526a4c6f122e3f69a08">Weapon</a>, <a class="el" href="classRevolver.html#a5ebe694d641300839365d80e967589f5">Revolver</a>, and <a class="el" href="classPlayer.html#afd2fe9c2dce1c3a231c6fb3ee40b73cc">Player</a>.</p>
+<p>Implemented in <a class="el" href="classWeapon.html#a514eb9bae8f80526a4c6f122e3f69a08">Weapon</a>, <a class="el" href="classRevolver.html#a5ebe694d641300839365d80e967589f5">Revolver</a>, <a class="el" href="classPlayer.html#afd2fe9c2dce1c3a231c6fb3ee40b73cc">Player</a>, and <a class="el" href="classItem.html#a16267102b31d6b814f555a71a1940ea5">Item</a>.</p>
 
 </div>
 </div>
@@ -236,6 +263,8 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get the entity's m_speed. </p>
+
 </div>
 </div>
 <a id="a2dc8622060a68391c2817428210bccb1"></a>
@@ -260,6 +289,8 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Get the entity's m_sprite. </p>
 
 </div>
 </div>
@@ -304,6 +335,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Change where to search for textures. This method will probably be erased in the future; an <a class="el" href="classEntity.html" title="Entity is the highest hierarchy level for any entity in the game.">Entity</a> should stay the same along the <a class="el" href="classMatch.html" title="The Match class handles the connection between the elements of the game; World, Player,...">Match</a>. </p>
+
 </div>
 </div>
 <a id="aa9ee05393626060907a710597103ad43"></a>
@@ -329,7 +362,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classWeapon.html#a84ee843f84b430a293fd9c6291efc354">Weapon</a>, <a class="el" href="classRevolver.html#a38bc2dae886f2a6cb665aacacd5f07e2">Revolver</a>, and <a class="el" href="classPlayer.html#a5e17be3418fa0ac0192c05efaf3dc8bd">Player</a>.</p>
+<p>Implemented in <a class="el" href="classWeapon.html#a84ee843f84b430a293fd9c6291efc354">Weapon</a>, <a class="el" href="classRevolver.html#a38bc2dae886f2a6cb665aacacd5f07e2">Revolver</a>, <a class="el" href="classPlayer.html#a5e17be3418fa0ac0192c05efaf3dc8bd">Player</a>, and <a class="el" href="classItem.html#a93dd04b3c6bd57e9bf255abc2dfd70a5">Item</a>.</p>
 
 </div>
 </div>
@@ -444,9 +477,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="Entity_8h_source.html">Entity.h</a></li>
-<li><a class="el" href="Entity_8cpp.html">Entity.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['_7eentity_98',['~Entity',['../classEntity.html#a588098978eea6a3486b7361605ff3f0f',1,'Entity']]],
-  ['_7eescena_99',['~Escena',['../classEscena.html#a9dafb05b7100c6652b430684f68d37ce',1,'Escena']]],
-  ['_7egame_100',['~Game',['../classGame.html#ae3d112ca6e0e55150d2fdbc704474530',1,'Game']]],
-  ['_7ematch_101',['~Match',['../classMatch.html#a4cbfcaff4f14e7411242423f19c28153',1,'Match']]],
-  ['_7eplayer_102',['~Player',['../classPlayer.html#a749d2c00e1fe0f5c2746f7505a58c062',1,'Player']]],
-  ['_7eweapon_103',['~Weapon',['../classWeapon.html#ac5f7305f5d08c48003c826e6e73f37da',1,'Weapon']]]
+  ['update_81',['Update',['../classGame.html#a1c5373c68261c54aff03e6abe40fee52',1,'Game::Update()'],['../classEscena.html#a83a504829c3088cfae0cf8dc63da386c',1,'Escena::Update()'],['../classMenu.html#a693fada95d90ef79c172d754968afa3a',1,'Menu::Update()'],['../classEntity.html#aa9ee05393626060907a710597103ad43',1,'Entity::Update()'],['../classPlayer.html#a5e17be3418fa0ac0192c05efaf3dc8bd',1,'Player::Update()'],['../classMatch.html#ace273e7631fcd71622a0d7af2f37a32d',1,'Match::Update()'],['../classWeapon.html#a84ee843f84b430a293fd9c6291efc354',1,'Weapon::Update()'],['../classRevolver.html#a38bc2dae886f2a6cb665aacacd5f07e2',1,'Revolver::Update()'],['../classItem.html#a93dd04b3c6bd57e9bf255abc2dfd70a5',1,'Item::Update()']]],
+  ['utils_82',['utils',['../namespaceutils.html',1,'']]]
 ];

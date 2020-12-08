@@ -1,35 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile doxygen_version="1.9.0" doxygen_gitid="a5ac10888f6c0b0fc00678f67aa49036b33aa4cf">
   <compound kind="file">
-    <name>Controls.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Controls_8cpp.html</filename>
-    <includes id="Controls_8h" name="Controls.h" local="yes" imported="no">Controls.h</includes>
-  </compound>
-  <compound kind="file">
     <name>Controls.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>Controls_8h.html</filename>
     <class kind="class">Controls</class>
   </compound>
   <compound kind="file">
-    <name>Entity.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Entity_8cpp.html</filename>
-    <includes id="Entity_8h" name="Entity.h" local="yes" imported="no">Entity.h</includes>
-    <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
-  </compound>
-  <compound kind="file">
     <name>Entity.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>Entity_8h.html</filename>
     <class kind="class">Entity</class>
-  </compound>
-  <compound kind="file">
-    <name>Game.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Game_8cpp.html</filename>
-    <includes id="Game_8h" name="Game.h" local="yes" imported="no">Game.h</includes>
   </compound>
   <compound kind="file">
     <name>Game.h</name>
@@ -40,6 +21,13 @@
     <includes id="Match_8h" name="Match.h" local="yes" imported="no">Match.h</includes>
     <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
     <class kind="class">Game</class>
+  </compound>
+  <compound kind="file">
+    <name>Item.h</name>
+    <path>/home/jero/projects/proyecto_final/oop-project/</path>
+    <filename>Item_8h.html</filename>
+    <includes id="Entity_8h" name="Entity.h" local="yes" imported="no">Entity.h</includes>
+    <class kind="class">Item</class>
   </compound>
   <compound kind="file">
     <name>main.cpp</name>
@@ -62,13 +50,6 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>Match.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Match_8cpp.html</filename>
-    <includes id="Match_8h" name="Match.h" local="yes" imported="no">Match.h</includes>
-    <includes id="Game_8h" name="Game.h" local="yes" imported="no">Game.h</includes>
-  </compound>
-  <compound kind="file">
     <name>Match.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>Match_8h.html</filename>
@@ -77,15 +58,6 @@
     <includes id="Player_8h" name="Player.h" local="yes" imported="no">Player.h</includes>
     <includes id="World_8h" name="World.h" local="yes" imported="no">World.h</includes>
     <class kind="class">Match</class>
-  </compound>
-  <compound kind="file">
-    <name>Menu.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Menu_8cpp.html</filename>
-    <includes id="Menu_8h" name="Menu.h" local="yes" imported="no">Menu.h</includes>
-    <includes id="Game_8h" name="Game.h" local="yes" imported="no">Game.h</includes>
-    <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
-    <includes id="phutils_8h" name="phutils.h" local="yes" imported="no">phutils.h</includes>
   </compound>
   <compound kind="file">
     <name>Menu.h</name>
@@ -97,48 +69,19 @@
     <class kind="class">Menu</class>
   </compound>
   <compound kind="file">
-    <name>phutils.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>phutils_8cpp.html</filename>
-    <includes id="phutils_8h" name="phutils.h" local="yes" imported="no">phutils.h</includes>
-    <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
-    <namespace>utils</namespace>
-    <member kind="function">
-      <type>sf::Vector2f</type>
-      <name>getCenter</name>
-      <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>a875068ffccf54632ba32f1ee99498ed6</anchor>
-      <arglist>(const sf::Rect&lt; float &gt; &amp;of_this)</arglist>
-    </member>
-    <member kind="function">
-      <type>sf::Color</type>
-      <name>getColor</name>
-      <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>ad630ef21f4bca1ad788b01ab5b1c576a</anchor>
-      <arglist>(std::string rgb)</arglist>
-    </member>
-    <member kind="function">
-      <type>HSV</type>
-      <name>getColorHSV</name>
-      <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>ac261c84ffe976e984c9e8f6250554514</anchor>
-      <arglist>(std::string hsv)</arglist>
-    </member>
-    <member kind="function">
-      <type>sf::Color</type>
-      <name>loadPlayerColor</name>
-      <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>aea227b50dd081449351bec524bd4efa5</anchor>
-      <arglist>(std::string player_index)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
     <name>phutils.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>phutils_8h.html</filename>
     <class kind="class">utils::HSV</class>
     <namespace>utils</namespace>
     <member kind="function">
+      <type>HSV</type>
+      <name>MakeHSV</name>
+      <anchorfile>namespaceutils.html</anchorfile>
+      <anchor>a74fcd67e4f22f40a83e7dc52f1b1fdbe</anchor>
+      <arglist>(const sf::Color &amp;rgb)</arglist>
+    </member>
+    <member kind="function">
       <type>sf::Vector2f</type>
       <name>getCenter</name>
       <anchorfile>namespaceutils.html</anchorfile>
@@ -163,19 +106,9 @@
       <type>sf::Color</type>
       <name>loadPlayerColor</name>
       <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>aea227b50dd081449351bec524bd4efa5</anchor>
-      <arglist>(std::string player_index)</arglist>
+      <anchor>a9322ecfce45674d30353a8155989c3d0</anchor>
+      <arglist>(int player_index)</arglist>
     </member>
-  </compound>
-  <compound kind="file">
-    <name>Player.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Player_8cpp.html</filename>
-    <includes id="Player_8h" name="Player.h" local="yes" imported="no">Player.h</includes>
-    <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
-    <includes id="Revolver_8h" name="Revolver.h" local="yes" imported="no">Revolver.h</includes>
-    <includes id="World_8h" name="World.h" local="yes" imported="no">World.h</includes>
-    <includes id="phutils_8h" name="phutils.h" local="yes" imported="no">phutils.h</includes>
   </compound>
   <compound kind="file">
     <name>Player.h</name>
@@ -185,13 +118,8 @@
     <includes id="Controls_8h" name="Controls.h" local="yes" imported="no">Controls.h</includes>
     <includes id="Weapon_8h" name="Weapon.h" local="yes" imported="no">Weapon.h</includes>
     <includes id="Revolver_8h" name="Revolver.h" local="yes" imported="no">Revolver.h</includes>
+    <includes id="Item_8h" name="Item.h" local="yes" imported="no">Item.h</includes>
     <class kind="class">Player</class>
-  </compound>
-  <compound kind="file">
-    <name>Revolver.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Revolver_8cpp.html</filename>
-    <includes id="Revolver_8h" name="Revolver.h" local="yes" imported="no">Revolver.h</includes>
   </compound>
   <compound kind="file">
     <name>Revolver.h</name>
@@ -201,22 +129,10 @@
     <class kind="class">Revolver</class>
   </compound>
   <compound kind="file">
-    <name>Scene.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Scene_8cpp.html</filename>
-    <includes id="Scene_8h" name="Scene.h" local="yes" imported="no">Scene.h</includes>
-  </compound>
-  <compound kind="file">
     <name>Scene.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>Scene_8h.html</filename>
     <class kind="class">Escena</class>
-  </compound>
-  <compound kind="file">
-    <name>Settings.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Settings_8cpp.html</filename>
-    <includes id="Settings_8h" name="Settings.h" local="yes" imported="no">Settings.h</includes>
   </compound>
   <compound kind="file">
     <name>Settings.h</name>
@@ -226,25 +142,11 @@
     <class kind="class">Settings</class>
   </compound>
   <compound kind="file">
-    <name>Weapon.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>Weapon_8cpp.html</filename>
-    <includes id="Weapon_8h" name="Weapon.h" local="yes" imported="no">Weapon.h</includes>
-  </compound>
-  <compound kind="file">
     <name>Weapon.h</name>
     <path>/home/jero/projects/proyecto_final/oop-project/</path>
     <filename>Weapon_8h.html</filename>
     <includes id="Entity_8h" name="Entity.h" local="yes" imported="no">Entity.h</includes>
     <class kind="class">Weapon</class>
-  </compound>
-  <compound kind="file">
-    <name>World.cpp</name>
-    <path>/home/jero/projects/proyecto_final/oop-project/</path>
-    <filename>World_8cpp.html</filename>
-    <includes id="World_8h" name="World.h" local="yes" imported="no">World.h</includes>
-    <includes id="Player_8h" name="Player.h" local="yes" imported="no">Player.h</includes>
-    <includes id="phutils_8h" name="phutils.h" local="yes" imported="no">phutils.h</includes>
   </compound>
   <compound kind="file">
     <name>World.h</name>
@@ -533,18 +435,11 @@
       <arglist>(float hue, float sat, float value)</arglist>
     </member>
     <member kind="function">
-      <type>HSV</type>
-      <name>MakeHSV</name>
-      <anchorfile>classutils_1_1HSV.html</anchorfile>
-      <anchor>a71e16554eb7b3464d4502d628ccdc60d</anchor>
-      <arglist>(const sf::Color &amp;rgb)</arglist>
-    </member>
-    <member kind="function">
       <type>sf::Color</type>
       <name>MakeRGB</name>
       <anchorfile>classutils_1_1HSV.html</anchorfile>
-      <anchor>a92e355ffbf51e8766f3134154886dba3</anchor>
-      <arglist>()</arglist>
+      <anchor>a178e762801057fcf2bf36e5ffb535289</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -571,22 +466,48 @@
       <type>int</type>
       <name>GetHue</name>
       <anchorfile>classutils_1_1HSV.html</anchorfile>
-      <anchor>a830d5c32c397aea2215195f339e51076</anchor>
-      <arglist>()</arglist>
+      <anchor>a4fb4b3739f8ddb98e9110bcec4316356</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>GetSat</name>
       <anchorfile>classutils_1_1HSV.html</anchorfile>
-      <anchor>a4b60d84b59bede3c5e98bab2b8470fa2</anchor>
-      <arglist>()</arglist>
+      <anchor>a127e634e3d32cc12d16380acb605569f</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>int</type>
       <name>GetVal</name>
       <anchorfile>classutils_1_1HSV.html</anchorfile>
-      <anchor>af6b2b34a270a07b00718a3a63dcfc50a</anchor>
+      <anchor>a618f268a57e8ba013a227780c64284f2</anchor>
+      <arglist>() const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>Item</name>
+    <filename>classItem.html</filename>
+    <base>Entity</base>
+    <member kind="function">
+      <type></type>
+      <name>Item</name>
+      <anchorfile>classItem.html</anchorfile>
+      <anchor>a297720c02984eab37332ae795d22189d</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>Update</name>
+      <anchorfile>classItem.html</anchorfile>
+      <anchor>a93dd04b3c6bd57e9bf255abc2dfd70a5</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>Draw</name>
+      <anchorfile>classItem.html</anchorfile>
+      <anchor>a16267102b31d6b814f555a71a1940ea5</anchor>
+      <arglist>(sf::RenderWindow &amp;win) override</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -926,7 +847,7 @@
       <type>sf::Vector2&lt; double &gt;</type>
       <name>GetResponse</name>
       <anchorfile>classWorld.html</anchorfile>
-      <anchor>af5b3a1ff997ece0548ecf5afc52f5472</anchor>
+      <anchor>af63b2c6a883eb04484356d4c3911fddc</anchor>
       <arglist>(const sf::Sprite &amp;entity, int index)</arglist>
     </member>
     <member kind="function">
@@ -956,6 +877,13 @@
     <filename>namespaceutils.html</filename>
     <class kind="class">utils::HSV</class>
     <member kind="function">
+      <type>HSV</type>
+      <name>MakeHSV</name>
+      <anchorfile>namespaceutils.html</anchorfile>
+      <anchor>a74fcd67e4f22f40a83e7dc52f1b1fdbe</anchor>
+      <arglist>(const sf::Color &amp;rgb)</arglist>
+    </member>
+    <member kind="function">
       <type>sf::Vector2f</type>
       <name>getCenter</name>
       <anchorfile>namespaceutils.html</anchorfile>
@@ -980,8 +908,15 @@
       <type>sf::Color</type>
       <name>loadPlayerColor</name>
       <anchorfile>namespaceutils.html</anchorfile>
-      <anchor>aea227b50dd081449351bec524bd4efa5</anchor>
-      <arglist>(std::string player_index)</arglist>
+      <anchor>a9322ecfce45674d30353a8155989c3d0</anchor>
+      <arglist>(int player_index)</arglist>
     </member>
+  </compound>
+  <compound kind="page">
+    <name>index</name>
+    <title>Final Project for OOP: LOVIGAME</title>
+    <filename>index.html</filename>
+    <docanchor file="index.html" title="Introduction">intro_sec</docanchor>
+    <docanchor file="index.html" title="Authors:">authors</docanchor>
   </compound>
 </tagfile>

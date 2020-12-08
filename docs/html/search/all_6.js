@@ -1,4 +1,19 @@
 var searchData=
 [
-  ['hsv_32',['HSV',['../classutils_1_1HSV.html',1,'utils::HSV'],['../classutils_1_1HSV.html#a7594e3f0c296fe90932bc8f456025823',1,'utils::HSV::HSV()'],['../classutils_1_1HSV.html#a22149bf9803b26193eddded1483d790e',1,'utils::HSV::HSV(const sf::Color &amp;rgb)'],['../classutils_1_1HSV.html#a7286c1bdb8d0bed8f3656cc9fa371dd8',1,'utils::HSV::HSV(float hue, float sat, float value)']]]
+  ['game_14',['Game',['../classGame.html',1,'Game'],['../classGame.html#a8d1e5232a0399ed59ab025bb5d4e9dbd',1,'Game::Game()']]],
+  ['game_2eh_15',['Game.h',['../Game_8h.html',1,'']]],
+  ['getbase_16',['GetBase',['../classWorld.html#a61b04362083f5a4848cda63b1474e984',1,'World']]],
+  ['getcenter_17',['getCenter',['../namespaceutils.html#a875068ffccf54632ba32f1ee99498ed6',1,'utils']]],
+  ['getcolor_18',['getColor',['../namespaceutils.html#ad630ef21f4bca1ad788b01ab5b1c576a',1,'utils']]],
+  ['getcolorhsv_19',['getColorHSV',['../namespaceutils.html#ac261c84ffe976e984c9e8f6250554514',1,'utils']]],
+  ['getgravity_20',['GetGravity',['../classWorld.html#ad3d4bb9dbffbd44a7e2f932996d354b3',1,'World']]],
+  ['gethue_21',['GetHue',['../classutils_1_1HSV.html#a4fb4b3739f8ddb98e9110bcec4316356',1,'utils::HSV']]],
+  ['getindex_22',['GetIndex',['../classPlayer.html#ad9a845bd6aa0685dcca80d612a249117',1,'Player']]],
+  ['getjumpspeed_23',['GetJumpSpeed',['../classPlayer.html#a708e1e29894da1e1c5ce011b7c9452b8',1,'Player']]],
+  ['getresponse_24',['GetResponse',['../classWorld.html#af63b2c6a883eb04484356d4c3911fddc',1,'World']]],
+  ['getsat_25',['GetSat',['../classutils_1_1HSV.html#a127e634e3d32cc12d16380acb605569f',1,'utils::HSV']]],
+  ['getspeed_26',['GetSpeed',['../classEntity.html#af7d3a5083fac439d9bec950a828d93f5',1,'Entity']]],
+  ['getsprite_27',['GetSprite',['../classEntity.html#a2dc8622060a68391c2817428210bccb1',1,'Entity']]],
+  ['getval_28',['GetVal',['../classutils_1_1HSV.html#a618f268a57e8ba013a227780c64284f2',1,'utils::HSV']]],
+  ['getvalue_29',['GetValue',['../classSettings.html#aef21d64fa547c2fd8c3db216ec9b121f',1,'Settings']]]
 ];

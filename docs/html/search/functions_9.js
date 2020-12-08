@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['main_174',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['makehsv_175',['MakeHSV',['../classutils_1_1HSV.html#a71e16554eb7b3464d4502d628ccdc60d',1,'utils::HSV']]],
-  ['makergb_176',['MakeRGB',['../classutils_1_1HSV.html#a92e355ffbf51e8766f3134154886dba3',1,'utils::HSV']]],
-  ['match_177',['Match',['../classMatch.html#a6ffbe5a713f37ce3e1decb207215d7f6',1,'Match']]],
-  ['menu_178',['Menu',['../classMenu.html#a158fca31749f101c5f05d5d0135c8f50',1,'Menu']]]
+  ['loadbackup_152',['LoadBackUp',['../classSettings.html#a12e31fec917410ecac81353639455a59',1,'Settings']]],
+  ['loadfile_153',['LoadFile',['../classSettings.html#aae064d9ade9680a81dcc7ecf4cc140c7',1,'Settings']]],
+  ['loadplayercolor_154',['loadPlayerColor',['../namespaceutils.html#a9322ecfce45674d30353a8155989c3d0',1,'utils']]],
+  ['loadtextures_155',['LoadTextures',['../classEntity.html#a797fe71dce2c965a0bb355ffdb6d0d6f',1,'Entity']]]
 ];

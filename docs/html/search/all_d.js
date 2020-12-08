@@ -1,17 +1,7 @@
 var searchData=
 [
-  ['savechanges_74',['SaveChanges',['../classSettings.html#ab7d180010d76b7575b1571d58eb71fde',1,'Settings']]],
-  ['scene_2ecpp_75',['Scene.cpp',['../Scene_8cpp.html',1,'']]],
-  ['scene_2eh_76',['Scene.h',['../Scene_8h.html',1,'']]],
-  ['sethue_77',['SetHue',['../classutils_1_1HSV.html#af9a49d0c055d9263c8b82895533b8e75',1,'utils::HSV']]],
-  ['setkeyword_78',['SetKeyword',['../classEntity.html#a28c7a5abf246f530979ac24fa7474be9',1,'Entity']]],
-  ['setpos_79',['SetPos',['../classWeapon.html#ab2ed4224a34e9ffc038c82d773beee2a',1,'Weapon']]],
-  ['setsat_80',['SetSat',['../classutils_1_1HSV.html#aade07d2859eb8734679fc500309c60cf',1,'utils::HSV']]],
-  ['setscene_81',['SetScene',['../classGame.html#aa8e1814aaecc0d9fbdf2af9f361ecfa4',1,'Game']]],
-  ['settext_82',['SetText',['../classWeapon.html#af30d03cb858e73d627cbbc65be1a583e',1,'Weapon']]],
-  ['settings_83',['Settings',['../classSettings.html',1,'Settings'],['../classSettings.html#ad244ffbefca47bc602e38af82e704978',1,'Settings::Settings()']]],
-  ['settings_2ecpp_84',['Settings.cpp',['../Settings_8cpp.html',1,'']]],
-  ['settings_2eh_85',['Settings.h',['../Settings_8h.html',1,'']]],
-  ['setval_86',['SetVal',['../classutils_1_1HSV.html#a83ee902a7ef3a4d9f52b96708eb33448',1,'utils::HSV']]],
-  ['stringtokey_87',['StringToKey',['../classControls.html#a48dbee594907a90bcb960441bef950dc',1,'Controls']]]
+  ['phutils_2eh_59',['phutils.h',['../phutils_8h.html',1,'']]],
+  ['player_60',['Player',['../classPlayer.html',1,'Player'],['../classPlayer.html#a1e78929df5e1d768207e6d91e642dc5b',1,'Player::Player()']]],
+  ['player_2eh_61',['Player.h',['../Player_8h.html',1,'']]],
+  ['processevents_62',['ProcessEvents',['../classGame.html#ae7e28abc55af4902c9c39899708d08d7',1,'Game']]]
 ];

@@ -8,22 +8,32 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
-// * Entity es la clase madre de cualquier (valga la redundancia) entidad   
-//   en el juego. *
-
-class World;
 class Game;
 
+/// @brief Entity is the highest hierarchy level for any entity in the game. 
 class Entity {
 public:
-	virtual void Update() = 0; // las entidades se actualizan segun el mundo en el que estan
+	virtual void Update() = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
+	/// @brief Change where to search for textures.
+	/// This method will probably be erased in the future; an Entity should stay the same along the Match.
 	void SetKeyword(std::string new_key);
+	
+	/// @brief Fast collision checking method.
+	/// @param another Check collision with this sprite.
 	bool CollidesWith(const Entity &another);
+	
+	/// @brief Get the entity's m_sprite.
 	sf::Sprite &GetSprite() { return m_sprite; }
+	/// @brief Get the entity's m_speed.
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	
+	/// @brief Construct an Entity given its keyword.
+	/** Every entity has its textures in textures.conf, to search an Entity's textures
+		a keyword is needed. For example: to search the player textures, the "player"
+		keyword must be given **/
+	/// @param keyword String to search in textures.conf
 	Entity(std::string keyword);
 	virtual ~Entity() {}
 protected:

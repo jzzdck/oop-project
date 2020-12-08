@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['update_88',['Update',['../classGame.html#a1c5373c68261c54aff03e6abe40fee52',1,'Game::Update()'],['../classEscena.html#a83a504829c3088cfae0cf8dc63da386c',1,'Escena::Update()'],['../classMenu.html#a693fada95d90ef79c172d754968afa3a',1,'Menu::Update()'],['../classEntity.html#aa9ee05393626060907a710597103ad43',1,'Entity::Update()'],['../classPlayer.html#a5e17be3418fa0ac0192c05efaf3dc8bd',1,'Player::Update()'],['../classMatch.html#ace273e7631fcd71622a0d7af2f37a32d',1,'Match::Update()'],['../classWeapon.html#a84ee843f84b430a293fd9c6291efc354',1,'Weapon::Update()'],['../classRevolver.html#a38bc2dae886f2a6cb665aacacd5f07e2',1,'Revolver::Update()']]],
-  ['utils_89',['utils',['../namespaceutils.html',1,'']]]
+  ['reload_63',['Reload',['../classSettings.html#ad49904452450a2e3d6199e16252e7c28',1,'Settings']]],
+  ['restorealltodef_64',['RestoreAllToDef',['../classSettings.html#a72e485d6b1b5a51257dd64b80af99c56',1,'Settings']]],
+  ['restorethistodef_65',['RestoreThisToDef',['../classSettings.html#aa57ae4ff70c22481c3427b34b906ea8d',1,'Settings']]],
+  ['revolver_66',['Revolver',['../classRevolver.html',1,'Revolver'],['../classRevolver.html#a25ee33f7f88e420194800c2de498879e',1,'Revolver::Revolver()']]],
+  ['revolver_2eh_67',['Revolver.h',['../Revolver_8h.html',1,'']]],
+  ['run_68',['Run',['../classGame.html#a96341ca5b54d90adc3ecb3bf0bcd2312',1,'Game']]]
 ];

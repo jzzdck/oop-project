@@ -2,6 +2,7 @@
 #define ITEM_H
 #include "Entity.h"
 
+/// @brief Mother class to all items in the game.
 class Item : public Entity {
 public:
 	Item();
