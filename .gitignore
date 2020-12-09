@@ -1,4 +1,5 @@
 *.bin
 docs/
+Doxyfile
 Debug_Linux/
 *.o
