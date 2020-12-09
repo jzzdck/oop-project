@@ -108,5 +108,7 @@ namespace utils {
 		
 		return sf::Color( (r+m)*255, (g+m)*255, (b+m)*255 );
 	}
+	
+	float randf() { return rand()%1001 / 1000.f; }
 }
 

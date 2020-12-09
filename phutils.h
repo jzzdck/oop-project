@@ -53,6 +53,9 @@ namespace utils {
 	/// @brief Load the player current default color
 	/// @return the SFML RGB version of the player's color
 	sf::Color loadPlayerColor(int player_index);
+	
+	/// @brief Get a random float between 0 and 1.
+	float randf();
 }
 
 #endif
