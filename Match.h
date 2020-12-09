@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "World.h"
 #include "Entity.h"
+#include "phutils.h"
 #include <vector>
 
 /** @brief The Match class handles the connection between the elements of the game; 
@@ -31,8 +32,10 @@ public:
 	Match(float width, float height);
 	~Match();
 private:
+	/* se podria tirar todo en un solo vector de Entity,
+		pero se entenderia menos qué es cada cosa y donde está */
 	std::vector<Player> m_players;
-	std::vector<Entity*> m_items;
+	std::vector<Item*> m_items;
 	World m_world;
 };
 
