@@ -1,5 +1,6 @@
 #include "Match.h"
 #include "Game.h"
+#include "Flag.h"
 #include <iostream>
 
 Match::Match(float width, float height) :
@@ -7,6 +8,8 @@ Match::Match(float width, float height) :
 {
 	m_players.emplace_back( Player(win_width*0.90, win_height*0.5 - 200, 0) );
 	m_players.emplace_back( Player(win_width*0.15, win_height*0.5 - 200, 1) );
+	m_items.push_back( new Flag(win_width*0.1, win_height*0.1, 0));
+	m_items.push_back( new Flag(win_width*0, win_height*0, 1));
 }
 
 void Match::Update (Game & g) {
@@ -43,12 +46,16 @@ void Match::Draw (sf::RenderWindow & win) {
 	
 	for (auto player : m_players) 
 		player.Draw(win);
-	m_world.Draw(win);
 	
+	for (auto item : m_items)
+		item->Draw(win);
+	
+	m_world.Draw(win);
 	win.display();
 }
 
 Match::~Match() {
-	
+	for (size_t i=0; i<m_items.size(); ++i) 
+		delete m_items[i];
 }
 

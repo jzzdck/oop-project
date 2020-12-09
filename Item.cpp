@@ -1,14 +1,6 @@
 #include "Item.h"
 
-Item::Item() : Entity("flag") {
-	
-}
-
-void Item::Update ( ) {
-	
-}
-
-void Item::Draw (sf::RenderWindow & win) {
+Item::Item(std::string keyword) : Entity(keyword) {
 	
 }
 

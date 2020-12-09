@@ -2,11 +2,8 @@
 #include <iostream>
 
 Revolver::Revolver(bool facing, float wdt) : 
-	Weapon(30, facing, wdt)
-{
-	SetKeyword("revolver");
-	LoadTextures();
-}
+	Weapon("revolver", 30, facing, wdt)
+{ }
 
 void Revolver::Attack ( ) {
 	std::cout << "PEW" << std::endl;

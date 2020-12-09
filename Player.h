@@ -34,14 +34,14 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
+	/// @brief Checks if the player has pressed the 'grab' key.
+	bool CanGrab() const { return can_grab; }
+	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param initial_x Starting X position.
 	/// @param initial_y Starting Y position.
 	/// @param player_index Index given to the player. 
 	Player(float initial_x, float initial_y, int player_index);
-	
-	/// @brief Destruct the player's weapon.
-	~Player();
 private:
 	void LoadBelly();
 	void LoadKeys();

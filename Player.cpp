@@ -10,7 +10,7 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 	Entity("player"), m_index(player_index),
 	m_jumpcount(2), m_jumpspeed(-12), is_jumping(false), 
 	current_sprite(!player_index), 
-	m_weapon(nullptr), can_grab(false)
+	m_weapon(nullptr), m_item(nullptr), can_grab(false)
 {
 	m_sprite.setPosition(initial_x, initial_y);
 	m_topspeed = 10;
@@ -18,7 +18,6 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 	LoadKeys();
 	LoadBelly();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
-	LoadTextures();
 }
 
 void Player::Update() {
@@ -40,12 +39,16 @@ void Player::Update() {
 	} m_sprite.move(0, m_speed.y);
 	
 	if (m_Input["right"] || m_Input["left"]) {
-		m_speed.x += 0.5;
+		m_speed.x += 1;
 		if (m_speed.x > m_topspeed)
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"] && m_weapon) m_weapon->Attack();
+	if (m_Input["attack"] && m_weapon) 
+		m_weapon->Attack();
+	
+	if (can_grab != m_Input["grab"]) 
+		can_grab = !can_grab;
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -79,6 +82,7 @@ void Player::LoadKeys()
 	m_Input.BindKey("right", m_Input<s["key-right"]);
 	m_Input.BindKey("jump", m_Input<s["key-jump"]);
 	m_Input.BindKey("attack", m_Input<s["key-attack"]);
+	m_Input.BindKey("grab", m_Input<s["key-grab"]);
 }
 
 void Player::LoadBelly() {
@@ -88,8 +92,4 @@ void Player::LoadBelly() {
 	mt_belly.resize(bsize);
 	for (size_t i=0; i<mt_belly.size(); ++i)
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
-}
-
-Player::~Player ( ) {
-	//	delete m_weapon;
 }

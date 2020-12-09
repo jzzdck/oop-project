@@ -18,7 +18,7 @@ public:
 	void SetPos(const sf::Vector2f &relative_to, bool facing);
 	
 	/// @brief Construct a weapon in relation to where the player's facing.
-	Weapon(int damage, bool facing, float wdt);
+	Weapon(std::string keyword, int damage, bool facing, float wdt);
 	
 	/// @brief Virtual destructor; the class is abstract
 	virtual ~Weapon() {}

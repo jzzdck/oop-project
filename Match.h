@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "World.h"
+#include "Entity.h"
 #include <vector>
 
 /** @brief The Match class handles the connection between the elements of the game; 
@@ -31,6 +32,7 @@ public:
 	~Match();
 private:
 	std::vector<Player> m_players;
+	std::vector<Entity*> m_items;
 	World m_world;
 };
 

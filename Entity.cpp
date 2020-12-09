@@ -1,15 +1,7 @@
 #include "Entity.h"
 #include "Settings.h"
 
-bool Entity::CollidesWith(const Entity & another) {
-	return m_sprite.getGlobalBounds().intersects(another.m_sprite.getGlobalBounds());
-}
-
 Entity::Entity (std::string keyword) : m_key(keyword) {
-	
-}
-
-void Entity::LoadTextures ( ) {
 	Settings s("textures.conf", m_key);
 	int psize = std::stoi(s[m_key+"-size"]);
 	
@@ -20,7 +12,6 @@ void Entity::LoadTextures ( ) {
 	if (psize) m_sprite.setTexture(m_textures[0]);
 }
 
-void Entity::SetKeyword (std::string new_key) {
-	m_key = new_key;
+bool Entity::CollidesWith(const Entity & another) {
+	return m_sprite.getGlobalBounds().intersects(another.m_sprite.getGlobalBounds());
 }
-

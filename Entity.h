@@ -16,13 +16,11 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
-	/// @brief Change where to search for textures.
-	/// This method will probably be erased in the future; an Entity should stay the same along the Match.
-	void SetKeyword(std::string new_key);
-	
 	/// @brief Fast collision checking method.
 	/// @param another Check collision with this sprite.
 	bool CollidesWith(const Entity &another);
+	/// @brief Apply gravity from World.
+	void ApplyGravity(float gravity) { m_speed.y += gravity; }
 	
 	/// @brief Get the entity's m_sprite.
 	sf::Sprite &GetSprite() { return m_sprite; }
@@ -37,11 +35,11 @@ public:
 	Entity(std::string keyword);
 	virtual ~Entity() {}
 protected:
-	void LoadTextures();
-	
 	std::string m_key;
+	
 	sf::Vector2f m_speed;
 	float m_topspeed;
+	
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
 };

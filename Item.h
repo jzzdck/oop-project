@@ -5,9 +5,10 @@
 /// @brief Mother class to all items in the game.
 class Item : public Entity {
 public:
-	Item();
-	void Update ( ) override;
-	void Draw (sf::RenderWindow & win) override;
+	Item(std::string keyword);
+	virtual void Update() = 0;
+	virtual void Draw(sf::RenderWindow & win) = 0;
+	virtual ~Item() { }
 private:
 };
 

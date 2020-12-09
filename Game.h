@@ -25,6 +25,7 @@ public:
 	void ProcessEvents();
 	
 	/// @brief Update the game's state.
+	/// In this function the game sets its current scene to another one, if necessary.
 	void Update();
 	
 	/// @brief Draw the game's elements.
