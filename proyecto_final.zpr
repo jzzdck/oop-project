@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Flag.cpp
+current_source=Match.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -38,7 +38,7 @@ cursor=23:3
 open=true
 [source]
 path=Match.cpp
-cursor=9:18
+cursor=10:58
 open=true
 [source]
 path=World.cpp
@@ -63,7 +63,7 @@ path=Item.cpp
 cursor=4:1
 [source]
 path=Flag.cpp
-cursor=5:13
+cursor=6:19
 open=true
 [header]
 path=Game.h
