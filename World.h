@@ -33,7 +33,7 @@ public:
 	/// @brief Get the index of the player's base platform in m_platforms.
 	/// @param which Which of the bases; player one's or player two's.
 	/// @return An index, -1 if the current world doesnt have any bases.
-	int GetBase(int which) const { return which ? m_base1 : m_base0; };
+	int GetBaseIndex(int which) const { return which ? m_base1 : m_base0; };
 	
 	/// @brief Construct a World
 	/// @param wdt The current window's width

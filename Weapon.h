@@ -2,9 +2,10 @@
 #define WEAPON_H
 #include <SFML/System/Vector2.hpp>
 #include "Entity.h"
+#include "Item.h"
 
 /// @brief Abstract class where all weapons inherit.
-class Weapon : public Entity {
+class Weapon : public Item {
 public:
 	virtual void Update() = 0;
 	/// @brief Draw the weapon in the current window

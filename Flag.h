@@ -5,7 +5,6 @@
 class Flag : public Item {
 public:
 	Flag(float intial_x, float initial_y, bool who);
-	void Update() override;
 	void Draw(sf::RenderWindow & win) override;
 private:
 };

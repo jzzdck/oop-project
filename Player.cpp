@@ -13,7 +13,7 @@ Player::Player (float initial_x, float initial_y, int player_index) :
 	m_weapon(nullptr), m_item(nullptr), can_grab(false)
 {
 	m_sprite.setPosition(initial_x, initial_y);
-	m_topspeed = 10;
+	m_topspeed = 9.6;
 	
 	LoadKeys();
 	LoadBelly();

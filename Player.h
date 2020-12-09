@@ -27,7 +27,7 @@ public:
 	
 	/// @brief In case of collision, apply a response vector to the player.
 	/// @param vec A projection vector made in World, recibed from Match.
-	void ApplyResponse(const sf::Vector2<double> &vec);
+	void ApplyResponse(const sf::Vector2<double> &vec) override;
 	
 	/// @brief Get the player's current jump speed.
 	int GetJumpSpeed() const { return m_jumpspeed; }

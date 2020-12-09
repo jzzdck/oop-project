@@ -15,3 +15,13 @@ Entity::Entity (std::string keyword) : m_key(keyword) {
 bool Entity::CollidesWith(const Entity & another) {
 	return m_sprite.getGlobalBounds().intersects(another.m_sprite.getGlobalBounds());
 }
+
+void Entity::Update ( ) { 
+	m_sprite.move(m_speed.x, m_speed.y); 
+};
+
+void Entity::ApplyResponse (const sf::Vector2<double> & vec) {
+	m_sprite.move(vec.x, vec.y);
+	if (!vec.x) m_speed.y = 0;
+}
+

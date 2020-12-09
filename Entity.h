@@ -13,7 +13,7 @@ class Game;
 /// @brief Entity is the highest hierarchy level for any entity in the game. 
 class Entity {
 public:
-	virtual void Update() = 0;
+	virtual void Update();
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
 	/// @brief Fast collision checking method.
@@ -21,6 +21,7 @@ public:
 	bool CollidesWith(const Entity &another);
 	/// @brief Apply gravity from World.
 	void ApplyGravity(float gravity) { m_speed.y += gravity; }
+	virtual void ApplyResponse(const sf::Vector2<double> &vec);
 	
 	/// @brief Get the entity's m_sprite.
 	sf::Sprite &GetSprite() { return m_sprite; }

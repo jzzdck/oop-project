@@ -1,7 +1,7 @@
 #include "Weapon.h"
 
 Weapon::Weapon(std::string keyword, int damage, bool facing, float width) :
-	Entity(keyword), m_damage(damage), m_current(facing), m_width(width)
+	Item(keyword), m_damage(damage), m_current(facing), m_width(width)
 {
 	
 }
