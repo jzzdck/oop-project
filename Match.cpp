@@ -80,8 +80,11 @@ void Match::UpdateItem(Item *item) {
 	item->ApplyGravity(m_world.GetGravity());
 	item->Update();
 	
-	for (Player &player : m_players)
-		if (item->CollidesWith(player) && !item->IsGrabbed() && player.CanGrab())
+	for (Player &player : m_players) {
+		if (item->CollidesWith(player) && !item->IsGrabbed() && player.CanGrab()) {
 			player.SetItem(item);
+			item->SetGrab(true);
+		}
+	}
 }
 
