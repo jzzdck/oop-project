@@ -22,6 +22,20 @@ public:
 	/// @param g The Match returns to the game some information, for example, if the current scene must be changed.
 	void Update(Game & g);
 	
+	/// @brief Update one of the players in the Match.
+	/// This function helps organize the code; it is better to think how to update one player
+	/// and then apply that general function to every player.
+	/// "Updating" means responding to the world's events: if the player won, if the player collides with the world, etc. 
+	/// @param player The player to update.
+	void UpdatePlayer(Player &player);
+	
+	/// @brief Update one of the items in the Match.
+	/// This function helps organize the code; it is better to think how to update one item
+	/// and then apply that general function to every item.
+	/// "Updating" means responding to the world's events: if the item has a new owner, if the item collides with the world, etc.
+	/// @param item The item to update.
+	void UpdateItem(Item *item);
+	
 	/// @brief Draw the Match's elements in the window.
 	/// @param win The window where to draw.
 	void Draw(sf::RenderWindow & win);
@@ -30,6 +44,7 @@ public:
 	/// @param width Match uses this parameter to set the X position of its elements.
 	/// @param height Match uses this parameter to set the Y position of its elements.
 	Match(float width, float height);
+	/// @brief Items are dynamic memory and should be deleted.
 	~Match();
 private:
 	/* se podria tirar todo en un solo vector de Entity,
