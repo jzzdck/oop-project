@@ -1,7 +1,11 @@
 #include "Weapon.h"
 
-Weapon::Weapon(std::string keyword, int damage, bool facing, float width) :
-	Item(keyword), m_damage(damage), m_current(facing), m_width(width)
+Weapon::Weapon(sf::Vector2f pos, std::string keyword, 
+			   int damage, bool facing, float width) :
+	Item(pos, keyword), 
+	m_damage(damage), 
+	m_current(facing), 
+	m_width(width)
 {
 	
 }

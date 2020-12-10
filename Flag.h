@@ -4,7 +4,7 @@
 
 class Flag : public Item {
 public:
-	Flag(float intial_x, float initial_y, bool who);
+	Flag(sf::Vector2f pos, bool who);
 	void Draw(sf::RenderWindow & win) override;
 private:
 };
