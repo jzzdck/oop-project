@@ -24,9 +24,8 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
 }
 
-void Player::LoadKeys()
-{
-	std::string keyword="p"+std::to_string(m_index);
+void Player::LoadKeys() {
+	std::string keyword = "p"+std::to_string(m_index);
 	Settings s("controls.conf",keyword);
 	
 	m_Input.BindKey("left", m_Input<s["key-left"]);
@@ -70,13 +69,8 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"] && m_weapon) 
-		m_weapon->Attack();
-	
-	if (m_item != nullptr)
-		can_grab = false;
-	else if (can_grab != m_Input["grab"]) 
-		can_grab = !can_grab;
+//	if (m_Input["attack"] && m_weapon) 
+//		m_weapon->Attack();
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -101,3 +95,11 @@ void Player::ApplyResponse(const sf::Vector2<double> &vec) {
 void Player::ApplyGravity(float gravity) {
 	m_speed.y += gravity;
 }
+
+bool Player::PressedGrab ( ) {
+	if (can_grab != m_Input["grab"]) {
+		can_grab = !can_grab;
+		return can_grab;
+	} else return false;
+}
+

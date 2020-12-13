@@ -9,16 +9,16 @@ public:
 	
 	/// @brief Set the current item's grab state.
 	/// Items can be grabbed or not grabbed.
-	void SetGrab(bool set) { is_grabbed = set; }
+	void SetOwner(int owner) { m_owner = owner; }
 	
 	/// @brief Check if the current item is already grabbed.
 	/// @return The current grab state.
-	bool IsGrabbed() const { return is_grabbed; }
+	int Owner() const { return m_owner; }
 	
 	virtual void Draw(sf::RenderWindow & win) = 0;
 	virtual ~Item() { }
 private:
-	bool is_grabbed;
+	int m_owner;
 };
 
 #endif
