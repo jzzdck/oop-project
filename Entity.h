@@ -27,6 +27,7 @@ public:
 	sf::Sprite &GetSprite() { return m_sprite; }
 	/// @brief Get the entity's m_speed.
 	sf::Vector2f &GetSpeed() { return m_speed; }
+	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
 	
 	/// @brief Construct an Entity given its keyword.
 	/** Every entity has its textures in textures.conf, to search an Entity's textures
