@@ -54,7 +54,7 @@ void Settings::LoadFile()
 			m_lines.push_back(*it); 
 		}
 	}
-	else std::cerr<<"Palabra clave no encontrada";
+	else std::cerr<<"La palabra clave "<<m_KeyWord<<" no encontrada";
 }
 
 void Settings::SaveChanges()
@@ -130,6 +130,7 @@ void Settings::RestoreThisToDef(std::string const& field)
 		}
 	}
 	m_fields_to_change.push_back(field);
+	///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
 }
 void Settings::RestoreAllToDef()
 {
@@ -137,6 +138,7 @@ void Settings::RestoreAllToDef()
 	for(std::string &x:m_default)
 		archo<<x+"\n";
 	archo.close();
+	
 }
 std::string Settings::operator[](std::string const& field)const
 {

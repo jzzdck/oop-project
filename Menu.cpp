@@ -188,7 +188,8 @@ void Menu::HighlightCurrentOption()
 	for (size_t i=m_texts.size()-m_Noptions; i<m_texts.size(); ++i)
 		m_texts[i].setFillColor({150, 150, 150, 150});
 	m_texts[m_texts.size()-m_Noptions+current_option].setFillColor({255, 255, 255});
-	
+	//esto sirve para dar el efecto de selecionar la opcion actual 
+	//(basicamente oscurece todos los textos selecionables menos el actual)
 }
 
 void Menu::CopyColorFromPlayer(unsigned const& text_position)
