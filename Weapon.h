@@ -7,7 +7,6 @@
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
-	virtual void Update() = 0;
 	/// @brief Draw the weapon in the current window
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	/// @brief Virtual method for attacking.
@@ -19,7 +18,7 @@ public:
 	void SetPos(const sf::Vector2f &relative_to, bool facing);
 	
 	/// @brief Construct a weapon in relation to where the player's facing.
-	Weapon(std::string keyword, int damage, bool facing, float wdt);
+	Weapon(sf::Vector2f pos, std::string keyword, int damage, bool facing, float wdt);
 	
 	/// @brief Virtual destructor; the class is abstract
 	virtual ~Weapon() {}

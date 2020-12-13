@@ -34,14 +34,18 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
+	void SetWeapon(Weapon *new_weapon) { m_weapon = new_weapon; }
+	void SetItem(Item *new_item) { m_item = new_item; }
+	bool HasItem() { return m_item; }
+	
 	/// @brief Checks if the player has pressed the 'grab' key.
-	bool CanGrab() const { return can_grab; }
+	bool PressedGrab();
 	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param initial_x Starting X position.
 	/// @param initial_y Starting Y position.
 	/// @param player_index Index given to the player. 
-	Player(float initial_x, float initial_y, int player_index);
+	Player(sf::Vector2f pos, int player_index);
 private:
 	void LoadBelly();
 	void LoadKeys();

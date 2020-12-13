@@ -6,19 +6,44 @@
 #include "World.h"
 #include "phutils.h"
 
-Player::Player (float initial_x, float initial_y, int player_index) :
-	Entity("player"), m_index(player_index),
-	m_jumpcount(2), m_jumpspeed(-12), is_jumping(false), 
+Player::Player (sf::Vector2f pos, int player_index) :
+	Entity(pos, "player"), 
+	m_index(player_index),
+	m_jumpcount(2),
+	m_jumpspeed(-12), 
+	is_jumping(false), 
 	current_sprite(!player_index), 
-	m_weapon(nullptr), m_item(nullptr), can_grab(false)
+	m_weapon(nullptr), 
+	m_item(nullptr), 
+	can_grab(false)
 {
-	m_sprite.setPosition(initial_x, initial_y);
 	m_topspeed = 9.6;
 	
 	LoadKeys();
 	LoadBelly();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
 }
+
+void Player::LoadKeys() {
+	std::string keyword = "p"+std::to_string(m_index);
+	Settings s("controls.conf",keyword);
+	
+	m_Input.BindKey("left", m_Input<s["key-left"]);
+	m_Input.BindKey("right", m_Input<s["key-right"]);
+	m_Input.BindKey("jump", m_Input<s["key-jump"]);
+	m_Input.BindKey("attack", m_Input<s["key-attack"]);
+	m_Input.BindKey("grab", m_Input<s["key-grab"]);
+}
+
+void Player::LoadBelly() {
+	Settings s("textures.conf", "belly");
+	int bsize = stoi(s["belly-size"]);
+	
+	mt_belly.resize(bsize);
+	for (size_t i=0; i<mt_belly.size(); ++i)
+		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
+}
+
 
 void Player::Update() {
 	if (is_jumping != m_Input["jump"]) {
@@ -44,17 +69,15 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-	if (m_Input["attack"] && m_weapon) 
-		m_weapon->Attack();
-	
-	if (can_grab != m_Input["grab"]) 
-		can_grab = !can_grab;
+//	if (m_Input["attack"] && m_weapon) 
+//		m_weapon->Attack();
 }
 
 void Player::Draw(sf::RenderWindow & win) {
 	m_sprite.setTexture(m_textures[current_sprite]);
 	ms_belly.setTexture(current_sprite ? mt_belly[1] : mt_belly[0]);
-	ms_belly.setPosition(m_sprite.getPosition()); // belly postion relative to player;
+	ms_belly.setPosition(m_sprite.getPosition());
+	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
 	
 	win.draw(ms_belly);
 	win.draw(m_sprite);
@@ -73,23 +96,10 @@ void Player::ApplyGravity(float gravity) {
 	m_speed.y += gravity;
 }
 
-void Player::LoadKeys()
-{
-	std::string keyword="p"+std::to_string(m_index);
-	Settings s("controls.conf",keyword);
-	
-	m_Input.BindKey("left", m_Input<s["key-left"]);
-	m_Input.BindKey("right", m_Input<s["key-right"]);
-	m_Input.BindKey("jump", m_Input<s["key-jump"]);
-	m_Input.BindKey("attack", m_Input<s["key-attack"]);
-	m_Input.BindKey("grab", m_Input<s["key-grab"]);
+bool Player::PressedGrab ( ) {
+	if (can_grab != m_Input["grab"]) {
+		can_grab = !can_grab;
+		return can_grab;
+	} else return false;
 }
 
-void Player::LoadBelly() {
-	Settings s("textures.conf", "belly");
-	int bsize = stoi(s["belly-size"]);
-
-	mt_belly.resize(bsize);
-	for (size_t i=0; i<mt_belly.size(); ++i)
-		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
-}

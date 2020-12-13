@@ -5,14 +5,13 @@
 /// @brief A revolver, the token weapon for now.
 class Revolver : public Weapon {
 public:
-	void Update() override;
 	void Draw(sf::RenderWindow &win) override;
 	
 	/// @brief Shoot.
 	void Attack() override;
 	
-	/// @brief Connstruct a Revolver with a fixed damage.
-	Revolver(bool facing, float wdt);
+	/// @brief Construct a Revolver with a fixed damage.
+	Revolver(sf::Vector2f pos, bool facing, float wdt);
 private:
 };
 
