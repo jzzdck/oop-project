@@ -13,40 +13,39 @@
 #include "Match.h"
 #include "Controls.h"
 #include <string>
-
 class Game;
 
 class Menu : public Escena {
 public:
-	void Update(Game &g);
-	void Draw(sf::RenderWindow &win);
 	
 	Menu(float width, float height,std::string location="principal");
-private:
+protected:
+	///@Load elements on contructor
 	void LoadTexts();
 	void LoadKeys();
-	std::string LoadHeadline();
 	
+	///@Movement and actions  in menu
+	void Move_Option_Down();
+	void Move_Option_Up();
+	bool Is_Selected();
+	
+	///@TextOperations
 	void RandomizeMyColor(unsigned const& text_position);
 	void HighlightCurrentOption();
 	void CopyColorFromPlayer(unsigned const& text_position);
-	void ChangePlayer();
-	void LoadPlayerColor();
-	void LoadSliders();
 	
+	///Variables
+	bool change_up, change_down,charge_select;
+	int current_option;
+	std::vector<sf::Text> m_texts;
+	
+private:
 	Controls m_input;
 	sf::Font m_font;
-	std::vector<sf::Text> m_texts;
 	std::string m_location;
-	int current_option;
 	unsigned frame_count, m_Noptions;
-	bool change_up, change_down,charge_select,m_player_selected;
-	sf::Color m_cp0,m_cp1;
-	std::vector<sf::RectangleShape> m_slider;
-	/*charge select tiene que estar inicializado con true, 
-	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
-	de la nueva escena la primera opcion.
-	*/
+
+	
 };
 
 #endif

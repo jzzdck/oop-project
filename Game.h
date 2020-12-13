@@ -5,7 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include "Scene.h"
-#include "Menu.h"
+#include "Menu_Principal.h"
 #include "Match.h"
 #include "Settings.h"
 
