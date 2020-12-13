@@ -100,6 +100,8 @@ bool Player::PressedGrab ( ) {
 	if (can_grab != m_Input["grab"]) {
 		can_grab = !can_grab;
 		return can_grab;
-	} else return false;
+	} 
+	
+	return false;
 }
 

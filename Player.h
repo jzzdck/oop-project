@@ -42,8 +42,7 @@ public:
 	bool PressedGrab();
 	
 	/// @brief Construct a player in an initial position, and give it an index.
-	/// @param initial_x Starting X position.
-	/// @param initial_y Starting Y position.
+	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
 private:

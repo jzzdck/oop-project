@@ -34,6 +34,7 @@ public:
 		a keyword is needed. For example: to search the player textures, the "player"
 		keyword must be given **/
 	/// @param keyword String to search in textures.conf
+	/// @param pos Intial entity position
 	Entity(sf::Vector2f pos, std::string keyword);
 	virtual ~Entity() {}
 protected:
