@@ -9,9 +9,18 @@ Match::Match(float width, float height) :
 {
 	m_players.emplace_back(Player( {win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.emplace_back(Player( {win_width*0.15f, win_height*0.4f}, 1) );
-	m_items.push_back(new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 0));
-	m_items.push_back(new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 1));
-	m_items.push_back(new Revolver( {win_width*utils::randf(), win_height*utils::randf()}, 1, 32));
+	
+	int randsize = rand()%(17-2) + 2;
+	m_items.resize(randsize);
+	for (size_t i=0; i<m_items.size(); ++i) { 
+		int chance = rand()%101;
+		if (chance < 33)
+			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 0);
+		else if (chance < 66)
+			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 1);
+		else
+			m_items[i] = new Revolver( {win_width*utils::randf(), win_height*utils::randf()}, 1, 32);
+	}
 }
 
 void Match::Update (Game & g) {
@@ -51,11 +60,6 @@ void Match::Draw (sf::RenderWindow & win) {
 	
 	m_world.Draw(win);
 	win.display();
-}
-
-Match::~Match() {
-	for (size_t i=0; i<m_items.size(); ++i) 
-		delete m_items[i];
 }
 
 void Match::UpdatePlayer(Player &player) {
@@ -99,3 +103,8 @@ void Match::UpdateItem(Item *item) {
 	item->Update();
 }
 
+
+Match::~Match() {
+	for (size_t i=0; i<m_items.size(); ++i) 
+		delete m_items[i];
+}
