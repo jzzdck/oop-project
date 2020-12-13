@@ -5,7 +5,6 @@
 Menu_Color::Menu_Color(float width,float height):
 	Menu(width,height,"color-options"),m_player_selected(false)  
 {
-	LoadTexts();
 	LoadKeys();
 	///guardamos el color de los jugadores
 	m_cp0 = utils::loadPlayerColor(0);
@@ -47,7 +46,6 @@ void Menu_Color::Draw (sf::RenderWindow & win)
 	for(const auto &text : m_texts)
 		win.draw(text);
 	win.display();
-	
 }
 
 void Menu_Color::ChangePlayer()
@@ -59,6 +57,7 @@ void Menu_Color::ChangePlayer()
 	aux+=std::to_string(int(m_player_selected)+1);
 	m_texts[1].setString(aux);
 }
+
 void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
 {
 	if(!m_player_selected)

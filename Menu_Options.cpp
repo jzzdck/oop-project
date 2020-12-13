@@ -4,7 +4,6 @@
 
 Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options") 
 {
-	LoadTexts();
 	LoadKeys();
 }
 

@@ -11,8 +11,7 @@ Menu::Menu(float width, float height,std::string location) :
 	de la nueva escena la primera opcion.
 	*/
 {
-
-
+	LoadTexts();
 }
 
 void Menu::LoadTexts ( ) 
@@ -51,6 +50,7 @@ void Menu::LoadKeys()
 	m_input.BindKey("go_down",m_input<s["key-down"]);
 	m_input.BindKey("select",m_input<s["key-select"]);
 }
+
 void Menu::RandomizeMyColor(unsigned const& text_position)
 {
 	utils::HSV col((frame_count*3)%361, 100, 100);
@@ -92,12 +92,11 @@ void Menu::Move_Option_Down()
 }
 bool Menu::Is_Selected()
 {
-	bool b;
 	if (charge_select != m_input["select"]) 
 	{
 		charge_select = !charge_select;
-		b=true;
-	}
-	else b=false;
-	return b;
+		return charge_select;
+	} 
+	
+	return false;
 }

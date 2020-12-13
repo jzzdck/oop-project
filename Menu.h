@@ -20,16 +20,16 @@ public:
 	
 	Menu(float width, float height,std::string location="principal");
 protected:
-	///@Load elements on contructor
+	///Load elements on contructor
 	void LoadTexts();
 	void LoadKeys();
 	
-	///@Movement and actions  in menu
+	///Movement and actions in menu
 	void Move_Option_Down();
 	void Move_Option_Up();
 	bool Is_Selected();
 	
-	///@TextOperations
+	///TextOperations
 	void RandomizeMyColor(unsigned const& text_position);
 	void HighlightCurrentOption();
 	void CopyColorFromPlayer(unsigned const& text_position);
@@ -44,8 +44,6 @@ private:
 	sf::Font m_font;
 	std::string m_location;
 	unsigned frame_count, m_Noptions;
-
-	
 };
 
 #endif

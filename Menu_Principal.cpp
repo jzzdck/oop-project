@@ -5,10 +5,8 @@
 
 Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"principal") 
 {
-	LoadTexts();
 	LoadHeadline();
 	LoadKeys();
-	
 }
 
 void Menu_Principal::Update (Game & g)
