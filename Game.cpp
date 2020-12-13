@@ -3,7 +3,7 @@
 Game::Game(float width, float height, std::string window_name) :
 	win_width(width), win_height(height),
 	m_window(sf::VideoMode(width, height), window_name),
-	m_current_scene(new Menu(width, height))
+	m_current_scene(new Menu_Principal(width, height))
 {
 	m_window.setFramerateLimit(60);
 }

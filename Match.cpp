@@ -16,7 +16,7 @@ Match::Match(float width, float height) :
 
 void Match::Update (Game & g) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		g.SetScene(new Menu(win_width, win_height));
+		g.SetScene(new Menu_Principal(win_width, win_height));
 	
 	for (Player &player : m_players)
 		UpdatePlayer(player);

@@ -1,8 +1,5 @@
 #include "Settings.h"
-#include <fstream>
-#include <SFML/Window/Keyboard.hpp>
-#include <algorithm>
-#include <iostream>
+
 
 Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
 	m_FileName(std::string("res/configuration-files/"+FileName)),
