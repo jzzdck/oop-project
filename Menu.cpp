@@ -5,24 +5,23 @@
 #include "Game.h"
 Menu::Menu(float width, float height,std::string location) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
-	change_up(false), change_down(false),charge_select(true),m_location(location)
+	change_up(false), change_down(false), charge_select(true),m_location(location)
 	/*charge select tiene que estar inicializado con true, 
 	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
 	de la nueva escena la primera opcion.
 	*/
 {
 	LoadTexts();
+	LoadKeys();
 }
 
 void Menu::LoadTexts ( ) 
 {
-	
 	Settings s("texts.conf",m_location);
 	m_font.loadFromFile(s["font"] + ".ttf");
 	m_texts.resize( stoi(s["size"]) );
 	m_Noptions=stoi(s["choosable"]);
-	int r, g, b;
-	std::stringstream ss;
+
 	for (size_t i=0; i<m_texts.size(); ++i) 
 	{ 
 		m_texts[i].setFont(m_font);
@@ -32,16 +31,12 @@ void Menu::LoadTexts ( )
 		m_texts[i].setString(str);
 		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
 		
-		ss << s[key+"color"];
-		ss >> r >> g >> b;
-		m_texts[i].setFillColor(sf::Color(r, g, b));
+		m_texts[i].setFillColor(utils::getColor( s[key+"color"]) );
 		sf::FloatRect text_rect = m_texts[i].getLocalBounds();
 		m_texts[i].setOrigin( text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
 		m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
 	}
 }
-
-
 
 void Menu::LoadKeys()
 {
@@ -70,9 +65,11 @@ void Menu::HighlightCurrentOption()
 
 void Menu::Move_Option_Up()
 {
-	if (change_up != m_input["go_up"]) {
+	if (change_up != m_input["go_up"]) 
+	{
 		change_up = !(change_up);
-		if (change_up) {
+		if (change_up) 
+		{
 			--current_option;
 			if (current_option < 0)
 				current_option = m_Noptions-1;
@@ -81,9 +78,11 @@ void Menu::Move_Option_Up()
 }
 void Menu::Move_Option_Down()
 {
-	if (change_down != m_input["go_down"]) {
+	if (change_down != m_input["go_down"]) 
+	{
 		change_down = !(change_down);
-		if (change_down) {
+		if (change_down)
+		{
 			++current_option;
 			if (current_option >= m_Noptions)
 				current_option %= m_Noptions;

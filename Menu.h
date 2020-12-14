@@ -17,7 +17,6 @@ class Game;
 
 class Menu : public Escena {
 public:
-	
 	Menu(float width, float height,std::string location="principal");
 protected:
 	///Load elements on contructor

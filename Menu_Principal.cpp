@@ -6,29 +6,31 @@
 Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"principal") 
 {
 	LoadHeadline();
-	LoadKeys();
 }
 
 void Menu_Principal::Update (Game & g)
 {
-	if(Is_Selected())
-		if(charge_select)
-			switch(current_option)
+	if(Is_Selected()) 
 	{
-	case 0:
-			g.SetScene(new Match(win_width, win_height));
-			break;
-	case 1:
-			g.SetScene(new Menu_Options(win_width, win_height));
-			break; 
-			
-	case 2:
-			g.Close();
-			break;
+		if(charge_select) 
+		{
+			switch(current_option)
+			{
+			case 0:
+				g.SetScene(new Match(win_width, win_height));
+				break;
+			case 1:
+				g.SetScene(new Menu_Options(win_width, win_height));
+				break; 
+			case 2:
+				g.Close();
+				break;
+			}
+		}
 	}
+	
 	Move_Option_Down();
 	Move_Option_Up();
-	
 }
 
 void Menu_Principal::Draw (sf::RenderWindow & win)
