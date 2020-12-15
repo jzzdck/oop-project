@@ -1,6 +1,7 @@
 #include "Controls.h"
 #include <map>
 #include <SFML/Window/Keyboard.hpp>
+#include <iostream>
 using namespace std;
 
 Controls::Controls()
@@ -73,6 +74,7 @@ sf::Keyboard::Key Controls::StringToKey(std::string const& str_key)
 	if(str_key=="Multiply")return sf::Keyboard::Key::Multiply ;
 	if(str_key=="Divide")return sf::Keyboard::Key::Divide ;
 	///si no es ninguna de estas, devuevle Unknown
+	std::cerr<<str_key<<" is an unknown key";
 	return sf::Keyboard::Key::Unknown ;
 }
 sf::Keyboard::Key Controls::operator<(std::string const& str_key)

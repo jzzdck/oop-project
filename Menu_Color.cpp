@@ -3,8 +3,10 @@
 #include "Menu_Options.h"
 
 Menu_Color::Menu_Color(float width,float height):
-	Menu(width,height,"color-options"),m_player_selected(false)  
+	Menu(width,height,"color-options"),
+	m_player_selected(false)
 {
+	LoadSliders();
 	///guardamos el color de los jugadores
 	m_cp0 = utils::loadPlayerColor(0);
 	m_cp1 = utils::loadPlayerColor(1);
@@ -36,7 +38,17 @@ void Menu_Color::Update (Game & g)
 			}
 		}
 	}
-	
+	if(Move_Option_Left())
+	{
+		if(current_option==1) 
+			Move_MySlider(2,0);//2 es el slider horizontal
+	}
+	if(Move_Option_Right())
+	{
+		if(current_option==1)
+			Move_MySlider(2,1);
+	}
+
 	Move_Option_Down();
 	Move_Option_Up();
 }
@@ -48,6 +60,8 @@ void Menu_Color::Draw (sf::RenderWindow & win)
 	HighlightCurrentOption();
 	for(const auto &text : m_texts)
 		win.draw(text);
+	for (const auto &rectangle : m_sliders)
+		win.draw(rectangle);
 	win.display();
 }
 
@@ -68,3 +82,4 @@ void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
 	else
 		m_texts[text_position].setFillColor(m_cp1);
 }
+
