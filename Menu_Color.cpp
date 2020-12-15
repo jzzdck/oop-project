@@ -1,6 +1,7 @@
 #include "Menu_Color.h"
 #include "Game.h"
 #include "Menu_Options.h"
+#include <cmath>
 
 Menu_Color::Menu_Color(float width,float height):
 	Menu(width,height,"color-options"),
@@ -10,6 +11,7 @@ Menu_Color::Menu_Color(float width,float height):
 	///guardamos el color de los jugadores
 	m_cp0 = utils::loadPlayerColor(0);
 	m_cp1 = utils::loadPlayerColor(1);
+	
 }
 
 void Menu_Color::Update (Game & g) 
@@ -57,6 +59,7 @@ void Menu_Color::Draw (sf::RenderWindow & win)
 {
 	win.clear({0, 0, 0});
 	CopyColorFromPlayer(0);//cambiamos el color del titulo al  del jugador
+	CopyDistance(6);
 	HighlightCurrentOption();
 	for(const auto &text : m_texts)
 		win.draw(text);
@@ -83,3 +86,12 @@ void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
 		m_texts[text_position].setFillColor(m_cp1);
 }
 
+void Menu_Color::CopyDistance(unsigned const& text_position)
+{
+	int distance;
+	sf::Rect<float> fig1,fig2;
+	fig1=m_sliders[0].getGlobalBounds();
+	fig2=m_sliders[2].getGlobalBounds();
+	distance=(fig2.left)-(fig1.left+fig1.width);
+	m_texts[text_position].setString(std::to_string(distance));
+}
