@@ -5,7 +5,10 @@
 #include "Game.h"
 Menu::Menu(float width, float height,std::string location) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
-	change_up(false), change_down(false), charge_select(true),m_location(location)
+	change_up(false), change_down(false),
+	change_right(false),change_left(false),
+	charge_select(true),m_location(location),
+	m_slide_speed(1,0)
 	/*charge select tiene que estar inicializado con true, 
 	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
 	de la nueva escena la primera opcion.
@@ -44,8 +47,25 @@ void Menu::LoadKeys()
 	m_input.BindKey("go_up",m_input<s["key-up"]);
 	m_input.BindKey("go_down",m_input<s["key-down"]);
 	m_input.BindKey("select",m_input<s["key-select"]);
+	m_input.BindKey("go_right",m_input<s["key-right"]);
+	m_input.BindKey("go_left",m_input<s["key-left"]);
 }
-
+void Menu::LoadSliders()
+{
+	Settings s("figures.conf", "sliders of "+m_location);
+	m_sliders.resize(stoi(s["size"]));
+	m_c = utils::getColor(s["color"]);
+	for (size_t i=0; i<m_sliders.size(); ++i) {
+		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
+		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
+		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
+		
+		sf::RectangleShape aux(dim);
+		aux.setPosition(pos);
+		
+		m_sliders[i] = aux;
+	}
+}
 void Menu::RandomizeMyColor(unsigned const& text_position)
 {
 	utils::HSV col((frame_count*3)%361, 100, 100);
@@ -81,12 +101,12 @@ void Menu::Move_Option_Down()
 	if (change_down != m_input["go_down"]) 
 	{
 		change_down = !(change_down);
-		if (change_down)
-		{
-			++current_option;
-			if (current_option >= m_Noptions)
-				current_option %= m_Noptions;
-		}
+			if (change_down)
+			{
+				++current_option;
+				if (current_option >= m_Noptions)
+					current_option %= m_Noptions;
+			}
 	}
 }
 bool Menu::Is_Selected()
@@ -98,4 +118,26 @@ bool Menu::Is_Selected()
 	} 
 	
 	return false;
+}
+bool Menu::Move_Option_Right()
+{
+	if (change_right != m_input["go_right"]) 
+	{
+		change_right = !(change_right);
+	}
+	return change_right;
+}
+bool Menu::Move_Option_Left()
+{
+	if (change_left != m_input["go_left"]) 
+	{
+		change_left = !(change_left);
+	}
+	return change_left;
+}
+void Menu::Move_MySlider(unsigned const slider_index,bool const direction)
+{
+	if(direction)m_sliders[slider_index].move(m_slide_speed.x,m_slide_speed.y);
+	else m_sliders[slider_index].move(-m_slide_speed.x,m_slide_speed.y);
+	
 }

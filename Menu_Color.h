@@ -8,8 +8,11 @@ public:
 	void Update (Game & g)override;
 	void Draw (sf::RenderWindow & win)override;
 private:
+
+	
 	void ChangePlayer();
 	void CopyColorFromPlayer(unsigned const& text_position);
+	
 	bool m_player_selected;
 	sf::Color m_cp0,m_cp1;
 	

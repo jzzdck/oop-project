@@ -22,11 +22,15 @@ protected:
 	///Load elements on contructor
 	void LoadTexts();
 	void LoadKeys();
+	void LoadSliders();
 	
 	///Movement and actions in menu
 	void Move_Option_Down();
 	void Move_Option_Up();
+	bool Move_Option_Left();
+	bool Move_Option_Right();
 	bool Is_Selected();
+	void Move_MySlider(unsigned const slider_index,bool const direction);
 	
 	///TextOperations
 	void RandomizeMyColor(unsigned const& text_position);
@@ -34,15 +38,17 @@ protected:
 	void CopyColorFromPlayer(unsigned const& text_position);
 	
 	///Variables
-	bool change_up, change_down,charge_select;
+	bool change_up, change_down,change_right,change_left,charge_select;
+	unsigned frame_count, m_Noptions;
 	int current_option;
+	std::vector<sf::RectangleShape> m_sliders;
 	std::vector<sf::Text> m_texts;
-	
-private:
+	sf::Vector2f m_slide_speed;
+	sf::Color m_c;
 	Controls m_input;
 	sf::Font m_font;
 	std::string m_location;
-	unsigned frame_count, m_Noptions;
+	
 };
 
 #endif
