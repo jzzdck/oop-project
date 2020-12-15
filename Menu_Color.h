@@ -12,8 +12,8 @@ private:
 	
 	void ChangePlayer();
 	void CopyColorFromPlayer(unsigned const& text_position);
-	void CopyDistance(unsigned const& text_position);
-	
+	void CopyDistance(unsigned const& text_position,sf::Vector2i const slider_index);
+	bool Collides(sf::RectangleShape& b1,sf::RectangleShape& b2);
 	bool m_player_selected;
 	sf::Color m_cp0,m_cp1;
 	
