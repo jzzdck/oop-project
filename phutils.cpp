@@ -7,13 +7,15 @@
 using namespace std;
 
 namespace utils {
-	sf::Vector2f getCenter(const sf::Rect<float> & of_this) {
+	sf::Vector2f getCenter(const sf::Rect<float> & of_this) 
+	{
 		float x_center = of_this.left+of_this.width/2;
 		float y_center = of_this.top+of_this.height/2;
 		return { x_center, y_center };
 	}
 	
-	sf::Color getColor(std::string rgb) {
+	sf::Color getColor(std::string rgb)
+	{
 		int r, g, b;
 		std::stringstream ss;
 		
@@ -23,7 +25,8 @@ namespace utils {
 		return sf::Color(r, g, b);
 	}
 	
-	HSV getColorHSV(std::string hsv) {
+	HSV getColorHSV(std::string hsv) 
+	{
 		int h, s, v;
 		std::stringstream ss;
 		
@@ -33,34 +36,41 @@ namespace utils {
 		return HSV(h, s, v);
 	}
 	
-	sf::Color loadPlayerColor(int player_index) {
+	sf::Color loadPlayerColor(int player_index)
+	{
 		Settings s("textures.conf","player");
 		return utils::getColor(s["color-p"+std::to_string(player_index)]);
 	}
 	
-	void HSV::SetHue (float hue) {
+	void HSV::SetHue (float hue) 
+	{
 		hue = std::fmod(hue, 100);
 		m_hue = hue;
 	}
 	
-	void HSV::SetSat (float sat) {
+	void HSV::SetSat (float sat) 
+	{
 		sat = std::fmod(sat, 100);
 		m_sat = sat;
 	}
 	
-	void HSV::SetVal (float val) {
+	void HSV::SetVal (float val) 
+	{
 		val = std::fmod(val, 100);
 		m_val = val;
 	}
 	
 	HSV::HSV (float hue, float sat, float value) :
-		m_hue(hue), m_sat(sat), m_val(value) {  }
+		m_hue(hue), m_sat(sat), m_val(value)
+	{  }
 	
-	HSV::HSV (const sf::Color & col) {
+	HSV::HSV (const sf::Color & col) 
+	{
 		*this = MakeHSV(col);
 	}
 	
-	HSV MakeHSV (const sf::Color & col) {
+	HSV MakeHSV (const sf::Color & col)
+	{
 		float max = std::max(col.r, (std::max(col.g, col.b)));
 		float min = std::min(col.r, (std::min(col.g, col.b)));
 		float dif = max - min; 
@@ -86,7 +96,8 @@ namespace utils {
 		return HSV(hue, sat, val);
 	}
 	
-	sf::Color HSV::MakeRGB() const {
+	sf::Color HSV::MakeRGB() const 
+	{
 		float r, g, b;
 		
 		float C = (m_val/100) * (m_sat/100);
