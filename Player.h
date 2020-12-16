@@ -16,11 +16,11 @@ class Game;
 class Player : public Entity {
 public:
 	/// @brief Update the player in relation to input.
-	void Update() override;
+	void Update() override; // every component would get updated
 	
 	/// @brief Draw the player in the current window.
 	/// @param win Where the player will be drawed.
-	void Draw(sf::RenderWindow &win) override;
+	void Draw(sf::RenderWindow &win) override; // graphics component's job
 	
 	/// @brief Apply a constant negative force to the player.
 	void ApplyGravity(float gravity);
@@ -46,17 +46,21 @@ public:
 	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
 private:
-	void LoadBelly();
-	void LoadKeys();
+	int m_index;
 	
 	Controls m_Input;
-	int m_index, m_jumpcount, current_sprite;
-	int m_jumpspeed;
-	bool is_jumping, can_grab;
+	void LoadKeys();
 	
-	Item *m_item;
+	int m_jumpcount, m_jumpspeed; 
+	bool is_jumping;
+	
 	Weapon *m_weapon;
+	Item *m_item; 
+	bool can_grab;
+	
+	int current_sprite;
 	sf::Sprite ms_belly;
+	void LoadBelly();
 	std::vector<sf::Texture> mt_belly;
 };
 
