@@ -5,6 +5,8 @@
 #include <sstream>
 
 namespace utils {
+	bool wasPressed(bool &prev, bool act);
+	
 	/// @brief Utility class for converting SFML's rgb to HSV
 	class HSV {
 		float m_hue, m_sat, m_val;

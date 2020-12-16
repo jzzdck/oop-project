@@ -110,5 +110,14 @@ namespace utils {
 	}
 	
 	float randf() { return rand()%1001 / 1000.f; }
+	
+	bool wasPressed(bool &prev, bool act) {
+		if (prev != act) {
+			prev = !prev;
+			return prev;
+		}
+		
+		return false;
+	}
 }
 
