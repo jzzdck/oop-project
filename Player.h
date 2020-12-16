@@ -22,9 +22,6 @@ public:
 	/// @param win Where the player will be drawed.
 	void Draw(sf::RenderWindow &win) override; // graphics component's job
 	
-	/// @brief Apply a constant negative force to the player.
-	void ApplyGravity(float gravity);
-	
 	/// @brief In case of collision, apply a response vector to the player.
 	/// @param vec A projection vector made in World, recibed from Match.
 	void ApplyResponse(const sf::Vector2<double> &vec) override;
@@ -48,7 +45,7 @@ public:
 private:
 	int m_index;
 	
-	Controls m_Input;
+	Controls m_input;
 	void LoadKeys();
 	
 	int m_jumpcount, m_jumpspeed; 

@@ -28,11 +28,11 @@ void Player::LoadKeys() {
 	std::string keyword = "p"+std::to_string(m_index);
 	Settings s("controls.conf",keyword);
 	
-	m_Input.BindKey("left", m_Input<s["key-left"]);
-	m_Input.BindKey("right", m_Input<s["key-right"]);
-	m_Input.BindKey("jump", m_Input<s["key-jump"]);
-	m_Input.BindKey("attack", m_Input<s["key-attack"]);
-	m_Input.BindKey("grab", m_Input<s["key-grab"]);
+	m_input.BindKey("left", m_input<s["key-left"]);
+	m_input.BindKey("right", m_input<s["key-right"]);
+	m_input.BindKey("jump", m_input<s["key-jump"]);
+	m_input.BindKey("attack", m_input<s["key-attack"]);
+	m_input.BindKey("grab", m_input<s["key-grab"]);
 }
 
 void Player::LoadBelly() {
@@ -46,8 +46,7 @@ void Player::LoadBelly() {
 
 
 void Player::Update() {
-	if (is_jumping != m_Input["jump"]) {
-		is_jumping = !(is_jumping);
+	if (utils::wasPressed(is_jumping, m_input["jump"])) {
 		if (is_jumping && m_jumpcount > 0 ) {
 			m_speed.y = m_jumpspeed;
 			--m_jumpcount;
@@ -55,15 +54,15 @@ void Player::Update() {
 			m_speed.y = -5;
 	}
 
-	if (m_Input["right"]) {
+	if (m_input["right"]) {
 		m_sprite.move(m_speed.x, 0);
 		current_sprite = 0;
-	} else if (m_Input["left"]) {
+	} else if (m_input["left"]) {
 		m_sprite.move(-m_speed.x, 0);
 		current_sprite = 1;
 	} m_sprite.move(0, m_speed.y);
 	
-	if (m_Input["right"] || m_Input["left"]) {
+	if (m_input["right"] || m_input["left"]) {
 		m_speed.x += 1;
 		if (m_speed.x > m_topspeed)
 			m_speed.x = m_topspeed;
@@ -92,16 +91,7 @@ void Player::ApplyResponse(const sf::Vector2<double> &vec) {
 		m_jumpcount = 2;
 }
 
-void Player::ApplyGravity(float gravity) {
-	m_speed.y += gravity;
-}
-
 bool Player::PressedGrab ( ) {
-	if (can_grab != m_Input["grab"]) {
-		can_grab = !can_grab;
-		return can_grab;
-	} 
-	
-	return false;
+	return utils::wasPressed(can_grab, m_input["grab"]);
 }
 
