@@ -89,9 +89,7 @@ void Menu::HighlightCurrentOption()
 
 void Menu::Move_Option_Up()
 {
-	if (change_up != m_input["go_up"]) 
-	{
-		change_up = !(change_up);
+	if (utils::wasPressed(change_up, m_input["go_up"])) {
 		if (change_up) 
 		{
 			--current_option;
@@ -100,45 +98,20 @@ void Menu::Move_Option_Up()
 		}
 	}
 }
+
 void Menu::Move_Option_Down()
 {
-	if (change_down != m_input["go_down"]) 
+	if (utils::wasPressed(change_down, m_input["go_down"])) 
 	{
-		change_down = !(change_down);
-			if (change_down)
-			{
-				++current_option;
-				if (current_option > m_Noptions.y-m_Noptions.x)
-					current_option = 0;
-			}
+		if (change_down)
+		{
+			++current_option;
+			if (current_option > m_Noptions.y-m_Noptions.x)
+				current_option = 0;
+		}
 	}
 }
-bool Menu::Is_Selected()
-{
-	if (charge_select != m_input["select"]) 
-	{
-		charge_select = !charge_select;
-		return charge_select;
-	} 
-	
-	return false;
-}
-bool Menu::Move_Option_Right()
-{
-	if (change_right != m_input["go_right"]) 
-	{
-		change_right = !(change_right);
-	}
-	return change_right;
-}
-bool Menu::Move_Option_Left()
-{
-	if (change_left != m_input["go_left"]) 
-	{
-		change_left = !(change_left);
-	}
-	return change_left;
-}
+
 void Menu::Move_MySlider(unsigned const slider_index,bool const direction)
 {
 	if(direction)m_sliders[slider_index].move(m_slide_speed.x,m_slide_speed.y);

@@ -1,6 +1,7 @@
 #include "Menu_Options.h"
 #include "Game.h"
 #include "Menu_Color.h"
+#include "phutils.h"
 
 Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options") 
 {
@@ -8,7 +9,7 @@ Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options"
 
 void Menu_Options::Update (Game & g) 
 {
-	if(Is_Selected()) 
+	if(utils::wasPressed(charge_select, m_input["select"])) 
 	{
 		if(charge_select) 
 		{

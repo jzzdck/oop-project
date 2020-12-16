@@ -15,7 +15,7 @@ Menu_Color::Menu_Color(float width,float height):
 
 void Menu_Color::Update (Game & g) 
 {
-	if(Is_Selected())
+	if(utils::wasPressed(charge_select, m_input["select"]))
 	{
 		if(charge_select)
 		{
@@ -30,7 +30,8 @@ void Menu_Color::Update (Game & g)
 			}
 		}
 	}
-	if(Move_Option_Left())
+	
+	if(m_input["go_left"])
 	{
 		switch(current_option)
 		{
@@ -48,7 +49,8 @@ void Menu_Color::Update (Game & g)
 			break;
 		}
 	}
-	if(Move_Option_Right())
+	
+	if(m_input["go_right"])
 	{
 		switch(current_option)
 		{

@@ -10,7 +10,7 @@ Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"prin
 
 void Menu_Principal::Update (Game & g)
 {
-	if(Is_Selected()) 
+	if(utils::wasPressed(charge_select, m_input["select"])) 
 	{
 		if(charge_select) 
 		{

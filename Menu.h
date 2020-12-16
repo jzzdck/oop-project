@@ -27,9 +27,6 @@ protected:
 	///Movement and actions in menu
 	void Move_Option_Down();
 	void Move_Option_Up();
-	bool Move_Option_Left();
-	bool Move_Option_Right();
-	bool Is_Selected();
 	void Move_MySlider(unsigned const slider_index,bool const direction);
 	
 	///TextOperations
