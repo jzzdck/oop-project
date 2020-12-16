@@ -39,11 +39,13 @@ protected:
 	
 	///Variables
 	bool change_up, change_down,change_right,change_left,charge_select;
-	unsigned frame_count, m_Noptions;
+	unsigned frame_count;
+	
 	int current_option;
 	std::vector<sf::RectangleShape> m_sliders;
 	std::vector<sf::Text> m_texts;
 	sf::Vector2f m_slide_speed;
+	sf::Vector2i m_Noptions;//los numeros son [x,y] inlcuyendo (y) 
 	sf::Color m_c;
 	Controls m_input;
 	sf::Font m_font;

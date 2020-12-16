@@ -23,8 +23,12 @@ void Menu::LoadTexts ( )
 	Settings s("texts.conf",m_location);
 	m_font.loadFromFile(s["font"] + ".ttf");
 	m_texts.resize( stoi(s["size"]) );
-	m_Noptions=stoi(s["choosable"]);
-
+	std::string choices=s["choosable"];
+	int choice_min=stoi(choices.substr(0,choices.find(",")));
+	int choice_max=stoi(choices.substr(choices.find(",")+1,choices.size()));
+	m_Noptions={choice_min,choice_max};
+	
+	
 	for (size_t i=0; i<m_texts.size(); ++i) 
 	{ 
 		m_texts[i].setFont(m_font);
@@ -76,9 +80,9 @@ void Menu::RandomizeMyColor(unsigned const& text_position)
 
 void Menu::HighlightCurrentOption()
 {
-	for (size_t i=m_texts.size()-m_Noptions; i<m_texts.size(); ++i)
+	for (size_t i=m_Noptions.x; i<=m_Noptions.y; ++i)
 		m_texts[i].setFillColor({150, 150, 150, 150});
-	m_texts[m_texts.size()-m_Noptions+current_option].setFillColor({255, 255, 255});
+	m_texts[m_Noptions.x+current_option].setFillColor({255, 255, 255});
 	//esto sirve para dar el efecto de selecionar la opcion actual 
 	//(basicamente oscurece todos los textos selecionables menos el actual)
 }
@@ -92,7 +96,7 @@ void Menu::Move_Option_Up()
 		{
 			--current_option;
 			if (current_option < 0)
-				current_option = m_Noptions-1;
+				current_option = m_Noptions.y-m_Noptions.x;
 		}
 	}
 }
@@ -104,8 +108,8 @@ void Menu::Move_Option_Down()
 			if (change_down)
 			{
 				++current_option;
-				if (current_option >= m_Noptions)
-					current_option %= m_Noptions;
+				if (current_option > m_Noptions.y-m_Noptions.x)
+					current_option = 0;
 			}
 	}
 }
