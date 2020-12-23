@@ -71,20 +71,24 @@ namespace utils {
 	
 	HSV MakeHSV (const sf::Color & col)
 	{
-		float max = std::max(col.r, (std::max(col.g, col.b)));
-		float min = std::min(col.r, (std::min(col.g, col.b)));
+		float r = col.r/255;
+		float g = col.g/255;
+		float b = col.b/255;
+		
+		float max = std::max(r, (std::max(g, b)));
+		float min = std::min(r, (std::min(g, b)));
 		float dif = max - min; 
 		
 		float hue, val, sat;
 		
 		if (max == 0 && min == 0) 
 			hue = 0;
-		else if (max == col.r)
-			hue = std::fmod((60*((col.g-col.b)/dif) + 360), 360);
-		else if (max == col.g)
-			hue = std::fmod((60*((col.b-col.r)/dif) + 120), 360);
-		else if (max == col.b)
-			hue = std::fmod((60*((col.r-col.g)/dif) + 240), 360);
+		else if (max == r)
+			hue = std::fmod((60*((g-b)/dif) + 360), 360);
+		else if (max == g)
+			hue = std::fmod((60*((b-r)/dif) + 120), 360);
+		else if (max == b)
+			hue = std::fmod((60*((r-g)/dif) + 240), 360);
 		
 		if (max == 0) 
 			sat = 0;
