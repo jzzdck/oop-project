@@ -71,9 +71,9 @@ namespace utils {
 	
 	HSV MakeHSV (const sf::Color & col)
 	{
-		float r = col.r/255;
-		float g = col.g/255;
-		float b = col.b/255;
+		float r = col.r/255.0;
+		float g = col.g/255.0;
+		float b = col.b/255.0;
 		
 		float max = std::max(r, (std::max(g, b)));
 		float min = std::min(r, (std::min(g, b)));
