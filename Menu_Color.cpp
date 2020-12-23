@@ -101,8 +101,7 @@ void Menu_Color::PosSlideByColor(bool const player)
 	float x=color.GetHue()/360.f;
 	float y=color.GetSat()/100.f;
 	float z=color.GetVal()/100.f;
-		m_sliders[0].JumpToPorcentage(x);
-		m_sliders[1].JumpToPorcentage(y);
-		m_sliders[2].JumpToPorcentage(z);
-		
+	m_sliders[0].JumpToPorcentage(x);
+	m_sliders[1].JumpToPorcentage(y);
+	m_sliders[2].JumpToPorcentage(z);	
 }
