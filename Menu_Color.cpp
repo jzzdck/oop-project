@@ -10,8 +10,10 @@ Menu_Color::Menu_Color(float width,float height):
 	LoadFigures();
 	LoadSliders();
 	///guardamos el color de los jugadores
-	m_cp0 = utils::loadPlayerColor(0);
-	m_cp1 = utils::loadPlayerColor(1);
+	m_cp.resize(3);
+	for(int i=0;i<2;++i)
+		m_cp[i]=utils::loadPlayerColor(i);
+	m_cp[2]=m_cp[0];
 	PosSlideByColor(0);
 }
 
@@ -49,6 +51,7 @@ void Menu_Color::Update (Game & g)
 	}
 	Move_Option_Down();
 	Move_Option_Up();
+	UpdatePColor();
 }
 
 void Menu_Color::Draw (sf::RenderWindow & win) 
@@ -77,14 +80,12 @@ void Menu_Color::ChangePlayer()
 	aux+=std::to_string(int(m_player_selected)+1);
 	m_texts[1].setString(aux);
 	PosSlideByColor(m_player_selected);
+	m_cp[2]=m_cp[int(m_player_selected)];
 }
 
 void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
 {
-	if(!m_player_selected)
-		m_texts[text_position].setFillColor(m_cp0);
-	else
-		m_texts[text_position].setFillColor(m_cp1);
+	m_texts[text_position].setFillColor(m_cp[2]);
 }
 
 void Menu_Color::CopyDistance(unsigned const& text_index,unsigned const slider_index)
@@ -93,15 +94,19 @@ void Menu_Color::CopyDistance(unsigned const& text_index,unsigned const slider_i
 }
 void Menu_Color::PosSlideByColor(bool const player)
 {
-	utils::HSV color;
-	if(!player)
-		color=utils::MakeHSV(m_cp0);
-	else
-		color=utils::MakeHSV(m_cp1);
+	utils::HSV color(utils::MakeHSV(m_cp[int(m_player_selected)]));
 	float x=color.GetHue()/360.f;
 	float y=color.GetSat()/100.f;
 	float z=color.GetVal()/100.f;
 	m_sliders[0].JumpToPorcentage(x);
 	m_sliders[1].JumpToPorcentage(y);
 	m_sliders[2].JumpToPorcentage(z);	
+}
+void Menu_Color::UpdatePColor()
+{
+	float hue,sat,val;
+	hue=m_sliders[0].getDistance();
+	sat=m_sliders[1].getDistance();
+	val=m_sliders[2].getDistance();
+	m_cp[2]=utils::HSV(hue,sat,val).MakeRGB();
 }
