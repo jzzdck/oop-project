@@ -21,11 +21,14 @@ int Slider::getDistance()
 float Slider::getPorcentualDistance()
 {
 	sf::Rect<float> l=m_r.getGlobalBounds();
-	float min=m_MinPos;
-	float max=m_MaxPos-l.width;
-	return (l.left-min)/(max-min);
+	return (l.left-m_MinPos)/(m_MaxPos-l.width-m_MinPos);
 }
-
+void Slider::JumpToPorcentage(float const value)
+{
+	sf::Rect<float> l=m_r.getGlobalBounds();
+	float pos=value*(m_MaxPos-l.width-m_MinPos)+m_MinPos;
+	m_r.setPosition(pos,l.top);
+}
 void Slider::setLimits(sf::Vector2f const min_max)
 {
 	m_MinPos=min_max.x;

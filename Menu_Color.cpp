@@ -12,6 +12,7 @@ Menu_Color::Menu_Color(float width,float height):
 	///guardamos el color de los jugadores
 	m_cp0 = utils::loadPlayerColor(0);
 	m_cp1 = utils::loadPlayerColor(1);
+	PosSlideByColor(0);
 }
 
 void Menu_Color::Update (Game & g) 
@@ -34,33 +35,17 @@ void Menu_Color::Update (Game & g)
 
 	if(m_input["go_left"])
 	{
-		switch(current_option)
-		{
-		case 1:
-			if(m_sliders[0].isAtLimit(0))m_sliders[0].Move(0);
-			break;
-		case 2:
-			if(m_sliders[1].isAtLimit(0))m_sliders[1].Move(0);
-			break;
-		case 3:
-			if(m_sliders[2].isAtLimit(0))m_sliders[2].Move(0);
-			break;
-		}
+		if((current_option>0)
+		and(current_option<4)
+		and(m_sliders[current_option-1].isAtLimit(0)))
+			m_sliders[current_option-1].Move(0);
 	}
 	if(m_input["go_right"])
 	{
-		switch(current_option)
-		{
-		case 1:
-			if(m_sliders[0].isAtLimit(1))m_sliders[0].Move(1);
-			break;
-		case 2:
-			if(m_sliders[1].isAtLimit(1))m_sliders[1].Move(1);
-			break;
-		case 3:
-			if(m_sliders[2].isAtLimit(1))m_sliders[2].Move(1);
-			break;
-		}
+		if((current_option>0)
+		and(current_option<4)
+		and(m_sliders[current_option-1].isAtLimit(1)))
+			m_sliders[current_option-1].Move(1);
 	}
 	Move_Option_Down();
 	Move_Option_Up();
@@ -70,11 +55,10 @@ void Menu_Color::Draw (sf::RenderWindow & win)
 {
 	win.clear({0, 0, 0});
 	CopyColorFromPlayer(0);//cambiamos el color del titulo al  del jugador
-	for(size_t i=6;i<m_texts.size();++i)
-	{
-		CopyDistance(i,i-6);
-	}
 	HighlightCurrentOption();
+	
+	for(size_t i=m_texts.size()-3;i<m_texts.size();++i)
+		CopyDistance(i,i-(m_texts.size()-3));
 	for(const auto &text : m_texts)
 		win.draw(text);
 	for (const auto &rectangle : m_rectangles)
@@ -92,6 +76,7 @@ void Menu_Color::ChangePlayer()
 	aux.resize(aux.size()-1);//le sacomos ya sea el 1 o 2
 	aux+=std::to_string(int(m_player_selected)+1);
 	m_texts[1].setString(aux);
+	PosSlideByColor(m_player_selected);
 }
 
 void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
@@ -105,4 +90,19 @@ void Menu_Color::CopyColorFromPlayer(unsigned const& text_position)
 void Menu_Color::CopyDistance(unsigned const& text_index,unsigned const slider_index)
 {
 	m_texts[text_index].setString(std::to_string(m_sliders[slider_index].getDistance()));
+}
+void Menu_Color::PosSlideByColor(bool const player)
+{
+	utils::HSV color;
+	if(!player)
+		color=utils::MakeHSV(m_cp0);
+	else
+		color=utils::MakeHSV(m_cp1);
+	float x=color.GetHue()/360.f;
+	float y=color.GetSat()/100.f;
+	float z=color.GetVal()/100.f;
+		m_sliders[0].JumpToPorcentage(x);
+		m_sliders[1].JumpToPorcentage(y);
+		m_sliders[2].JumpToPorcentage(z);
+		
 }

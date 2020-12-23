@@ -7,7 +7,7 @@ class Slider {
 public:
 	Slider();
 	void Move(bool const direction);
-	
+	void JumpToPorcentage(float const value);
 	float getPorcentualDistance();//returns the % of the distance beteween MinPos and MaxPos
 	int getDistance();
 	bool isAtLimit(bool const right_limit);
