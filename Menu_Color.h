@@ -9,11 +9,9 @@ public:
 	void Draw (sf::RenderWindow & win)override;
 private:
 
-	
 	void ChangePlayer();
 	void CopyColorFromPlayer(unsigned const& text_position);
-	void CopyDistance(unsigned const& text_position,sf::Vector2i const slider_index);
-	bool Collides(sf::RectangleShape& b1,sf::RectangleShape& b2);
+	void CopyDistance(unsigned const& text_index,unsigned const slider_index);
 	bool m_player_selected;
 	sf::Color m_cp0,m_cp1;
 	

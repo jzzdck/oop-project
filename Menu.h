@@ -13,6 +13,7 @@
 #include "Match.h"
 #include "Controls.h"
 #include <string>
+#include "Slider.h"
 class Game;
 
 class Menu : public Escena {
@@ -22,12 +23,12 @@ protected:
 	///Load elements on contructor
 	void LoadTexts();
 	void LoadKeys();
+	void LoadFigures();
 	void LoadSliders();
 	
 	///Movement and actions in menu
 	void Move_Option_Down();
 	void Move_Option_Up();
-	void Move_MySlider(unsigned const slider_index,bool const direction);
 	
 	///TextOperations
 	void RandomizeMyColor(unsigned const& text_position);
@@ -39,11 +40,10 @@ protected:
 	unsigned frame_count;
 	
 	int current_option;
-	std::vector<sf::RectangleShape> m_sliders;
+	std::vector<Slider> m_sliders;
+	std::vector<sf::RectangleShape> m_rectangles;
 	std::vector<sf::Text> m_texts;
-	sf::Vector2f m_slide_speed;
 	sf::Vector2i m_Noptions;//los numeros son [x,y] inlcuyendo (y) 
-	sf::Color m_c;
 	Controls m_input;
 	sf::Font m_font;
 	std::string m_location;
