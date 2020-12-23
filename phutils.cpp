@@ -9,8 +9,8 @@ using namespace std;
 namespace utils {
 	sf::Vector2f getCenter(const sf::Rect<float> & of_this) 
 	{
-		float x_center = of_this.left+of_this.width/2;
-		float y_center = of_this.top+of_this.height/2;
+		float x_center = of_this.left+of_this.width/2.f;
+		float y_center = of_this.top+of_this.height/2.f;
 		return { x_center, y_center };
 	}
 	
@@ -44,19 +44,19 @@ namespace utils {
 	
 	void HSV::SetHue (float hue) 
 	{
-		hue = std::fmod(hue, 100);
+		hue = std::fmod(hue, 360.f);
 		m_hue = hue;
 	}
 	
 	void HSV::SetSat (float sat) 
 	{
-		sat = std::fmod(sat, 100);
+		sat = std::fmod(sat, 100.f);
 		m_sat = sat;
 	}
 	
 	void HSV::SetVal (float val) 
 	{
-		val = std::fmod(val, 100);
+		val = std::fmod(val, 100.f);
 		m_val = val;
 	}
 	
@@ -71,9 +71,9 @@ namespace utils {
 	
 	HSV MakeHSV (const sf::Color & col)
 	{
-		float r = col.r/255.0;
-		float g = col.g/255.0;
-		float b = col.b/255.0;
+		float r = col.r/255.f;
+		float g = col.g/255.f;
+		float b = col.b/255.f;
 		
 		float max = std::max(r, (std::max(g, b)));
 		float min = std::min(r, (std::min(g, b)));
@@ -84,11 +84,11 @@ namespace utils {
 		if (max == 0 && min == 0) 
 			hue = 0;
 		else if (max == r)
-			hue = std::fmod((60*((g-b)/dif) + 360), 360);
+			hue = std::fmod((60*((g-b)/dif) + 360), 360.f);
 		else if (max == g)
-			hue = std::fmod((60*((b-r)/dif) + 120), 360);
+			hue = std::fmod((60*((b-r)/dif) + 120), 360.f);
 		else if (max == b)
-			hue = std::fmod((60*((r-g)/dif) + 240), 360);
+			hue = std::fmod((60*((r-g)/dif) + 240), 360.f);
 		
 		if (max == 0) 
 			sat = 0;
@@ -104,9 +104,9 @@ namespace utils {
 	{
 		float r, g, b;
 		
-		float C = (m_val/100) * (m_sat/100);
-		float X = C * (1 -  std::fabs(std::fmod(m_hue/60, 2) - 1));
-		float m = m_val/100 - C;
+		float C = (m_val/100.f) * (m_sat/100.f);
+		float X = C * (1 -  std::fabs(std::fmod(m_hue/60.f, 2.f) - 1));
+		float m = m_val/100.f - C;
 		
 		if (m_hue < 60)
 			r = C, g = X, b = 0;
