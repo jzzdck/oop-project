@@ -7,8 +7,7 @@ Menu::Menu(float width, float height,std::string location) :
 	Escena(width, height),	frame_count(0),	current_option(0), 
 	change_up(false), change_down(false),
 	change_right(false),change_left(false),
-	charge_select(true),m_location(location),
-	m_slide_speed(1,0)
+	charge_select(true),m_location(location)
 	/*charge select tiene que estar inicializado con true, 
 	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
 	de la nueva escena la primera opcion.
@@ -54,21 +53,51 @@ void Menu::LoadKeys()
 	m_input.BindKey("go_right",m_input<s["key-right"]);
 	m_input.BindKey("go_left",m_input<s["key-left"]);
 }
-void Menu::LoadSliders()
+void Menu::LoadFigures()
 {
-	Settings s("figures.conf", "sliders of "+m_location);
-	m_sliders.resize(stoi(s["size"]));
-	m_c = utils::getColor(s["color"]);
-	for (size_t i=0; i<m_sliders.size(); ++i) {
+	Settings s("figures.conf", "figures of "+m_location);
+	m_rectangles.resize(stoi(s["size"]));
+	sf::Color c = utils::getColor(s["color"]);
+	for (size_t i=0; i<m_rectangles.size(); ++i) {
 		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
 		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
 		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
 		
 		sf::RectangleShape aux(dim);
+		aux.setFillColor(c);
 		aux.setPosition(pos);
 		
-		m_sliders[i] = aux;
+		m_rectangles[i] = aux;
 	}
+}
+void Menu::LoadSliders()
+{
+	Settings s("figures.conf", "sliders of "+m_location);
+	m_sliders.resize(stoi(s["size"]));
+	sf::Color c = utils::getColor(s["color"]);
+	float speed=stoi(s["speed"]);
+	for (size_t i=0; i<m_sliders.size(); ++i) 
+	{
+		std::string key = "slid" + std::to_string(i) + "-"; 
+		m_sliders[i].setSpeed(speed);
+		m_sliders[i].setColor(c);
+		
+		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
+		m_sliders[i].setSize(dim);
+		
+		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
+		m_sliders[i].setPosition(pos);
+		
+		sf::Vector2f limits=
+		{win_width*stof(s[key+"min"])+(m_rectangles[0].getGlobalBounds()).width,win_width*stof(s[key+"max"])};
+		m_sliders[i].setLimits(limits);
+		
+		int max=stoi(s[key+"top-value"]);
+		m_sliders[i].setTopValue(max);
+		
+		
+	}
+	
 }
 void Menu::RandomizeMyColor(unsigned const& text_position)
 {
@@ -112,9 +141,4 @@ void Menu::Move_Option_Down()
 	}
 }
 
-void Menu::Move_MySlider(unsigned const slider_index,bool const direction)
-{
-	if(direction)m_sliders[slider_index].move(m_slide_speed.x,m_slide_speed.y);
-	else m_sliders[slider_index].move(-m_slide_speed.x,m_slide_speed.y);
-	
-}
+
