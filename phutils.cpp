@@ -25,6 +25,13 @@ namespace utils {
 		return sf::Color(r, g, b);
 	}
 	
+	std::string getColorString(sf::Color rgb)
+	{
+		std::stringstream ss;
+		ss<<std::to_string(rgb.r)<<" "<<std::to_string(rgb.g)<<" "<<std::to_string(rgb.b);
+		return ss.str();
+	}
+	
 	HSV getColorHSV(std::string hsv) 
 	{
 		int h, s, v;
