@@ -56,7 +56,15 @@ void FileManager::LoadFile()
 
 void FileManager::SaveChanges()
 {
-	std::vector<std::string> v_saved=m_default;
+	std::vector<std::string> v_saved;
+	std::ifstream archi(m_FileName);
+	std::string linea;
+	while(getline(archi,linea))
+	{
+		v_saved.push_back(linea);
+	}
+	archi.close();
+	
 	int inicio=0,fin;
 	for(size_t j=0;j<v_saved.size();j++)
 	{
@@ -64,21 +72,21 @@ void FileManager::SaveChanges()
 		   break;
 		++inicio;
 	}
-	inicio=fin;
-	for(size_t j=0;j<v_saved.size();j++)
+	fin=inicio;
+	for(size_t j=inicio;j<v_saved.size();j++)
 	{
 		if(v_saved[j]==m_divisor)
 			break;
 		++fin;
 	}
-	for(std::string &x:m_fields_to_change)
+	for(std::string& x:m_fields_to_change)
 	{
 		for(int i=inicio;i<fin;++i)
 		{
 			if(v_saved[i].find(x)!=std::string::npos)
 			{
 				std::string line;
-				line=x+"="+GetValue(x);
+				line=x+"="+this->GetValue(x);
 				v_saved[i]=line;
 			}
 		}
@@ -104,12 +112,14 @@ void FileManager::SaveChanges()
 }
 void FileManager::ChangeValue(std::string const& field,std::string const& value)
 {
-	for(std::string &x:m_lines)
+	for(std::string& x:m_lines)
 	{
-		if(x.find_first_of(field)!=std::string::npos)
+		if(x.find(field)!=std::string::npos)
 		{
-			x.resize(x.find('='));
+			x.resize(x.find('=')+1);
 			x+=value;
+			m_fields_to_change.push_back(field);
+			///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
 			break;
 		}
 	}
@@ -126,8 +136,6 @@ void FileManager::RestoreThisToDef(std::string const& field)
 			break;
 		}
 	}
-	m_fields_to_change.push_back(field);
-	///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
 }
 void FileManager::RestoreAllToDef()
 {
