@@ -15,7 +15,7 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 }
 
 void World::LoadMap(std::string map_name) {
-	Settings s("maps.conf", map_name);
+	FileManager s("maps.conf", map_name);
 	m_platforms.resize(stoi(s["size"]));
 	
 	m_c = utils::getColor(s["color"]);

@@ -1,6 +1,6 @@
 #include "Menu.h"
 #include <sstream>
-#include "Settings.h"
+#include "FileManager.h"
 #include "phutils.h"
 #include "Game.h"
 Menu::Menu(float width, float height,std::string location) : 
@@ -19,7 +19,7 @@ Menu::Menu(float width, float height,std::string location) :
 
 void Menu::LoadTexts ( ) 
 {
-	Settings s("texts.conf",m_location);
+	FileManager s("texts.conf",m_location);
 	m_font.loadFromFile(s["font"] + ".ttf");
 	m_texts.resize( stoi(s["size"]) );
 	std::string choices=s["choosable"];
@@ -46,7 +46,7 @@ void Menu::LoadTexts ( )
 
 void Menu::LoadKeys()
 {
-	Settings s("controls.conf","menu");
+	FileManager s("controls.conf","menu");
 	m_input.BindKey("go_up",m_input<s["key-up"]);
 	m_input.BindKey("go_down",m_input<s["key-down"]);
 	m_input.BindKey("select",m_input<s["key-select"]);
@@ -55,7 +55,7 @@ void Menu::LoadKeys()
 }
 void Menu::LoadFigures()
 {
-	Settings s("figures.conf", "figures of "+m_location);
+	FileManager s("figures.conf", "figures of "+m_location);
 	m_rectangles.resize(stoi(s["size"]));
 	sf::Color c = utils::getColor(s["color"]);
 	for (size_t i=0; i<m_rectangles.size(); ++i) {
@@ -72,7 +72,7 @@ void Menu::LoadFigures()
 }
 void Menu::LoadSliders()
 {
-	Settings s("figures.conf", "sliders of "+m_location);
+	FileManager s("figures.conf", "sliders of "+m_location);
 	m_sliders.resize(stoi(s["size"]));
 	sf::Color c = utils::getColor(s["color"]);
 	float speed=stoi(s["speed"]);

@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
-#include "Settings.h"
+#include "FileManager.h"
 #include "Revolver.h"
 #include "World.h"
 #include "phutils.h"
@@ -26,7 +26,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 
 void Player::LoadKeys() {
 	std::string keyword = "p"+std::to_string(m_index);
-	Settings s("controls.conf",keyword);
+	FileManager s("controls.conf",keyword);
 	
 	m_input.BindKey("left", m_input<s["key-left"]);
 	m_input.BindKey("right", m_input<s["key-right"]);
@@ -36,7 +36,7 @@ void Player::LoadKeys() {
 }
 
 void Player::LoadBelly() {
-	Settings s("textures.conf", "belly");
+	FileManager s("textures.conf", "belly");
 	int bsize = stoi(s["belly-size"]);
 	
 	mt_belly.resize(bsize);

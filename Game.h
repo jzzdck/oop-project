@@ -7,7 +7,7 @@
 #include "Scene.h"
 #include "Menu_Principal.h"
 #include "Match.h"
-#include "Settings.h"
+#include "FileManager.h"
 
 class Escena;
 
