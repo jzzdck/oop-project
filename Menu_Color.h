@@ -13,6 +13,7 @@ private:
 	void CopyColorFromPlayer(unsigned const& text_position);
 	void CopyDistance(unsigned const& text_index,unsigned const slider_index);
 	void UpdatePColor();
+	void SaveColorChanges();
 	bool m_player_selected;
 	std::vector<sf::Color> m_cp;
 	
