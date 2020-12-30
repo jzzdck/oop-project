@@ -8,27 +8,18 @@ Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"prin
 	LoadHeadline();
 }
 
+void Menu_Principal::ProcessEvent(sf::Event& e,Game& g)
+{
+	if (e.type == sf::Event::KeyPressed)
+	{
+		if(e.key.code==sf::Keyboard::Escape)
+			g.Close();
+		if(e.key.code==m_input<="select")
+			Select(g);
+	}
+}
 void Menu_Principal::Update (Game & g)
 {
-	if(utils::wasPressed(charge_select, m_input["select"])) 
-	{
-		if(charge_select) 
-		{
-			switch(current_option)
-			{
-			case 0:
-				g.SetScene(new Match(win_width, win_height));
-				break;
-			case 1:
-				g.SetScene(new Menu_Options(win_width, win_height));
-				break; 
-			case 2:
-				g.Close();
-				break;
-			}
-		}
-	}
-	
 	Move_Option_Down();
 	Move_Option_Up();
 }
@@ -63,4 +54,18 @@ void Menu_Principal::LoadHeadline() {
 		}
 	}
 }
-
+void Menu_Principal::Select(Game& g)
+{
+	switch(current_option)
+	{
+	case 0:
+		g.SetScene(new Match(win_width, win_height));
+		break;
+	case 1:
+		g.SetScene(new Menu_Options(win_width, win_height));
+		break; 
+	case 2:
+		g.Close();
+		break;
+	}
+}

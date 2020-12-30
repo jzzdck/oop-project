@@ -40,10 +40,13 @@ void Game::SetScene (Escena * next_scene) {
 }
 
 void Game::ProcessEvents() {
+	
 	sf::Event e;
 	while (m_window.pollEvent(e)) {
 		if (e.type == sf::Event::Closed)
 			m_window.close();
+		else 
+			m_current_scene->ProcessEvent(e,*this);
 	}
 }
 

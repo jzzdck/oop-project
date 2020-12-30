@@ -3,7 +3,8 @@
 #include "Weapon.h"
 #include <iostream>
 
-class Shovel : public Weapon {
+class Shovel : public Weapon 
+{
 public:
 	Shovel(sf::Vector2f pos);
 	void Draw(sf::RenderWindow & win) override;

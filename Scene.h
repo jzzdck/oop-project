@@ -10,6 +10,7 @@ class Game;
 	a match between	two players, the main menu, the options menu, etc. **/
 class Escena {
 public:
+	virtual void ProcessEvent(sf::Event& e,Game& g)=0;
 	virtual void Update(Game &g) = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	Escena(float width, float height);

@@ -26,9 +26,15 @@ Match::Match(float width, float height) :
 	}
 }
 
-void Match::Update (Game & g) {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		g.SetScene(new Menu_Principal(win_width, win_height));
+void Match::ProcessEvent(sf::Event& e,Game& g)
+{
+	if (e.type == sf::Event::KeyPressed)
+	{
+		if(e.key.code==sf::Keyboard::Escape)
+			g.SetScene(new Menu_Principal(win_width, win_height));
+	}
+}
+void Match::Update (Game& g) {
 	
 	for (Player &player : m_players)
 		UpdatePlayer(player);
@@ -117,11 +123,13 @@ void Match::UpdatePlayer(Player &player) {
 	player.Update();
 }
 
-void Match::UpdateItem(Item *item) {
+void Match::UpdateItem(Item *item)
+{
 	sf::Sprite i_sprite = item->GetSprite();
 	
 	int coll_index = m_world.CollidesWith(i_sprite);
-	while (coll_index != -1) {
+	while (coll_index != -1) 
+	{
 		sf::Vector2<double> vec = m_world.GetResponse(i_sprite, coll_index);
 		item->ApplyResponse(vec);
 		coll_index = m_world.CollidesWith(i_sprite, coll_index+1);
@@ -134,7 +142,8 @@ void Match::UpdateItem(Item *item) {
 	item->Update();
 }
 
-Match::~Match() {
+Match::~Match()
+{
 	for (size_t i=0; i<m_items.size(); ++i) 
 		delete m_items[i];
 }

@@ -2,12 +2,18 @@
 #define MENU_COLOR_H
 #include "Menu.h"
 
-class Menu_Color : public Menu {
+class Menu_Color : public Menu 
+{
 public:
 	Menu_Color(float width,float height);
+	
+	void ProcessEvent(sf::Event& e,Game& g)override;
 	void Update (Game & g)override;
 	void Draw (sf::RenderWindow & win)override;
+	
 private:
+	void Select(Game& g)override;
+	
 	void ChangePlayer();
 	void CopyColorFromPlayer(unsigned const& text_position);
 	void CopyDistance(unsigned const& text_index,unsigned const slider_index);

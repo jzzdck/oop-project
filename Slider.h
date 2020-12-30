@@ -3,7 +3,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
-class Slider {
+class Slider
+{
 public:
 	Slider();
 	void Move(bool const direction);

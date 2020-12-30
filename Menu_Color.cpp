@@ -17,29 +17,19 @@ Menu_Color::Menu_Color(float width,float height):
 	PosSlideByColor(0);
 }
 
+void Menu_Color::ProcessEvent(sf::Event& e,Game& g)
+{
+	if (e.type == sf::Event::KeyPressed)
+	{
+		if(e.key.code==sf::Keyboard::Escape)
+			g.SetScene(new Menu_Options(win_width, win_height));
+		if(e.key.code==m_input<="select")
+			Select(g);
+	}	
+}
+
 void Menu_Color::Update (Game & g) 
 {
-	if(utils::wasPressed(charge_select, m_input["select"]))
-	{
-		if(charge_select)
-		{
-			switch (current_option) 
-			{
-			case 0:
-				ChangePlayer();
-				break;
-			case 4:
-				RandomizeSliders();
-				break;
-			case 5:
-				SaveColorChanges();
-				break;
-			case 6:
-				g.SetScene(new Menu_Options(win_width,win_height));
-				break;
-			}
-		}
-	}
 
 	if(m_input["go_left"])
 	{
@@ -75,6 +65,26 @@ void Menu_Color::Draw (sf::RenderWindow & win)
 	for(const auto &slider:m_sliders)
 		win.draw(slider.getRect());
 	win.display();
+}
+
+void Menu_Color::Select(Game& g)
+{
+	switch (current_option) 
+	{
+	case 0:
+		ChangePlayer();
+		break;
+	case 4:
+		RandomizeSliders();
+		break;
+	case 5:
+		SaveColorChanges();
+		break;
+	case 6:
+		g.SetScene(new Menu_Options(win_width,win_height));
+		break;
+	}
+	
 }
 
 void Menu_Color::ChangePlayer()

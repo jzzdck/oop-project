@@ -17,6 +17,9 @@
 **/
 class Match : public Escena {
 public:
+	
+	void ProcessEvent(sf::Event& e,Game& g)override;
+	
 	/// @brief Update the game's state in relation to the current Match events.
 	/// This is where most of the game logic (the relationship between entities) occurs.
 	/// @param g The Match returns to the game some information, for example, if the current scene must be changed.

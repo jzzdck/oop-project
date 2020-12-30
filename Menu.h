@@ -27,6 +27,7 @@ protected:
 	void LoadSliders();
 	
 	///Movement and actions in menu
+	virtual void Select(Game& g)=0;
 	void Move_Option_Down();
 	void Move_Option_Up();
 	

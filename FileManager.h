@@ -8,7 +8,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 /// @brief The most useful class of all time
-class FileManager {
+class FileManager 
+{
 public:
 	std::string GetValue(std::string const& field)const;
 	void ChangeValue(std::string const& field,std::string const& value);
