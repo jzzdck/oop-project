@@ -81,6 +81,10 @@ sf::Keyboard::Key Controls::operator<(std::string const& str_key)
 {
 	return StringToKey(str_key);
 }
+sf::Keyboard::Key Controls::operator<=(std::string const& key_function)
+{
+	return m_keys[key_function];
+}
 bool Controls::operator[](std::string const& key_function){
 	return KeyState(key_function);
 }
