@@ -1,8 +1,8 @@
 #include "Entity.h"
-#include "Settings.h"
+#include "FileManager.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : m_key(keyword) {
-	Settings s("textures.conf", m_key);
+	FileManager s("textures.conf", m_key);
 	int psize = std::stoi(s[m_key+"-size"]);
 	
 	m_textures.resize(psize);

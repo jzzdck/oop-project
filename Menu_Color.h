@@ -8,11 +8,15 @@ public:
 	void Update (Game & g)override;
 	void Draw (sf::RenderWindow & win)override;
 private:
-	void PosSlideByColor(bool const player);
 	void ChangePlayer();
 	void CopyColorFromPlayer(unsigned const& text_position);
 	void CopyDistance(unsigned const& text_index,unsigned const slider_index);
+	
+	void PosSlideByColor(bool const player);
 	void UpdatePColor();
+	void RandomizeSliders();
+	void SaveColorChanges();
+	
 	bool m_player_selected;
 	std::vector<sf::Color> m_cp;
 	

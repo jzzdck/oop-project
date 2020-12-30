@@ -29,6 +29,12 @@ void Menu_Color::Update (Game & g)
 				ChangePlayer();
 				break;
 			case 4:
+				RandomizeSliders();
+				break;
+			case 5:
+				SaveColorChanges();
+				break;
+			case 6:
 				g.SetScene(new Menu_Options(win_width,win_height));
 				break;
 			}
@@ -109,4 +115,18 @@ void Menu_Color::UpdatePColor()
 	sat=m_sliders[1].getDistance();
 	val=m_sliders[2].getDistance();
 	m_cp[2]=utils::HSV(hue,sat,val).MakeRGB();
+}
+void Menu_Color::SaveColorChanges()
+{
+	int player_index=int(m_player_selected);
+	m_cp[player_index]=m_cp[2];
+	FileManager s("textures.conf","player");
+	s.ChangeValue("color-p"+std::to_string(player_index),utils::getColorString(m_cp[2]));
+	s.SaveChanges();
+}
+void Menu_Color::RandomizeSliders()
+{
+	m_sliders[0].JumpToPorcentage(utils::randf());
+	m_sliders[1].JumpToPorcentage((rand()%41+60)/100.f);
+	m_sliders[2].JumpToPorcentage((rand()%31+70)/100.f);
 }

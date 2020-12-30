@@ -1,5 +1,5 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef FILEMANAGER_H
+#define FILEMANAGER_H
 #include <vector>
 #include <fstream>
 #include <algorithm>
@@ -8,7 +8,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 /// @brief The most useful class of all time
-class Settings {
+class FileManager {
 public:
 	std::string GetValue(std::string const& field)const;
 	void ChangeValue(std::string const& field,std::string const& value);
@@ -20,12 +20,12 @@ public:
 	void SaveChanges();
 	
 	std::string operator[](std::string const& field) const;
-	Settings(std::string const& FileName,std::string const& KeyWord);
+	FileManager(std::string const& FileName,std::string const& KeyWord);
 private:
-	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
-	std::vector<std::string> m_lines,m_default,m_fields_to_change;
-	std::string m_BackUpFile_name;
 	struct Element	{ std::string field, value;};
+	std::string m_FileName,m_KeyWord,m_divisor,m_NameSign;
+	std::vector<std::string> m_lines,m_default, m_fields_to_change;
+	std::string m_BackUpFile_name;
 };
 
 #endif

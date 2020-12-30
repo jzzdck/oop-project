@@ -1,7 +1,7 @@
-#include "Settings.h"
+#include "FileManager.h"
 
 
-Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
+FileManager::FileManager(std::string const& FileName,std::string const& KeyWord) :
 	m_FileName(std::string("res/configuration-files/"+FileName)),
 	m_KeyWord(KeyWord),
 	m_divisor("------------------"),
@@ -12,7 +12,7 @@ Settings::Settings(std::string const& FileName,std::string const& KeyWord) :
 	LoadFile();
 	
 }
-void Settings::LoadBackUp()
+void FileManager::LoadBackUp()
 {
 	std::ifstream archi(m_BackUpFile_name);
 	std::string linea;
@@ -22,7 +22,7 @@ void Settings::LoadBackUp()
 	}
 	archi.close();
 }
-void Settings::LoadFile()
+void FileManager::LoadFile()
 {
 	
 	std::vector<std::string> v_lines_aux;
@@ -54,9 +54,17 @@ void Settings::LoadFile()
 	else std::cerr<<"La palabra clave "<<m_KeyWord<<" no encontrada";
 }
 
-void Settings::SaveChanges()
+void FileManager::SaveChanges()
 {
-	std::vector<std::string> v_saved=m_default;
+	std::vector<std::string> v_saved;
+	std::ifstream archi(m_FileName);
+	std::string linea;
+	while(getline(archi,linea))
+	{
+		v_saved.push_back(linea);
+	}
+	archi.close();
+	
 	int inicio=0,fin;
 	for(size_t j=0;j<v_saved.size();j++)
 	{
@@ -64,21 +72,21 @@ void Settings::SaveChanges()
 		   break;
 		++inicio;
 	}
-	inicio=fin;
-	for(size_t j=0;j<v_saved.size();j++)
+	fin=inicio;
+	for(size_t j=inicio;j<v_saved.size();j++)
 	{
 		if(v_saved[j]==m_divisor)
 			break;
 		++fin;
 	}
-	for(std::string &x:m_fields_to_change)
+	for(std::string& x:m_fields_to_change)
 	{
 		for(int i=inicio;i<fin;++i)
 		{
 			if(v_saved[i].find(x)!=std::string::npos)
 			{
 				std::string line;
-				line=x+"="+GetValue(x);
+				line=x+"="+this->GetValue(x);
 				v_saved[i]=line;
 			}
 		}
@@ -89,7 +97,7 @@ void Settings::SaveChanges()
 	archo.close();
 }
 
- std::string Settings::GetValue(std::string const& field)const
+ std::string FileManager::GetValue(std::string const& field)const
 {
 	std::string value="Invalid";
 	for(std::string x:m_lines)
@@ -102,19 +110,21 @@ void Settings::SaveChanges()
 	if(value=="Invalid")std::cerr<<field<<" is not a valid field";
 	return value;
 }
-void Settings::ChangeValue(std::string const& field,std::string const& value)
+void FileManager::ChangeValue(std::string const& field,std::string const& value)
 {
-	for(std::string &x:m_lines)
+	for(std::string& x:m_lines)
 	{
-		if(x.find_first_of(field)!=std::string::npos)
+		if(x.find(field)!=std::string::npos)
 		{
-			x.resize(x.find('='));
+			x.resize(x.find('=')+1);
 			x+=value;
+			m_fields_to_change.push_back(field);
+			///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
 			break;
 		}
 	}
 }
-void Settings::RestoreThisToDef(std::string const& field)
+void FileManager::RestoreThisToDef(std::string const& field)
 {
 	for(std::string &x:m_default)
 	{
@@ -126,10 +136,8 @@ void Settings::RestoreThisToDef(std::string const& field)
 			break;
 		}
 	}
-	m_fields_to_change.push_back(field);
-	///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
 }
-void Settings::RestoreAllToDef()
+void FileManager::RestoreAllToDef()
 {
 	std::ofstream archo(m_FileName,std::ios::trunc);
 	for(std::string &x:m_default)
@@ -137,11 +145,11 @@ void Settings::RestoreAllToDef()
 	archo.close();
 	
 }
-std::string Settings::operator[](std::string const& field)const
+std::string FileManager::operator[](std::string const& field)const
 {
 	return GetValue(field);
 }
-void Settings::Reload(std::string const& FileName,std::string const& KeyWord)
+void FileManager::Reload(std::string const& FileName,std::string const& KeyWord)
 {
 	m_default.erase(m_default.begin(),m_default.end());
 	m_lines.erase(m_lines.begin(),m_lines.end());

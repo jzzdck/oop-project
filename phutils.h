@@ -47,6 +47,8 @@ namespace utils {
 	/// @return An SFML RGB color
 	sf::Color getColor(std::string rgb);
 	
+	std::string getColorString(sf::Color rgb);
+	
 	/// @brief Get an HSV color out of a string.
 	/// @param hsv A string of the type "hue saturation value" (in numbers)
 	/// @return An HSV color
