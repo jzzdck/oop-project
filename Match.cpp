@@ -3,6 +3,7 @@
 #include "Flag.h"
 #include <iostream>
 #include "Revolver.h"
+#include "Shovel.h"
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
@@ -10,16 +11,18 @@ Match::Match(float width, float height) :
 	m_players.emplace_back(Player( {win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.emplace_back(Player( {win_width*0.15f, win_height*0.4f}, 1) );
 	
-	int randsize = rand()%(17-2) + 2;
+	int randsize = rand()%(30-2) + 2;
 	m_items.resize(randsize);
 	for (size_t i=0; i<m_items.size(); ++i) { 
 		int chance = rand()%101;
 		if (chance < 33)
-			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 0);
+			m_items[i] = new Shovel( {win_width*utils::randf(), win_height*utils::randf()});
 		else if (chance < 66)
+			m_items[i] = new Revolver( {win_width*utils::randf(), win_height*utils::randf()}, 1, 32);
+		else if (chance < 83)
 			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 1);
 		else
-			m_items[i] = new Revolver( {win_width*utils::randf(), win_height*utils::randf()}, 1, 32);
+			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 0);
 	}
 }
 
@@ -35,15 +38,43 @@ void Match::Update (Game & g) {
 	
 	// this doesnt belong to player nor item, so its a separated for
 	for (Player &player : m_players) {
-		bool pressed_grab = player.PressedGrab();
-		bool can_grab = pressed_grab && !player.HasItem();
+		bool col = false, pressed_grab = player.PressedGrab();
+		
 		for (Item *item : m_items) {
-			if (item->Owner() == -1 && item->CollidesWith(player) && can_grab) {
-				player.SetItem(item);
-				item->SetOwner(player.GetIndex());
-			} else if (item->Owner() == player.GetIndex() && pressed_grab) {
-				player.SetItem(nullptr);
+			if (item->Owner() == -1 && item->CollidesWith(player) && pressed_grab) {
+				if (!col) col = true;
+				
+				if (item->IsWeapon()) {
+					if (player.HasWeapon()) {
+						player.GetWeapon()->SetOwner(-1);
+						player.SetWeapon(nullptr);
+					}
+					
+					player.SetWeapon(item);
+					item->SetOwner(player.GetIndex());
+				} else {
+					if (player.HasItem()) {
+						player.GetItem()->SetOwner(-1);
+						player.SetItem(nullptr);
+					}
+					
+					player.SetItem(item);
+					item->SetOwner(player.GetIndex());
+				}
+				
+				break;
+			}
+		}
+		
+		if (!col) for (Item* item : m_items) {
+			if (item->Owner() == player.GetIndex() && pressed_grab) {
+				if (item->IsWeapon())
+					player.SetWeapon(nullptr);
+				else
+					player.SetItem(nullptr);
+				
 				item->SetOwner(-1);
+				break;
 			}
 		}
 	}
@@ -102,7 +133,6 @@ void Match::UpdateItem(Item *item) {
 	item->ApplyGravity(m_world.GetGravity());
 	item->Update();
 }
-
 
 Match::~Match() {
 	for (size_t i=0; i<m_items.size(); ++i) 
