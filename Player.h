@@ -31,9 +31,14 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
-	void SetWeapon(Weapon *new_weapon) { m_weapon = new_weapon; }
+	void SetWeapon(Item *new_weapon) { m_weapon = new_weapon; }
 	void SetItem(Item *new_item) { m_item = new_item; }
-	bool HasItem() { return m_item; }
+	
+	Item *GetWeapon() { return m_weapon; }
+	Item *GetItem() { return m_item; }
+	
+	bool HasItem() const { return m_item; }
+	bool HasWeapon() const { return m_weapon; }
 	
 	/// @brief Checks if the player has pressed the 'grab' key.
 	bool PressedGrab();
@@ -51,7 +56,7 @@ private:
 	int m_jumpcount, m_jumpspeed; 
 	bool is_jumping;
 	
-	Weapon *m_weapon;
+	Item *m_weapon;
 	Item *m_item; 
 	bool can_grab;
 	

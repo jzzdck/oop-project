@@ -68,8 +68,8 @@ void Player::Update() {
 			m_speed.x = m_topspeed;
 	} else m_speed.x = 0.0;
 	
-//	if (m_Input["attack"] && m_weapon) 
-//		m_weapon->Attack();
+	if (m_input["attack"] && m_weapon) 
+		m_weapon->Action();
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -77,6 +77,7 @@ void Player::Draw(sf::RenderWindow & win) {
 	ms_belly.setTexture(current_sprite ? mt_belly[1] : mt_belly[0]);
 	ms_belly.setPosition(m_sprite.getPosition());
 	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
+	if (m_weapon) m_weapon->GetSprite().setPosition(m_sprite.getPosition());
 	
 	win.draw(ms_belly);
 	win.draw(m_sprite);
