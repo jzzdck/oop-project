@@ -7,10 +7,12 @@
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
+	bool IsWeapon() const override { return true; }
+	
 	/// @brief Draw the weapon in the current window
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	/// @brief Virtual method for attacking.
-	virtual void Attack() = 0;
+	virtual void Action() = 0;
 	
 	/// @brief Set the gun texture in relation to where te player is facing.
 	void SetText();

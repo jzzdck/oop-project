@@ -8,7 +8,7 @@ public:
 	void Draw(sf::RenderWindow &win) override;
 	
 	/// @brief Shoot.
-	void Attack() override;
+	void Action() override;
 	
 	/// @brief Construct a Revolver with a fixed damage.
 	Revolver(sf::Vector2f pos, bool facing, float wdt);

@@ -5,7 +5,7 @@ Revolver::Revolver(sf::Vector2f pos, bool facing, float wdt) :
 	Weapon(pos, "revolver", 30, facing, wdt)
 { }
 
-void Revolver::Attack ( ) {
+void Revolver::Action ( ) {
 	std::cout << "PEW" << std::endl;
 }
 
