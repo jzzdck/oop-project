@@ -37,7 +37,6 @@ protected:
 	void CopyColorFromPlayer(unsigned const& text_position);
 	
 	///Variables
-	bool change_up, change_down,change_right,change_left,charge_select;
 	unsigned frame_count;
 	
 	int current_option;

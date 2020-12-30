@@ -14,21 +14,23 @@ void Menu_Principal::ProcessEvent(sf::Event& e,Game& g)
 	{
 		if(e.key.code==sf::Keyboard::Escape)
 			g.Close();
+		if(e.key.code==m_input<="go_up")
+			Move_Option_Up();
+		if(e.key.code==m_input<="go_down")
+			Move_Option_Down();
 		if(e.key.code==m_input<="select")
 			Select(g);
 	}
 }
 void Menu_Principal::Update (Game & g)
 {
-	Move_Option_Down();
-	Move_Option_Up();
+	RandomizeMyColor(1);//el texto de headlines esta en la pos 1
+	HighlightCurrentOption();
 }
 
 void Menu_Principal::Draw (sf::RenderWindow & win)
 {
 	win.clear({0, 0, 0});
-	RandomizeMyColor(1);//el texto de headlines esta en la pos 1
-	HighlightCurrentOption();
 	for(const auto &text : m_texts)
 		win.draw(text);
 	win.display();

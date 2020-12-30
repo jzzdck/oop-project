@@ -5,13 +5,7 @@
 #include "Game.h"
 Menu::Menu(float width, float height,std::string location) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
-	change_up(false), change_down(false),
-	change_right(false),change_left(false),
-	charge_select(true),m_location(location)
-	/*charge select tiene que estar inicializado con true, 
-	para evitar que al pasar de una escena de menu a otra se selecione en el primer frame_count
-	de la nueva escena la primera opcion.
-	*/
+	m_location(location)
 {
 	LoadTexts();
 	LoadKeys();
@@ -118,27 +112,15 @@ void Menu::HighlightCurrentOption()
 
 void Menu::Move_Option_Up()
 {
-	if (utils::wasPressed(change_up, m_input["go_up"])) {
-		if (change_up) 
-		{
-			--current_option;
-			if (current_option < 0)
-				current_option = m_Noptions.y-m_Noptions.x;
-		}
-	}
+	--current_option;
+	if (current_option < 0)
+		current_option = m_Noptions.y-m_Noptions.x;
 }
-
 void Menu::Move_Option_Down()
 {
-	if (utils::wasPressed(change_down, m_input["go_down"])) 
-	{
-		if (change_down)
-		{
-			++current_option;
-			if (current_option > m_Noptions.y-m_Noptions.x)
-				current_option = 0;
-		}
-	}
+	++current_option;
+	if (current_option > m_Noptions.y-m_Noptions.x)
+		current_option = 0;
 }
 
 

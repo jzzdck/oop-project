@@ -23,6 +23,10 @@ void Menu_Color::ProcessEvent(sf::Event& e,Game& g)
 	{
 		if(e.key.code==sf::Keyboard::Escape)
 			g.SetScene(new Menu_Options(win_width, win_height));
+		if(e.key.code==m_input<="go_up")
+			Move_Option_Up();
+		if(e.key.code==m_input<="go_down")
+			Move_Option_Down();
 		if(e.key.code==m_input<="select")
 			Select(g);
 	}	
@@ -45,19 +49,17 @@ void Menu_Color::Update (Game & g)
 		and(m_sliders[current_option-1].isAtLimit(1)))
 			m_sliders[current_option-1].Move(1);
 	}
-	Move_Option_Down();
-	Move_Option_Up();
 	UpdatePColor();
-}
-
-void Menu_Color::Draw (sf::RenderWindow & win) 
-{
-	win.clear({0, 0, 0});
 	CopyColorFromPlayer(0);//cambiamos el color del titulo al  del jugador
 	HighlightCurrentOption();
 	
 	for(size_t i=m_texts.size()-3;i<m_texts.size();++i)
 		CopyDistance(i,i-(m_texts.size()-3));
+}
+
+void Menu_Color::Draw (sf::RenderWindow & win) 
+{
+	win.clear({0, 0, 0});
 	for(const auto &text : m_texts)
 		win.draw(text);
 	for (const auto &rectangle : m_rectangles)
