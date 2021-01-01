@@ -21,7 +21,7 @@ void Entity::Update ( ) {
 	m_sprite.move(m_speed.x, m_speed.y); 
 };
 
-void Entity::ApplyResponse (const sf::Vector2<double> & vec) {
+void Entity::ApplyResponse (const sf::Vector2f & vec) {
 	m_sprite.move(vec.x, vec.y);
 	if (!vec.x) m_speed.y = 0;
 }

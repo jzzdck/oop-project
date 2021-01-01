@@ -21,7 +21,7 @@ public:
 	bool CollidesWith(const Entity &another);
 	/// @brief Apply gravity from World.
 	void ApplyGravity(float gravity) { m_speed.y += gravity; }
-	virtual void ApplyResponse(const sf::Vector2<double> &vec);
+	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
 	/// @brief Get the entity's m_sprite.
 	sf::Sprite &GetSprite() { return m_sprite; }

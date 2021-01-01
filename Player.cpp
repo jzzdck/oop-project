@@ -9,7 +9,7 @@
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
-	m_jumpcount(2),
+	m_jumpcount(1000),
 	m_jumpspeed(-12), 
 	is_jumping(false), 
 	current_sprite(!player_index), 
@@ -83,7 +83,7 @@ void Player::Draw(sf::RenderWindow & win) {
 	win.draw(m_sprite);
 }
 
-void Player::ApplyResponse(const sf::Vector2<double> &vec) {
+void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
 	
 	if (!vec.x) 
