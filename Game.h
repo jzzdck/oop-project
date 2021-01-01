@@ -34,6 +34,7 @@ public:
 	/// @brief Change the game's scene.
 	/// @param new_scene Set the next scene to this.
 	void SetScene(Escena *new_scene);  
+	void ResetView() { m_window.setView( m_window.getDefaultView() ); }
 	
 	/// @brief Close the game's window.
 	void Close();
