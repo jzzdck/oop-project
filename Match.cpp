@@ -60,12 +60,13 @@ void Match::Draw (sf::RenderWindow & win) {
 }
 
 void Match::UpdatePlayer(Player &player) {
-	sf::Sprite p_sprite = player.GetSprite();
+	sf::Vector2f response;
+	player.ApplyGravity(m_world.GetGravity());
+	player.Update();
 	
-	int coll_index = m_world.CollidesWith(p_sprite);
+	int coll_index = m_world.CollidesWith(player.GetSprite(), response);
 	while (coll_index != -1 && player.GetSpeed().y != player.GetJumpSpeed()) {
-		sf::Vector2<double> vec = m_world.GetResponse(p_sprite, coll_index);
-		player.ApplyResponse(vec);
+		player.ApplyResponse(response);
 		
 		if (coll_index == m_world.GetBaseIndex(0) && player.GetIndex() == 0)
 			std::cout << "Player 0 is at home base!" << std::endl;
@@ -76,28 +77,23 @@ void Match::UpdatePlayer(Player &player) {
 		else if (coll_index == m_world.GetBaseIndex(0) && player.GetIndex() == 1)
 			std::cout << "Player 1 is at enemy base!" << std::endl;
 		
-		coll_index = m_world.CollidesWith(p_sprite, coll_index+1);
+		coll_index = m_world.CollidesWith(player.GetSprite(), response, coll_index+1);
 	}
-	
-	player.ApplyGravity(m_world.GetGravity());
-	player.Update();
 }
 
 void Match::UpdateItem(Item *item) {
-	sf::Sprite i_sprite = item->GetSprite();
+	sf::Vector2f response;
+	item->Update();
+	item->ApplyGravity(m_world.GetGravity());
 	
-	int coll_index = m_world.CollidesWith(i_sprite);
+	int coll_index = m_world.CollidesWith(item->GetSprite(), response);
 	while (coll_index != -1) {
-		sf::Vector2<double> vec = m_world.GetResponse(i_sprite, coll_index);
-		item->ApplyResponse(vec);
-		coll_index = m_world.CollidesWith(i_sprite, coll_index+1);
+		item->ApplyResponse(response);
+		coll_index = m_world.CollidesWith(item->GetSprite(), response, coll_index+1);
 	}
 	
 	if (item->Owner() != -1) 
 		item->SetSpeed( {0,0} ); // reset the speed if item has an owner
-	
-	item->ApplyGravity(m_world.GetGravity());
-	item->Update();
 }
 
 Match::~Match() {
