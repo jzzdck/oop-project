@@ -25,6 +25,9 @@ public:
 	/// @param g The Match returns to the game some information, for example, if the current scene must be changed.
 	void Update(Game & g);
 	
+	void UpdateCamera();
+	void UpdateOwnership(Player &player, bool pressed_grab);
+	
 	/// @brief Update one of the players in the Match.
 	/// This function helps organize the code; it is better to think how to update one player
 	/// and then apply that general function to every player.
@@ -55,6 +58,8 @@ private:
 	std::vector<Player> m_players;
 	std::vector<Item*> m_items;
 	World m_world;
+	
+	sf::View m_view;
 };
 
 #endif
