@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game(float width, float height, std::string window_name) :
-	win_width(width), win_height(height),
+	win_width(width), win_height(height), 
 	m_window(sf::VideoMode(width, height), window_name),
 	m_current_scene(new Menu_Principal(width, height))
 {
@@ -40,7 +40,6 @@ void Game::SetScene (Escena * next_scene) {
 }
 
 void Game::ProcessEvents() {
-	
 	sf::Event e;
 	while (m_window.pollEvent(e)) {
 		if (e.type == sf::Event::Closed)
