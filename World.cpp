@@ -56,7 +56,6 @@ int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int in
 			else
 				response = { 0, dir.y*intersection.height };
 			
-			std::cout << intersection.width << " " << intersection.height << std::endl;
 			return i;
 		}
 	}
