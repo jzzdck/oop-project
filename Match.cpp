@@ -29,10 +29,8 @@ Match::Match(float width, float height) :
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) {
-	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape) {
+	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
 		g.SetScene(new Menu_Principal(win_width, win_height));
-		g.ResetView();
-	}
 }
 
 void Match::Update (Game& g) {
