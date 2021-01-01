@@ -32,8 +32,7 @@ void Menu::LoadTexts ( )
 		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
 		
 		m_texts[i].setFillColor(utils::getColor( s[key+"color"]) );
-		sf::FloatRect text_rect = m_texts[i].getLocalBounds();
-		m_texts[i].setOrigin( text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
+		m_texts[i].setOrigin(utils::getCenter(m_texts[i].getLocalBounds()));
 		m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
 	}
 }

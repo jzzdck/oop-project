@@ -49,9 +49,7 @@ void Menu_Principal::LoadHeadline() {
 		if(x.getString()=="HEADLINE")
 		{
 			x.setString(headlines[rand() % headlines.size()]+"!");
-			///el siguiente codigo centra el texto
-			sf::FloatRect text_rect = x.getLocalBounds();
-			x.setOrigin(text_rect.left+text_rect.width/2, text_rect.top+text_rect.height/2 );
+			x.setOrigin(utils::getCenter(x.getLocalBounds()));
 			break;
 		}
 	}
