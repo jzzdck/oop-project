@@ -37,9 +37,6 @@ public:
 	Item *GetWeapon() { return m_weapon; }
 	Item *GetItem() { return m_item; }
 	
-	bool HasItem() const { return m_item; }
-	bool HasWeapon() const { return m_weapon; }
-	
 	/// @brief Checks if the player has pressed the 'grab' key.
 	bool PressedGrab();
 	
@@ -54,11 +51,9 @@ private:
 	void LoadKeys();
 	
 	int m_jumpcount, m_jumpspeed; 
-	bool is_jumping;
+	bool can_grab, is_jumping;
 	
-	Item *m_weapon;
-	Item *m_item; 
-	bool can_grab;
+	Item *m_item, *m_weapon; 
 	
 	int current_sprite;
 	sf::Sprite ms_belly;
