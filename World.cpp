@@ -39,34 +39,27 @@ void World::LoadMap(std::string map_name) {
 	}
 }
 
-sf::Vector2<double> World::GetResponse(const sf::Sprite &entity, int index) {
-	sf::Rect<float> e = entity.getGlobalBounds();
-	sf::Rect<float> r = m_platforms[index].getGlobalBounds();
-	sf::Vector2f ec = utils::getCenter(e);
-	sf::Vector2f rc = utils::getCenter(r);
-	
-	sf::Vector2<double> delta = { rc.x - ec.x, rc.y - ec.y };
-	sf::Vector2<double> proj = { std::fabs(delta.x) - 0.5*(e.width  + r.width), 
-								 std::fabs(delta.y) - 0.5*(e.height + r.height) };
-	
-	if (std::fabs(proj.x) < std::fabs(proj.y)) {
-		proj.y = 0;
-		if (delta.x < 0) proj.x *= -1;
-	} else {
-		proj.x = 0;
-		if (delta.y < 0) proj.y *= -1;
-	}
-	
-	return { proj.x, proj.y };
-}
-
-int World::CollidesWith(const sf::Sprite &entity, int index) {
+int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int index) {
 	if (index >= m_platforms.size()) return -1;
 	
 	sf::Rect<float> entity_g = entity.getGlobalBounds();
-	for (size_t i=index; i<m_platforms.size(); ++i)
-		if (m_platforms[i].getGlobalBounds().intersects(entity_g))
+	for (size_t i=index; i<m_platforms.size(); ++i) {
+		sf::Rect<float> intersection;
+		sf::Rect<float> rect_g = m_platforms[i].getGlobalBounds();
+		if (entity_g.intersects(rect_g, intersection)) {
+			sf::Vector2f dir;
+			dir.y = rect_g.top  > entity_g.top  ? -1.f : 1.f;
+			dir.x = rect_g.left > entity_g.left ? -1.f : 1.f;
+			
+			if (intersection.width < intersection.height)
+				response = { dir.x*intersection.width, 0 };
+			else
+				response = { 0, dir.y*intersection.height };
+			
+			std::cout << intersection.width << " " << intersection.height << std::endl;
 			return i;
+		}
+	}
 
 	return -1;
 }

@@ -20,12 +20,7 @@ public:
 	/// @brief Check if any of the rectangles that make m_platforms collides with a sprite's entity.
 	/// @param entity The sprite to check.
 	/// @param index From what index start to check in the m_platforms vector.
-	int CollidesWith(const sf::Sprite &entity, int index = 0);
-	
-	/// @brief Get the response vector to undo a collision.
-	/// @param index The index of the m_platforms' rectangle that collides
-	/// @param entity The sprite to get the response out of.
-	sf::Vector2<double> GetResponse(const sf::Sprite &entity, int index);
+	int CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int index = 0);
 	
 	/// @brief Get the world's current gravity
 	float GetGravity() const { return m_gravity; }
