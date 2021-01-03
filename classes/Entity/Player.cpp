@@ -1,10 +1,8 @@
 #include "Player.h"
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
-#include "FileManager.h"
-#include "Revolver.h"
-#include "World.h"
-#include "phutils.h"
+#include "../FileManager.h"
+#include "../Utils/phutils.h"
 
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 

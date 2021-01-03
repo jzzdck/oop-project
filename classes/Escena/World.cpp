@@ -1,11 +1,11 @@
 #include "World.h"
 #include <string>
 #include <sstream>
-#include "Player.h"
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
-#include "phutils.h"
+#include "FileManager.h"
+#include "Utils/phutils.h"
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),

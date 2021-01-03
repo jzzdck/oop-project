@@ -4,20 +4,19 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "Menu.h"
 #include "Scene.h"
-#include "Player.h"
-#include "World.h"
-#include "Entity.h"
-#include "phutils.h"
 #include <vector>
+#include "../Entity/Player.h"
+#include "World.h"
+
+class World;
 
 /** @brief The Match class handles the connection between the elements of the game; 
 		World, Player, Weapon, etc.
 **/
+
 class Match : public Escena {
 public:
-	
 	void ProcessEvent(sf::Event& e,Game& g)override;
 	
 	/// @brief Update the game's state in relation to the current Match events.

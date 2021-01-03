@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include <string>
 #include "Entity.h"
-#include "Controls.h"
-#include "Item.h"
+#include "../Controls.h"
+#include "Item/Item.h"
 
 class Game;
 

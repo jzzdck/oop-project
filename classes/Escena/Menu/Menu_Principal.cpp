@@ -1,7 +1,9 @@
 #include "Menu_Principal.h"
 #include "Menu.h"
-#include "Game.h"
 #include "Menu_Options.h"
+#include "../../Game.h"
+#include "../../Utils/phutils.h"
+#include "../Match.h"
 
 Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"principal") 
 {

@@ -4,10 +4,8 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include "Scene.h"
-#include "Menu_Principal.h"
-#include "Match.h"
 #include "FileManager.h"
+#include "Escena/Scene.h"
 
 class Escena;
 

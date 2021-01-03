@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Escena/Menu/Menu_Principal.h"
 
 Game::Game(float width, float height, std::string window_name) :
 	win_width(width), win_height(height), 

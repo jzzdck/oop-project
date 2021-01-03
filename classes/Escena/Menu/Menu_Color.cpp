@@ -1,7 +1,8 @@
 #include "Menu_Color.h"
-#include "Game.h"
 #include "Menu_Options.h"
 #include <cmath>
+#include "../../Game.h"
+#include "../../Utils/phutils.h"
 
 Menu_Color::Menu_Color(float width,float height):
 	Menu(width,height,"color-options"),

@@ -6,8 +6,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Config.hpp>
 #include <vector>
-#include "FileManager.h"
-#include "Player.h"
 
 class Player;
 

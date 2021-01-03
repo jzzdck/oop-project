@@ -1,5 +1,5 @@
 #include "Entity.h"
-#include "FileManager.h"
+#include "../FileManager.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : m_key(keyword) {
 	FileManager s("textures.conf", m_key);

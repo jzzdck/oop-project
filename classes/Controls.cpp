@@ -1,7 +1,7 @@
-#include "Controls.h"
 #include <map>
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
+#include "Controls.h"
 using namespace std;
 
 Controls::Controls()

@@ -1,8 +1,7 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 #include <SFML/System/Vector2.hpp>
-#include "Entity.h"
-#include "Item.h"
+#include "../Item.h"
 
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {

@@ -1,24 +1,23 @@
 #include <ctime>
 #include <cstdlib>
 #include "Game.h"
-#define LOVIGAME RIVOGAME
 
 // Toda la documentacion de Doxygen va en los .h, a excepcion del main, que tiene la mainpage.
 
 int main(int argc, char *argv[]) {
 	std::srand(time(nullptr));
-	Game LOVIGAME(1248, 768, "GABOGAME");
-	RIVOGAME.Run();
+	Game FROGGGAME(1248, 768, "FROGGGAME");
+	FROGGGAME.Run();
 	return 0;
 }
 
 /** 
 	
-	@mainpage Final Project for OOP: LOVIGAME
+	@mainpage Final Project for OOP: FROGGGAME
 
 	@section intro_sec Introduction
 
-	This is the documentation page for LOVIGAME. Here you'll find a brief summary of
+	This is the documentation page for FROGGGAME. Here you'll find a brief summary of
 	the main components that make the game.
 
 	LOVIGAME is a 2D platform-fighting game where the goal is to steal

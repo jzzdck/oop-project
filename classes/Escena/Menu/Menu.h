@@ -9,16 +9,17 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Config.hpp>
-#include "Scene.h"
-#include "Match.h"
-#include "Controls.h"
 #include <string>
+#include "../Scene.h"
+#include "../../Controls.h"
 #include "Slider.h"
-class Game;
+
+class Slider;
 
 class Menu : public Escena {
 public:
 	Menu(float width, float height,std::string location="principal");
+private:	
 protected:
 	///Load elements on contructor
 	void LoadTexts();

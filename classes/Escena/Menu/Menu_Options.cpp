@@ -1,7 +1,7 @@
 #include "Menu_Options.h"
-#include "Game.h"
 #include "Menu_Color.h"
-#include "phutils.h"
+#include "../../Game.h"
+#include "Menu_Principal.h"
 
 Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options") 
 {

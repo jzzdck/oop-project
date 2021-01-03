@@ -1,11 +1,12 @@
 #include "Match.h"
-#include "Game.h"
-#include "Flag.h"
 #include <iostream>
-#include "Revolver.h"
-#include "Shovel.h"
-#include "phutils.h"
 #include <cmath>
+#include "../Utils/phutils.h"
+#include "../Entity/Item/Weapon/Shovel.h"
+#include "../Entity/Item/Weapon/Revolver.h"
+#include "../Entity/Item/Flag.h"
+#include "../Game.h"
+#include "Menu/Menu_Principal.h"
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)

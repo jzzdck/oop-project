@@ -4,7 +4,6 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
-#include "Controls.h"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 /// @brief The most useful class of all time
