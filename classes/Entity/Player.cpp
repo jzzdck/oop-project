@@ -26,11 +26,12 @@ void Player::LoadKeys() {
 	std::string keyword = "p"+std::to_string(m_index);
 	FileManager s("controls.conf",keyword);
 	
-	m_input.BindKey("left", m_input<s["key-left"]);
-	m_input.BindKey("right", m_input<s["key-right"]);
-	m_input.BindKey("jump", m_input<s["key-jump"]);
-	m_input.BindKey("attack", m_input<s["key-attack"]);
-	m_input.BindKey("grab", m_input<s["key-grab"]);
+	std::vector<std::string> keys = {
+		"left", "right", "jump", "down", "attack", "grab"
+	};
+	
+	for (size_t i=0; i<keys.size(); ++i)
+		m_input.BindKey(keys[i], m_input<s["key-" + keys[i]]);
 }
 
 void Player::LoadBelly() {
