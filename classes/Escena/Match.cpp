@@ -2,11 +2,9 @@
 #include <iostream>
 #include <cmath>
 #include "../Utils/phutils.h"
-#include "../Entity/Item/Weapon/Shovel.h"
-#include "../Entity/Item/Weapon/Revolver.h"
-#include "../Entity/Item/Flag.h"
 #include "../Game.h"
 #include "Menu/Menu_Principal.h"
+#include <vector>
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
@@ -15,17 +13,17 @@ Match::Match(float width, float height) :
 	m_players.emplace_back(Player( {win_width*0.15f, win_height*0.4f}, 1) );
 	
 	int randsize = rand()%(30-2) + 2;
-	m_items.resize(randsize);
-	for (size_t i=0; i<m_items.size(); ++i) { 
+	
+	for (size_t i=0; i<randsize; ++i) { 
 		int chance = rand()%101;
 		if (chance < 33)
-			m_items[i] = new Shovel( {win_width*utils::randf(), win_height*utils::randf()});
+			m_weapons.push_back(new Shovel({win_width*utils::randf(), win_height*utils::randf()}));
 		else if (chance < 66)
-			m_items[i] = new Revolver( {win_width*utils::randf(), win_height*utils::randf()}, 1, 32);
+			m_weapons.push_back(new Revolver({win_width*utils::randf(), win_height*utils::randf()}, 1, 32));
 		else if (chance < 83)
-			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 1);
+			m_items.push_back(new Flag({win_width*utils::randf(), win_height*utils::randf()}, 1));
 		else
-			m_items[i] = new Flag( {win_width*utils::randf(), win_height*utils::randf()}, 0);
+			m_items.push_back(new Flag({win_width*utils::randf(), win_height*utils::randf()}, 0));
 	}
 }
 
@@ -37,13 +35,11 @@ void Match::ProcessEvent(sf::Event& e, Game& g) {
 void Match::Update (Game& g) {
 	UpdateCamera();
 	
-	for (Player &player : m_players) {
+	for (Player &player : m_players)
 		UpdatePlayer(player);
-		UpdateOwnership(player, player.PressedGrab());
-	}
 	
-	for (Item *item : m_items)
-		UpdateItem(item);
+	UpdateObjects(m_items);
+	UpdateObjects(m_weapons);
 }
 
 void Match::Draw (sf::RenderWindow & win) {
@@ -55,6 +51,9 @@ void Match::Draw (sf::RenderWindow & win) {
 	
 	for (Item *item : m_items)
 		item->Draw(win);
+	
+	for (Weapon *weapon : m_weapons)
+		weapon->Draw(win);
 	
 	m_world.Draw(win);
 	win.display();
@@ -80,21 +79,6 @@ void Match::UpdatePlayer(Player &player) {
 		
 		coll_index = m_world.CollidesWith(player.GetSprite(), response, coll_index+1);
 	}
-}
-
-void Match::UpdateItem(Item *item) {
-	sf::Vector2f response;
-	item->Update();
-	item->ApplyGravity(m_world.GetGravity());
-	
-	int coll_index = m_world.CollidesWith(item->GetSprite(), response);
-	while (coll_index != -1) {
-		item->ApplyResponse(response);
-		coll_index = m_world.CollidesWith(item->GetSprite(), response, coll_index+1);
-	}
-	
-	if (item->Owner() != -1) 
-		item->SetSpeed( {0,0} ); // reset the speed if item has an owner
 }
 
 Match::~Match() {
@@ -126,46 +110,3 @@ void Match::UpdateCamera () {
 	scale = std::max(scale, 0.5f);
 	m_view.zoom(scale);
 }
-
-void Match::UpdateOwnership(Player & player, bool pressed_grab) {
-	bool col = false;
-	
-	for (Item *item : m_items) {
-		if (item->Owner() == -1 && item->CollidesWith(player) && pressed_grab) {
-			if (!col) col = true;
-			
-			if (item->IsWeapon()) {
-				if (player.GetWeapon()) {
-					player.GetWeapon()->SetOwner(-1);
-					player.SetWeapon(nullptr);
-				}
-				
-				player.SetWeapon(item);
-				item->SetOwner(player.GetIndex());
-			} else {
-				if (player.GetItem()) {
-					player.GetItem()->SetOwner(-1);
-					player.SetItem(nullptr);
-				}
-				
-				player.SetItem(item);
-				item->SetOwner(player.GetIndex());
-			}
-			
-			break;
-		}
-	}
-	
-	if (!col) for (Item* item : m_items) {
-		if (item->Owner() == player.GetIndex() && pressed_grab) {
-			if (item->IsWeapon())
-				player.SetWeapon(nullptr);
-			else
-				player.SetItem(nullptr);
-			
-			item->SetOwner(-1);
-			break;
-		}
-	}
-}
-

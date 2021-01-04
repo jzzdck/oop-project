@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cmath>
-#include "FileManager.h"
 #include <iostream>
-using namespace std;
+#include "../FileManager.h"
 
 namespace utils {
 	sf::Vector2f getCenter(const sf::Rect<float> & of_this) 

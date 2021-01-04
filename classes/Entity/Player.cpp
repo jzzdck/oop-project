@@ -90,7 +90,13 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 		m_jumpcount = 2;
 }
 
-bool Player::PressedGrab ( ) {
-	return utils::wasPressed(can_grab, m_input["grab"]);
+bool Player::PressedGrab (Item * if_item) {
+	return utils::wasPressed(can_grab, m_input["grab"]) && 
+		   sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+}
+
+bool Player::PressedGrab (Weapon * if_weapon) {
+	return utils::wasPressed(can_grab, m_input["grab"]) && 
+		   !sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
 }
 

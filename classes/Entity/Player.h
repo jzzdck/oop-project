@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "../Controls.h"
 #include "Item/Item.h"
+#include "Item/Weapon/Weapon.h"
 
 class Game;
 
@@ -29,14 +30,35 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
-	void SetWeapon(Item *new_weapon) { m_weapon = new_weapon; }
-	void SetItem(Item *new_item) { m_item = new_item; }
+	void UnassignObject(Item* if_item) {
+		m_item->SetOwner(-1);
+		m_item = nullptr;
+	}
 	
-	Item *GetWeapon() { return m_weapon; }
-	Item *GetItem() { return m_item; }
+	void UnassignObject(Weapon* if_weapon) {
+		m_weapon->SetOwner(-1);
+		m_weapon = nullptr;
+	}	
+	
+	void AssignObject(Item* new_item) {
+		if (m_item) 
+			UnassignObject(m_item);
+		
+		m_item = new_item;
+		m_item->SetOwner(m_index);
+	}
+	
+	void AssignObject(Weapon* new_weapon) {
+		if (m_weapon) 
+			UnassignObject(m_weapon);
+		
+		m_weapon = new_weapon;
+		m_weapon->SetOwner(m_index);
+	}
 	
 	/// @brief Checks if the player has pressed the 'grab' key.
-	bool PressedGrab();
+	bool PressedGrab(Item* if_item);
+	bool PressedGrab(Weapon* if_weapon);
 	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param pos Initial player position.
@@ -51,7 +73,8 @@ private:
 	int m_jumpcount, m_jumpspeed; 
 	bool can_grab, is_jumping;
 	
-	Item *m_item, *m_weapon; 
+	Item *m_item;
+	Weapon *m_weapon; 
 	
 	int current_sprite;
 	sf::Sprite ms_belly;
