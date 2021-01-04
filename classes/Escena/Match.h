@@ -13,8 +13,6 @@
 #include "../Entity/Item/Flag.h"
 #include "../Entity/Item/Weapon/Weapon.h"
 
-class World;
-
 /** @brief The Match class handles the connection between the elements of the game; 
 		World, Player, Weapon, etc.
 **/
@@ -52,27 +50,28 @@ public:
 	
 	template<class T> 
 	void UpdateObjects(std::vector<T*> objects) {
+		if (objects.empty()) return;
+		
 		for (T* object : objects)
 			UpdateObject(object);
 		
 		for (Player &player : m_players) {
-			bool update = true, col = true;
-			bool pressed_grab = player.PressedGrab(objects[0]);
+			bool update = true, pressed_grab = player.PressedGrab(objects[0]);
 			
 			for (T* object : objects) {
 				if (update) { 
-					if (object->Owner() == -1 && object->CollidesWith(player) && pressed_grab) {
+					if (object->Owner() == -1 && 
+						object->CollidesWith(player) && pressed_grab) 
+					{
 						player.AssignObject(object);
 						update = false;
 					} 
-				} else { col = false; break; }
+				} else break;
 			}
 			
-			if (col) for (T* object : objects) {
-				if (update) {
-					if (object->Owner() == player.GetIndex() && pressed_grab) 
-						player.UnassignObject(object);
-				} else break;
+			if (update) for (T* object : objects) {
+				if (object->Owner() == player.GetIndex() && pressed_grab) 
+					player.UnassignObject(object);
 			}
 		}
 	}
