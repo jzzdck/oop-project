@@ -7,8 +7,7 @@
 #include "Entity.h"
 #include "../Controls.h"
 #include "Item/Item.h"
-
-class Game;
+#include "Item/Weapon/Weapon.h"
 
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
@@ -29,19 +28,21 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
-	void SetWeapon(Item *new_weapon) { m_weapon = new_weapon; }
-	void SetItem(Item *new_item) { m_item = new_item; }
+	void UnassignObject(Item* if_item);
+	void UnassignObject(Weapon* if_weapon);
 	
-	Item *GetWeapon() { return m_weapon; }
-	Item *GetItem() { return m_item; }
+	void AssignObject(Item* new_item);
+	void AssignObject(Weapon* new_weapon);
 	
 	/// @brief Checks if the player has pressed the 'grab' key.
-	bool PressedGrab();
+	bool PressedGrab(Item* if_item);
+	bool PressedGrab(Weapon* if_weapon);
 	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
+	bool can_grab, set_grab;
 private:
 	int m_index;
 	
@@ -49,9 +50,10 @@ private:
 	void LoadKeys();
 	
 	int m_jumpcount, m_jumpspeed; 
-	bool can_grab, is_jumping;
+	bool is_jumping;
 	
-	Item *m_item, *m_weapon; 
+	Item *m_item;
+	Weapon *m_weapon; 
 	
 	int current_sprite;
 	sf::Sprite ms_belly;

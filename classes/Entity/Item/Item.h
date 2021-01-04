@@ -11,9 +11,6 @@ public:
 	/// Items can be grabbed or not grabbed.
 	void SetOwner(int owner) { m_owner = owner; }
 	
-	virtual bool IsWeapon() const { return false; }
-	virtual void Action() = 0;
-	
 	/// @brief Check if the current item is already grabbed.
 	/// @return The current grab state.
 	int Owner() const { return m_owner; }
