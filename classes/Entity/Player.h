@@ -9,8 +9,6 @@
 #include "Item/Item.h"
 #include "Item/Weapon/Weapon.h"
 
-class Game;
-
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
@@ -30,31 +28,11 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
-	void UnassignObject(Item* if_item) {
-		m_item->SetOwner(-1);
-		m_item = nullptr;
-	}
+	void UnassignObject(Item* if_item);
+	void UnassignObject(Weapon* if_weapon);
 	
-	void UnassignObject(Weapon* if_weapon) {
-		m_weapon->SetOwner(-1);
-		m_weapon = nullptr;
-	}	
-	
-	void AssignObject(Item* new_item) {
-		if (m_item) 
-			UnassignObject(m_item);
-		
-		m_item = new_item;
-		m_item->SetOwner(m_index);
-	}
-	
-	void AssignObject(Weapon* new_weapon) {
-		if (m_weapon) 
-			UnassignObject(m_weapon);
-		
-		m_weapon = new_weapon;
-		m_weapon->SetOwner(m_index);
-	}
+	void AssignObject(Item* new_item);
+	void AssignObject(Weapon* new_weapon);
 	
 	/// @brief Checks if the player has pressed the 'grab' key.
 	bool PressedGrab(Item* if_item);
@@ -64,6 +42,7 @@ public:
 	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
+	bool can_grab, set_grab;
 private:
 	int m_index;
 	
@@ -71,7 +50,7 @@ private:
 	void LoadKeys();
 	
 	int m_jumpcount, m_jumpspeed; 
-	bool can_grab, is_jumping;
+	bool is_jumping;
 	
 	Item *m_item;
 	Weapon *m_weapon; 

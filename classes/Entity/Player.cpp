@@ -42,7 +42,6 @@ void Player::LoadBelly() {
 		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
 }
 
-
 void Player::Update() {
 	if (utils::wasPressed(is_jumping, m_input["jump"])) {
 		if (is_jumping && m_jumpcount > 0 ) {
@@ -68,6 +67,11 @@ void Player::Update() {
 	
 	if (m_input["attack"] && m_weapon) 
 		m_weapon->Action();
+	
+	if (utils::wasPressed(can_grab, m_input["grab"]))
+		set_grab = can_grab;
+	else 
+		set_grab = false;
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -91,12 +95,35 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 }
 
 bool Player::PressedGrab (Item * if_item) {
-	return utils::wasPressed(can_grab, m_input["grab"]) && 
-		   sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	return set_grab && m_input["down"];
 }
 
 bool Player::PressedGrab (Weapon * if_weapon) {
-	return utils::wasPressed(can_grab, m_input["grab"]) && 
-		   !sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+	return set_grab && !m_input["down"];
 }
 
+void Player::UnassignObject (Item * if_item) {
+	m_item->SetOwner(-1);
+	m_item = nullptr;
+}
+
+void Player::UnassignObject(Weapon *if_weapon) {
+	m_weapon->SetOwner(-1);
+	m_weapon = nullptr;
+}
+
+void Player::AssignObject(Item *new_item) {
+	if (m_item) 
+		UnassignObject(m_item);
+	
+	m_item = new_item;
+	m_item->SetOwner(m_index);
+}
+
+void Player::AssignObject(Weapon *new_weapon) {
+	if (m_weapon) 
+		UnassignObject(m_weapon);
+	
+	m_weapon = new_weapon;
+	m_weapon->SetOwner(m_index);
+}
