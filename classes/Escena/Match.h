@@ -18,7 +18,7 @@
 **/
 
 class Match : public Escena {
-	std::vector<Player> m_players;
+	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;
 	World m_world;
@@ -30,48 +30,56 @@ public:
 	void Update(Game & g);
 	
 	void UpdateCamera();
-	void UpdatePlayer(Player &player);
 	
 	template<class T>
-	void UpdateObject(T* object) {
+	int UpdateEntity(T* entity) {
 		sf::Vector2f response;
-		object->Update();
-		object->ApplyGravity(m_world.GetGravity());
+		entity->Update();
+		entity->ApplyGravity(m_world.GetGravity());
 		
-		int coll_index = m_world.CollidesWith(object->GetSprite(), response);
+		int base_col = -1;
+		int coll_index = m_world.CollidesWith(entity->GetSprite(), response);
 		while (coll_index != -1) {
-			object->ApplyResponse(response);
-			coll_index = m_world.CollidesWith(object->GetSprite(), response, coll_index+1);
-		}
+			
+			if (coll_index == m_world.GetBaseIndex(0))
+				base_col = 0;
+			else if (coll_index == m_world.GetBaseIndex(1))
+				base_col = 1;
+			
+			entity->ApplyResponse(response);
+			coll_index = m_world.CollidesWith(entity->GetSprite(), response, coll_index+1);
+		} 
 		
-		if (object->Owner() != -1) 
-			object->SetSpeed( {0,0} ); // reset the speed if item has an owner
+		return base_col;
 	}
 	
 	template<class T> 
 	void UpdateObjects(std::vector<T*> objects) {
 		if (objects.empty()) return;
 		
-		for (T* object : objects)
-			UpdateObject(object);
+		for (T* object : objects) {
+			UpdateEntity(object);
+			if (object->Owner() != -1) 
+				object->SetSpeed( {0,0} );
+		}
 		
-		for (Player &player : m_players) {
-			bool update = true, pressed_grab = player.PressedGrab(objects[0]);
+		for (Player *player : m_players) {
+			bool update = true, pressed_grab = player->PressedGrab(objects[0]);
 			
 			for (T* object : objects) {
 				if (update) { 
 					if (object->Owner() == -1 && 
-						object->CollidesWith(player) && pressed_grab) 
+						object->CollidesWith(*player) && pressed_grab) 
 					{
-						player.AssignObject(object);
+						player->AssignObject(object);
 						update = false;
 					} 
 				} else break;
 			}
 			
 			if (update) for (T* object : objects) {
-				if (object->Owner() == player.GetIndex() && pressed_grab) 
-					player.UnassignObject(object);
+				if (object->Owner() == player->GetIndex() && pressed_grab) 
+					player->UnassignObject(object);
 			}
 		}
 	}
