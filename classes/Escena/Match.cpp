@@ -9,8 +9,8 @@
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
 {
-	m_players.emplace_back(Player( {win_width*utils::randf(), win_height*0.4f} , 0) );
-	m_players.emplace_back(Player( {win_width*0.15f, win_height*0.4f}, 1) );
+	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
+	m_players.push_back(new Player({win_width*0.15f, win_height*0.4f}, 1) );
 	
 	int randsize = rand()%(30-2) + 2;
 	
@@ -35,8 +35,13 @@ void Match::ProcessEvent(sf::Event& e, Game& g) {
 void Match::Update (Game& g) {
 	UpdateCamera();
 	
-	for (Player &player : m_players)
-		UpdatePlayer(player);
+	for (Player *player : m_players) {
+		int base_col = UpdateEntity(player);
+		if (base_col != -1) 
+			std::cout << "Player" << player->GetIndex() << " is at "
+					  << (base_col == player->GetIndex() ? "home" : "enemy") 
+					  << " base!" << std::endl;
+	}
 	
 	UpdateObjects(m_items);
 	UpdateObjects(m_weapons);
@@ -46,8 +51,8 @@ void Match::Draw (sf::RenderWindow & win) {
 	win.clear({158, 207, 222});
 	win.setView(m_view);
 	
-	for (Player &player : m_players) 
-		player.Draw(win);
+	for (Player *player : m_players)
+		player->Draw(win);
 	
 	for (Item *item : m_items)
 		item->Draw(win);
@@ -59,36 +64,14 @@ void Match::Draw (sf::RenderWindow & win) {
 	win.display();
 }
 
-void Match::UpdatePlayer(Player &player) {
-	sf::Vector2f response;
-	player.ApplyGravity(m_world.GetGravity());
-	player.Update();
-	
-	int coll_index = m_world.CollidesWith(player.GetSprite(), response);
-	while (coll_index != -1 && player.GetSpeed().y != player.GetJumpSpeed()) {
-		player.ApplyResponse(response);
-		
-		if (coll_index == m_world.GetBaseIndex(0) && player.GetIndex() == 0)
-			std::cout << "Player 0 is at home base!" << std::endl;
-		else if (coll_index == m_world.GetBaseIndex(1) && player.GetIndex() == 0)
-			std::cout << "Player 0 is at enemy base!" << std::endl;
-		else if (coll_index == m_world.GetBaseIndex(1) && player.GetIndex() == 1)
-			std::cout << "Player 1 is at home base!" << std::endl;
-		else if (coll_index == m_world.GetBaseIndex(0) && player.GetIndex() == 1)
-			std::cout << "Player 1 is at enemy base!" << std::endl;
-		
-		coll_index = m_world.CollidesWith(player.GetSprite(), response, coll_index+1);
-	}
-}
-
 Match::~Match() {
 	for (size_t i=0; i<m_items.size(); ++i) 
 		delete m_items[i];
 }
 
 void Match::UpdateCamera () {
-	auto sp0 = m_players[0].GetSprite().getGlobalBounds();
-	auto sp1 = m_players[1].GetSprite().getGlobalBounds(); 
+	auto sp0 = m_players[0]->GetSprite().getGlobalBounds();
+	auto sp1 = m_players[1]->GetSprite().getGlobalBounds(); 
 	
 	sf::Vector2f center0 = utils::getCenter(sp0);
 	sf::Vector2f center1 = utils::getCenter(sp1);
