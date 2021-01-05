@@ -26,13 +26,11 @@ class Match : public Escena {
 	sf::View m_view;
 public:
 	void ProcessEvent(sf::Event& e,Game& g)override;
-	
 	void Update(Game & g);
-	
 	void UpdateCamera();
 	
 	template<class T>
-	int UpdateEntity(T* entity) {
+	int UpdateEntity(T* entity) { 
 		sf::Vector2f response;
 		entity->Update();
 		entity->ApplyGravity(m_world.GetGravity());
@@ -78,7 +76,7 @@ public:
 			}
 			
 			if (update) for (T* object : objects) {
-				if (object->Owner() == player->GetIndex() && pressed_grab) 
+				if (object->Owner() == player->GetIndex() && pressed_grab)
 					player->UnassignObject(object);
 			}
 		}
