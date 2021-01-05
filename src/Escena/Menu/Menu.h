@@ -14,12 +14,14 @@
 #include "../../Controls.h"
 #include "Slider.h"
 
-class Slider;
 
 class Menu : public Escena {
 public:
 	Menu(float width, float height,std::string location="principal");
-private:	
+	
+class Slider;
+private:
+	
 protected:
 	///Load elements on contructor
 	void LoadTexts();
