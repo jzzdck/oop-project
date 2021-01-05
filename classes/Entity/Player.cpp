@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include "../FileManager.h"
 #include "../Utils/phutils.h"
+#include <cmath>
 
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
@@ -53,18 +54,24 @@ void Player::Update() {
 	}
 
 	if (m_input["right"]) {
+		if (m_speed.x < 0) m_speed.x = -m_speed.x;
 		m_sprite.move(m_speed.x, 0);
 		current_sprite = 0;
 	} else if (m_input["left"]) {
-		m_sprite.move(-m_speed.x, 0);
+		if (m_speed.x > 0) m_speed.x = -m_speed.x;
+		m_sprite.move(m_speed.x, 0);
 		current_sprite = 1;
 	} m_sprite.move(0, m_speed.y);
 	
-	if (m_input["right"] || m_input["left"]) {
+	if (m_input["right"]) {
 		m_speed.x += 1;
 		if (m_speed.x > m_topspeed)
 			m_speed.x = m_topspeed;
-	} else m_speed.x = 0.0;
+	} else if (m_input["left"]) {
+		m_speed.x -= 1;
+		if (m_speed.x < m_topspeed)
+			m_speed.x = -m_topspeed;
+	}else m_speed.x = 0.0;
 	
 	if (m_input["attack"] && m_weapon) 
 		m_weapon->Action();
@@ -105,11 +112,13 @@ bool Player::PressedGrab (Weapon * if_weapon) {
 
 void Player::UnassignObject (Item * if_item) {
 	m_item->SetOwner(-1);
+	m_item->SetSpeed({GetSpeed().x*1.3f, -6});
 	m_item = nullptr;
 }
 
 void Player::UnassignObject(Weapon *if_weapon) {
 	m_weapon->SetOwner(-1);
+	m_weapon->SetSpeed({GetSpeed().x*1.3f, -6});
 	m_weapon = nullptr;
 }
 
