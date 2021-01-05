@@ -3,7 +3,7 @@
 #include "Menu_Options.h"
 #include "../../Game.h"
 #include "../../Utils/phutils.h"
-#include "../Match.h"
+#include "../Match/Match.h"
 
 Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"principal") 
 {

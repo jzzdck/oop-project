@@ -4,17 +4,15 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "Scene.h"
 #include <vector>
-#include "../Entity/Player.h"
 #include "World.h"
-#include "../Entity/Item/Weapon/Shovel.h"
-#include "../Entity/Item/Weapon/Revolver.h"
-#include "../Entity/Item/Flag.h"
-#include "../Entity/Item/Weapon/Weapon.h"
+#include "../Scene.h"
+#include "../../Game.h"
+#include "../../Entity/Item/Item.h"
+#include "../../Entity/Player.h"
 
-/** @brief The Match class handles the connection between the elements of the game; 
-		World, Player, Weapon, etc.
+/** @brief The Match class handles the connection between the elements of the game 
+World, Player, Weapon, etc.
 **/
 
 class Match : public Escena {
