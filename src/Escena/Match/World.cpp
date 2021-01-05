@@ -4,8 +4,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
-#include "../FileManager.h"
-#include "../Utils/phutils.h"
+#include "../../FileManager.h"
+#include "../../Utils/phutils.h"
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),

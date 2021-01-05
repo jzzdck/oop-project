@@ -4,12 +4,10 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "Scene.h"
 #include <vector>
-#include "../Entity/Player.h"
 #include "World.h"
-
-class World;
+#include "../Scene.h"
+#include "../../Entity/Item/Item.h"
 
 /** @brief The Match class handles the connection between the elements of the game; 
 		World, Player, Weapon, etc.

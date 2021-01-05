@@ -18,8 +18,6 @@
 class Menu : public Escena {
 public:
 	Menu(float width, float height,std::string location="principal");
-	
-class Slider;
 private:
 	
 protected:

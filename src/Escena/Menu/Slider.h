@@ -3,8 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include "Menu.h"
-class Menu::Slider
+class Slider
 {
 public:
 	Slider();
