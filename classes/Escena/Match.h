@@ -65,14 +65,13 @@ public:
 			bool update = true, pressed_grab = player->PressedGrab(objects[0]);
 			
 			for (T* object : objects) {
-				if (update) { 
-					if (object->Owner() == -1 && 
-						object->CollidesWith(*player) && pressed_grab) 
-					{
-						player->AssignObject(object);
-						update = false;
-					} 
-				} else break;
+				if (object->Owner() == -1 && 
+					object->CollidesWith(*player) && pressed_grab) 
+				{
+					player->AssignObject(object);
+					update = false;
+					break;
+				} 
 			}
 			
 			if (update) for (T* object : objects) {

@@ -17,6 +17,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	can_grab(false)
 {
 	m_topspeed = 9.6;
+	m_speed.x = m_topspeed;
 	
 	LoadKeys();
 	LoadBelly();
@@ -52,26 +53,21 @@ void Player::Update() {
 		} else if (m_speed.y < -5)
 			m_speed.y = -5;
 	}
-
+	
+	m_speed.x = std::fabs(m_speed.x);
+	if (m_input["right"] || m_input["left"])
+		m_speed.x = std::min(m_speed.x + 0.8f, m_topspeed);
+	else 
+		m_speed.x = 0.f;
+	
 	if (m_input["right"]) {
-		if (m_speed.x < 0) m_speed.x = -m_speed.x;
 		m_sprite.move(m_speed.x, 0);
 		current_sprite = 0;
 	} else if (m_input["left"]) {
-		if (m_speed.x > 0) m_speed.x = -m_speed.x;
+		m_speed.x *= -1;
 		m_sprite.move(m_speed.x, 0);
 		current_sprite = 1;
 	} m_sprite.move(0, m_speed.y);
-	
-	if (m_input["right"]) {
-		m_speed.x += 1;
-		if (m_speed.x > m_topspeed)
-			m_speed.x = m_topspeed;
-	} else if (m_input["left"]) {
-		m_speed.x -= 1;
-		if (m_speed.x < m_topspeed)
-			m_speed.x = -m_topspeed;
-	}else m_speed.x = 0.0;
 	
 	if (m_input["attack"] && m_weapon) 
 		m_weapon->Action();
@@ -84,7 +80,8 @@ void Player::Update() {
 
 void Player::Draw(sf::RenderWindow & win) {
 	m_sprite.setTexture(m_textures[current_sprite]);
-	ms_belly.setTexture(current_sprite ? mt_belly[1] : mt_belly[0]);
+	ms_belly.setTexture(mt_belly[current_sprite]);
+	
 	ms_belly.setPosition(m_sprite.getPosition());
 	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
 	if (m_weapon) m_weapon->GetSprite().setPosition(m_sprite.getPosition());
@@ -118,7 +115,7 @@ void Player::UnassignObject (Item * if_item) {
 
 void Player::UnassignObject(Weapon *if_weapon) {
 	m_weapon->SetOwner(-1);
-	m_weapon->SetSpeed({GetSpeed().x*1.3f, -6});
+	m_weapon->SetSpeed({GetSpeed().x*1.3f, -6.f});
 	m_weapon = nullptr;
 }
 
