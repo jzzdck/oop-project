@@ -7,8 +7,6 @@
 #include <SFML/Config.hpp>
 #include <vector>
 
-class Player;
-
 /** @brief The World class is the place where the Match occurs **/
 class World {
 public:

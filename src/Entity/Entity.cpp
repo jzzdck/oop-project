@@ -18,7 +18,16 @@ bool Entity::CollidesWith(const Entity & another) {
 }
 
 void Entity::Update ( ) { 
-	m_sprite.move(m_speed.x, m_speed.y); 
+	m_sprite.move(m_speed.x, m_speed.y);
+	
+	float fr = 0.25;
+	if (m_speed.x > 0){
+		if (m_speed.x - fr < 0) m_speed.x = 0;
+		m_speed.x -= fr;
+    } else if (m_speed.x < 0) {
+		if (m_speed.x + fr > 0) m_speed.x = 0;
+		m_speed.x += fr;
+	}
 };
 
 void Entity::ApplyResponse (const sf::Vector2f & vec) {

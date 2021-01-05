@@ -4,7 +4,6 @@
 #include <cmath>
 #include <iostream>
 #include "../FileManager.h"
-using namespace std;
 
 namespace utils {
 	sf::Vector2f getCenter(const sf::Rect<float> & of_this) 
