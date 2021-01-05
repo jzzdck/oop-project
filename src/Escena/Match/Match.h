@@ -7,6 +7,7 @@
 #include <vector>
 #include "World.h"
 #include "../Scene.h"
+#include "../../Game.h"
 #include "../../Entity/Item/Item.h"
 
 /** @brief The Match class handles the connection between the elements of the game; 
