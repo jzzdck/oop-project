@@ -8,7 +8,7 @@
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
-	m_jumpcount(1000),
+	m_jumpcount(2),
 	m_jumpspeed(-12), 
 	is_jumping(false), 
 	current_sprite(!player_index), 
@@ -16,8 +16,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_item(nullptr), 
 	can_grab(false)
 {
-	m_topspeed = 9.6;
-	m_speed.x = m_topspeed;
+	m_topspeed = 10.5f;
 	
 	LoadKeys();
 	LoadBelly();
@@ -55,27 +54,21 @@ void Player::Update() {
 	}
 	
 	m_speed.x = std::fabs(m_speed.x);
-	if (m_input["right"] || m_input["left"])
-		m_speed.x = std::min(m_speed.x + 0.8f, m_topspeed);
-	else 
-		m_speed.x = 0.f;
-	
-	if (m_input["right"]) {
-		m_sprite.move(m_speed.x, 0);
+	if (m_input["right"] || m_input["left"]) {
 		current_sprite = 0;
-	} else if (m_input["left"]) {
-		m_speed.x *= -1;
+		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
+		
+		if (m_input["left"])
+			m_speed.x *= -1, current_sprite = 1;
+		
 		m_sprite.move(m_speed.x, 0);
-		current_sprite = 1;
-	} m_sprite.move(0, m_speed.y);
+	} else m_speed.x = 0.f;
+	m_sprite.move(0, m_speed.y);
 	
 	if (m_input["attack"] && m_weapon) 
 		m_weapon->Action();
 	
-	if (utils::wasPressed(can_grab, m_input["grab"]))
-		set_grab = can_grab;
-	else 
-		set_grab = false;
+	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
 }
 
 void Player::Draw(sf::RenderWindow & win) {
