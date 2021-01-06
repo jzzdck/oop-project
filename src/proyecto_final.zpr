@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=../../oop-project
 inherits_from=
-current_source=Escena/Match/Match.cpp
+current_source=Escena/Match/MatchTemplates.h
 path_char=/
 [source]
 path=main.cpp
@@ -134,6 +134,10 @@ cursor=0:0
 [header]
 path=Utils/phutils.h
 cursor=0:0
+[header]
+path=Escena/Match/MatchTemplates.h
+cursor=0:0
+open=true
 [other]
 path=Leeme.txt
 cursor=6:145
