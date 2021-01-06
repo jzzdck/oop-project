@@ -13,7 +13,7 @@ class Game;
 /// @brief Entity is the highest hierarchy level for any entity in the game. 
 class Entity {
 public:
-	virtual void Update();
+	virtual void Update() = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
 	/// @brief Fast collision checking method.
@@ -27,6 +27,7 @@ public:
 	sf::Sprite &GetSprite() { return m_sprite; }
 	/// @brief Get the entity's m_speed.
 	sf::Vector2f &GetSpeed() { return m_speed; }
+	sf::Vector2f &GetInitPos() { return m_initpos; }
 	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
 	
 	/// @brief Construct an Entity given its keyword.
@@ -39,8 +40,9 @@ public:
 	virtual ~Entity() {}
 protected:
 	std::string m_key;
+	bool is_alive;
 	
-	sf::Vector2f m_speed;
+	sf::Vector2f m_speed, m_initpos;
 	float m_topspeed;
 	
 	std::vector<sf::Texture> m_textures;
