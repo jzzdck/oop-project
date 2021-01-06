@@ -23,62 +23,10 @@ class Match : public Escena {
 	
 	sf::View m_view;
 public:
+	#include "MatchTemplates.h"
 	void ProcessEvent(sf::Event& e,Game& g)override;
 	void Update(Game & g);
 	void UpdateCamera();
-	
-	template<class T>
-	int UpdateEntity(T* entity) { 
-		sf::Vector2f response;
-		entity->Update();
-		entity->ApplyGravity(m_world.GetGravity());
-		
-		int base_col = -1;
-		int coll_index = m_world.CollidesWith(entity->GetSprite(), response);
-		while (coll_index != -1) {
-			
-			if (coll_index == m_world.GetBaseIndex(0))
-				base_col = 0;
-			else if (coll_index == m_world.GetBaseIndex(1))
-				base_col = 1;
-			
-			entity->ApplyResponse(response);
-			coll_index = m_world.CollidesWith(entity->GetSprite(), response, coll_index+1);
-		} 
-		
-		return base_col;
-	}
-	
-	template<class T> 
-	void UpdateObjects(std::vector<T*> objects) {
-		if (objects.empty()) return;
-		
-		for (T* object : objects) {
-			UpdateEntity(object);
-			if (object->Owner() != -1) 
-				object->SetSpeed( {0,0} );
-		}
-		
-		for (Player *player : m_players) {
-			bool update = true, pressed_grab = player->PressedGrab(objects[0]);
-			
-			for (T* object : objects) {
-				if (object->Owner() == -1 && 
-					object->CollidesWith(*player) && pressed_grab) 
-				{
-					player->AssignObject(object);
-					update = false;
-					break;
-				} 
-			}
-			
-			if (update) for (T* object : objects) {
-				if (object->Owner() == player->GetIndex() && pressed_grab)
-					player->UnassignObject(object);
-			}
-		}
-	}
-	
 	/// @brief Draw the Match's elements in the window.
 	/// @param win The window where to draw.
 	void Draw(sf::RenderWindow & win);
