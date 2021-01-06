@@ -46,10 +46,18 @@ void Match::Update (Game& g) {
 			std::cout << "Player" << player->GetIndex() << " is at "
 					  << (base_col == player->GetIndex() ? "home" : "enemy") 
 					  << " base!" << std::endl;
+		
+		if (!IsBounded(player)) {
+			player->GetSprite().setPosition(player->GetInitPos());
+			player->SetSpeed({0, 0});
+		}
 	}
 	
-	UpdateObjects(m_items);
-	UpdateObjects(m_weapons);
+	CheckBounds(m_items);
+	UpdateOwnerships(m_items);
+	
+	CheckBounds(m_weapons);
+	UpdateOwnerships(m_weapons);
 }
 
 void Match::Draw (sf::RenderWindow & win) {
@@ -72,6 +80,9 @@ void Match::Draw (sf::RenderWindow & win) {
 Match::~Match() {
 	for (size_t i=0; i<m_items.size(); ++i) 
 		delete m_items[i];
+	
+	for (size_t i=0; i<m_weapons.size(); ++i) 
+		delete m_weapons[i];
 }
 
 void Match::UpdateCamera () {
