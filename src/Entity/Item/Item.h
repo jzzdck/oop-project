@@ -15,6 +15,7 @@ public:
 	/// @return The current grab state.
 	int Owner() const { return m_owner; }
 	
+	void Update() override;
 	virtual void Draw(sf::RenderWindow & win) = 0;
 	virtual ~Item() { }
 private:
