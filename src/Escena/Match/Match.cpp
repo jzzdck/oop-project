@@ -74,9 +74,15 @@ void Match::Update (Game& g) {
 	
 	m_weapons = EraseUnbounded(m_weapons);
 	UpdateOwnerships(m_weapons);
-	for (Weapon *weapon : m_weapons)
+	for (Weapon *weapon : m_weapons) {
+		if (weapon->Owner() != -1) {
+			Player *owner = m_players[weapon->Owner()];
+			weapon->SetPos(owner->GetSprite().getPosition(), owner->GetFacing());
+		}
+		
 		if (weapon->IsAttacking())
 			m_projectiles.push_back(weapon->GetProjectile());
+	}
 	
 	EraseUnused( m_projectiles );
 	m_projectiles = EraseUnbounded(m_projectiles);

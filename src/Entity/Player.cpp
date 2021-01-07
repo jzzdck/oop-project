@@ -67,10 +67,8 @@ void Player::Update() {
 	} else m_speed.x = 0.f;
 	m_sprite.move(0, m_speed.y);
 	
-	if (m_weapon) {
+	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);
-		m_weapon->SetPos(m_sprite.getPosition(), GetFacing());
-	}
 	
 	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
 }

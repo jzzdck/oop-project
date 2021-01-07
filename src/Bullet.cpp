@@ -5,6 +5,7 @@ Bullet::Bullet(float xspeed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")
 {
 	SetSpeed({xspeed, 0});
+	if (xspeed > 0) m_sprite.setTexture(m_textures[1]);
 }
 
 void Bullet::ApplyEffect (Player * target) {

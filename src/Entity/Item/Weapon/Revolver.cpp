@@ -14,7 +14,6 @@ void Revolver::Draw(sf::RenderWindow & win) {
 Projectile * Revolver::GetProjectile ( ) {
 	auto pos = m_sprite.getPosition();
 	float dir = m_current ? -1.f : 1.f;
-	pos.x += 60*dir;
 	return new Bullet(dir*50, pos);
 }
 
