@@ -26,3 +26,5 @@ void Weapon::SetPos(const sf::Vector2f & relative_to, bool facing) {
 	m_current = facing;
 	m_pos = OffSet(relative_to);
 }
+
+
