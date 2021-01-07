@@ -5,11 +5,11 @@
 #include "../../Game.h"
 #include "../../Entity/Player.h"
 #include "../../Utils/phutils.h"
-#include "../../Entity/Item/Weapon/Shovel.h"
 #include "../../Entity/Item/Weapon/Revolver.h"
 #include "../../Entity/Item/Flag.h"
 #include "../Menu/Menu_Principal.h"
 #include "../Scene.h"
+#include "../../Entity/Item/Weapon/Shovel.h"
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
@@ -37,6 +37,22 @@ void Match::ProcessEvent(sf::Event& e, Game& g) {
 		g.SetScene(new Menu_Principal(win_width, win_height));
 }
 
+void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
+	for (size_t i=0; i<projectiles.size(); ++i) {
+		if (!projectiles[i]->IsUsed()) {
+			delete projectiles[i];
+			projectiles[i] = nullptr;
+		}
+	}
+	
+	std::vector<Projectile*> new_objects;
+	for (size_t i=0; i<projectiles.size(); ++i)
+		if (projectiles[i]) 
+			new_objects.push_back(projectiles[i]);
+	
+	projectiles = new_objects;
+}
+
 void Match::Update (Game& g) {
 	UpdateCamera();
 	
@@ -47,33 +63,30 @@ void Match::Update (Game& g) {
 					  << (base_col == player->GetIndex() ? "home" : "enemy") 
 					  << " base!" << std::endl;
 		
-		if (!IsBounded(player)) {
+		if (IsUnbounded(player)) {
 			player->GetSprite().setPosition(player->GetInitPos());
 			player->SetSpeed({0, 0});
 		}
 	}
 	
-	CheckBounds(m_items);
+	m_items = EraseUnbounded(m_items);
 	UpdateOwnerships(m_items);
 	
-	CheckBounds(m_weapons);
+	m_weapons = EraseUnbounded(m_weapons);
 	UpdateOwnerships(m_weapons);
-	for (Weapon * weapon : m_weapons)
+	for (Weapon *weapon : m_weapons)
 		if (weapon->IsAttacking())
 			m_projectiles.push_back(weapon->GetProjectile());
 	
+	EraseUnused( m_projectiles );
+	m_projectiles = EraseUnbounded(m_projectiles);
 	for (Projectile *projectile : m_projectiles) {
 		UpdateEntity(projectile);
-		for (Player *player : m_players) {
-			if (projectile->CollidesWith(player->GetSprite())) {
-//				projectile->ApplyEffect(player);
-				player->GetSprite().setPosition(player->GetInitPos());
-				player->SetSpeed({0, 0});
-			}
-		}
+		
+		for (Player *player : m_players)
+			if (projectile->CollidesWith(player->GetSprite()))
+				projectile->ApplyEffect(player);
 	}
-	
-	CheckBounds(m_projectiles);
 }
 
 void Match::Draw (sf::RenderWindow & win) {
@@ -120,7 +133,8 @@ void Match::UpdateCamera () {
 	m_view.setCenter(cam_center);
 	m_view.setSize( {win_width, win_height} );
 	
-	float scale = std::max(cam_size.x/win_width + 0.2f, cam_size.y/win_height + 0.2f);
-	scale = std::max(scale, 0.5f);
+	float scale = std::max(cam_size.x/win_width + 0.2f, cam_size.y/win_height + 0.3f);
+	scale = std::max(scale, 0.05f);
 	m_view.zoom(scale);
 }
+

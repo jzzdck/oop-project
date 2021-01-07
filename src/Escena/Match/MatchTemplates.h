@@ -2,15 +2,16 @@
 #define MATCHTEMPLATES_H
 
 template<class T>
-bool IsBounded(T* entity, float out_factor = 0.5f) {
+bool IsUnbounded(T *entity) {
+	float out_factor = 0.5f;
 	auto pos = entity->GetSprite().getPosition();
 	
 	// get bools for cheking if entity is in between out_factor% + screen width/height 
-	bool is_xout = pos.x > -win_width*out_factor && win_width*out_factor + win_width > pos.x;
-	bool is_yout = pos.y > -win_height*out_factor && win_height*out_factor + win_height > pos.y;
+	bool is_xout = pos.x < -win_width*out_factor || win_width*out_factor + win_width < pos.x;
+	bool is_yout = pos.y < -win_height*out_factor || win_height*out_factor + win_height < pos.y;
 	
 	// if both conditions are met, then entity is bounded
-	return is_yout && is_xout;
+	return is_yout || is_xout;
 }
 
 template<class T>
@@ -35,10 +36,10 @@ int UpdateEntity(T* entity) {
 }
 	
 template<class T> 
-void CheckBounds(std::vector<T*> &objects) {
+std::vector<T*> EraseUnbounded(std::vector<T*> objects) {
 	for (size_t i=0; i<objects.size(); ++i) {
 		UpdateEntity(objects[i]);
-		if (!IsBounded(objects[i])) {
+		if (IsUnbounded(objects[i])) {
 			delete objects[i];
 			objects[i] = nullptr;
 		}
@@ -46,10 +47,10 @@ void CheckBounds(std::vector<T*> &objects) {
 	
 	std::vector<T*> new_objects;
 	for (size_t i=0; i<objects.size(); ++i)
-		if (objects[i] != nullptr) 
+		if (objects[i]) 
 			new_objects.push_back(objects[i]);
 	
-	objects = new_objects;
+	return new_objects;
 }
 
 template<class T> 
