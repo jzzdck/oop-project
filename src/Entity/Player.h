@@ -30,7 +30,7 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
-	bool IsAttacking() { return set_attack && m_weapon; }
+	bool IsAttacking() { return m_input["attack"] && m_weapon; }
 	
 	void UnassignObject(Item* if_item);
 	void UnassignObject(Weapon* if_weapon);
@@ -48,7 +48,7 @@ public:
 private:
 	int m_index;
 	
-	bool can_grab, set_grab, set_attack = false, can_attack = false;
+	bool can_grab, set_grab;
 	Controls m_input;
 	void LoadKeys();
 	

@@ -21,6 +21,8 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	LoadKeys();
 	LoadBelly();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
+	m_sprite.scale(2,2);
+	ms_belly.scale(2,2);
 }
 
 void Player::LoadKeys() {
@@ -65,9 +67,7 @@ void Player::Update() {
 	} else m_speed.x = 0.f;
 	m_sprite.move(0, m_speed.y);
 	
-	set_attack = utils::wasPressed(can_attack, m_input["attack"]) ? can_attack : false;
-	
-	if (set_attack && m_weapon)
+	if (m_input["attack"] && m_weapon)
 		m_weapon->SetAttacking(true);
 	else if (m_weapon)
 		m_weapon->SetAttacking(false);
@@ -83,8 +83,8 @@ void Player::Draw(sf::RenderWindow & win) {
 	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
 	if (m_weapon) m_weapon->GetSprite().setPosition(m_sprite.getPosition());
 	
-	win.draw(ms_belly);
 	win.draw(m_sprite);
+	win.draw(ms_belly);
 }
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {
@@ -113,6 +113,7 @@ void Player::UnassignObject (Item * if_item) {
 void Player::UnassignObject(Weapon *if_weapon) {
 	m_weapon->SetOwner(-1);
 	m_weapon->SetSpeed({GetSpeed().x*1.3f, -6.f});
+	m_weapon->SetAttacking(false);
 	m_weapon = nullptr;
 }
 
@@ -131,3 +132,4 @@ void Player::AssignObject(Weapon *new_weapon) {
 	m_weapon = new_weapon;
 	m_weapon->SetOwner(m_index);
 }
+
