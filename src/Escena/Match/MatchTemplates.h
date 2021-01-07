@@ -6,8 +6,8 @@ bool IsBounded(T* entity, float out_factor = 0.5f) {
 	auto pos = entity->GetSprite().getPosition();
 	
 	// get bools for cheking if entity is in between out_factor% + screen width/height 
-	bool is_xout = pos.x > -win_width*0.5f && win_width*0.5f + win_width > pos.x;
-	bool is_yout = pos.y > -win_height*0.5f && win_height*0.5f + win_height > pos.y;
+	bool is_xout = pos.x > -win_width*out_factor && win_width*out_factor + win_width > pos.x;
+	bool is_yout = pos.y > -win_height*out_factor && win_height*out_factor + win_height > pos.y;
 	
 	// if both conditions are met, then entity is bounded
 	return is_yout && is_xout;
@@ -60,8 +60,8 @@ void UpdateOwnerships(std::vector<T*> objects) {
 		bool update = true, pressed_grab = player->PressedGrab(objects[0]);
 		
 		for (T* object : objects) {
-			if (object->Owner() == -1 && 
-				object->CollidesWith(*player) && pressed_grab) 
+			if (object->Owner() == -1 && pressed_grab &&
+				object->CollidesWith(player->GetSprite())) 
 			{
 				player->AssignObject(object);
 				update = false;

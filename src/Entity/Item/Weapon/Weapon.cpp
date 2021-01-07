@@ -5,7 +5,7 @@ Weapon::Weapon(sf::Vector2f pos, std::string keyword,
 	Item(pos, keyword), 
 	m_damage(damage), 
 	m_current(facing), 
-	m_width(width)
+	m_width(width), attack_state(false)
 {
 	
 }
@@ -26,4 +26,3 @@ void Weapon::SetPos(const sf::Vector2f & relative_to, bool facing) {
 	m_current = facing;
 	m_pos = OffSet(relative_to);
 }
-

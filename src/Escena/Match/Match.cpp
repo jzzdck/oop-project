@@ -58,20 +58,32 @@ void Match::Update (Game& g) {
 	
 	CheckBounds(m_weapons);
 	UpdateOwnerships(m_weapons);
+	for (Weapon * weapon : m_weapons)
+		if (weapon->IsAttacking())
+			m_projectiles.push_back(weapon->GetProjectile());
+	
+	for (Projectile *projectile : m_projectiles) {
+		UpdateEntity(projectile);
+		for (Player *player : m_players) {
+			if (projectile->CollidesWith(player->GetSprite())) {
+//				projectile->ApplyEffect(player);
+				player->GetSprite().setPosition(player->GetInitPos());
+				player->SetSpeed({0, 0});
+			}
+		}
+	}
+	
+	CheckBounds(m_projectiles);
 }
 
 void Match::Draw (sf::RenderWindow & win) {
 	win.clear({158, 207, 222});
 	win.setView(m_view);
 	
-	for (Player *player : m_players)
-		player->Draw(win);
-	
-	for (Item *item : m_items)
-		item->Draw(win);
-	
-	for (Weapon *weapon : m_weapons)
-		weapon->Draw(win);
+	for (Player *player : m_players) player->Draw(win);
+	for (Item *item : m_items) item->Draw(win);
+	for (Weapon *weapon : m_weapons) weapon->Draw(win);
+	for (Projectile *projectile : m_projectiles) projectile->Draw(win);
 	
 	m_world.Draw(win);
 	win.display();
@@ -83,6 +95,9 @@ Match::~Match() {
 	
 	for (size_t i=0; i<m_weapons.size(); ++i) 
 		delete m_weapons[i];
+	
+	for(size_t i=0;i<m_projectiles.size();i++)
+		delete m_projectiles[i];
 }
 
 void Match::UpdateCamera () {

@@ -18,6 +18,7 @@
 class Menu : public Escena {
 public:
 	Menu(float width, float height,std::string location="principal");
+	virtual ~Menu() = default;
 private:
 	
 protected:
