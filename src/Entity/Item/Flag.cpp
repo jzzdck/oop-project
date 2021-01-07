@@ -3,7 +3,6 @@
 
 Flag::Flag(sf::Vector2f pos, bool who) : Item(pos, "box") {
 	m_sprite.setTexture(m_textures[!who]);
-	m_sprite.scale(2,2);
 	m_sprite.setColor(utils::loadPlayerColor(who));
 }
 
