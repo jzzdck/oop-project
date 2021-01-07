@@ -81,8 +81,6 @@ void Match::Update (Game& g) {
 	EraseUnused( m_projectiles );
 	m_projectiles = EraseUnbounded(m_projectiles);
 	for (Projectile *projectile : m_projectiles) {
-		UpdateEntity(projectile);
-		
 		for (Player *player : m_players)
 			if (projectile->CollidesWith(player->GetSprite()))
 				projectile->ApplyEffect(player);
