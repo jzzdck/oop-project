@@ -9,7 +9,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
 	m_jumpcount(2),
-	m_jumpspeed(-12), 
+	m_jumpspeed(-15), 
 	is_jumping(false), 
 	current_sprite(!player_index), 
 	m_weapon(nullptr), 
@@ -67,10 +67,10 @@ void Player::Update() {
 	} else m_speed.x = 0.f;
 	m_sprite.move(0, m_speed.y);
 	
-	if (m_input["attack"] && m_weapon)
-		m_weapon->SetAttacking(true);
-	else if (m_weapon)
-		m_weapon->SetAttacking(false);
+	if (m_weapon) {
+		m_weapon->SetAttacking(m_input["attack"]);
+		m_weapon->SetPos(m_sprite.getPosition(), GetFacing());
+	}
 	
 	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
 }
@@ -81,7 +81,6 @@ void Player::Draw(sf::RenderWindow & win) {
 	
 	ms_belly.setPosition(m_sprite.getPosition());
 	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
-	if (m_weapon) m_weapon->GetSprite().setPosition(m_sprite.getPosition());
 	
 	win.draw(m_sprite);
 	win.draw(ms_belly);

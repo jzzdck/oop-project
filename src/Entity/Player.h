@@ -41,6 +41,8 @@ public:
 	bool PressedGrab(Item* if_item);
 	bool PressedGrab(Weapon* if_weapon);
 	
+	bool GetFacing() { return current_sprite; }
+	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 

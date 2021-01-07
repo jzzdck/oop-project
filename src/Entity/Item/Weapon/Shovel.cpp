@@ -13,8 +13,9 @@ void Shovel::Draw(sf::RenderWindow & win)
 
 Projectile * Shovel::GetProjectile ( ) {
 	auto pos = m_sprite.getPosition();
-	pos.x += 50;
+	float dir = m_current ? -1.f : 1.f;
+	pos.x += 50*dir;
 	
-	return new Bullet(10, pos);
+	return new Bullet(10*dir, pos);
 }
 

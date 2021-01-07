@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Utils/phutils.h"
 
 Bullet::Bullet(float xspeed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")
@@ -17,7 +18,8 @@ void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Bullet::Update ( ) {
-	m_sprite.move(m_speed.x, 0);
+	float dir = utils::randf() > 0.5 ? 1 : -1; 
+	m_sprite.move(m_speed.x, dir*utils::randf()*10);
 }
 
 void Bullet::Draw (sf::RenderWindow & win) {

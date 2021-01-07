@@ -132,7 +132,7 @@ void Match::UpdateCamera () {
 	m_view.setSize( {win_width, win_height} );
 	
 	float scale = std::max(cam_size.x/win_width + 0.2f, cam_size.y/win_height + 0.3f);
-	scale = std::max(scale, 0.05f);
+	scale = std::max(scale, 0.5f);
 	m_view.zoom(scale);
 }
 
