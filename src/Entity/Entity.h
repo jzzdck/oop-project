@@ -18,9 +18,9 @@ public:
 	
 	/// @brief Fast collision checking method.
 	/// @param another Check collision with this sprite.
-	bool CollidesWith(const Entity &another);
+	bool CollidesWith(const sf::Sprite &another);
 	/// @brief Apply gravity from World.
-	void ApplyGravity(float gravity) { m_speed.y += gravity; }
+	virtual void ApplyGravity(float gravity) { m_speed.y += gravity; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
 	/// @brief Get the entity's m_sprite.
@@ -37,7 +37,7 @@ public:
 	/// @param keyword String to search in textures.conf
 	/// @param pos Intial entity position
 	Entity(sf::Vector2f pos, std::string keyword);
-	virtual ~Entity() {}
+	virtual ~Entity() = default;
 protected:
 	std::string m_key;
 	bool is_alive;

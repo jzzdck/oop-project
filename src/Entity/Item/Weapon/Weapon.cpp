@@ -5,7 +5,7 @@ Weapon::Weapon(sf::Vector2f pos, std::string keyword,
 	Item(pos, keyword), 
 	m_damage(damage), 
 	m_current(facing), 
-	m_width(width)
+	m_width(width), attack_state(false)
 {
 	
 }
@@ -15,15 +15,16 @@ void Weapon::SetText() {
 }
 
 sf::Vector2f Weapon::OffSet(const sf::Vector2f &to_offset) {
-	int x = to_offset.x;
-	int y = to_offset.y;
+	float x = to_offset.x;
+	float y = to_offset.y;
 
-	int offset = m_current ? -35 : m_width;
-	return sf::Vector2f(x+offset, y+35);
+	float offset = m_current ? -35.f : m_width+20.f;
+	return sf::Vector2f(x+offset, y+35.f);
 }
 
 void Weapon::SetPos(const sf::Vector2f & relative_to, bool facing) {
 	m_current = facing;
+	m_sprite.setPosition(m_pos);
 	m_pos = OffSet(relative_to);
 }
 

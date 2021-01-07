@@ -10,6 +10,7 @@
 #include "../../Game.h"
 #include "../../Entity/Item/Item.h"
 #include "../../Entity/Player.h"
+#include "../../Projectile.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
@@ -19,6 +20,8 @@ class Match : public Escena {
 	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;
+	std::vector<Projectile*> m_projectiles;
+	
 	World m_world;
 	
 	sf::View m_view;
@@ -30,6 +33,8 @@ public:
 	/// @brief Draw the Match's elements in the window.
 	/// @param win The window where to draw.
 	void Draw(sf::RenderWindow & win);
+	
+	void EraseUnused(std::vector<Projectile*> &projectiles);
 	
 	/// @brief Construct the match
 	/// @param width Match uses this parameter to set the X position of its elements.
