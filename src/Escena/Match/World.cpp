@@ -6,6 +6,8 @@
 #include <cmath>
 #include "../../FileManager.h"
 #include "../../Utils/phutils.h"
+#include "Plataform/Plataform_static.h"
+#include <vector>
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),
@@ -15,9 +17,23 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 }
 
 void World::LoadMap(std::string map_name) {
-	FileManager s("maps.conf", map_name);
-	m_platforms.resize(stoi(s["size"]));
+	FileManager s1("maps.conf", map_name+"-static");
+	FileManager s2("maps.conf", map_name+"-dynamic");
+	size_t size1=stoi(s1["size"]);
+	for(size_t i=0;i<size1;++i)	
+	{
+		m_platforms.push_back(new Plataform_static("rect" + std::to_string(i) + "-"));
+		m_platforms[i]->LoadData(s1,win_width,win_height);
+		if(m_platforms[i]->isBase()!=-1)
+		{
+			if(m_platforms[i]->isBase()==0)
+				m_base0=i;
+			else
+				m_base1=i;
+		}
+	}
 	
+	/*
 	m_c = utils::getColor(s["color"]);
 	for (size_t i=0; i<m_platforms.size(); ++i) {
 		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
@@ -36,7 +52,8 @@ void World::LoadMap(std::string map_name) {
 		} else aux.setFillColor(m_c);
 		
 		m_platforms[i] = aux;
-	}
+	}*/
+	
 }
 
 int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int index) {
@@ -45,7 +62,7 @@ int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int in
 	sf::Rect<float> entity_g = entity.getGlobalBounds();
 	for (size_t i=index; i<m_platforms.size(); ++i) {
 		sf::Rect<float> intersection;
-		sf::Rect<float> rect_g = m_platforms[i].getGlobalBounds();
+		sf::Rect<float> rect_g = m_platforms[i]->getGlobalBounds();
 		if (entity_g.intersects(rect_g, intersection)) {
 			sf::Vector2f dir;
 			dir.y = rect_g.top  > entity_g.top  ? -1.f : 1.f;
@@ -63,8 +80,14 @@ int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int in
 	return -1;
 }
 
-void World::Draw (sf::RenderWindow & win) {
-	for (const auto &rectangle : m_platforms)
-		win.draw(rectangle);
+void World::Draw (sf::RenderWindow& win) {
+	for (Plataform* &p: m_platforms)
+		p->Draw(win);
 }
-
+World::~World()
+{
+	for(size_t i=0;i<m_platforms.size();i++) 
+	{
+		delete m_platforms[i];
+	}
+}

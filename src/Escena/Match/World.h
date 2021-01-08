@@ -6,6 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Config.hpp>
 #include <vector>
+#include "Plataform/Plataform.h"
 
 /** @brief The World class is the place where the Match occurs **/
 class World {
@@ -32,12 +33,13 @@ public:
 	/// @param gravity The world's gravity constant
 	/// @param map_name The .conf keyword to create the map.
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
+	~World();
 private:
 	/// @brief Fill the m_platforms vector with RectangleShapes
 	/// @param map_name The .conf keyword to create the map.
 	void LoadMap(std::string map_name);
-	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
-	
+//	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
+	std::vector<Plataform*> m_platforms;
 	float m_gravity;
 	float win_width, win_height;
 	std::string m_map;
