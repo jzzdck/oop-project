@@ -107,6 +107,9 @@ void Match::Draw (sf::RenderWindow & win) {
 }
 
 Match::~Match() {
+	for (size_t i=0; i<m_players.size(); ++i) 
+		delete m_players[i];
+	
 	for (size_t i=0; i<m_items.size(); ++i) 
 		delete m_items[i];
 	

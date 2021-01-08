@@ -12,7 +12,7 @@ public:
 	/// @brief Draw the weapon in the current window
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
-	bool IsAttacking() {return attack_state;}
+	virtual bool IsAttacking() {return attack_state;}
 	void SetAttacking(bool state) { attack_state = state; }
 	
 	/// @brief Set the gun texture in relation to where the player is facing.

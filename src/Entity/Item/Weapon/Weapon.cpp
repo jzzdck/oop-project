@@ -24,7 +24,7 @@ sf::Vector2f Weapon::OffSet(const sf::Vector2f &to_offset) {
 
 void Weapon::SetPos(const sf::Vector2f & relative_to, bool facing) {
 	m_current = facing;
-	m_sprite.setPosition(m_pos);
 	m_pos = OffSet(relative_to);
+	m_sprite.setPosition(m_pos);
 }
 

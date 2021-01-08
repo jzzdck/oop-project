@@ -23,3 +23,8 @@ void Item::Update ( ) {
 	m_speed.x *= dir;
 }
 
+void Item::ApplyResponse (const sf::Vector2f & vec) {
+	if (Owner() != -1) return; 
+	else Entity::ApplyResponse(vec);
+}
+
