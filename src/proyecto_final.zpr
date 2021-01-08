@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=../../oop-project
 inherits_from=
-current_source=Escena/Match/MatchTemplates.h
+current_source=Escena/Match/Plataform/Plataform.h
 path_char=/
 [source]
 path=main.cpp
@@ -57,8 +57,7 @@ path=Escena/Match/World.cpp
 cursor=0:0
 [source]
 path=Escena/Match/Match.cpp
-cursor=37:1
-open=true
+cursor=80:14
 [source]
 path=Escena/Menu/Slider.cpp
 cursor=0:0
@@ -77,6 +76,9 @@ cursor=0:0
 [source]
 path=Utils/phutils.cpp
 cursor=0:0
+[source]
+path=Escena/Match/Plataform/Plataform.cpp
+cursor=0:0
 [header]
 path=Game.h
 cursor=0:0
@@ -88,7 +90,7 @@ path=Controls.h
 cursor=0:0
 [header]
 path=Entity/Player.h
-cursor=0:0
+cursor=13:0
 [header]
 path=Entity/Entity.h
 cursor=31:1
@@ -112,7 +114,7 @@ path=Escena/Scene.h
 cursor=0:0
 [header]
 path=Escena/Match/World.h
-cursor=0:0
+cursor=3:0
 [header]
 path=Escena/Match/Match.h
 cursor=34:41
@@ -137,6 +139,9 @@ cursor=0:0
 [header]
 path=Escena/Match/MatchTemplates.h
 cursor=0:0
+[header]
+path=Escena/Match/Plataform/Plataform.h
+cursor=9:13
 open=true
 [other]
 path=Leeme.txt
