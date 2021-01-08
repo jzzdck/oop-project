@@ -5,9 +5,11 @@
 #include <SFML/Graphics/Color.hpp>
 #include <string>
 #include "Entity.h"
+#include "Item/Weapon/Weapon.h"
 #include "../Controls.h"
 #include "Item/Item.h"
-#include "Item/Weapon/Weapon.h"
+
+class Weapon;
 
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
@@ -28,9 +30,10 @@ public:
 	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
 	
+	bool IsAttacking() { return m_input["attack"] && m_weapon; }
+	
 	void UnassignObject(Item* if_item);
 	void UnassignObject(Weapon* if_weapon);
-	
 	void AssignObject(Item* new_item);
 	void AssignObject(Weapon* new_weapon);
 	
@@ -38,14 +41,16 @@ public:
 	bool PressedGrab(Item* if_item);
 	bool PressedGrab(Weapon* if_weapon);
 	
+	bool GetFacing() { return current_sprite; }
+	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
-	bool can_grab, set_grab;
 private:
 	int m_index;
 	
+	bool can_grab, set_grab;
 	Controls m_input;
 	void LoadKeys();
 	

@@ -16,8 +16,8 @@ Entity::Entity (sf::Vector2f pos, std::string keyword) :
 	m_sprite.setPosition(m_initpos);
 }
 
-bool Entity::CollidesWith(const Entity & another) {
-	return m_sprite.getGlobalBounds().intersects(another.m_sprite.getGlobalBounds());
+bool Entity::CollidesWith(const sf::Sprite &another) {
+	return m_sprite.getGlobalBounds().intersects(another.getGlobalBounds());
 }
 
 void Entity::ApplyResponse (const sf::Vector2f & vec) {
