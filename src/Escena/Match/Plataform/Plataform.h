@@ -1,18 +1,30 @@
 #ifndef PLATAFORM_H
 #define PLATAFORM_H
 #include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include "../../../FileManager.h"
 
 class Plataform {
 public:
-	Plataform();
-	virtual void Move(){};
+	Plataform(std::string const& key);
+	virtual void Move()=0;
 	virtual void Update()=0;
-	void Draw();
-	sf::Rect<float> getPos();
-	sf::Vector2f getSpeed();
-	void LoadPlataform();
+	virtual void LoadData(FileManager const& s_aux,float const& win_width,float const& win_height  )=0;
+	void Draw(sf::RenderWindow& w);
+	sf::Rect<float> getGlobalBounds()const;
+	sf::Vector2f getSpeed()const;
+	void setSpeed(sf::Vector2f const& speed); 
+	void setColor(sf::Color const& c);
+	
+	int isBase()const;
+	virtual ~Plataform() = default;
+protected:
+	void setRect(sf::RectangleShape& r);
+	
+	const std::string m_key;
+	bool m_base;
+	bool m_player;
 private:
 	sf::Vector2f m_speed;
 	sf::RectangleShape m_rec;
