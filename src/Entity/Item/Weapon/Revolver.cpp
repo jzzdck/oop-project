@@ -2,8 +2,8 @@
 #include <iostream>
 #include "../../../Bullet.h"
 
-Revolver::Revolver(sf::Vector2f pos, bool facing, float wdt) : 
-	Weapon(pos, "revolver", 30, facing, wdt), is_shooting(false)
+Revolver::Revolver(sf::Vector2f pos, bool facing) : 
+	Weapon(pos, "revolver", 30, facing, 32), is_shooting(false)
 { m_sprite.scale(2,2); }
 
 void Revolver::Draw(sf::RenderWindow & win) {
