@@ -1,7 +1,7 @@
 #include "Handcannon.h"
-#include "Bomb.h"
 #include <algorithm>
 #include <iostream>
+#include "../../proyectile/Bomb.h"
 
 Handcannon::Handcannon(sf::Vector2f pos, bool facing) :
 	Weapon(pos, "handcannon", 30, !facing, 20)

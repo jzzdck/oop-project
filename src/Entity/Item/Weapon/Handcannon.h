@@ -1,6 +1,6 @@
 #ifndef HANDCANNON_H
 #define HANDCANNON_H
-#include "Entity/Item/Weapon/Weapon.h"
+#include "Weapon.h"
 
 class Handcannon : public Weapon {
 public:

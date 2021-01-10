@@ -1,5 +1,5 @@
 #include "Shovel.h"
-#include "../../../Bullet.h"
+#include "../../proyectile/Bullet.h"
 
 Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", 90, true, 0) 
 {

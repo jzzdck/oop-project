@@ -10,7 +10,7 @@
 #include "../Menu/Menu_Principal.h"
 #include "../Scene.h"
 #include "../../Entity/Item/Weapon/Shovel.h"
-#include "../../Handcannon.h"
+#include "../../Entity/Item/Weapon/Handcannon.h"
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)

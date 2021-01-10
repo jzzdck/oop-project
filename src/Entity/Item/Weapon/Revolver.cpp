@@ -1,6 +1,6 @@
 #include "Revolver.h"
 #include <iostream>
-#include "../../../Bullet.h"
+#include "../../proyectile/Bullet.h"
 
 Revolver::Revolver(sf::Vector2f pos, bool facing) : 
 	Weapon(pos, "revolver", 30, facing, 32), is_shooting(false)

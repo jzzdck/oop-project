@@ -1,7 +1,7 @@
 #ifndef REVOLVER_H
 #define REVOLVER_H
 #include "Weapon.h"
-#include "../../../Projectile.h"
+#include "../../proyectile/Projectile.h"
 
 class Revolver : public Weapon {
 public:

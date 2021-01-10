@@ -2,7 +2,7 @@
 #define WEAPON_H
 #include <SFML/System/Vector2.hpp>
 #include "../Item.h"
-#include "../../../Projectile.h"
+#include "../../proyectile/Projectile.h"
 
 class Projectile;
 

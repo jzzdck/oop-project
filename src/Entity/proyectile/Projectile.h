@@ -1,7 +1,7 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
-#include "Entity/Entity.h"
-#include "Entity/Player.h"
+#include "../Player.h"
+#include "../Entity.h"
 
 class Player;
 

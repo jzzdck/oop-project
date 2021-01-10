@@ -10,7 +10,7 @@
 #include "../../Game.h"
 #include "../../Entity/Item/Item.h"
 #include "../../Entity/Player.h"
-#include "../../Projectile.h"
+#include "../../Entity/proyectile/Projectile.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
