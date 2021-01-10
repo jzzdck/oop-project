@@ -10,6 +10,7 @@
 #include "../Menu/Menu_Principal.h"
 #include "../Scene.h"
 #include "../../Entity/Item/Weapon/Shovel.h"
+#include "../../Handcannon.h"
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
@@ -21,11 +22,13 @@ Match::Match(float width, float height) :
 	
 	for (size_t i=0; i<randsize; ++i) { 
 		int chance = rand()%101;
-		if (chance < 33)
+		if (chance < 25)
 			m_weapons.push_back(new Shovel({win_width*utils::randf(), win_height*utils::randf()}));
-		else if (chance < 66)
-			m_weapons.push_back(new Revolver({win_width*utils::randf(), win_height*utils::randf()}, 1, 32));
-		else if (chance < 83)
+		else if (chance < 50)
+			m_weapons.push_back(new Revolver({win_width*utils::randf(), win_height*utils::randf()}, 1));
+		else if (chance < 75)
+			m_weapons.push_back(new Handcannon({win_width*utils::randf(), win_height*utils::randf()}, 1));
+		else if (chance < 87)
 			m_items.push_back(new Flag({win_width*utils::randf(), win_height*utils::randf()}, 1));
 		else
 			m_items.push_back(new Flag({win_width*utils::randf(), win_height*utils::randf()}, 0));
@@ -59,10 +62,10 @@ void Match::Update (Game& g) {
 	
 	for (Player *player : m_players) {
 		int base_col = UpdateEntity(player);
-		if (base_col != -1) 
-			std::cout << "Player" << player->GetIndex() << " is at "
-					  << (base_col == player->GetIndex() ? "home" : "enemy") 
-					  << " base!" << std::endl;
+//		if (base_col != -1) 
+//			std::cout << "Player" << player->GetIndex() << " is at "
+//					  << (base_col == player->GetIndex() ? "home" : "enemy") 
+//					  << " base!" << std::endl;
 		
 		if (IsUnbounded(player)) {
 			player->GetSprite().setPosition(player->GetInitPos());
@@ -108,6 +111,9 @@ void Match::Draw (sf::RenderWindow & win) {
 }
 
 Match::~Match() {
+	for (size_t i=0; i<m_players.size(); ++i) 
+		delete m_players[i];
+	
 	for (size_t i=0; i<m_items.size(); ++i) 
 		delete m_items[i];
 	

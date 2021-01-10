@@ -47,7 +47,8 @@ void Player::LoadBelly() {
 }
 
 void Player::Update() {
-	if (utils::wasPressed(is_jumping, m_input["jump"])) {
+	if (is_jumping !=  m_input["jump"]) {
+		is_jumping = !is_jumping;
 		if (is_jumping && m_jumpcount > 0 ) {
 			m_speed.y = m_jumpspeed;
 			--m_jumpcount;
@@ -129,4 +130,3 @@ void Player::AssignObject(Weapon *new_weapon) {
 	m_weapon = new_weapon;
 	m_weapon->SetOwner(m_index);
 }
-

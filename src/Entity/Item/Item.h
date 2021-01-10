@@ -6,6 +6,7 @@
 class Item : public Entity {
 public:
 	Item(sf::Vector2f pos, std::string keyword);
+	void ApplyResponse(const sf::Vector2f &vec) override;
 	
 	/// @brief Set the current item's grab state.
 	/// Items can be grabbed or not grabbed.

@@ -5,7 +5,10 @@ Bullet::Bullet(float xspeed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")
 {
 	SetSpeed({xspeed, 0});
-	if (xspeed > 0) m_sprite.setTexture(m_textures[1]);
+	if (xspeed > 0) { 
+		m_sprite.setTexture(m_textures[1]);
+		m_sprite.move(16, 0);
+	}
 }
 
 void Bullet::ApplyEffect (Player * target) {
@@ -19,8 +22,7 @@ void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Bullet::Update ( ) {
-	float dir = utils::randf() > 0.5 ? 1 : -1; 
-	m_sprite.move(m_speed.x, dir*utils::randf()*10);
+	m_sprite.move(m_speed.x, 0);
 }
 
 void Bullet::Draw (sf::RenderWindow & win) {
