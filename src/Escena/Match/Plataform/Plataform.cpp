@@ -33,3 +33,7 @@ void Plataform::setRect(sf::RectangleShape& r)
 {
 	m_rec=r;
 }
+void Plataform::setPos(sf::Vector2f pos)
+{
+	m_rec.setPosition(pos);
+}

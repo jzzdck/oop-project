@@ -1,6 +1,7 @@
 #ifndef PLATAFORM_DYNAMIC_H
 #define PLATAFORM_DYNAMIC_H
 #include "Plataform.h"
+#include <SFML/Graphics/RectangleShape.hpp>
 
 class Plataform_dynamic : public Plataform {
 public:
@@ -17,10 +18,12 @@ public:
 	
 	bool CheckLimits(bool const& axis);
 	void InvertLSpeed(bool const& axis);
+	void InvertAngSpeed();
+	
+	void Rotate();
 private:
 	sf::Vector2f m_linear_speed,m_start,m_end;
-	float m_angular_speed;
-	
+	float m_angular_speed,m_radius,m_angle;
 	
 };
 

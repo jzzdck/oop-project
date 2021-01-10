@@ -19,7 +19,7 @@ public:
 	virtual ~Plataform() = default;
 protected:
 	void setRect(sf::RectangleShape& r);
-	
+	void setPos(sf::Vector2f pos);
 	const std::string m_key;
 	bool m_base;
 	bool m_player;
