@@ -13,8 +13,6 @@ public:
 	virtual void LoadData(FileManager const& s_aux,float const& win_width,float const& win_height  )=0;
 	void Draw(sf::RenderWindow& w);
 	sf::Rect<float> getGlobalBounds()const;
-	sf::Vector2f getSpeed()const;
-	void setSpeed(sf::Vector2f const& speed); 
 	void setColor(sf::Color const& c);
 	
 	int isBase()const;
@@ -25,8 +23,6 @@ protected:
 	const std::string m_key;
 	bool m_base;
 	bool m_player;
-private:
-	sf::Vector2f m_speed;
 	sf::RectangleShape m_rec;
 };
 

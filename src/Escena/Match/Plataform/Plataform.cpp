@@ -2,7 +2,8 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 
-Plataform::Plataform(std::string const& key):m_key(key)
+Plataform::Plataform(std::string const& key):m_key(key),
+	m_base(false),m_player(false)
 {
 
 }
@@ -16,14 +17,8 @@ sf::Rect<float> Plataform::getGlobalBounds()const
 {
 	return m_rec.getGlobalBounds();
 }
-sf::Vector2f Plataform::getSpeed()const
-{
-	return m_speed;
-}
-void Plataform::setSpeed(sf::Vector2f const& speed)
-{
-	m_speed=speed;
-}
+
+
 void Plataform::setColor(sf::Color const& c)
 {
 	m_rec.setFillColor(c);

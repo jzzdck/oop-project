@@ -7,8 +7,6 @@ Plataform_static::Plataform_static(std::string key):Plataform(key)
 
 void Plataform_static::LoadData (FileManager const& s_aux,float const& win_width,float const& win_height  ) 
 {
-
-
 	sf::Vector2f dim = { win_width * stof(s_aux[m_key+"w"]), win_height * stof(s_aux[m_key+"h"]) };
 	sf::Vector2f pos = { win_width * stof(s_aux[m_key+"x"]), win_height * stof(s_aux[m_key+"y"]) };
 	
