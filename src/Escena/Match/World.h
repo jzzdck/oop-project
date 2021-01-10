@@ -27,6 +27,8 @@ public:
 	/// @return An index, -1 if the current world doesnt have any bases.
 	int GetBaseIndex(int which) const { return which ? m_base1 : m_base0; };
 	
+	void Update();
+	
 	/// @brief Construct a World
 	/// @param wdt The current window's width
 	/// @param hgt The current window's height

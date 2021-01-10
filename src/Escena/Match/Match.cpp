@@ -55,6 +55,7 @@ void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
 
 void Match::Update (Game& g) {
 	UpdateCamera();
+	m_world.Update();
 	
 	for (Player *player : m_players) {
 		int base_col = UpdateEntity(player);

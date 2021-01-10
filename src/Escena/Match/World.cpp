@@ -8,6 +8,7 @@
 #include "../../Utils/phutils.h"
 #include "Plataform/Plataform_static.h"
 #include <vector>
+#include "Plataform/Plataform_dynamic.h"
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),
@@ -20,6 +21,7 @@ void World::LoadMap(std::string map_name) {
 	FileManager s1("maps.conf", map_name+"-static");
 	FileManager s2("maps.conf", map_name+"-dynamic");
 	size_t size1=stoi(s1["size"]);
+	size_t size2=stoi(s2["size"]);
 	for(size_t i=0;i<size1;++i)	
 	{
 		m_platforms.push_back(new Plataform_static("rect" + std::to_string(i) + "-"));
@@ -32,27 +34,12 @@ void World::LoadMap(std::string map_name) {
 				m_base1=i;
 		}
 	}
-	
-	/*
-	m_c = utils::getColor(s["color"]);
-	for (size_t i=0; i<m_platforms.size(); ++i) {
-		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
-		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
-		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
+	for(int i=0;i<(size2);i++) 
+	{
+		m_platforms.push_back(new Plataform_dynamic("rect" + std::to_string(i) + "-"));
+		m_platforms[i+size1]->LoadData(s2,win_width,win_height);
 		
-		sf::RectangleShape aux(dim);
-		aux.setPosition(pos);
-		
-		if (s[key+"is-base0"] == "YES") {
-			m_base0 = i;
-			aux.setFillColor(utils::loadPlayerColor(0));
-		} else if (s[key+"is-base1"] == "YES") {
-			m_base1 = i;
-			aux.setFillColor(utils::loadPlayerColor(1));
-		} else aux.setFillColor(m_c);
-		
-		m_platforms[i] = aux;
-	}*/
+	}
 	
 }
 
@@ -78,6 +65,12 @@ int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int in
 	}
 
 	return -1;
+}
+
+void World::Update()
+{
+	for(Plataform* &x :m_platforms)
+		x->Update();
 }
 
 void World::Draw (sf::RenderWindow& win) {
