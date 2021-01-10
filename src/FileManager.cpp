@@ -51,7 +51,7 @@ void FileManager::LoadFile()
 			m_lines.push_back(*it); 
 		}
 	}
-	else std::cerr<<"La palabra clave "<<m_KeyWord<<" no encontrada";
+	else std::cerr<<"La palabra clave "<<m_KeyWord<<" no encontrada\n";
 }
 
 void FileManager::SaveChanges()
@@ -107,7 +107,7 @@ void FileManager::SaveChanges()
 			break;
 		}
 	}
-	if(value=="Invalid")std::cerr<<field<<" is not a valid field";
+	if(value=="Invalid")std::cerr<<field<<" is not a valid field\n";
 	return value;
 }
 void FileManager::ChangeValue(std::string const& field,std::string const& value)
