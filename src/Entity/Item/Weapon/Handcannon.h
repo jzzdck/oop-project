@@ -9,8 +9,8 @@ public:
 	bool IsAttacking ( ) override;
 	Projectile * GetProjectile ( ) override;
 private:
-	float m_bombspeed = 0;
-	float m_nextspeed = 0;
+	float m_angle = 0;
+	float m_nextangle = 0;
 	bool is_shooting = false;
 };
 
