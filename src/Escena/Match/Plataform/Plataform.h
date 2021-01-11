@@ -14,10 +14,13 @@ public:
 	void Draw(sf::RenderWindow& w);
 	sf::Rect<float> getGlobalBounds()const;
 	void setColor(sf::Color const& c);
+	sf::Vector2f getSpeed() const { return m_linear_speed + m_angular; }
 	
 	int isBase()const;
 	virtual ~Plataform() = default;
 protected:
+	sf::Vector2f m_linear_speed = {0, 0}, m_angular = {0, 0};
+	
 	void setRect(sf::RectangleShape& r);
 	void setPos(sf::Vector2f pos);
 	const std::string m_key;

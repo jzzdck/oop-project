@@ -17,7 +17,6 @@ public:
 	/// @brief Check if any of the rectangles that make m_platforms collides with a sprite's entity.
 	/// @param entity The sprite to check.
 	/// @param index From what index start to check in the m_platforms vector.
-	int CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int index = 0);
 	
 	/// @brief Get the world's current gravity
 	float GetGravity() const { return m_gravity; }
@@ -36,11 +35,37 @@ public:
 	/// @param map_name The .conf keyword to create the map.
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 	~World();
+	
+	template<class T>
+	int CollidesWith(T *entity, sf::Vector2f &response, int index = 0) {
+		if (index >= m_platforms.size()) return -1;
+		
+		sf::Rect<float> entity_g = entity->GetSprite().getGlobalBounds();
+		for (size_t i=index; i<m_platforms.size(); ++i) {
+			sf::Rect<float> intersection;
+			sf::Rect<float> rect_g = m_platforms[i]->getGlobalBounds();
+			if (entity_g.intersects(rect_g, intersection)) {
+				sf::Vector2f dir;
+				entity->SetPlatform(m_platforms[i]);
+				
+				dir.y = rect_g.top  > entity_g.top  ? -1.f : 1.f;
+				dir.x = rect_g.left > entity_g.left ? -1.f : 1.f;
+				
+				if (intersection.width < intersection.height)
+					response = { dir.x*intersection.width, 0 };
+				else
+					response = { 0, dir.y*intersection.height };
+				
+				return i;
+			}
+		}
+		
+		return -1;
+	}
 private:
 	/// @brief Fill the m_platforms vector with RectangleShapes
 	/// @param map_name The .conf keyword to create the map.
 	void LoadMap(std::string map_name);
-//	std::vector<sf::RectangleShape> m_platforms; // el "piso" del mundo
 	std::vector<Plataform*> m_platforms;
 	float m_gravity;
 	float win_width, win_height;

@@ -2,6 +2,7 @@
 #include "../../../Utils/phutils.h"
 #include <sstream>
 #include <cmath>
+#include <iostream>
 
 Plataform_dynamic::Plataform_dynamic(std::string key):Plataform(key) {
 	
@@ -33,25 +34,20 @@ void Plataform_dynamic::LoadData (FileManager const& s_aux,float const& win_widt
 }
 void Plataform_dynamic::Move ( ) 
 {
-	
 	Rotate();
+	m_rec.move(m_linear_speed + m_angular);
 	
 	if(this->CheckLimits(0))
 		InvertLSpeed(0);
 	if(this->CheckLimits(1))
 		InvertLSpeed(1);
-	
-	m_rec.move(m_linear_speed);
 }
 
 void Plataform_dynamic::Update ( ) 
 {
 	this->Move();
 }
-sf::Vector2f Plataform_dynamic::getLSpeed()const
-{
-	return m_linear_speed;
-}
+
 float Plataform_dynamic::getAngSpeed()const
 {
 	return m_angular_speed;
@@ -79,9 +75,9 @@ bool Plataform_dynamic::CheckLimits(bool const& axis)
 void Plataform_dynamic::InvertLSpeed(bool const& axis)
 {
 	if(!axis)
-		m_linear_speed={-m_linear_speed.x,m_linear_speed.y};
+		m_linear_speed.x *= -1.f;
 	else
-		m_linear_speed={m_linear_speed.x,-m_linear_speed.y};
+		m_linear_speed.y *= -1.f;
 }
 void Plataform_dynamic::InvertAngSpeed()
 {
@@ -89,10 +85,10 @@ void Plataform_dynamic::InvertAngSpeed()
 }
 void Plataform_dynamic::Rotate()
 {
-	sf::Rect<float> pos=this->getGlobalBounds();
 	m_angle+=m_angular_speed;
-	this->setPos({ pos.left + m_radius*std::cos( m_angle*3.14f ),
-		pos.top + m_radius*std::sin( m_angle*3.14f ) });
-	
+	m_angular = {
+		m_radius*std::cos(m_angle*3.14f), 
+		m_radius*std::sin(m_angle*3.14f)
+	};
 }
 	

@@ -81,7 +81,7 @@ void Match::Update (Game& g) {
 	for (Weapon *weapon : m_weapons) {
 		if (weapon->Owner() != -1) {
 			Player *owner = m_players[weapon->Owner()];
-			weapon->SetPos(owner->GetSprite().getPosition(), owner->GetFacing());
+			weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
 		}
 		
 		if (weapon->IsAttacking())

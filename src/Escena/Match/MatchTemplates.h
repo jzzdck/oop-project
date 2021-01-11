@@ -21,7 +21,8 @@ int UpdateEntity(T* entity) {
 	entity->ApplyGravity(m_world.GetGravity());
 	
 	int base_col = -1;
-	int coll_index = m_world.CollidesWith(entity->GetSprite(), response);
+	int coll_index = m_world.CollidesWith(entity, response);
+
 	while (coll_index != -1) {
 		if (coll_index == m_world.GetBaseIndex(0))
 			base_col = 0;
@@ -29,7 +30,7 @@ int UpdateEntity(T* entity) {
 			base_col = 1;
 		
 		entity->ApplyResponse(response);
-		coll_index = m_world.CollidesWith(entity->GetSprite(), response, coll_index+1);
+		coll_index = m_world.CollidesWith(entity, response, coll_index+1);
 	} 
 	
 	return base_col;

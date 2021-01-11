@@ -38,33 +38,8 @@ void World::LoadMap(std::string map_name) {
 	{
 		m_platforms.push_back(new Plataform_dynamic("rect" + std::to_string(i) + "-"));
 		m_platforms[i+size1]->LoadData(s2,win_width,win_height);
-		
 	}
 	
-}
-
-int World::CollidesWith(const sf::Sprite &entity, sf::Vector2f &response, int index) {
-	if (index >= m_platforms.size()) return -1;
-	
-	sf::Rect<float> entity_g = entity.getGlobalBounds();
-	for (size_t i=index; i<m_platforms.size(); ++i) {
-		sf::Rect<float> intersection;
-		sf::Rect<float> rect_g = m_platforms[i]->getGlobalBounds();
-		if (entity_g.intersects(rect_g, intersection)) {
-			sf::Vector2f dir;
-			dir.y = rect_g.top  > entity_g.top  ? -1.f : 1.f;
-			dir.x = rect_g.left > entity_g.left ? -1.f : 1.f;
-			
-			if (intersection.width < intersection.height)
-				response = { dir.x*intersection.width, 0 };
-			else
-				response = { 0, dir.y*intersection.height };
-			
-			return i;
-		}
-	}
-
-	return -1;
 }
 
 void World::Update()
