@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <vector>
+#include "../Escena/Match/Plataform/Plataform.h"
 
 class Game;
 
@@ -29,6 +30,7 @@ public:
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	sf::Vector2f &GetInitPos() { return m_initpos; }
 	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
+	void SetPlatform(Plataform* relative_to) { m_platform = relative_to; }
 	
 	/// @brief Construct an Entity given its keyword.
 	/** Every entity has its textures in textures.conf, to search an Entity's textures
@@ -47,6 +49,7 @@ protected:
 	
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
+	Plataform * m_platform = nullptr;
 };
 
 #endif

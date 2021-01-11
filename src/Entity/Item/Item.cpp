@@ -6,6 +6,8 @@ Item::Item(sf::Vector2f pos, std::string keyword)
 
 void Item::Update ( ) {
 	if (Owner() != -1) return;
+	if (m_platform) 
+		m_sprite.move(m_platform->getSpeed());
 	m_sprite.move(m_speed.x, m_speed.y);
 	
 	float fr = 0.25, dir = 1.f;

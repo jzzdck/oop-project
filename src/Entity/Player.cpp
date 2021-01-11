@@ -11,9 +11,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_jumpcount(2),
 	m_jumpspeed(-15), 
 	is_jumping(false), 
-	current_sprite(!player_index), 
-	m_weapon(nullptr), 
-	m_item(nullptr), 
+	current_sprite(!player_index),
 	can_grab(false)
 {
 	m_topspeed = 10.5f;
@@ -72,6 +70,8 @@ void Player::Update() {
 		m_weapon->SetAttacking(m_input["attack"]);
 	
 	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
+	if (m_platform && !is_jumping) 
+		m_sprite.move(m_platform->getSpeed());
 }
 
 void Player::Draw(sf::RenderWindow & win) {
@@ -88,10 +88,8 @@ void Player::Draw(sf::RenderWindow & win) {
 void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
 	
-	if (!vec.x) 
-		m_speed.y = 0, m_jumpcount = 2;
-	else
-		m_jumpcount = 2;
+	if (vec.y) m_speed.y = 0;
+	m_jumpcount = 2;
 }
 
 bool Player::PressedGrab (Item * if_item) {

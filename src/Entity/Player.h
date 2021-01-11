@@ -8,6 +8,7 @@
 #include "Item/Weapon/Weapon.h"
 #include "../Controls.h"
 #include "Item/Item.h"
+#include "../Escena/Match/Plataform/Plataform.h"
 
 class Weapon;
 
@@ -57,8 +58,8 @@ private:
 	int m_jumpcount, m_jumpspeed; 
 	bool is_jumping;
 	
-	Item *m_item;
-	Weapon *m_weapon; 
+	Item *m_item = nullptr;
+	Weapon *m_weapon = nullptr; 
 	
 	int current_sprite;
 	sf::Sprite ms_belly;
