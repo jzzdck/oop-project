@@ -5,7 +5,6 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include "FileManager.h"
-#include "Escena/Scene.h"
 
 class Escena;
 
