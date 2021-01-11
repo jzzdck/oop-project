@@ -10,6 +10,8 @@ public:
 	void Update ( ) override;
 	void Draw (sf::RenderWindow & win) override;
 private:
+	bool exploding = false;
+	sf::Clock timer, lifetime;
 };
 
 #endif

@@ -10,12 +10,6 @@ Bullet::Bullet(float xspeed, const sf::Vector2f &pos) :
 	}
 }
 
-void Bullet::ApplyEffect (Player * target) {
-	target->GetSprite().setPosition(target->GetInitPos());
-	target->SetSpeed({0, 0});
-	in_use = false;
-}
-
 void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 	in_use = false;
 }
