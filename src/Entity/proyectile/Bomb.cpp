@@ -16,25 +16,28 @@ void Bomb::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Bomb::ApplyEffect (Player * target) {
-	if (!exploding) return;
-	
-	Projectile::ApplyEffect(target);
+	if (!exploding) { max_life = 0.1f; return; }
+	target->GetSprite().setPosition(target->GetInitPos());
+	target->SetSpeed({0, 0});
 }
 
 void Bomb::Update ( ) {
 	if (!exploding) {
 		m_sprite.move(m_speed);
-		if (timer.getElapsedTime().asSeconds() > 1.2f) {
-			m_sprite.setTexture(m_textures[1], true);
-			m_sprite.scale(2, 2);
-			exploding = true;
-			lifetime.restart();
-		}
+		if (timer.getElapsedTime().asSeconds() > max_life)
+			Explode();
 	} else if (lifetime.getElapsedTime().asSeconds() > 0.25f)
 		in_use = false;
 }
 
 void Bomb::Draw (sf::RenderWindow & win) {
 	win.draw(m_sprite);
+}
+
+void Bomb::Explode ( ) {
+	m_sprite.setTexture(m_textures[1], true);
+	m_sprite.scale(2, 2);
+	exploding = true;
+	lifetime.restart();
 }
 

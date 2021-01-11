@@ -36,7 +36,6 @@ public:
 	
 	void EraseUnused(std::vector<Projectile*> &projectiles);
 	
-	
 	/// @brief Construct the match
 	/// @param width Match uses this parameter to set the X position of its elements.
 	/// @param height Match uses this parameter to set the Y position of its elements.

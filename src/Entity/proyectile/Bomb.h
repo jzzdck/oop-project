@@ -8,9 +8,11 @@ public:
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void ApplyEffect (Player * target) override;
 	void Update ( ) override;
+	void Explode();
 	void Draw (sf::RenderWindow & win) override;
 private:
 	bool exploding = false;
+	float max_life = 1.2f;
 	sf::Clock timer, lifetime;
 };
 

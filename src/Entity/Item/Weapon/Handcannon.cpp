@@ -36,7 +36,9 @@ bool Handcannon::IsAttacking ( ) {
 
 Projectile * Handcannon::GetProjectile ( ) {
 	float dir = m_current ? -1.f : 1;
+	auto pos = m_sprite.getPosition();
+	pos.x += dir*20;
 	
-	return new Bomb({dir*12, -m_bombspeed}, m_sprite.getPosition());
+	return new Bomb({dir*12, -m_bombspeed}, pos);
 }
 
