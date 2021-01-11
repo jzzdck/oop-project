@@ -1,5 +1,5 @@
 #include "Shovel.h"
-#include "../../proyectile/Bullet.h"
+#include "../../../MeleeHit.h"
 
 Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", 90, true, 0) 
 {
@@ -14,8 +14,17 @@ void Shovel::Draw(sf::RenderWindow & win)
 Projectile * Shovel::GetProjectile ( ) {
 	auto pos = m_sprite.getPosition();
 	float dir = m_current ? -1.f : 1.f;
-	pos.x += 50*dir;
+	pos.x += 70*dir;
 	
-	return new Bullet(10*dir, pos);
+	return new MeleeHit(pos);
+}
+
+bool Shovel::IsAttacking ( ) {
+	if (is_attacking != attack_state) {
+		is_attacking = !is_attacking;
+		return is_attacking;
+	}
+	
+	return false;
 }
 

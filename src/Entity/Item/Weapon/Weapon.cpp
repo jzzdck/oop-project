@@ -14,15 +14,17 @@ void Weapon::SetText() {
 	m_sprite.setTexture(m_textures[m_current]);
 }
 
-sf::Vector2f Weapon::OffSet(const sf::Vector2f &to_offset) {
-	float x = to_offset.x;
-	float y = to_offset.y;
-
-	float offset = m_current ? -35.f : m_width+20.f;
-	return sf::Vector2f(x+offset, y+35.f);
+sf::Vector2f Weapon::OffSet(const sf::Rect<float> &to_offset) {
+	auto dim = m_sprite.getGlobalBounds();
+	float x = to_offset.left - dim.width/2.f;
+	float y = to_offset.top + to_offset.height/3.f;
+	if (!m_current)
+		x += to_offset.width;
+	
+	return sf::Vector2f(x, y);
 }
 
-void Weapon::SetPos(const sf::Vector2f & relative_to, bool facing) {
+void Weapon::SetPos(const sf::Rect<float> & relative_to, bool facing) {
 	m_current = facing;
 	m_pos = OffSet(relative_to);
 	m_sprite.setPosition(m_pos);

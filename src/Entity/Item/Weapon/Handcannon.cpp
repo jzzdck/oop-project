@@ -22,11 +22,15 @@ bool Handcannon::IsAttacking ( ) {
 		m_bombspeed = std::min(m_bombspeed, 35.f);
 	}
 	
-	std::cout << "updated b" << m_bombspeed << std::endl;
 	if (attack_state != is_shooting) {
 		is_shooting = !is_shooting;
-		if (!is_shooting) m_nextspeed = m_bombspeed;
-		return !is_shooting;
+		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f;
+		if (!is_shooting && can_shoot) { 
+			m_nextspeed = m_bombspeed;
+			firerate.restart();
+		}
+		
+		return !is_shooting && can_shoot;
 	} else return false;
 }
 

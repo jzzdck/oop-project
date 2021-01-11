@@ -18,7 +18,7 @@ public:
 	/// @brief Set the gun texture in relation to where the player is facing.
 	void SetText();
 	/// @brief Set the weapon position in relation to where the player is facing.
-	void SetPos(const sf::Vector2f &relative_to, bool facing);
+	void SetPos(const sf::Rect<float> &relative_to, bool facing);
 	virtual Projectile* GetProjectile() = 0;
 	
 	/// @brief Construct a weapon in relation to where the player's facing.
@@ -27,12 +27,9 @@ public:
 	/// @brief Virtual destructor; the class is abstract
 	virtual ~Weapon() {}
 protected:
-	/// @brief Get an offset the weapon's sprite in relation to a position.
-	/// This method is used to offset the weapon from the player.
-	/// @param to_offset Offset is applied from this position.
-	/// @return The vector that should be applied to the current Weapon position.
-	sf::Vector2f OffSet(const sf::Vector2f &to_offset);
+	sf::Vector2f OffSet(const sf::Rect<float> &to_offset);
 	
+	sf::Clock firerate;
 	float m_width; 
 	bool m_current, attack_state = false;
 	int m_damage;
