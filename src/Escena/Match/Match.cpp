@@ -15,6 +15,8 @@
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
 {
+	m_view.setCenter(0,0);
+	m_view.setSize(0,0);
 	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.push_back(new Player({win_width*0.15f, win_height*0.4f}, 1) );
 	
@@ -127,6 +129,7 @@ Match::~Match() {
 void Match::UpdateCamera () {
 	auto sp0 = m_players[0]->GetSprite().getGlobalBounds();
 	auto sp1 = m_players[1]->GetSprite().getGlobalBounds(); 
+	sf::Vector2f true_center = m_view.getCenter();
 	
 	sf::Vector2f center0 = utils::getCenter(sp0);
 	sf::Vector2f center1 = utils::getCenter(sp1);
@@ -141,10 +144,14 @@ void Match::UpdateCamera () {
 		cam_size.y/2.f + std::min(center0.y, center1.y)
 	};
 	
-	m_view.setCenter(cam_center);
+	m_view.setCenter( { 
+		true_center.x*0.98f + cam_center.x*0.02f,
+		true_center.y*0.98f + cam_center.y*0.02f,
+	} );
+	
 	m_view.setSize( {win_width, win_height} );
 	
-	float scale = std::max(cam_size.x/win_width + 0.2f, cam_size.y/win_height + 0.3f);
+	float scale = std::max(cam_size.x/win_width + 0.36f, cam_size.y/win_height + 0.36f);
 	scale = std::max(scale, 0.5f);
 	m_view.zoom(scale);
 }
