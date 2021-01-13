@@ -10,10 +10,6 @@ Weapon::Weapon(sf::Vector2f pos, std::string keyword,
 	
 }
 
-void Weapon::SetText() {
-	m_sprite.setTexture(m_textures[m_current]);
-}
-
 sf::Vector2f Weapon::OffSet(const sf::Rect<float> &to_offset) {
 	auto dim = m_sprite.getGlobalBounds();
 	float x = to_offset.left - dim.width/2.f;
