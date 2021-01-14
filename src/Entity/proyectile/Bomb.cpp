@@ -3,7 +3,7 @@
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos) :
 	Projectile(pos, "bomb")
 {
-	m_sprite.scale(4, 4);
+	m_sprite.scale(2, 2);
 	m_speed = vel;
 }
 
@@ -28,10 +28,6 @@ void Bomb::Update ( ) {
 			Explode();
 	} else if (lifetime.getElapsedTime().asSeconds() > 0.25f)
 		in_use = false;
-}
-
-void Bomb::Draw (sf::RenderWindow & win) {
-	win.draw(m_sprite);
 }
 
 void Bomb::Explode ( ) {

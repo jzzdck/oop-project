@@ -42,8 +42,6 @@ public:
 	bool PressedGrab(Item* if_item);
 	bool PressedGrab(Weapon* if_weapon);
 	
-	bool GetFacing() { return current_sprite; }
-	
 	/// @brief Construct a player in an initial position, and give it an index.
 	/// @param pos Initial player position.
 	/// @param player_index Index given to the player. 
@@ -61,10 +59,7 @@ private:
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
 	
-	int current_sprite;
 	sf::Sprite ms_belly;
-	void LoadBelly();
-	std::vector<sf::Texture> mt_belly;
 };
 
 #endif

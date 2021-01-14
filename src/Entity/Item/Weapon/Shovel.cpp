@@ -1,22 +1,18 @@
 #include "Shovel.h"
 #include "../../../MeleeHit.h"
+#include "../../../Utils/phutils.h"
 
-Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", 90, true, 0) 
+Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", true, 0) 
 {
-	m_sprite.scale(2,2);
-}
-
-void Shovel::Draw(sf::RenderWindow & win)
-{
-	win.draw(m_sprite);
 }
 
 Projectile * Shovel::GetProjectile ( ) {
-	auto pos = m_sprite.getPosition();
-	float dir = m_current ? -1.f : 1.f;
-	pos.x += 70*dir;
+	auto pos = m_sprite.getGlobalBounds();
+	auto pos2 = m_sprite.getLocalBounds();
+	pos.left += 70*m_dir;
+	float add = m_dir == 1.f ? 0.f : pos2.width;
 	
-	return new MeleeHit(pos);
+	return new MeleeHit({pos.left - add, pos.top});
 }
 
 bool Shovel::IsAttacking ( ) {

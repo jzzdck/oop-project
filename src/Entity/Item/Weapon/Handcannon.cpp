@@ -4,20 +4,15 @@
 #include "../../proyectile/Bomb.h"
 #include <cmath>
 
-Handcannon::Handcannon(sf::Vector2f pos, bool facing) :
-	Weapon(pos, "handcannon", 30, !facing, 20)
+Handcannon::Handcannon(sf::Vector2f pos, float facing) :
+	Weapon(pos, "handcannon", 30, facing)
 {
-	m_sprite.scale(2,2);
-	
-	m_sprite.setTexture(m_textures[!m_current]);
 }
 
 void Handcannon::Draw(sf::RenderWindow & win) {
-	float dir = m_current ? 1.f : -1.f;
-	
-	m_sprite.setRotation(dir*m_angle*180.f/M_PI);
-	m_sprite.setScale(-dir*2, 2);
-	if (Owner() != -1 && m_current)
+	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
+	m_sprite.setScale(m_dir*2, 2);
+	if (Owner() != -1 && m_dir == -1.f)
 		m_sprite.move(m_sprite.getGlobalBounds().width, 0);
 	
 	win.draw(m_sprite);
@@ -40,17 +35,16 @@ bool Handcannon::IsAttacking ( ) {
 }
 
 Projectile * Handcannon::GetProjectile ( ) {
-	float dir = m_current ? -1.f : 1.f;
 	auto globals = m_sprite.getGlobalBounds();
 	
 	sf::Vector2f pos = { 
-		globals.left + globals.width * (dir == 1.f ? .5f : 1.f),
+		globals.left + globals.width * (m_dir == -1.f ? 1.5f : 1.f),
 		globals.top + 4
 	};
 	
 	return new Bomb({ 
-		m_current ? -1.f : 1.f *15*std::cos(m_angle), 
-		-20*std::sin(m_angle)
+		m_dir * 15 * std::cos(m_angle), 
+		-20 * std::sin(m_angle)
 	}, pos);
 }
 

@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Entity/Item/Weapon/Handcannon.cpp
+current_source=Entity/Player.h
 path_char=/
 [source]
 path=main.cpp
@@ -31,10 +31,11 @@ path=Controls.cpp
 cursor=0:0
 [source]
 path=Entity/Player.cpp
-cursor=77:0
+cursor=34:1
+open=true
 [source]
 path=Entity/Entity.cpp
-cursor=23:29
+cursor=18:36
 open=true
 [source]
 path=Entity/Item/Item.cpp
@@ -45,7 +46,6 @@ cursor=0:0
 [source]
 path=Entity/Item/Weapon/Weapon.cpp
 cursor=10:1
-open=true
 [source]
 path=Entity/Item/Weapon/Shovel.cpp
 cursor=16:11
@@ -60,8 +60,7 @@ path=Escena/Match/World.cpp
 cursor=39:58
 [source]
 path=Escena/Match/Match.cpp
-cursor=153:82
-open=true
+cursor=153:51
 [source]
 path=Escena/Menu/Slider.cpp
 cursor=23:17
@@ -79,7 +78,8 @@ path=Escena/Menu/Menu.cpp
 cursor=0:0
 [source]
 path=Utils/phutils.cpp
-cursor=0:0
+cursor=10:15
+open=true
 [source]
 path=Entity/proyectile/Projectile.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
@@ -101,12 +101,10 @@ cursor=84:1
 path=Entity/proyectile/Bomb.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
 cursor=44:25
-open=true
 [source]
 path=Entity/Item/Weapon/Handcannon.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
-cursor=23:31
-open=true
+cursor=9:18
 [source]
 path=MeleeHit.cpp
 cursor=0:0
@@ -122,9 +120,11 @@ cursor=0:0
 [header]
 path=Entity/Player.h
 cursor=49:42
+open=true
 [header]
 path=Entity/Entity.h
-cursor=29:45
+cursor=49:16
+open=true
 [header]
 path=Entity/Item/Item.h
 cursor=8:6
@@ -167,7 +167,8 @@ path=Escena/Menu/Menu.h
 cursor=0:0
 [header]
 path=Utils/phutils.h
-cursor=0:0
+cursor=2:43
+open=true
 [header]
 path=Escena/Match/MatchTemplates.h
 cursor=24:0
@@ -191,8 +192,7 @@ path=Entity/proyectile/Bomb.h
 cursor=9:18
 [header]
 path=Entity/Item/Weapon/Handcannon.h
-cursor=13:23
-open=true
+cursor=7:20
 [header]
 path=MeleeHit.h
 cursor=0:0

@@ -10,17 +10,15 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_index(player_index),
 	m_jumpcount(2),
 	m_jumpspeed(-15), 
-	is_jumping(false), 
-	current_sprite(!player_index),
+	is_jumping(false),
 	can_grab(false)
 {
 	m_topspeed = 10.5f;
 	
 	LoadKeys();
-	LoadBelly();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
-	m_sprite.scale(2,2);
-	ms_belly.scale(2,2);
+	ms_belly.setTexture(m_textures[1]);
+	ms_belly.scale(m_dir*2,2);
 }
 
 void Player::LoadKeys() {
@@ -35,15 +33,6 @@ void Player::LoadKeys() {
 		m_input.BindKey(keys[i], m_input<s["key-" + keys[i]]);
 }
 
-void Player::LoadBelly() {
-	FileManager s("textures.conf", "belly");
-	int bsize = stoi(s["belly-size"]);
-	
-	mt_belly.resize(bsize);
-	for (size_t i=0; i<mt_belly.size(); ++i)
-		mt_belly[i].loadFromFile(s["belly-texture"+std::to_string(i)] + ".png");
-}
-
 void Player::Update() {
 	if (is_jumping !=  m_input["jump"]) {
 		is_jumping = !is_jumping;
@@ -56,11 +45,11 @@ void Player::Update() {
 	
 	m_speed.x = std::fabs(m_speed.x);
 	if (m_input["right"] || m_input["left"]) {
-		current_sprite = 0;
+		m_dir = 1.f;
 		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
 		
 		if (m_input["left"])
-			m_speed.x *= -1, current_sprite = 1;
+			m_speed.x *= -1, m_dir = -1.f;
 		
 		m_sprite.move(m_speed.x, 0);
 	} else m_speed.x = 0.f;
@@ -75,11 +64,12 @@ void Player::Update() {
 }
 
 void Player::Draw(sf::RenderWindow & win) {
-	m_sprite.setTexture(m_textures[current_sprite]);
-	ms_belly.setTexture(mt_belly[current_sprite]);
-	
 	ms_belly.setPosition(m_sprite.getPosition());
-	if (m_item) m_item->GetSprite().setPosition(m_sprite.getPosition());
+	utils::flipTexture(m_dir, m_scale, ms_belly);
+	utils::flipTexture(m_dir, m_scale, m_sprite);
+	
+	if (m_item) 
+		m_item->GetSprite().setPosition(m_sprite.getPosition());
 	
 	win.draw(m_sprite);
 	win.draw(ms_belly);

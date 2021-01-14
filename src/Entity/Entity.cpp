@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "../FileManager.h"
+#include "../Utils/phutils.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : 
 	m_key(keyword), is_alive(true)
@@ -14,6 +15,9 @@ Entity::Entity (sf::Vector2f pos, std::string keyword) :
 	if (psize) m_sprite.setTexture(m_textures[0]);
 	
 	m_sprite.setPosition(m_initpos);
+	
+	m_dir = m_speed.x > 0 ? 1.f : -1.f;
+	m_sprite.setScale(m_dir*m_scale, m_scale);
 }
 
 bool Entity::CollidesWith(const sf::Sprite &another) {
@@ -24,3 +28,4 @@ void Entity::ApplyResponse (const sf::Vector2f & vec) {
 	m_sprite.move(vec.x, vec.y);
 	if (!vec.x) m_speed.y = 0;
 }
+

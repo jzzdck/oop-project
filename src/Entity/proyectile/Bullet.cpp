@@ -1,11 +1,13 @@
 #include "Bullet.h"
+#include "../../Utils/phutils.h"
 
-Bullet::Bullet(float xspeed, const sf::Vector2f &pos) :
+Bullet::Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")
 {
-	SetSpeed({xspeed, 0});
-	if (xspeed > 0) { 
-		m_sprite.setTexture(m_textures[1]);
+	SetSpeed(speed);
+	if (m_speed.x > 0) { 
+		m_dir = 1.f;
+		utils::flipTexture(m_dir, m_scale, m_sprite);
 		m_sprite.move(16, 0);
 	}
 }
@@ -15,10 +17,5 @@ void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Bullet::Update ( ) {
-	m_sprite.move(m_speed.x, 0);
+	m_sprite.move(m_speed);
 }
-
-void Bullet::Draw (sf::RenderWindow & win) {
-	win.draw(m_sprite);
-}
-

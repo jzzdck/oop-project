@@ -1,21 +1,18 @@
 #include "Revolver.h"
 #include <iostream>
 #include "../../proyectile/Bullet.h"
+#include "../../../Utils/phutils.h"
 
-Revolver::Revolver(sf::Vector2f pos, bool facing) : 
-	Weapon(pos, "revolver", 30, facing, 32), is_shooting(false)
-{ m_sprite.scale(2,2); }
-
-void Revolver::Draw(sf::RenderWindow & win) {
-	m_sprite.setTexture(m_textures[m_current]);
-	win.draw(m_sprite);
-}
+Revolver::Revolver(sf::Vector2f pos, float facing) : 
+	Weapon(pos, "revolver", 30, facing), is_shooting(false)
+{ }
 
 Projectile * Revolver::GetProjectile ( ) {
-	auto pos = m_sprite.getPosition();
-	float dir = m_current ? -1.f : 1.f;
-	pos.y += 3;
-	return new Bullet(dir*15, pos);
+	auto pos = m_sprite.getGlobalBounds();
+	auto pos2 = m_sprite.getLocalBounds();
+	pos.top += 3;
+	float add = m_dir == 1.f ? 0.f : pos2.width;
+	return new Bullet({ m_dir*15, 0 } , {pos.left - add, pos.top});
 }
 
 bool Revolver::IsAttacking ( ) {

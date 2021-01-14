@@ -9,7 +9,6 @@ public:
 	void ApplyEffect (Player * target) override;
 	void Update ( ) override;
 	void Explode();
-	void Draw (sf::RenderWindow & win) override;
 private:
 	bool exploding = false;
 	float max_life = 1.2f;

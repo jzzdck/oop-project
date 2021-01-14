@@ -27,9 +27,9 @@ Match::Match(float width, float height) :
 		if (chance < 25)
 			m_weapons.push_back(new Shovel({win_width*utils::randf(), win_height*utils::randf()}));
 		else if (chance < 50)
-			m_weapons.push_back(new Revolver({win_width*utils::randf(), win_height*utils::randf()}, 1));
+			m_weapons.push_back(new Revolver({win_width*utils::randf(), win_height*utils::randf()}, 1.f));
 		else if (chance < 75)
-			m_weapons.push_back(new Handcannon({win_width*utils::randf(), win_height*utils::randf()}, 1));
+			m_weapons.push_back(new Handcannon({win_width*utils::randf(), win_height*utils::randf()}, 1.f));
 		else if (chance < 87)
 			m_items.push_back(new Flag({win_width*utils::randf(), win_height*utils::randf()}, 1));
 		else

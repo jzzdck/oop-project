@@ -4,10 +4,10 @@
 
 class Bullet : public Projectile {
 public:
-	Bullet(float xspeed, const sf::Vector2f &pos);
+	Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos);
 	void ApplyResponse (const sf::Vector2f & vec) override;
+	void ApplyGravity(float gravity) override {};
 	void Update ( ) override;
-	void Draw (sf::RenderWindow & win) override;
 private:
 };
 

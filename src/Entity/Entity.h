@@ -9,35 +9,23 @@
 #include <vector>
 #include "../Escena/Match/Plataform/Plataform.h"
 
-class Game;
-
-/// @brief Entity is the highest hierarchy level for any entity in the game. 
 class Entity {
 public:
 	virtual void Update() = 0;
 	virtual void Draw(sf::RenderWindow &win) = 0;
 	
-	/// @brief Fast collision checking method.
-	/// @param another Check collision with this sprite.
 	bool CollidesWith(const sf::Sprite &another);
-	/// @brief Apply gravity from World.
 	virtual void ApplyGravity(float gravity) { m_speed.y += gravity; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
-	/// @brief Get the entity's m_sprite.
 	sf::Sprite &GetSprite() { return m_sprite; }
-	/// @brief Get the entity's m_speed.
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	sf::Vector2f &GetInitPos() { return m_initpos; }
+	float GetFacing() const { return m_dir; } 
+	
 	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
 	void SetPlatform(Plataform* relative_to) { m_platform = relative_to; }
 	
-	/// @brief Construct an Entity given its keyword.
-	/** Every entity has its textures in textures.conf, to search an Entity's textures
-		a keyword is needed. For example: to search the player textures, the "player"
-		keyword must be given **/
-	/// @param keyword String to search in textures.conf
-	/// @param pos Intial entity position
 	Entity(sf::Vector2f pos, std::string keyword);
 	virtual ~Entity() = default;
 protected:
@@ -47,6 +35,7 @@ protected:
 	sf::Vector2f m_speed, m_initpos;
 	float m_topspeed;
 	
+	float m_dir, m_scale = 2.f;
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
 	Plataform * m_platform = nullptr;
