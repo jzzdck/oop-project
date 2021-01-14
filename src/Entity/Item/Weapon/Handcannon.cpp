@@ -43,8 +43,8 @@ Projectile * Handcannon::GetProjectile ( ) {
 	};
 	
 	return new Bomb({ 
-		m_dir * 15 * std::cos(m_angle), 
-		-20 * std::sin(m_angle)
+		m_dir * 20.f * std::cos(m_angle), 
+		-20.f * std::sin(m_angle)
 	}, pos);
 }
 

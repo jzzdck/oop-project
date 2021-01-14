@@ -37,3 +37,12 @@ void Bomb::Explode ( ) {
 	lifetime.restart();
 }
 
+void Bomb::Draw (sf::RenderWindow& win) {
+	utils::flipTexture(m_dir, m_scale*2, m_sprite);
+	win.draw(m_sprite);
+}
+
+void Bomb::ApplyGravity (float gravity) {
+	m_speed.y += gravity*0.75;
+}
+

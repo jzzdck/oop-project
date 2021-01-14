@@ -7,8 +7,10 @@ public:
 	Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos);
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void ApplyEffect (Player * target) override;
+	void ApplyGravity(float gravity) override;
 	void Update ( ) override;
 	void Explode();
+	void Draw(sf::RenderWindow& win) override;
 private:
 	bool exploding = false;
 	float max_life = 1.2f;
