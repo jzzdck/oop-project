@@ -6,6 +6,14 @@
 #include "../FileManager.h"
 
 namespace utils {
+	void flipTexture(float direction, float scale, sf::Sprite & to_turn) {
+		to_turn.setScale(direction*scale, scale);
+		if (direction == -1.f) 
+			to_turn.setOrigin(to_turn.getLocalBounds().width, 0);
+		else
+			to_turn.setOrigin(0, 0);
+	}
+	
 	sf::Vector2f getCenter(const sf::Rect<float> & of_this) 
 	{
 		float x_center = of_this.left+of_this.width/2.f;
@@ -141,4 +149,5 @@ namespace utils {
 		return false;
 	}
 }
+
 

@@ -1,11 +1,13 @@
 #ifndef PHUTILS_H
 #define PHUTILS_H
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <sstream>
 
 namespace utils {
 	bool wasPressed(bool &prev, bool act);
+	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
 	
 	/// @brief Utility class for converting SFML's rgb to HSV
 	class HSV 
