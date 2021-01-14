@@ -1,5 +1,5 @@
 #include "Plataform_static.h"
-#include "../../../Utils/phutils.h"
+#include "../../../Utils/generalUtils.h"
 
 Plataform_static::Plataform_static(std::string key):Plataform(key) 
 {

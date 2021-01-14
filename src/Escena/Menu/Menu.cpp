@@ -1,7 +1,9 @@
 #include "Menu.h"
 #include <sstream>
 #include "../../FileManager.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
+#include "../../HSV.h"
+
 Menu::Menu(float width, float height,std::string location) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
 	m_location(location)

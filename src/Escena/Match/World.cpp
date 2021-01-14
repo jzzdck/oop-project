@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "../../FileManager.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 #include "Plataform/Plataform_static.h"
 #include <vector>
 #include "Plataform/Plataform_dynamic.h"

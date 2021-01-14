@@ -1,6 +1,6 @@
 #ifndef MELEEHIT_H
 #define MELEEHIT_H
-#include "Entity/proyectile/Projectile.h"
+#include "Projectile.h"
 
 class MeleeHit : public Projectile {
 public:

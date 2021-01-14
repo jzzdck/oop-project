@@ -2,7 +2,7 @@
 #define PROJECTILE_H
 #include "../Player.h"
 #include "../Entity.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 
 class Player;
 

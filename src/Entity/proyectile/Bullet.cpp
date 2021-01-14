@@ -1,5 +1,5 @@
 #include "Bullet.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 
 Bullet::Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")

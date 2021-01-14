@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
 #include "../FileManager.h"
-#include "../Utils/phutils.h"
+#include "../Utils/generalUtils.h"
 #include <cmath>
 
 Player::Player (sf::Vector2f pos, int player_index) :

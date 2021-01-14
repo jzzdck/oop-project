@@ -1,5 +1,5 @@
 #include "Flag.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 
 Flag::Flag(sf::Vector2f pos, bool who) : Item(pos, "box") {
 	m_sprite.setTexture(m_textures[!who]);

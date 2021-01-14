@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "../FileManager.h"
-#include "../Utils/phutils.h"
+#include "../Utils/generalUtils.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : 
 	m_key(keyword), is_alive(true)

@@ -1,6 +1,6 @@
 #include "Item.h"
 #include <cmath>
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 
 Item::Item(sf::Vector2f pos, std::string keyword) 
 	: Entity(pos, keyword), m_owner(-1) {}

@@ -1,5 +1,5 @@
 #include "Plataform_dynamic.h"
-#include "../../../Utils/phutils.h"
+#include "../../../Utils/generalUtils.h"
 #include <sstream>
 #include <cmath>
 #include <iostream>

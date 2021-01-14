@@ -4,7 +4,7 @@
 #include <cmath>
 #include "../../Game.h"
 #include "../../Entity/Player.h"
-#include "../../Utils/phutils.h"
+#include "../../Utils/generalUtils.h"
 #include "../../Entity/Item/Weapon/Revolver.h"
 #include "../../Entity/Item/Flag.h"
 #include "../Menu/Menu_Principal.h"
