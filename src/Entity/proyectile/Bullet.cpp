@@ -4,6 +4,7 @@
 Bullet::Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos) :
 	Projectile(pos, "bullet")
 {
+	m_sprite.setTexture(m_textures[utils::randf() > 0.5f ? 1 : 2], true);
 	SetSpeed(speed);
 	if (m_speed.x > 0) { 
 		m_dir = 1.f;
@@ -13,9 +14,28 @@ Bullet::Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos) :
 }
 
 void Bullet::ApplyResponse (const sf::Vector2f & vec) {
-	in_use = false;
+	m_sprite.move(vec);
+	
+	impacted = true;
+	impact_life.restart();
 }
 
 void Bullet::Update ( ) {
 	m_sprite.move(m_speed);
+	if (impacted && impact_life.getElapsedTime().asSeconds() < 0.5f)
+		in_use = false;
 }
+
+void Bullet::Draw (sf::RenderWindow & win) {
+	if (impacted) {
+		m_sprite.setTexture(m_textures[utils::randf() > 0.5f ? 1 : 2], true);
+		utils::flipTexture(-m_dir, m_scale, m_sprite);
+		win.draw(m_sprite);
+	} else Projectile::Draw(win);
+	
+	if (first) {
+		first = !first;
+		m_sprite.setTexture(m_textures[0], true);
+	}
+}
+

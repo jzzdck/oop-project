@@ -8,7 +8,11 @@ public:
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void ApplyGravity(float gravity) override {};
 	void Update ( ) override;
+	void Draw(sf::RenderWindow &win) override; 
 private:
+	bool first = true;
+	sf::Clock impact_life;
+	bool impacted = false;
 };
 
 #endif
