@@ -87,6 +87,5 @@ namespace utils {
 		
 		return HSV(h, s, v);
 	}
-	
 }
 

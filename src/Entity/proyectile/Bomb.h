@@ -15,6 +15,9 @@ private:
 	bool exploding = false;
 	float max_life = 1.2f;
 	sf::Clock timer, lifetime;
+	
+	/*Trail m_trail; construct with sprite, pass on pos vector, 
+	make smaller towards radius, erase last one, give decreasing alpha values*/
 };
 
 #endif
