@@ -7,6 +7,7 @@ public:
 	Flag(sf::Vector2f pos, bool who);
 	void Draw(sf::RenderWindow & win) override;
 private:
+	sf::Sprite m_dep;
 };
 
 #endif
