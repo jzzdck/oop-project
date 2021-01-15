@@ -1,9 +1,10 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos) :
-	Projectile(pos, "bomb")
+	Projectile(pos, "bomb"), m_trail(m_sprite, false, 2.0f)
 {
-	m_sprite.scale(2, 2);
+	m_scale *= 2;
+	m_sprite.scale(m_scale, m_scale);
 	m_speed = vel;
 }
 
@@ -28,18 +29,20 @@ void Bomb::Update ( ) {
 			Explode();
 	} else if (lifetime.getElapsedTime().asSeconds() > 0.25f)
 		in_use = false;
+	
+	m_trail.AddPosition(m_sprite.getPosition());
 }
 
 void Bomb::Explode ( ) {
 	m_sprite.setTexture(m_textures[1], true);
-	m_sprite.scale(2, 2);
 	exploding = true;
 	lifetime.restart();
 }
 
 void Bomb::Draw (sf::RenderWindow& win) {
-	utils::flipTexture(m_dir, m_scale*2, m_sprite);
+	utils::flipTexture(m_dir, m_scale, m_sprite);
 	win.draw(m_sprite);
+	m_trail.Draw(win);
 }
 
 void Bomb::ApplyGravity (float gravity) {
