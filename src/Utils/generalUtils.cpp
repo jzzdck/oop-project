@@ -14,10 +14,26 @@ namespace utils {
 			to_turn.setOrigin(0, 0);
 	}
 	
-	sf::Vector2f getCenter(const sf::Rect<float> & of_this) {
+	sf::Vector2f getCenter(const sf::Rect<float>& of_this) {
 		float x_center = of_this.left+of_this.width/2.f;
 		float y_center = of_this.top+of_this.height/2.f;
 		return { x_center, y_center };
+	}
+	
+	sf::Rect<float> getRectDim(std::string s)
+	{
+		std::stringstream ss(s);
+		sf::Rect<float> aux;
+		ss>>aux.left>>aux.top>>aux.width>>aux.height;
+		return aux;
+		
+	}
+	sf::Vector2f getXY(std::string s)
+	{
+		std::stringstream ss(s);
+		sf::Vector2f aux;
+		ss>>aux.x>>aux.y;
+		return aux;
 	}
 	
 	sf::Color getColor(std::string rgb) {
