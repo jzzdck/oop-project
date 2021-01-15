@@ -7,6 +7,7 @@
 #include <SFML/Config.hpp>
 #include <vector>
 #include "Plataform/Plataform.h"
+#include "../../CollisionUtil.h"
 
 /** @brief The World class is the place where the Match occurs **/
 class World {
@@ -36,26 +37,27 @@ public:
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 	~World();
 	
+	size_t size() { return m_platforms.size(); }
+	
 	template<class T>
 	int CollidesWith(T *entity, sf::Vector2f &response, int index = 0) {
 		if (index >= m_platforms.size()) return -1;
 		
-		sf::Rect<float> entity_g = entity->GetSprite().getGlobalBounds();
-		for (size_t i=index; i<m_platforms.size(); ++i) {
-			sf::Rect<float> intersection;
-			sf::Rect<float> rect_g = m_platforms[i]->getGlobalBounds();
-			if (entity_g.intersects(rect_g, intersection)) {
-				sf::Vector2f dir;
+		utils::Box entity_box = {
+			entity->GetSprite().getGlobalBounds(), 
+			entity->GetSpeed()
+		};
+		
+		for (size_t i = index; i < m_platforms.size(); ++i) {
+			utils::Box platform_box = {
+				m_platforms[i]->getGlobalBounds(), 
+				m_platforms[i]->getSpeed()
+			};
+			
+			sf::Rect<float> md = utils::minkowskiDifference(entity_box, platform_box);
+			if (utils::minkowskiCollision(md)) {
 				entity->SetPlatform(m_platforms[i]);
-				
-				dir.y = rect_g.top  > entity_g.top  ? -1.f : 1.f;
-				dir.x = rect_g.left > entity_g.left ? -1.f : 1.f;
-				
-				if (intersection.width < intersection.height)
-					response = { dir.x*intersection.width, 0 };
-				else
-					response = { 0, dir.y*intersection.height };
-				
+				response = utils::getPenetration(md);
 				return i;
 			}
 		}

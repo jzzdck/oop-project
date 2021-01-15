@@ -17,22 +17,21 @@ bool IsUnbounded(T *entity) {
 template<class T>
 int UpdateEntity(T* entity) { 
 	sf::Vector2f response;
+	
 	entity->Update();
 	entity->ApplyGravity(m_world.GetGravity());
 	
-	int base_col = -1;
-	int coll_index = m_world.CollidesWith(entity, response);
-
-	while (coll_index != -1) {
-		if (coll_index == m_world.GetBaseIndex(0))
+	int collision = m_world.CollidesWith(entity, response), base_col = -1;
+	while (collision != -1) {
+		if (collision == m_world.GetBaseIndex(0))
 			base_col = 0;
-		else if (coll_index == m_world.GetBaseIndex(1))
+		else if (collision == m_world.GetBaseIndex(1))
 			base_col = 1;
 		
-		entity->ApplyResponse(response);
-		coll_index = m_world.CollidesWith(entity, response, coll_index+1);
-	} 
-	
+		entity->ApplyResponse(-response);
+		collision = m_world.CollidesWith(entity, response, collision+1);
+	}
+
 	return base_col;
 }
 	

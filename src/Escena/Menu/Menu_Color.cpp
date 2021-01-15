@@ -3,7 +3,7 @@
 #include <cmath>
 #include "../../Game.h"
 #include "../../Utils/generalUtils.h"
-#include "../../HSV.h"
+#include "../../Utils/HSV.h"
 
 Menu_Color::Menu_Color(float width,float height):
 	Menu(width,height,"color-options"),

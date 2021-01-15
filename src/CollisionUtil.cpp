@@ -1,68 +1,50 @@
 #include "CollisionUtil.h"
 #include <limits>
+#include <cmath>
 
 namespace utils {
-	float sweptCollision(Box b1, Box b2, sf::Vector2f &normal) {
-		sf::Vector2f inv_near, inv_far;
-		sf::Vector2f near, far;
+	sf::Rect<float> minkowskiDifference(const Box &b1, const Box &b2) {
+		return {
+			b1.globals.left - (b2.globals.left + b2.globals.width),
+			b1.globals.top - (b2.globals.top + b2.globals.height),
+			b1.globals.width + b2.globals.width,
+			b1.globals.height + b2.globals.height
+		};
+	}
+	
+	bool minkowskiCollision(const sf::Rect<float> &md) {
+		// magically, if (0,0) is part of md, b1 and b2 are colliding 
+		return (md.left <= 0 && (md.left + md.width) >= 0 &&
+				md.top  <= 0 && (md.top + md.height) >= 0);
+	}
+	
+	sf::Vector2f getPenetration(const sf::Rect<float> &md) {
+		// assume the closest penetration is to the left
+		float min_dist = std::fabs(md.left);
+		sf::Vector2f penetration = { md.left, 0 };
 		
-		if (b1.vel.x > 0.0f) {
-			inv_near.x = b2.globals.left - (b1.globals.left + b1.globals.width);
-			inv_far.x = (b2.globals.left + b2.globals.width) - b1.globals.left;
-		} else {
-			inv_near.x = (b2.globals.left + b2.globals.width) - b1.globals.left;
-			inv_far.x = b2.globals.left - (b1.globals.left + b1.globals.width);
+		// check if there is a shorter penetration
+		// md is a rectangle, so there are only 3 checks needed:
+		
+		// check if the closest penetration is to the right
+		if (std::fabs(md.left + md.width) < min_dist) {
+			min_dist = std::fabs(md.left + md.width);
+			penetration = { md.left + md.width, 0 };
 		}
 		
-		if (b1.vel.y > 0.0f) {
-			inv_near.y = b2.globals.top - (b1.globals.top + b1.globals.height);
-			inv_far.y = (b2.globals.top + b2.globals.height) - b1.globals.top;
-		} else {
-			inv_near.y = (b2.globals.top + b2.globals.height) - b1.globals.top;
-			inv_far.y = b2.globals.top - (b1.globals.top + b1.globals.height);
+		// check if the closest penetration is to the top
+		if (std::fabs(md.top) < min_dist) {
+			min_dist = std::fabs(md.top);
+			penetration = { 0, md.top };
 		}
 		
-		if (b1.vel.x == 0.0f) {
-			near.x = -std::numeric_limits<float>::infinity();
-			far.x = std::numeric_limits<float>::infinity();
-		} else {
-			near.x = inv_near.x / b1.vel.x;
-			far.x = inv_far.x / b1.vel.x;
+		// check if the closest penetration is to the bottom
+		if (std::fabs(md.top + md.height) < min_dist) {
+			min_dist = std::fabs(md.top + md.height);
+			penetration = { 0, md.top + md.height };
 		}
 		
-		if (b1.vel.y == 0.0f) {
-			near.y = -std::numeric_limits<float>::infinity();
-			far.y = std::numeric_limits<float>::infinity();
-		} else {
-			near.y = inv_near.y / b1.vel.y;
-			far.y = inv_far.y / b1.vel.y;
-		}
-		
-		float entry_time = std::max(near.x, near.y);
-		float exit_time = std::min(far.x, far.y);
-		
-		if (entry_time > exit_time || 
-			near.x < 0.0f && near.y < 0.0f ||
-			near.x > 1.0f || near.y > 1.0f) 
-		{
-			normal.x = 0.0f;
-			normal.y = 0.0f;
-			return 1.0f;
-		} 
-		else 
-		{
-			if (near.x > near.y)
-				if (inv_near.x < 0.0f) 
-					normal.x = 1.0f, normal.y = 0.0f;
-				else
-					normal.x = -1.0f, normal.y = 0.0f;
-			else
-				if (inv_near.y < 0.0f)
-					normal.x = 0.0f, normal.y = 1.0f;
-				else 
-					normal.x = 0.0f, normal.y = -1.0f;
-			
-			return entry_time;
-		}
+		return penetration;
 	}
 }
+

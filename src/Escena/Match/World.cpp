@@ -22,28 +22,25 @@ void World::LoadMap(std::string map_name) {
 	FileManager s2("maps.conf", map_name+"-dynamic");
 	size_t size1=stoi(s1["size"]);
 	size_t size2=stoi(s2["size"]);
-	for(size_t i=0;i<size1;++i)	
-	{
+	
+	for(size_t i=0;i<size1;++i)	{
 		m_platforms.push_back(new Plataform_static("rect" + std::to_string(i) + "-"));
 		m_platforms[i]->LoadData(s1,win_width,win_height);
-		if(m_platforms[i]->isBase()!=-1)
-		{
-			if(m_platforms[i]->isBase()==0)
+		if (m_platforms[i]->isBase()!=-1) {
+			if (m_platforms[i]->isBase()==0)
 				m_base0=i;
 			else
 				m_base1=i;
 		}
 	}
-	for(int i=0;i<(size2);i++) 
-	{
+	
+	for(size_t i=0;i<size2;i++) {
 		m_platforms.push_back(new Plataform_dynamic("rect" + std::to_string(i) + "-"));
 		m_platforms[i+size1]->LoadData(s2,win_width,win_height);
 	}
-	
 }
 
-void World::Update()
-{
+void World::Update() {
 	for(Plataform* &x :m_platforms)
 		x->Update();
 }
@@ -52,10 +49,8 @@ void World::Draw (sf::RenderWindow& win) {
 	for (Plataform* &p: m_platforms)
 		p->Draw(win);
 }
-World::~World()
-{
+
+World::~World() {
 	for(size_t i=0;i<m_platforms.size();i++) 
-	{
 		delete m_platforms[i];
-	}
 }

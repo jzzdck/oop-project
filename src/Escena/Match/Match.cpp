@@ -20,7 +20,7 @@ Match::Match(float width, float height) :
 	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.push_back(new Player({win_width*0.15f, win_height*0.4f}, 1) );
 	
-	int randsize = rand()%(30-2) + 2;
+	int randsize = 30;
 	
 	for (size_t i=0; i<randsize; ++i) { 
 		int chance = rand()%101;
@@ -63,11 +63,7 @@ void Match::Update (Game& g) {
 	m_world.Update();
 	
 	for (Player *player : m_players) {
-		int base_col = UpdateEntity(player);
-//		if (base_col != -1) 
-//			std::cout << "Player" << player->GetIndex() << " is at "
-//					  << (base_col == player->GetIndex() ? "home" : "enemy") 
-//					  << " base!" << std::endl;
+		UpdateEntity(player);
 		
 		if (IsUnbounded(player)) {
 			player->GetSprite().setPosition(player->GetInitPos());

@@ -50,10 +50,9 @@ void Player::Update() {
 		
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
-		
-		m_sprite.move(m_speed.x, 0);
+
 	} else m_speed.x = 0.f;
-	m_sprite.move(0, m_speed.y);
+	m_sprite.move(m_speed.x, m_speed.y);
 	
 	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);

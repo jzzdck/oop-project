@@ -9,10 +9,9 @@ namespace utils {
 		sf::Vector2f vel;
 	};
 	
-	float sweptCollision(Box b1, Box b2, sf::Vector2f &normal);
-//	float getRemainingTime();
-//	void pushResponse();
-//	void deflectResponse();
+	sf::Rect<float> minkowskiDifference(const Box &b1, const Box &b2);
+	bool minkowskiCollision(const sf::Rect<float> &md);
+	sf::Vector2f getPenetration(const sf::Rect<float> &md);
 }
 
 #endif
