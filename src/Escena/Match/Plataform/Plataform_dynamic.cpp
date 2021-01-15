@@ -10,22 +10,24 @@ Plataform_dynamic::Plataform_dynamic(std::string key):Plataform(key) {
 
 void Plataform_dynamic::LoadData (FileManager const& s_aux,float const& win_width,float const& win_height) 
 {
-	sf::Vector2f dim = { win_width * stof(s_aux[m_key+"w"]), win_height * stof(s_aux[m_key+"h"]) };
-	sf::Vector2f pos = { win_width * stof(s_aux[m_key+"x"]), win_height * stof(s_aux[m_key+"y"]) };
+	sf::Rect<float> dim=utils::getRectDim(s_aux[m_key+"dim"]);
+	dim.left*=win_width;
+	dim.top*=win_height;
+	dim.width*=win_width;
+	dim.height*=win_height;
 	
-	m_start=pos;
-	m_end={ win_width * stof(s_aux[m_key+"x-end"]), win_height * stof(s_aux[m_key+"y-end"]) };
+	sf::RectangleShape rect_aux({dim.width,dim.height});
+	rect_aux.setPosition({dim.left,dim.top});
 	
-	sf::RectangleShape rect_aux(dim);
-	rect_aux.setPosition(pos);
+	m_start={dim.left,dim.top};
+	m_end=utils::getXY(s_aux[m_key+"xy-end"]);
+	m_end.x*=win_width;
+	m_end.y*=win_height;
+	
 	sf::Color c=utils::getColor(s_aux["color"]);
 	rect_aux.setFillColor(c);
 	
-	std::stringstream ss;
-	ss<<s_aux[m_key+"linear-speed"];
-	int x,y;
-	ss>>x>>y;
-	this->setLSpeed(sf::Vector2f(x,y));
+	this->setLSpeed(utils::getXY(s_aux[m_key+"linear-speed"]));
 	this->setAngSpeed(stoi(s_aux[m_key+"angular-speed"]));
 	this->setRect(rect_aux);
 	

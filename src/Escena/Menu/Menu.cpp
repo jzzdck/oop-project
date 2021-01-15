@@ -26,15 +26,18 @@ void Menu::LoadTexts ( )
 	for (size_t i=0; i<m_texts.size(); ++i) 
 	{ 
 		m_texts[i].setFont(m_font);
-		
 		std::string key = "str" + std::to_string(i) + "-";
 		std::string str = s[key+"set"];
 		m_texts[i].setString(str);
 		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
 		
 		m_texts[i].setFillColor(utils::getColor( s[key+"color"]) );
+		
 		m_texts[i].setOrigin(utils::getCenter(m_texts[i].getLocalBounds()));
-		m_texts[i].setPosition(win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]));
+		sf::Vector2f pos=utils::getXY(s[key+"xy"]);
+		pos.x*=win_width;
+		pos.y*=win_height;
+		m_texts[i].setPosition(pos);
 	}
 }
 
@@ -53,15 +56,19 @@ void Menu::LoadFigures()
 	m_rectangles.resize(stoi(s["size"]));
 	sf::Color c = utils::getColor(s["color"]);
 	for (size_t i=0; i<m_rectangles.size(); ++i) {
-		std::string key = "rect" + std::to_string(i) + "-"; //recti-w, recti-h, etc
-		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
-		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
+		std::string key = "rect" + std::to_string(i) + "-";
+		sf::Rect<float> dim=utils::getRectDim(s[key+"dim"]);
+		dim.left*=win_width;
+		dim.top*=win_height;
+		dim.width*=win_width;
+		dim.height*=win_height;
 		
-		sf::RectangleShape aux(dim);
-		aux.setFillColor(c);
-		aux.setPosition(pos);
+		sf::RectangleShape rect_aux({dim.width,dim.height});
+		rect_aux.setPosition({dim.left,dim.top});
 		
-		m_rectangles[i] = aux;
+		rect_aux.setFillColor(c);
+		
+		m_rectangles[i] = rect_aux;
 	}
 }
 void Menu::LoadSliders()
@@ -73,17 +80,22 @@ void Menu::LoadSliders()
 	for (size_t i=0; i<m_sliders.size(); ++i) 
 	{
 		std::string key = "slid" + std::to_string(i) + "-"; 
+		
 		m_sliders[i].setSpeed(speed);
 		m_sliders[i].setColor(c);
 		
-		sf::Vector2f dim = { win_width * stof(s[key+"w"]), win_height * stof(s[key+"h"]) };
-		m_sliders[i].setSize(dim);
+		sf::Rect<float> dim=utils::getRectDim(s[key+"dim"]);
+		dim.left*=win_width;
+		dim.top*=win_height;
+		dim.width*=win_width;
+		dim.height*=win_height;
 		
-		sf::Vector2f pos = { win_width * stof(s[key+"x"]), win_height * stof(s[key+"y"]) };
-		m_sliders[i].setPosition(pos);
+		m_sliders[i].setSize({dim.width,dim.height});
+		m_sliders[i].setPosition({dim.left,dim.top});
 		
-		sf::Vector2f limits=
-		{win_width*stof(s[key+"min"])+(m_rectangles[0].getGlobalBounds()).width,win_width*stof(s[key+"max"])};
+		sf::Vector2f limits=utils::getXY(s[key+"min-max"]);
+		limits.x=limits.x*win_width+(m_rectangles[0].getGlobalBounds()).width;
+		limits.y*=win_width;
 		m_sliders[i].setLimits(limits);
 		
 		int max=stoi(s[key+"top-value"]);

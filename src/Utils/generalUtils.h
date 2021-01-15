@@ -8,10 +8,12 @@
 namespace utils {
 	bool wasPressed(bool &prev, bool act);
 	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
-
+	sf::Rect<float> getRectDim(std::string s);
+	sf::Vector2f getXY(std::string s);
+	
 	/// @brief Get the center point of a rectangle
 	/// @return the x and y coordinates of the center
-	sf::Vector2f getCenter(const sf::Rect<float> &of_this);
+	sf::Vector2f getCenter(const sf::Rect<float>& of_this);
 	
 	/// @brief Get an SFML color out of a string.
 	/// @param rgb A string of the type "red green blue" (in numbers)
