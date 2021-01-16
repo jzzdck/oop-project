@@ -13,7 +13,8 @@
 #include "../../Entity/Item/Weapon/Handcannon.h"
 
 Match::Match(float width, float height) :
-	Escena(width, height), m_world(width, height, 0.7)
+	Escena(width, height), m_world(width, height, 0.7),
+	m_pause(false)
 {
 	m_view.setCenter(0,0);
 	m_view.setSize(0,0);
@@ -40,6 +41,11 @@ Match::Match(float width, float height) :
 void Match::ProcessEvent(sf::Event& e, Game& g) {
 	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
 		g.SetScene(new Menu_Principal(win_width, win_height));
+	else
+		if(e.type==sf::Event::KeyPressed && e.key.code == sf::Keyboard::P)
+		{
+			m_pause=!m_pause;
+		}
 }
 
 void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
@@ -59,39 +65,42 @@ void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
 }
 
 void Match::Update (Game& g) {
-	UpdateCamera();
-	m_world.Update();
-	
-	for (Player *player : m_players) {
-		UpdateEntity(player);
+	if(!m_pause)
+	{
+		UpdateCamera();
+		m_world.Update();
 		
-		if (IsUnbounded(player)) {
-			player->GetSprite().setPosition(player->GetInitPos());
-			player->SetSpeed({0, 0});
-		}
-	}
-	
-	m_items = EraseUnbounded(m_items);
-	UpdateOwnerships(m_items);
-	
-	m_weapons = EraseUnbounded(m_weapons);
-	UpdateOwnerships(m_weapons);
-	for (Weapon *weapon : m_weapons) {
-		if (weapon->Owner() != -1) {
-			Player *owner = m_players[weapon->Owner()];
-			weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+		for (Player *player : m_players) {
+			UpdateEntity(player);
+			
+			if (IsUnbounded(player)) {
+				player->GetSprite().setPosition(player->GetInitPos());
+				player->SetSpeed({0, 0});
+			}
 		}
 		
-		if (weapon->IsAttacking())
-			m_projectiles.push_back(weapon->GetProjectile());
-	}
-	
-	EraseUnused( m_projectiles );
-	m_projectiles = EraseUnbounded(m_projectiles);
-	for (Projectile *projectile : m_projectiles) {
-		for (Player *player : m_players)
-			if (projectile->CollidesWith(player->GetSprite()))
-				projectile->ApplyEffect(player);
+		m_items = EraseUnbounded(m_items);
+		UpdateOwnerships(m_items);
+		
+		m_weapons = EraseUnbounded(m_weapons);
+		UpdateOwnerships(m_weapons);
+		for (Weapon *weapon : m_weapons) {
+			if (weapon->Owner() != -1) {
+				Player *owner = m_players[weapon->Owner()];
+				weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+			}
+			
+			if (weapon->IsAttacking())
+				m_projectiles.push_back(weapon->GetProjectile());
+		}
+		
+		EraseUnused( m_projectiles );
+		m_projectiles = EraseUnbounded(m_projectiles);
+		for (Projectile *projectile : m_projectiles) {
+			for (Player *player : m_players)
+				if (projectile->CollidesWith(player->GetSprite()))
+					projectile->ApplyEffect(player);
+		}
 	}
 }
 

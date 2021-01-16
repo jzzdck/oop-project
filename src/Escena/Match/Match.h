@@ -21,7 +21,7 @@ class Match : public Escena {
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;
 	std::vector<Projectile*> m_projectiles;
-	
+	bool m_pause;
 	World m_world;
 	
 	sf::View m_view;
