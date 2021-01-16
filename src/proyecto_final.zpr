@@ -60,7 +60,7 @@ cursor=24:1
 open=true
 [source]
 path=Escena/Match/Match.cpp
-cursor=16:15
+cursor=69:5
 open=true
 [source]
 path=Escena/Menu/Slider.cpp
@@ -152,7 +152,7 @@ path=Escena/Match/World.h
 cursor=57:3
 [header]
 path=Escena/Match/Match.h
-cursor=23:14
+cursor=9:0
 open=true
 [header]
 path=Escena/Menu/Slider.h

@@ -20,7 +20,7 @@ public:
 	virtual Projectile* GetProjectile() = 0;
 	
 	/// @brief Construct a weapon in relation to where the player's facing.
-	Weapon(sf::Vector2f pos, std::string keyword, int damage, float facing);
+	Weapon(sf::Vector2f pos, std::string keyword, float facing);
 	
 	/// @brief Virtual destructor; the class is abstract
 	virtual ~Weapon() {}
@@ -29,7 +29,6 @@ protected:
 	
 	sf::Clock firerate;
 	bool attack_state = false;
-	int m_damage;
 	sf::Vector2f m_pos;
 };
 

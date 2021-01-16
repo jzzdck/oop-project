@@ -15,36 +15,27 @@ class Weapon;
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
-	/// @brief Update the player in relation to input.
-	void Update() override; // every component would get updated
-	
-	/// @brief Draw the player in the current window.
-	/// @param win Where the player will be drawed.
-	void Draw(sf::RenderWindow &win) override; // graphics component's job
-	
-	/// @brief In case of collision, apply a response vector to the player.
-	/// @param vec A projection vector made in World, recibed from Match.
+	void Update() override; 
+	void Draw(sf::RenderWindow &win);
 	void ApplyResponse(const sf::Vector2f &vec) override;
 	
-	/// @brief Get the player's current jump speed.
+	bool IsAlive() { return m_health > 0.0f; }
+	void AssignHealth(float new_health) { m_health = new_health; }
+	float GetHealth() const { return m_health; }
 	int GetJumpSpeed() const { return m_jumpspeed; }
-	/// @brief Get the player's index.
 	int GetIndex() const { return m_index; }
-	
 	bool IsAttacking() { return m_input["attack"] && m_weapon; }
 	
 	void UnassignObject(Item* if_item);
 	void UnassignObject(Weapon* if_weapon);
+	void UnassignObjects();
+	
 	void AssignObject(Item* new_item);
 	void AssignObject(Weapon* new_weapon);
 	
-	/// @brief Checks if the player has pressed the 'grab' key.
 	bool PressedGrab(Item* if_item);
 	bool PressedGrab(Weapon* if_weapon);
 	
-	/// @brief Construct a player in an initial position, and give it an index.
-	/// @param pos Initial player position.
-	/// @param player_index Index given to the player. 
 	Player(sf::Vector2f pos, int player_index);
 private:
 	int m_index;
@@ -59,6 +50,7 @@ private:
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
 	
+	float m_health = 1000.f;
 	sf::Sprite ms_belly;
 };
 

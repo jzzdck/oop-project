@@ -1,7 +1,7 @@
 #include "MeleeHit.h"
 
 MeleeHit::MeleeHit(const sf::Vector2f &pos) : 
-	Projectile(pos, "melee") 
+	Projectile(pos, "melee", 250.f) 
 {
 	
 }

@@ -22,6 +22,8 @@ class Match : public Escena {
 	std::vector<Weapon*> m_weapons;
 	std::vector<Projectile*> m_projectiles;
 	bool m_pause;
+	sf::Clock m_clock;
+	std::vector<float> m_respawners;
 	World m_world;
 	
 	sf::View m_view;

@@ -2,7 +2,7 @@
 #include "../../../Utils/generalUtils.h"
 #include "../../proyectile/MeleeHit.h"
 
-Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", true, 0) 
+Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", true)
 {
 }
 

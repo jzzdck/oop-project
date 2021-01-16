@@ -1,7 +1,7 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos) :
-	Projectile(pos, "bomb")
+	Projectile(pos, "bomb", 50.f)
 {
 	m_sprite.scale(2, 2);
 	m_speed = vel;
@@ -17,8 +17,7 @@ void Bomb::ApplyResponse (const sf::Vector2f & vec) {
 
 void Bomb::ApplyEffect (Player * target) {
 	if (!exploding) { max_life = 0.1f; return; }
-	target->GetSprite().setPosition(target->GetInitPos());
-	target->SetSpeed({0, 0});
+	target->AssignHealth(target->GetHealth() - m_damage);
 }
 
 void Bomb::Update ( ) {

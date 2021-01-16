@@ -54,3 +54,29 @@ World::~World() {
 	for(size_t i=0;i<m_platforms.size();i++) 
 		delete m_platforms[i];
 }
+
+int World::CollidesWith (Entity * entity, sf::Vector2f & response, int index) {
+	if (index >= m_platforms.size()) return -1;
+	
+	utils::Box entity_box = {
+		entity->GetSprite().getGlobalBounds(), 
+			entity->GetSpeed()
+	};
+	
+	for (size_t i = index; i < m_platforms.size(); ++i) {
+		utils::Box platform_box = {
+			m_platforms[i]->getGlobalBounds(), 
+				m_platforms[i]->getSpeed()
+		};
+		
+		sf::Rect<float> md = utils::minkowskiDifference(entity_box, platform_box);
+		if (utils::minkowskiCollision(md)) {
+			entity->SetPlatform(m_platforms[i]);
+			response = utils::getPenetration(md);
+			return i;
+		}
+	}
+	
+	return -1;
+}
+
