@@ -15,8 +15,10 @@
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
 {
+	m_clock.restart();
 	m_view.setCenter(0,0);
 	m_view.setSize(0,0);
+	m_respawners.resize(2, 0.00f);
 	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.push_back(new Player({win_width*0.15f, win_height*0.4f}, 1) );
 	
@@ -65,9 +67,24 @@ void Match::Update (Game& g) {
 	for (Player *player : m_players) {
 		UpdateEntity(player);
 		
-		if (IsUnbounded(player)) {
-			player->GetSprite().setPosition(player->GetInitPos());
-			player->SetSpeed({0, 0});
+		if (IsUnbounded(player))
+			player->AssignHealth(-1000.f); 
+		
+		if (!player->IsAlive()) {
+			if (m_respawners[player->GetIndex()] == 0.00f)
+				m_respawners[player->GetIndex()] = m_clock.getElapsedTime().asSeconds();
+			player->UnassignObjects();
+		}
+	}
+	
+	for (size_t i=0; i<m_respawners.size(); ++i) {
+		float can_respawn = m_clock.getElapsedTime().asSeconds() - m_respawners[i];
+		if (!m_players[i]->IsAlive() && can_respawn >= 1.5f)
+		{
+			m_players[i]->GetSprite().setPosition(m_players[i]->GetInitPos());
+			m_players[i]->SetSpeed({0, 0});
+			m_players[i]->AssignHealth(1000.f);
+			m_respawners[i] = 0.00f;
 		}
 	}
 	
@@ -90,9 +107,9 @@ void Match::Update (Game& g) {
 	m_projectiles = EraseUnbounded(m_projectiles);
 	for (Projectile *projectile : m_projectiles) {
 		for (Player *player : m_players)
-			if (projectile->CollidesWith(player->GetSprite()))
+			if (projectile->CollidesWith(player->GetSprite()) && player->IsAlive())
 				projectile->ApplyEffect(player);
-	}
+	}	
 }
 
 void Match::Draw (sf::RenderWindow & win) {

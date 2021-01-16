@@ -34,6 +34,8 @@ void Player::LoadKeys() {
 }
 
 void Player::Update() {
+	if (!IsAlive()) return;
+	
 	if (is_jumping !=  m_input["jump"]) {
 		is_jumping = !is_jumping;
 		if (is_jumping && m_jumpcount > 0 ) {
@@ -50,7 +52,6 @@ void Player::Update() {
 		
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
-
 	} else m_speed.x = 0.f;
 	m_sprite.move(m_speed.x, m_speed.y);
 	
@@ -63,6 +64,8 @@ void Player::Update() {
 }
 
 void Player::Draw(sf::RenderWindow & win) {
+	if (!IsAlive()) return;
+	
 	ms_belly.setPosition(m_sprite.getPosition());
 	utils::flipTexture(m_dir, m_scale, ms_belly);
 	utils::flipTexture(m_dir, m_scale, m_sprite);
@@ -117,3 +120,12 @@ void Player::AssignObject(Weapon *new_weapon) {
 	m_weapon = new_weapon;
 	m_weapon->SetOwner(m_index);
 }
+
+void Player::UnassignObjects ( ) {
+	if (m_weapon) 
+		UnassignObject(m_weapon);
+	
+	if (m_item)
+		UnassignObject(m_item);
+}
+
