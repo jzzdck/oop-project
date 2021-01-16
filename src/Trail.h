@@ -16,7 +16,7 @@ public:
 	void Draw(sf::RenderWindow &win);
 	void Clear() { m_positions.clear(); }
 private:
-	void TrailEffect(sf::Sprite &with_this, int index);
+	void TrailEffect(sf::Sprite &with_this, int index, sf::RenderWindow &win);
 	float m_scale;
 	bool has_deps;
 	sf::Sprite m_target;

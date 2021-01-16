@@ -14,30 +14,25 @@ void Trail::AddPosition (const sf::Vector2f & new_pos) {
 
 void Trail::Draw (sf::RenderWindow & win) {
 	for(size_t i=1; i<m_positions.size(); ++i) { 
-		TrailEffect(m_target, i);
-		sf::Color c;
 		if (has_deps) {
 			m_dep.setOrigin(0,0);
-			TrailEffect(m_dep, i);
-			win.draw(m_dep);
-			c = m_dep.getColor();
-			c.a = 255;
+			TrailEffect(m_dep, i, win);
 		}
 		
-		win.draw(m_target);
-		c = m_target.getColor();
-		c.a = 255;
+		TrailEffect(m_target, i, win);
 	}
 }
 
-void Trail::TrailEffect (sf::Sprite & with_this, int index) {
+void Trail::TrailEffect (sf::Sprite & with_this, int index, sf::RenderWindow &win) {
 	with_this.setPosition(m_positions[index]);
 	
 	// 100% alpha/scale - 10%, 20%, 30%, etc
 	float percentage = 1.0f - (1.0f*index/10.0f);
 	sf::Color c = with_this.getColor();
-	c.a = sf::Uint8(255*percentage);
+	c.a = sf::Uint8(200*percentage);
 	with_this.setScale(2*m_scale*percentage, 2*m_scale*percentage);
 	with_this.setColor(c);
+	win.draw(with_this);
+	c.a = 255;
 }
 
