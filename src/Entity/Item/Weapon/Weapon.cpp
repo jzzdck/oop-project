@@ -1,9 +1,7 @@
 #include "Weapon.h"
 
-Weapon::Weapon(sf::Vector2f pos, std::string keyword, 
-			   int damage, float facing) :
+Weapon::Weapon(sf::Vector2f pos, std::string keyword, float facing) :
 	Item(pos, keyword), 
-	m_damage(damage),
 	attack_state(false)
 {
 	m_dir = facing;

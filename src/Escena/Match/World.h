@@ -8,6 +8,7 @@
 #include <vector>
 #include "Plataform/Plataform.h"
 #include "../../CollisionUtil.h"
+#include "../../Entity/Entity.h"
 
 /** @brief The World class is the place where the Match occurs **/
 class World {
@@ -37,33 +38,7 @@ public:
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 	~World();
 	
-	size_t size() { return m_platforms.size(); }
-	
-	template<class T>
-	int CollidesWith(T *entity, sf::Vector2f &response, int index = 0) {
-		if (index >= m_platforms.size()) return -1;
-		
-		utils::Box entity_box = {
-			entity->GetSprite().getGlobalBounds(), 
-			entity->GetSpeed()
-		};
-		
-		for (size_t i = index; i < m_platforms.size(); ++i) {
-			utils::Box platform_box = {
-				m_platforms[i]->getGlobalBounds(), 
-				m_platforms[i]->getSpeed()
-			};
-			
-			sf::Rect<float> md = utils::minkowskiDifference(entity_box, platform_box);
-			if (utils::minkowskiCollision(md)) {
-				entity->SetPlatform(m_platforms[i]);
-				response = utils::getPenetration(md);
-				return i;
-			}
-		}
-		
-		return -1;
-	}
+	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);
 private:
 	/// @brief Fill the m_platforms vector with RectangleShapes
 	/// @param map_name The .conf keyword to create the map.

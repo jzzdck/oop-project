@@ -13,16 +13,19 @@
 #include "../../Entity/Item/Weapon/Handcannon.h"
 
 Match::Match(float width, float height) :
-	Escena(width, height), m_world(width, height, 0.7)
+	Escena(width, height), m_world(width, height, 0.7),
+	m_pause(false)
 {
 	m_view.setCenter(0,0);
 	m_view.setSize(0,0);
+	m_respawners.resize(2, 0.00f);
 	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
 	m_players.push_back(new Player({win_width*0.15f, win_height*0.4f}, 1) );
 	
 	int randsize = 30;
 	
-	for (size_t i=0; i<randsize; ++i) { 
+	for (size_t i=0; i<randsize; ++i)
+	{ 
 		int chance = rand()%101;
 		if (chance < 25)
 			m_weapons.push_back(new Shovel({win_width*utils::randf(), win_height*utils::randf()}));
@@ -37,11 +40,16 @@ Match::Match(float width, float height) :
 	}
 }
 
-void Match::ProcessEvent(sf::Event& e, Game& g) {
+void Match::ProcessEvent(sf::Event& e, Game& g) 
+{
 	if (e.type == sf::Event::KeyPressed && e.key.code == sf::Keyboard::Escape)
 		g.SetScene(new Menu_Principal(win_width, win_height));
+	else
+		if(e.type==sf::Event::KeyPressed && e.key.code == sf::Keyboard::P)
+	{
+		m_pause=!m_pause;
+	}
 }
-
 void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
 	for (size_t i=0; i<projectiles.size(); ++i) {
 		if (!projectiles[i]->IsUsed()) {
@@ -59,39 +67,57 @@ void Match::EraseUnused ( std::vector<Projectile*> & projectiles) {
 }
 
 void Match::Update (Game& g) {
-	UpdateCamera();
-	m_world.Update();
-	
-	for (Player *player : m_players) {
-		UpdateEntity(player);
+	if(!m_pause)
+	{
+		UpdateCamera();
+		m_world.Update();
 		
-		if (IsUnbounded(player)) {
-			player->GetSprite().setPosition(player->GetInitPos());
-			player->SetSpeed({0, 0});
-		}
-	}
-	
-	m_items = EraseUnbounded(m_items);
-	UpdateOwnerships(m_items);
-	
-	m_weapons = EraseUnbounded(m_weapons);
-	UpdateOwnerships(m_weapons);
-	for (Weapon *weapon : m_weapons) {
-		if (weapon->Owner() != -1) {
-			Player *owner = m_players[weapon->Owner()];
-			weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+		for (Player *player : m_players) {
+			UpdateEntity(player);
+			
+			if (IsUnbounded(player))
+				player->AssignHealth(-1000.f); 
+			
+			if (!player->IsAlive()) {
+				if (m_respawners[player->GetIndex()] == 0.00f)
+					m_respawners[player->GetIndex()] = m_clock.getElapsedTime().asSeconds();
+				player->UnassignObjects();
+			}
 		}
 		
-		if (weapon->IsAttacking())
-			m_projectiles.push_back(weapon->GetProjectile());
-	}
-	
-	EraseUnused( m_projectiles );
-	m_projectiles = EraseUnbounded(m_projectiles);
-	for (Projectile *projectile : m_projectiles) {
-		for (Player *player : m_players)
-			if (projectile->CollidesWith(player->GetSprite()))
-				projectile->ApplyEffect(player);
+		for (size_t i=0; i<m_respawners.size(); ++i) {
+			float can_respawn = m_clock.getElapsedTime().asSeconds() - m_respawners[i];
+			if (!m_players[i]->IsAlive() && can_respawn >= 1.5f)
+			{
+				m_players[i]->GetSprite().setPosition(m_players[i]->GetInitPos());
+				m_players[i]->SetSpeed({0, 0});
+				m_players[i]->AssignHealth(1000.f);
+				m_respawners[i] = 0.00f;
+			}
+		}
+		
+		m_items = EraseUnbounded(m_items);
+		UpdateOwnerships(m_items);
+		
+		m_weapons = EraseUnbounded(m_weapons);
+		UpdateOwnerships(m_weapons);
+		for (Weapon *weapon : m_weapons) {
+			if (weapon->Owner() != -1) {
+				Player *owner = m_players[weapon->Owner()];
+				weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+			}
+			
+			if (weapon->IsAttacking())
+				m_projectiles.push_back(weapon->GetProjectile());
+		}
+		
+		EraseUnused( m_projectiles );
+		m_projectiles = EraseUnbounded(m_projectiles);
+		for (Projectile *projectile : m_projectiles) {
+			for (Player *player : m_players)
+				if (projectile->CollidesWith(player->GetSprite()) && player->IsAlive())
+					projectile->ApplyEffect(player);
+		}	
 	}
 }
 
@@ -132,17 +158,17 @@ void Match::UpdateCamera () {
 	
 	sf::Vector2f cam_size = { 
 		std::fabs(center1.x - center0.x),
-		std::fabs(center1.y - center0.y) 
+			std::fabs(center1.y - center0.y) 
 	};
 	
 	sf::Vector2f cam_center = { 
 		cam_size.x/2.f + std::min(center0.x, center1.x), 
-		cam_size.y/2.f + std::min(center0.y, center1.y)
+			cam_size.y/2.f + std::min(center0.y, center1.y)
 	};
 	
 	m_view.setCenter( { 
 		true_center.x*0.98f + cam_center.x*0.02f,
-		true_center.y*0.98f + cam_center.y*0.02f,
+			true_center.y*0.98f + cam_center.y*0.02f,
 	} );
 	
 	m_view.setSize( {win_width, win_height} );

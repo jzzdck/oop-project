@@ -5,13 +5,15 @@
 #include <cmath>
 
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
-	Weapon(pos, "handcannon", 30, facing)
+	Weapon(pos, "handcannon", facing)
 {
 }
 
 void Handcannon::Draw(sf::RenderWindow & win) {
 	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
-	m_sprite.setScale(m_dir*2, 2);
+	if (m_speed.x != 0.f || Owner() != -1)
+		m_sprite.setScale(m_dir*2, 2);
+	
 	if (Owner() != -1 && m_dir == -1.f)
 		m_sprite.move(m_sprite.getGlobalBounds().width, 0);
 	
@@ -29,6 +31,8 @@ bool Handcannon::IsAttacking ( ) {
 		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f;
 		if (!is_shooting && can_shoot) 
 			m_nextangle = m_angle, firerate.restart();
+		else
+			m_angle = 0;
 		
 		return !is_shooting && can_shoot;
 	} else return false;
@@ -47,4 +51,3 @@ Projectile * Handcannon::GetProjectile ( ) {
 		-20.f * std::sin(m_angle)
 	}, pos);
 }
-

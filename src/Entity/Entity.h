@@ -30,7 +30,6 @@ public:
 	virtual ~Entity() = default;
 protected:
 	std::string m_key;
-	bool is_alive;	
 	
 	sf::Vector2f m_speed, m_initpos;
 	float m_topspeed;

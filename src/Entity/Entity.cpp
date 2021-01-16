@@ -3,9 +3,8 @@
 #include "../Utils/generalUtils.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : 
-	m_key(keyword), is_alive(true)
+	m_key(keyword), m_initpos(pos), m_dir(m_speed.x > 0 ? 1.f : -1.f)
 {
-	m_initpos = pos;
 	FileManager s("textures.conf", m_key);
 	int psize = std::stoi(s[m_key+"-size"]);
 	
@@ -15,8 +14,6 @@ Entity::Entity (sf::Vector2f pos, std::string keyword) :
 	if (psize) m_sprite.setTexture(m_textures[0]);
 	
 	m_sprite.setPosition(m_initpos);
-	
-	m_dir = m_speed.x > 0 ? 1.f : -1.f;
 	m_sprite.setScale(m_dir*m_scale, m_scale);
 }
 

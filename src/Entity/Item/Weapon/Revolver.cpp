@@ -4,7 +4,7 @@
 #include "../../../Utils/generalUtils.h"
 
 Revolver::Revolver(sf::Vector2f pos, float facing) : 
-	Weapon(pos, "revolver", 30, facing), is_shooting(false)
+	Weapon(pos, "revolver", facing), is_shooting(false)
 { }
 
 Projectile * Revolver::GetProjectile ( ) {

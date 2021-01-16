@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Bullet::Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos) :
-	Projectile(pos, "bullet")
+	Projectile(pos, "bullet", 50.f)
 {
 	m_sprite.setTexture(m_textures[utils::randf() > 0.5f ? 1 : 2], true);
 	SetSpeed(speed);
