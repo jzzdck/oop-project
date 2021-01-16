@@ -15,7 +15,6 @@
 Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7)
 {
-	m_clock.restart();
 	m_view.setCenter(0,0);
 	m_view.setSize(0,0);
 	m_respawners.resize(2, 0.00f);

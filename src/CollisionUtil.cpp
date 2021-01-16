@@ -21,7 +21,7 @@ namespace utils {
 	sf::Vector2f getPenetration(const sf::Rect<float> &md) {
 		// assume the closest penetration is to the left
 		float min_dist = std::fabs(md.left);
-		sf::Vector2f penetration = { md.left, 0 };
+		sf::Vector2f penetration = { md.left - 1, 0 };
 		
 		// check if there is a shorter penetration
 		// md is a rectangle, so there are only 3 checks needed:
@@ -29,13 +29,13 @@ namespace utils {
 		// check if the closest penetration is to the right
 		if (std::fabs(md.left + md.width) < min_dist) {
 			min_dist = std::fabs(md.left + md.width);
-			penetration = { md.left + md.width, 0 };
+			penetration = { md.left + md.width + 1, 0 };
 		}
 		
 		// check if the closest penetration is to the top
 		if (std::fabs(md.top) < min_dist) {
 			min_dist = std::fabs(md.top);
-			penetration = { 0, md.top };
+			penetration = { 0, md.top - 1};
 		}
 		
 		// check if the closest penetration is to the bottom
