@@ -5,7 +5,7 @@
 #include <cmath>
 
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
-	Weapon(pos, "handcannon", 30, facing)
+	Weapon(pos, "handcannon", facing)
 {
 }
 
