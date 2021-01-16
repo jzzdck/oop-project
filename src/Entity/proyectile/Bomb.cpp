@@ -1,11 +1,7 @@
 #include "Bomb.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos) :
-<<<<<<< HEAD
-	Projectile(pos, "bomb"), m_trail(m_sprite, false, 2.0f)
-=======
-	Projectile(pos, "bomb", 50.f)
->>>>>>> 33dc5e120f031924a230657bd8bb9e550eee93fa
+	Projectile(pos, "bomb", 50.f), m_trail(m_sprite, false, 2.0f)
 {
 	m_scale *= 2;
 	m_sprite.scale(m_scale, m_scale);

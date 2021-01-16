@@ -16,7 +16,7 @@ Match::Match(float width, float height) :
 	Escena(width, height), m_world(width, height, 0.7),
 	m_pause(false)
 {
-	m_view.setCenter(0,0);
+	m_view.setCenter(win_width*utils::randf(), win_height*utils::randf());
 	m_view.setSize(0,0);
 	m_respawners.resize(2, 0.00f);
 	m_players.push_back(new Player({win_width*utils::randf(), win_height*0.4f} , 0) );
@@ -117,7 +117,7 @@ void Match::Update (Game& g) {
 			for (Player *player : m_players)
 				if (projectile->CollidesWith(player->GetSprite()) && player->IsAlive())
 					projectile->ApplyEffect(player);
-		}	
+		}
 	}
 }
 
@@ -149,31 +149,44 @@ Match::~Match() {
 }
 
 void Match::UpdateCamera () {
-	auto sp0 = m_players[0]->GetSprite().getGlobalBounds();
-	auto sp1 = m_players[1]->GetSprite().getGlobalBounds(); 
-	sf::Vector2f true_center = m_view.getCenter();
+	sf::Vector2f prev_center = m_view.getCenter();
+	sf::Vector2f target_center, cam_size;
 	
-	sf::Vector2f center0 = utils::getCenter(sp0);
-	sf::Vector2f center1 = utils::getCenter(sp1);
-	
-	sf::Vector2f cam_size = { 
-		std::fabs(center1.x - center0.x),
+	if (m_players[0]->IsAlive() && m_players[1]->IsAlive()) {
+		auto sp0 = m_players[0]->GetSprite().getGlobalBounds();
+		auto sp1 = m_players[1]->GetSprite().getGlobalBounds(); 
+		
+		sf::Vector2f center0 = utils::getCenter(sp0);
+		sf::Vector2f center1 = utils::getCenter(sp1);
+		
+		cam_size = { 
+			std::fabs(center1.x - center0.x),
 			std::fabs(center1.y - center0.y) 
-	};
-	
-	sf::Vector2f cam_center = { 
-		cam_size.x/2.f + std::min(center0.x, center1.x), 
+		};
+		
+		target_center = { 
+			cam_size.x/2.f + std::min(center0.x, center1.x), 
 			cam_size.y/2.f + std::min(center0.y, center1.y)
-	};
+		};
+	} else {
+		for(size_t i=0;i<m_players.size();i++) { 
+			if (m_players[i]->IsAlive()) {
+				auto sp0 = m_players[i]->GetSprite().getGlobalBounds();
+				target_center = utils::getCenter(sp0);
+				prev_center = m_view.getCenter();
+				cam_size = {sp0.width, sp0.height};
+			}
+		}
+	}
 	
-	m_view.setCenter( { 
-		true_center.x*0.98f + cam_center.x*0.02f,
-			true_center.y*0.98f + cam_center.y*0.02f,
-	} );
+	m_view.setCenter({ 
+		prev_center.x*0.98f + target_center.x*0.02f,
+		prev_center.y*0.98f + target_center.y*0.02f,
+	});
 	
 	m_view.setSize( {win_width, win_height} );
-	
-	float scale = std::max(cam_size.x/win_width + 0.36f, cam_size.y/win_height + 0.36f);
-	m_view.zoom(scale);
+	float aux = std::max(cam_size.x/win_width + 0.36f, cam_size.y/win_height + 0.36f);
+	m_zoom = aux*0.05 + m_zoom*0.95;
+	m_view.zoom(m_zoom);
 }
 

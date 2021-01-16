@@ -26,7 +26,8 @@ class Match : public Escena {
 	std::vector<float> m_respawners;
 	World m_world;
 	
-	sf::View m_view;
+	sf::View m_view; 
+	float m_zoom = 1.f;
 public:
 	#include "MatchTemplates.h"
 	void ProcessEvent(sf::Event& e,Game& g)override;
