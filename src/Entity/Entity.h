@@ -18,7 +18,7 @@ public:
 	virtual void ApplyGravity(float gravity) { m_speed.y += gravity; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
-	sf::Sprite GetSprite() const { return m_sprite; }
+	sf::Sprite &GetSprite() { return m_sprite; }
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	sf::Vector2f &GetInitPos() { return m_initpos; }
 	float GetFacing() const { return m_dir; } 

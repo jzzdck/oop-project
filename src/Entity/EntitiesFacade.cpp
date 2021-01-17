@@ -67,9 +67,8 @@ void EntitiesFacade::PlayersUpdate ( ) {
 		if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_width, m_height}))
 			player->AssignHealth(-1000.f); 
 		
-		if (!player->IsAlive()) {
-			if (m_respawners[player->GetIndex()] == 0.00f)
-				m_respawners[player->GetIndex()] = m_gameclock.getElapsedTime().asSeconds();
+		if (!player->IsAlive() && m_respawners[player->GetIndex()] == 0.00f) {
+			m_respawners[player->GetIndex()] = m_gameclock.getElapsedTime().asSeconds();
 			player->UnassignObjects();
 		}
 	}
