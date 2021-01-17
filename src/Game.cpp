@@ -6,6 +6,7 @@ Game::Game(float width, float height, std::string window_name) :
 	m_window(sf::VideoMode(width, height), window_name),
 	m_current_scene(new Menu_Principal(width, height))
 {
+	m_window.setKeyRepeatEnabled(false);
 	m_window.setFramerateLimit(60);
 }
 
@@ -54,4 +55,3 @@ void Game::ProcessEvents() {
 void Game::Close() {
 	m_window.close();
 }
-
