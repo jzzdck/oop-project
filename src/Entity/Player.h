@@ -16,13 +16,12 @@ class Weapon;
 class Player : public Entity {
 public:
 	void Update() override; 
-	void Draw(sf::RenderWindow &win);
+	void Draw(sf::RenderWindow &win) override;
 	void ApplyResponse(const sf::Vector2f &vec) override;
 	
-	bool IsAlive() { return m_health > 0.0f; }
+	bool IsAlive() const { return m_health > 0.0f; }
 	void AssignHealth(float new_health) { m_health = new_health; }
 	float GetHealth() const { return m_health; }
-	int GetJumpSpeed() const { return m_jumpspeed; }
 	int GetIndex() const { return m_index; }
 	bool IsAttacking() { return m_input["attack"] && m_weapon; }
 	
