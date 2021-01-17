@@ -4,13 +4,12 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include "Entity/proyectile/Projectile.h"
-#include "Escena/Match/World.h"
-#include "Entity/Item/Weapon/Weapon.h"
-#include "Entity/Item/Item.h"
-#include "Entity/Player.h"
-#include "Entity/Entity.h"
 #include <string>
+#include "Entity.h"
+#include "Player.h"
+#include "Item/Item.h"
+#include "proyectile/Projectile.h"
+#include "../Escena/Match/World.h"
 
 class EntitiesFacade {
 public:
@@ -21,7 +20,7 @@ public:
 	
 	std::vector<Player*> GetPlayers() { return m_players; }
 private:
-	#include "Escena/Match/EntitiesFacadeTemplates.h"
+	#include "../Escena/Match/EntitiesFacadeTemplates.h"
 	int UpdateEntity(Entity* entity);
 	void PlayersUpdate();
 	void ItemsUpdate();

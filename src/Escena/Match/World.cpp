@@ -4,11 +4,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
-#include "../../FileManager.h"
+#include "../../Utils/FileManager.h"
 #include "../../Utils/generalUtils.h"
 #include "Plataform/Plataform_static.h"
 #include <vector>
 #include "Plataform/Plataform_dynamic.h"
+#include "../../Utils/CollisionUtil.h"
 
 World::World(float wdt, float hgt, float gravity, std::string map_name) : 
 	win_width(wdt), win_height(hgt), m_gravity(gravity),

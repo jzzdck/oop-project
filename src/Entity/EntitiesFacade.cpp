@@ -1,9 +1,9 @@
 #include "EntitiesFacade.h"
-#include "Entity/Item/Weapon/Handcannon.h"
-#include "Entity/Item/Flag.h"
-#include "Entity/Item/Weapon/Revolver.h"
-#include "Entity/Item/Weapon/Shovel.h"
-#include "Utils/generalUtils.h"
+#include "Player.h"
+#include "Item/Weapon/Shovel.h"
+#include "Item/Weapon/Revolver.h"
+#include "Item/Weapon/Handcannon.h"
+#include "Item/Flag.h"
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name), m_width(width), m_height(height)

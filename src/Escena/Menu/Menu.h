@@ -11,7 +11,7 @@
 #include <SFML/Config.hpp>
 #include <string>
 #include "../Scene.h"
-#include "../../Controls.h"
+#include "../../Utils/Controls.h"
 #include "Slider.h"
 
 

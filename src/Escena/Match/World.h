@@ -7,7 +7,6 @@
 #include <SFML/Config.hpp>
 #include <vector>
 #include "Plataform/Plataform.h"
-#include "../../CollisionUtil.h"
 #include "../../Entity/Entity.h"
 
 /** @brief The World class is the place where the Match occurs **/

@@ -1,7 +1,7 @@
 #ifndef BOMB_H
 #define BOMB_H
 #include "Projectile.h"
-#include "../../Trail.h"
+#include "../../Graphics/Trail.h"
 
 class Bomb : public Projectile {
 public:

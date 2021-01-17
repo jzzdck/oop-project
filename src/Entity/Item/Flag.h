@@ -1,7 +1,7 @@
 #ifndef FLAG_H
 #define FLAG_H
 #include "Item.h"
-#include "../../Trail.h"
+#include "../../Graphics/Trail.h"
 
 class Flag : public Item {
 public:

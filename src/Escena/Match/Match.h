@@ -4,8 +4,8 @@
 #include "World.h"
 #include "../Scene.h"
 #include "../../Game.h"
-#include "../../EntitiesFacade.h"
-#include "../../Camera.h"
+#include "../../Graphics/Camera.h"
+#include "../../Entity/EntitiesFacade.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.

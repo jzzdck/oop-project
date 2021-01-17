@@ -1,6 +1,5 @@
 #include "FileManager.h"
 
-
 FileManager::FileManager(std::string const& FileName,std::string const& KeyWord) :
 	m_FileName(std::string("res/configuration-files/"+FileName)),
 	m_KeyWord(KeyWord),

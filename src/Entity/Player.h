@@ -6,7 +6,7 @@
 #include <string>
 #include "Entity.h"
 #include "Item/Weapon/Weapon.h"
-#include "../Controls.h"
+#include "../Utils/Controls.h"
 #include "Item/Item.h"
 #include "../Escena/Match/Plataform/Plataform.h"
 

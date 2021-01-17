@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 #include <vector>
-#include "Entity/Player.h"
+#include "../Entity/Player.h"
 using namespace std;
 
 class Camera {

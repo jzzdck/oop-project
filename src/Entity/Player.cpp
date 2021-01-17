@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 #include <SFML/Graphics/Color.hpp>
-#include "../FileManager.h"
+#include "../Utils/FileManager.h"
 #include "../Utils/generalUtils.h"
 #include <cmath>
 
