@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Escena/Match/Match.cpp
+current_source=Escena/Match/World.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -23,6 +23,7 @@ cursor=0:0
 [source]
 path=Game.cpp
 cursor=19:2
+open=true
 [source]
 path=FileManager.cpp
 cursor=109:63
@@ -31,7 +32,7 @@ path=Controls.cpp
 cursor=0:0
 [source]
 path=Entity/Player.cpp
-cursor=53:24
+cursor=19:0
 [source]
 path=Entity/Entity.cpp
 cursor=2:33
@@ -57,9 +58,10 @@ cursor=0:0
 [source]
 path=Escena/Match/World.cpp
 cursor=61:0
+open=true
 [source]
 path=Escena/Match/Match.cpp
-cursor=188:32
+cursor=11:33
 open=true
 [source]
 path=Escena/Menu/Slider.cpp
@@ -78,8 +80,7 @@ path=Escena/Menu/Menu.cpp
 cursor=5:0
 [source]
 path=Utils/generalUtils.cpp
-cursor=42:0
-open=true
+cursor=18:4
 [source]
 path=Entity/proyectile/Projectile.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
@@ -101,7 +102,6 @@ cursor=1:39
 path=Entity/proyectile/Bomb.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
 cursor=16:1
-open=true
 [source]
 path=Entity/Item/Weapon/Handcannon.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
@@ -118,6 +118,9 @@ cursor=1:7
 [source]
 path=Trail.cpp
 cursor=0:0
+[source]
+path=EntitiesFacade.cpp
+cursor=0:0
 open=true
 [header]
 path=Game.h
@@ -130,7 +133,7 @@ path=Controls.h
 cursor=0:0
 [header]
 path=Entity/Player.h
-cursor=40:60
+cursor=24:15
 [header]
 path=Entity/Entity.h
 cursor=20:45
@@ -140,7 +143,6 @@ cursor=13:42
 [header]
 path=Entity/Item/Flag.h
 cursor=12:5
-open=true
 [header]
 path=Entity/Item/Weapon/Weapon.h
 cursor=0:14
@@ -155,12 +157,11 @@ path=Escena/Scene.h
 cursor=0:0
 [header]
 path=Escena/Match/World.h
-cursor=57:3
-breakpoint=57
-breakpoint_annotation=
+cursor=0:2
+open=true
 [header]
 path=Escena/Match/Match.h
-cursor=29:19
+cursor=17:7
 open=true
 [header]
 path=Escena/Menu/Slider.h
@@ -180,10 +181,10 @@ cursor=0:0
 [header]
 path=Utils/generalUtils.h
 cursor=10:39
-open=true
 [header]
 path=Escena/Match/MatchTemplates.h
 cursor=21:28
+open=true
 [header]
 path=Entity/proyectile/Projectile.h
 cursor=4:30
@@ -216,6 +217,9 @@ path=CollisionUtil.h
 cursor=17:0
 [header]
 path=Trail.h
+cursor=23:39
+[header]
+path=EntitiesFacade.h
 cursor=0:0
 open=true
 [other]
