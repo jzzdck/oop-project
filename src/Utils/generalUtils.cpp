@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
-#include "../FileManager.h"
+#include "FileManager.h"
 
 namespace utils {
 	void flipTexture(float direction, float scale, sf::Sprite & to_turn) {
