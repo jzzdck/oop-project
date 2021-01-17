@@ -67,6 +67,15 @@ namespace utils {
 		
 		return false;
 	}
+	
+	bool IsUnbounded(const sf::Rect<float> & to_check, const sf::Vector2f & bounds, float out_factor) {
+		// get bools for cheking if entity is in between out_factor% + screen width/height 
+		bool is_xout = to_check.left < -bounds.x*out_factor || bounds.x*out_factor + bounds.x < to_check.left;
+		bool is_yout = to_check.top < -bounds.y*out_factor || bounds.y*out_factor + bounds.y < to_check.top;
+		
+		// if both conditions are met, then entity is bounded
+		return is_yout || is_xout;
+	}
 }
 
 

@@ -27,6 +27,8 @@ namespace utils {
 	
 	/// @brief Get a random float between 0 and 1.
 	float randf();
+	
+	bool IsUnbounded(const sf::Rect<float> & to_check, const sf::Vector2f & bounds, float out_factor = 0.5f);
 }
 
 #endif
