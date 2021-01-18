@@ -6,6 +6,7 @@
 #include "../../Game.h"
 #include "../../Graphics/Camera.h"
 #include "../../Entity/EntitiesFacade.h"
+#include "../Menu/Menu_Pause.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
@@ -23,6 +24,8 @@ private:
 	EntitiesFacade m_entities;
 	Camera m_camera;
 	bool m_pause;
+	
+	Menu_Pause m_pmenu;
 };
 
 #endif
