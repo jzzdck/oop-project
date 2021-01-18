@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Utils/generalUtils.cpp
+current_source=Graphics/Trail.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -29,10 +29,11 @@ cursor=78:67
 open=true
 [source]
 path=Graphics/Trail.cpp
-cursor=0:0
+cursor=40:13
+open=true
 [source]
 path=Entity/Player.cpp
-cursor=3:19
+cursor=19:31
 [source]
 path=Entity/Entity.cpp
 cursor=1:19
@@ -79,7 +80,6 @@ cursor=2:22
 [source]
 path=Utils/generalUtils.cpp
 cursor=5:24
-open=true
 [source]
 path=Entity/proyectile/Projectile.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
@@ -131,10 +131,10 @@ path=Entity/EntitiesFacade.h
 cursor=0:0
 [header]
 path=Graphics/Trail.h
-cursor=0:0
+cursor=16:12
 [header]
 path=Entity/Player.h
-cursor=23:18
+cursor=43:0
 [header]
 path=Entity/Entity.h
 cursor=20:25
@@ -143,7 +143,7 @@ path=Entity/Item/Item.h
 cursor=13:42
 [header]
 path=Entity/Item/Flag.h
-cursor=12:5
+cursor=12:15
 [header]
 path=Entity/Item/Weapon/Weapon.h
 cursor=0:14
@@ -225,6 +225,9 @@ cursor=0:0
 [other]
 path=Leeme.txt
 cursor=6:145
+[other]
+path=Graphics/Shaders/solid_color.frag
+cursor=5:59
 [config]
 name=Debug_Win32
 toolchain=
