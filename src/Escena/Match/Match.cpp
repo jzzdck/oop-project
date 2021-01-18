@@ -4,7 +4,6 @@
 #include <cmath>
 #include "../../Game.h"
 #include "../../Entity/Player.h"
-#include "../../Utils/generalUtils.h"
 #include "../Menu/Menu_Principal.h"
 
 Match::Match(float width, float height) :
@@ -30,12 +29,14 @@ void Match::Update (Game& g) {
 	
 	m_camera.Update();
 	m_entities.Update();
+	m_huds.Update(m_entities.GetPlayers());
 }
 
 void Match::Draw (sf::RenderWindow & win) {
 	win.clear({158, 207, 222});
 	m_camera.SetToWindow(win);
 	m_entities.Draw(win);
+	m_huds.Draw(win);
 	
 	if (m_pause) { 
 		/* draw pause */

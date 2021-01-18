@@ -20,6 +20,7 @@ public:
 	Match(float width, float height);
 	~Match();
 private:
+	HUDs m_huds; 
 	EntitiesFacade m_entities;
 	Camera m_camera;
 	bool m_pause;
