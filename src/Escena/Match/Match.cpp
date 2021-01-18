@@ -8,9 +8,12 @@
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_pause(false),
-	m_entities(width, height, "MAIN"), m_camera(width, height)
+	m_entities(width, height, "MAIN"), m_camera(width, height),
+	m_hud(1.f, {50, height-200}), m_hud2(-1.f, {width-50, height-200})
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
+	m_hud.SetPlayer(m_entities.GetPlayers()[0]);
+	m_hud2.SetPlayer(m_entities.GetPlayers()[1]);
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) 
@@ -29,14 +32,16 @@ void Match::Update (Game& g) {
 	
 	m_camera.Update();
 	m_entities.Update();
-	m_huds.Update(m_entities.GetPlayers());
+	m_hud.Update();
+	m_hud2.Update();
 }
 
 void Match::Draw (sf::RenderWindow & win) {
 	win.clear({158, 207, 222});
 	m_camera.SetToWindow(win);
 	m_entities.Draw(win);
-	m_huds.Draw(win);
+	m_hud.Draw(win, m_camera.GetZoom());
+	m_hud2.Draw(win, m_camera.GetZoom());
 	
 	if (m_pause) { 
 		/* draw pause */
