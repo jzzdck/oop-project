@@ -10,6 +10,8 @@ HUD::HUD (float dir, const sf::Vector2f &pos) :
 		m_healthbar[i].setFillColor({169, 59, 59});
 	}
 	
+	m_healthbar[2].setFillColor({75, 54, 56});
+	
 	m_texture.loadFromFile("res/healthbar.png");
 	m_hud.setTexture(m_texture);
 	m_hud.setPosition(m_pos);
@@ -32,6 +34,11 @@ void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
 	m_healthbar[0].setPosition(pos);
 	m_healthbar[0].setScale(m_dir*zoom_level, zoom_level);
 	
+	pos = win.mapPixelToCoords(sf::Vector2i(m_pos.x + m_dir*7*3, m_pos.y + 3*20));
+	m_healthbar[2].setPosition(pos);
+	m_healthbar[2].setScale(m_dir*zoom_level, zoom_level);
+	
+	win.draw(m_healthbar[2]);
 	win.draw(m_healthbar[0]);
 	win.draw(m_playercolor);
 	win.draw(m_hud);
