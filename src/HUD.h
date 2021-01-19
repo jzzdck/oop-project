@@ -9,21 +9,25 @@
 
 class HUD {
 public:
-	HUD(float dir, const sf::Vector2f &pos);
+	HUD(const Player* target);
 	void Draw(sf::RenderWindow &win, float zoom_level);
+	void DrawHUD(sf::RenderWindow &win, float zoom_level);
+	void DrawPlayerColor(sf::RenderWindow &win, float zoom_level);
+	void DrawHealthbar(sf::RenderWindow &win, float zoom_level);
 	void SetPlayer(const Player* target);
 	void Update();
 private:
 	const Player* m_target;
-	sf::Vector2f m_pos;
+	sf::Vector2f m_pos, winsize;
+	std::vector<sf::Vector2f> m_auxpos;
 	
 	float prev_percentage, current_percentage, m_dir;
-	std::vector<sf::RectangleShape> m_healthbar;
-	// 0: current health, 1: previous health, 2: background
 	
 	sf::Sprite m_hud;
 	sf::Texture m_texture;
 	sf::RectangleShape m_playercolor;
+	std::vector<sf::RectangleShape> m_healthbar;
+	// 2: current health, 1: previous health, 0: background
 };
 
 #endif
