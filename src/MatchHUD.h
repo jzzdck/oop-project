@@ -1,14 +1,14 @@
-#ifndef GAMEHUD_H
-#define GAMEHUD_H
+#ifndef MATCHHUD_H
+#define MATCHHUD_H
 #include <vector>
 #include "HUD.h"
 #include "Entity/Player.h"
 using namespace std;
 
-class GameHUD {
+class MatchHUD {
 public:
-	GameHUD();
-	void Init(std::vector<Player*> players);
+	MatchHUD();
+	void SetPlayers(std::vector<Player*> players);
 	void Draw(sf::RenderWindow &win, float zoom_level);
 	void Update();
 private:

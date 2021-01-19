@@ -6,7 +6,7 @@
 #include "../../Game.h"
 #include "../../Graphics/Camera.h"
 #include "../../Entity/EntitiesFacade.h"
-#include "../../GameHUD.h"
+#include "../../MatchHUD.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
@@ -21,7 +21,7 @@ public:
 	Match(float width, float height);
 	~Match();
 private:
-	GameHUD m_gamehud; 
+	MatchHUD m_gamehud; 
 	EntitiesFacade m_entities;
 	Camera m_camera;
 	bool m_pause;

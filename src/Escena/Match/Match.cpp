@@ -12,7 +12,7 @@ Match::Match(float width, float height) :
 	m_camera(width, height)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
-	m_gamehud.Init(m_entities.GetPlayers());
+	m_gamehud.SetPlayers(m_entities.GetPlayers());
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) 
