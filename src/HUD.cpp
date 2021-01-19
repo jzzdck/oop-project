@@ -21,7 +21,7 @@ HUD::HUD (const Player* target) : m_target(target)
 	m_hud.setTexture(m_texture);
 	
 	m_playercolor.setSize({35.f, 35.f});
-	m_playercolor.setFillColor(utils::loadPlayerColor(m_dir == 1 ? 0 : 1));
+	m_playercolor.setFillColor(utils::loadPlayerColor(target->GetIndex()));
 }
 
 void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
