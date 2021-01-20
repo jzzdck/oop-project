@@ -14,9 +14,8 @@ World, Player, Weapon, etc.
 
 class Match : public Escena {
 public:
-	void ProcessEvent(sf::Event& e,Game& g)override;
+	void ProcessEvent(sf::Event& e,Game& g) override;
 	void Update(Game & g);
-	void UpdateCamera();
 	void Draw(sf::RenderWindow & win);
 	Match(float width, float height);
 	~Match();

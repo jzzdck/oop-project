@@ -33,21 +33,14 @@ void Player::LoadKeys() {
 }
 
 void Player::ProcessEvents (sf::Event & e, Game & g) {
-	set_grab = false;
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == m_input<="jump" && m_jumpcount > 0) {
 			m_speed.y = m_jumpspeed;
 			--m_jumpcount;
 		}
-		
-		if (m_input<="grab" == e.key.code) 
-			set_grab = true;
 	} else if (e.type == sf::Event::KeyReleased) {
 		if (e.key.code == m_input<="jump" && m_speed.y < -5)
 			m_speed.y = -5;
-		
-		if (e.key.code == m_input<="grab")
-			set_grab = false;
 	}
 }
 
@@ -67,8 +60,8 @@ void Player::Update() {
 	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);
 	
-//	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
-	if (m_platform && !is_jumping) 
+	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
+	if (m_platform) 
 		m_sprite.move(m_platform->getSpeed());
 	
 	m_sprite.move(m_speed.x, m_speed.y);
