@@ -24,6 +24,8 @@ void Match::ProcessEvent(sf::Event& e, Game& g)
 		else if (e.key.code == sf::Keyboard::P)
 			m_pause=!m_pause;
 	}
+	
+	m_entities.ProcessPlayersEvents(e, g);
 }
 
 void Match::Update (Game& g) {

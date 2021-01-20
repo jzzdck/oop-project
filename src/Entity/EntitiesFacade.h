@@ -10,6 +10,7 @@
 #include "Item/Item.h"
 #include "proyectile/Projectile.h"
 #include "../Escena/Match/World.h"
+#include "../Game.h"
 
 class EntitiesFacade {
 public:
@@ -19,7 +20,9 @@ public:
 	void Draw(sf::RenderWindow &win);
 	
 	std::vector<Player*> GetPlayers() { return m_players; }
+	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
+// private methods:
 	#include "../Escena/Match/EntitiesFacadeTemplates.h"
 	int UpdateEntity(Entity* entity);
 	void PlayersUpdate();
@@ -28,6 +31,7 @@ private:
 	void ProjectilesUpdate();
 	void EraseUnusedProjectiles();
 	
+// atributes:
 	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;

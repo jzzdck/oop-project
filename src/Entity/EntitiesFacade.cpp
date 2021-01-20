@@ -148,3 +148,9 @@ int EntitiesFacade::UpdateEntity (Entity * entity) {
 	
 	return base_col;
 }
+
+void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
+	for (size_t i=0; i<m_players.size(); ++i) 
+		m_players[i]->ProcessEvents(e, g);
+}
+

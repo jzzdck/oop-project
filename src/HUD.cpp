@@ -41,7 +41,7 @@ void HUD::Update ( ) {
 	float health = m_target->GetHealth();
 	if (health <= 0.f) 
 		health = 0.f;
-	m_healthbar[2].setSize({health/1000.f * 211.f, 21.f});
+	m_healthbar[2].setSize({health/1000.f * 211.f, 24.f});
 }
 
 void HUD::SetPlayer (const Player * target) {

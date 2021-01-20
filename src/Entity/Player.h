@@ -9,12 +9,14 @@
 #include "../Utils/Controls.h"
 #include "Item/Item.h"
 #include "../Escena/Match/Plataform/Plataform.h"
+#include "../Game.h"
 
 class Weapon;
 
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
+	void ProcessEvents(sf::Event &e, Game &g);
 	void Update() override; 
 	void Draw(sf::RenderWindow &win) override;
 	void ApplyResponse(const sf::Vector2f &vec) override;
