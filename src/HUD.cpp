@@ -13,14 +13,14 @@ HUD::HUD (const Player* target) : m_target(target)
 	
 	m_healthbar.resize(3); 
 	for(size_t i=0;i<m_healthbar.size();i++) { 
-		m_healthbar[i].setSize({212.f, 24.f});
+		m_healthbar[i].setSize({216.f, 24.f});
 		m_healthbar[i].setFillColor(utils::getColor(s["color-"+std::to_string(i)]));
 	}
 	
 	m_texture.loadFromFile("res/healthbar.png");
 	m_hud.setTexture(m_texture);
 	
-	m_playercolor.setSize({35.f, 35.f});
+	m_playercolor.setSize({48.f, 48.f});
 	m_playercolor.setFillColor(utils::loadPlayerColor(target->GetIndex()));
 }
 
@@ -41,7 +41,7 @@ void HUD::Update ( ) {
 	float health = m_target->GetHealth();
 	if (health <= 0.f) 
 		health = 0.f;
-	m_healthbar[2].setSize({health/1000.f * 211.f, 24.f});
+	m_healthbar[2].setSize({health/1000.f * 216.f, 24.f});
 }
 
 void HUD::SetPlayer (const Player * target) {

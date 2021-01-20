@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[]) {
 	std::srand(time(nullptr));
-	Game FROGGGAME(1248, 768, "FROGGGAME");
+	Game FROGGGAME(1024, 768, "FROGGGAME");
 	FROGGGAME.Run();
 	return 0;
 }
