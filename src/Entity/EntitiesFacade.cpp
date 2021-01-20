@@ -6,27 +6,20 @@
 #include "Item/Flag.h"
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
-	m_world(width, height, 0.7, map_name), m_width(width), m_height(height)
+	m_world(width, height, 0.7, map_name), 
+	m_spawner( {width, height} ),
+	m_width(width), m_height(height)
 {
 	m_respawners.resize(2, 0.00f);
-	m_players.push_back(new Player({m_width*0.9f, m_height*0.9f} , 0) );
-	m_players.push_back(new Player({m_width*0.15f, m_height*0.4f}, 1) );
+	m_players.push_back(m_spawner.SpawnPlayer({m_width*0.9f, m_height*0.9f} , 0));
+	m_players.push_back(m_spawner.SpawnPlayer({m_width*0.15f, m_height*0.4f}, 1));
 	
-	int randsize = 30;
+	size_t randitems = rand()%5, randweapons = rand()%20;
+	for (size_t i=0; i<randitems; ++i)
+		m_items.push_back(m_spawner.RandomItem());
 	
-	for (size_t i=0; i<randsize; ++i) {
-		int chance = rand()%101;
-		if (chance < 25)
-			m_weapons.push_back(new Shovel({m_width*utils::randf(), m_height*utils::randf()}));
-		else if (chance < 50)
-			m_weapons.push_back(new Revolver({m_width*utils::randf(), m_height*utils::randf()}, 1.f));
-		else if (chance < 75)
-			m_weapons.push_back(new Handcannon({m_width*utils::randf(), m_height*utils::randf()}, 1.f));
-		else if (chance < 87)
-			m_items.push_back(new Flag({m_width*utils::randf(), m_height*utils::randf()}, 1));
-		else
-			m_items.push_back(new Flag({m_width*utils::randf(), m_height*utils::randf()}, 0));
-	}
+	for (size_t i=0; i<randweapons; ++i)
+		m_weapons.push_back(m_spawner.RandomWeapon());
 }
 
 void EntitiesFacade::Update ( ) {

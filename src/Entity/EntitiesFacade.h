@@ -11,6 +11,7 @@
 #include "proyectile/Projectile.h"
 #include "../Escena/Match/World.h"
 #include "../Game.h"
+#include "../EntitySpawner.h"
 
 class EntitiesFacade {
 public:
@@ -32,6 +33,7 @@ private:
 	void EraseUnusedProjectiles();
 	
 // atributes:
+	EntitySpawner m_spawner;
 	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;
