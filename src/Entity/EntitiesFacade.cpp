@@ -129,6 +129,8 @@ int EntitiesFacade::UpdateEntity (Entity * entity) {
 	entity->ApplyGravity(m_world.GetGravity());
 	
 	int collision = m_world.CollidesWith(entity, response), base_col = -1;
+	if (collision == -1) entity->SetPlatform(nullptr);
+	
 	while (collision != -1) {
 		if (collision == m_world.GetBaseIndex(0))
 			base_col = 0;
@@ -146,4 +148,3 @@ void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
 	for (size_t i=0; i<m_players.size(); ++i) 
 		m_players[i]->ProcessEvents(e, g);
 }
-

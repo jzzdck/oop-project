@@ -27,8 +27,6 @@ open=true
 [source]
 path=Entity/EntitiesFacade.cpp
 cursor=15:1
-breakpoint=16
-breakpoint_annotation=
 open=true
 [source]
 path=Graphics/Trail.cpp
