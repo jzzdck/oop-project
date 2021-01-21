@@ -18,7 +18,7 @@ namespace utils {
 	}
 	
 	HSV::HSV (float hue, float sat, float value) :
-		m_hue(hue), m_sat(sat), m_val(value)
+		m_hue(hue), m_sat(sat), m_val(value), m_alpha(100.f)
 	{  }
 	
 	HSV::HSV (const sf::Color & col) {
@@ -29,7 +29,6 @@ namespace utils {
 		float max = std::max(r, (std::max(g, b)));
 		float min = std::min(r, (std::min(g, b)));
 		float dif = max - min; 
-		
 		
 		if (dif == 0)
 			m_hue = 0;
@@ -45,6 +44,7 @@ namespace utils {
 		else 
 			m_sat = (dif/max)*100.f;
 		
+		m_alpha = col.a/255.f * 100.f;
 		m_val = max*100.f;
 	}
 	
@@ -72,7 +72,7 @@ namespace utils {
 		else
 			r = C, g = 0, b = X;
 		
-		return sf::Color( (r+m)*255, (g+m)*255, (b+m)*255 );
+		return sf::Color( (r+m)*255, (g+m)*255, (b+m)*255, m_alpha/100.f * 255.f );
 	}
 	
 	HSV getColorHSV(std::string hsv) {

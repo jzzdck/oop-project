@@ -40,7 +40,6 @@ void EntitiesFacade::Draw (sf::RenderWindow & win) {
 
 void EntitiesFacade::WeaponsUpdate ( ) {
 	m_weapons = EraseUnbounded(m_weapons);
-	//	UpdateOwnerships(m_weapons);
 	
 	for (Weapon *weapon : m_weapons) {
 		if (weapon->Owner() != -1) {
@@ -156,4 +155,3 @@ void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
 		}
 	}
 }
-
