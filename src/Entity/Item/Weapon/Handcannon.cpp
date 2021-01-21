@@ -5,7 +5,7 @@
 #include <cmath>
 
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
-	Weapon(pos, "handcannon", facing)
+	Weapon(pos, "handcannon", facing, 2)
 {
 }
 
@@ -29,12 +29,12 @@ bool Handcannon::IsAttacking ( ) {
 	if (attack_state != is_shooting) {
 		is_shooting = !is_shooting;
 		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f;
-		if (!is_shooting && can_shoot) 
-			m_nextangle = m_angle, firerate.restart();
+		if (!is_shooting && can_shoot && m_ammo >= 0) 
+			m_nextangle = m_angle, firerate.restart(), --m_ammo;
 		else
 			m_angle = 0;
 		
-		return !is_shooting && can_shoot;
+		return !is_shooting && can_shoot && m_ammo >= 0;
 	} else return false;
 }
 
@@ -46,8 +46,8 @@ Projectile * Handcannon::GetProjectile ( ) {
 		globals.top + 4
 	};
 	
-	return new Bomb({ 
-		m_dir * 20.f * std::cos(m_angle), 
-		-20.f * std::sin(m_angle)
-	}, pos);
+	return new Bomb(
+		{m_dir * 20.f * std::cos(m_angle), -20.f * std::sin(m_angle)}, 
+		pos
+	);
 }

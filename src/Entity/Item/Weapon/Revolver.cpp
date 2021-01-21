@@ -4,7 +4,7 @@
 #include "../../../Utils/generalUtils.h"
 
 Revolver::Revolver(sf::Vector2f pos, float facing) : 
-	Weapon(pos, "revolver", facing), is_shooting(false)
+	Weapon(pos, "revolver", facing, 6), is_shooting(false)
 { }
 
 Projectile * Revolver::GetProjectile ( ) {
@@ -18,7 +18,8 @@ Projectile * Revolver::GetProjectile ( ) {
 bool Revolver::IsAttacking ( ) {
 	if (is_shooting != attack_state) {
 		is_shooting = !is_shooting;
-		return is_shooting;
+		if (is_shooting) --m_ammo;
+		return is_shooting && m_ammo >= 0;
 	}
 	
 	return false;
