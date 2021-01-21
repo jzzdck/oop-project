@@ -1,5 +1,22 @@
 #ifndef MATCHTEMPLATES_H
 #define MATCHTEMPLATES_H
+
+template<class T>
+std::vector<T*> EraseUnused (std::vector<T*> entities ) {
+	for (size_t i=0; i<entities.size(); ++i) {
+		if (!entities[i]->IsUsed()) {
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+	}
+	
+	std::vector<T*> not_erased;
+	for (size_t i=0; i<entities.size(); ++i)
+		if (entities[i]) 
+			not_erased.push_back(entities[i]);
+	
+	return not_erased;
+}
 	
 template<class T> 
 std::vector<T*> EraseUnbounded(std::vector<T*> objects) {

@@ -39,6 +39,7 @@ void EntitiesFacade::Draw (sf::RenderWindow & win) {
 }
 
 void EntitiesFacade::WeaponsUpdate ( ) {
+	m_weapons = EraseUnused(m_weapons);
 	m_weapons = EraseUnbounded(m_weapons);
 	
 	for (Weapon *weapon : m_weapons) {
@@ -77,29 +78,13 @@ void EntitiesFacade::PlayersUpdate ( ) {
 }
 
 void EntitiesFacade::ProjectilesUpdate ( ) {
-	EraseUnusedProjectiles();
+	m_projectiles = EraseUnused(m_projectiles);
 	m_projectiles = EraseUnbounded(m_projectiles);
 	for (Projectile *projectile : m_projectiles) {
 		for (Player *player : m_players)
 			if (projectile->CollidesWith(player->GetSprite()) && player->IsAlive())
 				projectile->ApplyEffect(player);
 	}
-}
-
-void EntitiesFacade::EraseUnusedProjectiles ( ) {
-	for (size_t i=0; i<m_projectiles.size(); ++i) {
-		if (!m_projectiles[i]->IsUsed()) {
-			delete m_projectiles[i];
-			m_projectiles[i] = nullptr;
-		}
-	}
-	
-	std::vector<Projectile*> new_objects;
-	for (size_t i=0; i<m_projectiles.size(); ++i)
-		if (m_projectiles[i]) 
-			new_objects.push_back(m_projectiles[i]);
-	
-	m_projectiles = new_objects;
 }
 
 EntitiesFacade::~EntitiesFacade ( ) {
@@ -117,6 +102,7 @@ EntitiesFacade::~EntitiesFacade ( ) {
 }
 
 void EntitiesFacade::ItemsUpdate ( ) {
+	m_items = EraseUnused(m_items);
 	m_items = EraseUnbounded(m_items);
 }
 
