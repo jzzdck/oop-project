@@ -53,7 +53,7 @@ void Camera::SetToWindow (sf::RenderWindow & win) {
 	win.setView(m_view);
 }
 
-void Camera::SetPlayers (vector<Player*> players) {
+void Camera::SetPlayers (std::vector<Player*> players) {
 	m_players = players;
 }
 

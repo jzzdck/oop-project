@@ -6,6 +6,8 @@ Game::Game(float width, float height, std::string window_name) :
 	m_window(sf::VideoMode(width, height), window_name),
 	m_current_scene(new Menu_Principal(width, height))
 {
+	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+	m_window.create(sf::VideoMode(1024, 768, desktop.bitsPerPixel), window_name);
 	m_window.setKeyRepeatEnabled(false);
 	m_window.setFramerateLimit(60);
 }

@@ -11,8 +11,8 @@ public:
 	void Close();
 	void Fade(sf::RenderWindow & win);
 protected:
-	void Select (Game & g);
 private:
+	void Select(Game& g)override;
 	bool* m_pause;
 };
 

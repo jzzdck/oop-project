@@ -11,28 +11,48 @@ Menu_Pause::Menu_Pause(float width, float height,bool* pause):
 
 void Menu_Pause::Select (Game & g)
 {
-	
+	switch(current_option)
+	{
+	case 1:
+		this->Close();
+		break;
+	}
 }
 
 void Menu_Pause::ProcessEvent (sf::Event & e, Game & g) 
 {
-	if (e.type == sf::Event::KeyPressed)
+	switch(e.type)
 	{
+	case sf::Event::KeyPressed:
 		if(e.key.code==sf::Keyboard::P)
-			//close pause menu
+		{
 			*m_pause=!*(m_pause);
+			return;
+		}
 		if(e.key.code==m_input<="go_up")
-			Move_Option_Up();
+		{
+		   Move_Option_Up();
+		   return;
+		}
 		if(e.key.code==m_input<="go_down")
-			Move_Option_Down();
+		{
+		   Move_Option_Down();
+			return;
+		}
 		if(e.key.code==m_input<="select")
-			Select(g);
+		{	
+		   Select(g);
+		   return;
+		}
+	default:
+		
+		break;
 	}
-}
 
+}
 void Menu_Pause::Update (Game & g)
 {
-	
+	HighlightCurrentOption();
 }
 
 void Menu_Pause::Draw (sf::RenderWindow & win) 
@@ -53,3 +73,4 @@ void Menu_Pause::Fade(sf::RenderWindow & win)
 	s.setFillColor({0, 0, 0, 100});
 	win.draw(s);	
 }
+

@@ -10,7 +10,6 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_index(player_index),
 	m_jumpcount(2),
 	m_jumpspeed(-15), 
-	is_jumping(false),
 	can_grab(false)
 {
 	m_topspeed = 10.5f;
@@ -33,17 +32,21 @@ void Player::LoadKeys() {
 		m_input.BindKey(keys[i], m_input<s["key-" + keys[i]]);
 }
 
-void Player::Update() {
-	if (!IsAlive()) return;
-	
-	if (is_jumping !=  m_input["jump"]) {
-		is_jumping = !is_jumping;
-		if (is_jumping && m_jumpcount > 0 ) {
+void Player::ProcessEvents (sf::Event & e, Game & g) {
+	if (e.type == sf::Event::KeyPressed) {
+		if (e.key.code == m_input<="jump" && m_jumpcount > 0) {
 			m_speed.y = m_jumpspeed;
 			--m_jumpcount;
-		} else if (m_speed.y < -5)
+		}
+	} else if (e.type == sf::Event::KeyReleased) {
+		if (e.key.code == m_input<="jump" && m_speed.y < -5)
 			m_speed.y = -5;
 	}
+}
+
+void Player::Update() {
+	if (!IsAlive())
+		return;
 	
 	m_speed.x = std::fabs(m_speed.x);
 	if (m_input["right"] || m_input["left"]) {
@@ -53,18 +56,20 @@ void Player::Update() {
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
 	} else m_speed.x = 0.f;
-	m_sprite.move(m_speed.x, m_speed.y);
 	
 	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);
 	
 	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
-	if (m_platform && !is_jumping) 
+	if (m_platform) 
 		m_sprite.move(m_platform->getSpeed());
+	
+	m_sprite.move(m_speed.x, m_speed.y);
 }
 
 void Player::Draw(sf::RenderWindow & win) {
-	if (!IsAlive()) return;
+	if (!IsAlive()) 
+		return;
 	
 	ms_belly.setPosition(m_sprite.getPosition());
 	utils::flipTexture(m_dir, m_scale, ms_belly);
@@ -128,4 +133,3 @@ void Player::UnassignObjects ( ) {
 	if (m_item)
 		UnassignObject(m_item);
 }
-

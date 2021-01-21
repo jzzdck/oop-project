@@ -18,7 +18,7 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 void Flag::Draw (sf::RenderWindow & win) {
 	m_dep.setPosition(m_sprite.getPosition());
 	
-	if (Owner() != -1)
+	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
 		m_trail.Draw(win);
 	
 	win.draw(m_sprite);
@@ -27,7 +27,7 @@ void Flag::Draw (sf::RenderWindow & win) {
 
 void Flag::Update ( ) {
 	Item::Update();
-	if (Owner() != -1) { 
+	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0) { 
 		auto globals = m_sprite.getGlobalBounds();
 		
 		m_trail.AddPosition(sf::Vector2f(globals.left, globals.top));
