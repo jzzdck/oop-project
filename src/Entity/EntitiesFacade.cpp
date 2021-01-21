@@ -40,7 +40,7 @@ void EntitiesFacade::Draw (sf::RenderWindow & win) {
 
 void EntitiesFacade::WeaponsUpdate ( ) {
 	m_weapons = EraseUnbounded(m_weapons);
-	UpdateOwnerships(m_weapons);
+	//	UpdateOwnerships(m_weapons);
 	
 	for (Weapon *weapon : m_weapons) {
 		if (weapon->Owner() != -1) {
@@ -119,7 +119,6 @@ EntitiesFacade::~EntitiesFacade ( ) {
 
 void EntitiesFacade::ItemsUpdate ( ) {
 	m_items = EraseUnbounded(m_items);
-	UpdateOwnerships(m_items);
 }
 
 int EntitiesFacade::UpdateEntity (Entity * entity) { 
@@ -145,6 +144,16 @@ int EntitiesFacade::UpdateEntity (Entity * entity) {
 }
 
 void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
-	for (size_t i=0; i<m_players.size(); ++i) 
-		m_players[i]->ProcessEvents(e, g);
+	for (Player * player : m_players) {
+		player->ProcessEvents(e, g);
+		
+		Controls player_controls = player->GetControls();
+		if (e.type == sf::Event::KeyPressed && e.key.code == player_controls.GetKey("grab")) {
+			if (player_controls["down"])
+				UpdateOwnerships(player, m_items);
+			else
+				UpdateOwnerships(player, m_weapons);
+		}
+	}
 }
+
