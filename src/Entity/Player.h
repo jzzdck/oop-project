@@ -26,7 +26,8 @@ public:
 	float GetHealth() const { return m_health; }
 	int GetIndex() const { return m_index; }
 	bool IsAttacking() { return m_input["attack"] && m_weapon; }
-	
+	Controls &GetControls() { return m_input;}
+ 	
 	void UnassignObject(Item* if_item);
 	void UnassignObject(Weapon* if_weapon);
 	void UnassignObjects();
@@ -34,15 +35,11 @@ public:
 	void AssignObject(Item* new_item);
 	void AssignObject(Weapon* new_weapon);
 	
-	bool PressedGrab(Item* if_item);
-	bool PressedGrab(Weapon* if_weapon);
-	
 	Player(sf::Vector2f pos, int player_index);
 private:
 	void LoadKeys();
 	
 	int m_index;
-	bool can_grab, set_grab;
 	Controls m_input;
 	
 	int m_jumpcount, m_jumpspeed; 
