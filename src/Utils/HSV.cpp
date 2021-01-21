@@ -22,10 +22,6 @@ namespace utils {
 	{  }
 	
 	HSV::HSV (const sf::Color & col) {
-		*this = MakeHSV(col);
-	}
-	
-	HSV MakeHSV (const sf::Color & col) {
 		float r = col.r/255.f;
 		float g = col.g/255.f;
 		float b = col.b/255.f;
@@ -34,25 +30,26 @@ namespace utils {
 		float min = std::min(r, (std::min(g, b)));
 		float dif = max - min; 
 		
-		float hue, val, sat;
 		
-		if (max == 0 && min == 0) 
-			hue = 0;
+		if (dif == 0)
+			m_hue = 0;
 		else if (max == r)
-			hue = std::fmod((60*((g-b)/dif) + 360), 360.f);
+			m_hue = std::fmod((60.f*((g-b)/dif) + 360.f), 360.f);
 		else if (max == g)
-			hue = std::fmod((60*((b-r)/dif) + 120), 360.f);
+			m_hue = std::fmod((60.f*((b-r)/dif) + 120.f), 360.f);
 		else if (max == b)
-			hue = std::fmod((60*((r-g)/dif) + 240), 360.f);
+			m_hue = std::fmod((60.f*((r-g)/dif) + 240.f), 360.f);
 		
 		if (max == 0) 
-			sat = 0;
+			m_sat = 0;
 		else 
-			sat = (dif/max)*100;
+			m_sat = (dif/max)*100.f;
 		
-		val = max*100;
-		
-		return HSV(hue, sat, val);
+		m_val = max*100.f;
+	}
+	
+	HSV MakeHSV (const sf::Color & col) {
+		return HSV(col);
 	}
 	
 	sf::Color HSV::MakeRGB() const {
