@@ -21,6 +21,7 @@ public:
 	void Draw(sf::RenderWindow &win);
 	
 	std::vector<Player*> GetPlayers() { return m_players; }
+	std::vector<int> GetRoundState() { return m_roundpoints; }
 	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
 // private methods:
@@ -34,6 +35,7 @@ private:
 	
 // atributes:
 	EntitySpawner m_spawner;
+	std::vector<int> m_roundpoints;
 	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;

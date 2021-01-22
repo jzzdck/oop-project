@@ -9,8 +9,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
 	m_jumpcount(2),
-	m_jumpspeed(-15), 
-	can_grab(false)
+	m_jumpspeed(-15)
 {
 	m_topspeed = 10.5f;
 	
@@ -60,7 +59,6 @@ void Player::Update() {
 	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);
 	
-	set_grab = utils::wasPressed(can_grab, m_input["grab"]) ? can_grab : false;
 	if (m_platform) 
 		m_sprite.move(m_platform->getSpeed());
 	
@@ -87,14 +85,6 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 	
 	if (vec.y) m_speed.y = 0;
 	m_jumpcount = 2;
-}
-
-bool Player::PressedGrab (Item * if_item) {
-	return set_grab && m_input["down"];
-}
-
-bool Player::PressedGrab (Weapon * if_weapon) {
-	return set_grab && !m_input["down"];
 }
 
 void Player::UnassignObject (Item * if_item) {

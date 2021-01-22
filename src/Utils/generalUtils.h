@@ -6,7 +6,6 @@
 #include <sstream>
 
 namespace utils {
-	bool wasPressed(bool &prev, bool act);
 	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
 	sf::Rect<float> getRectDim(std::string s);
 	sf::Vector2f getXY(std::string s);

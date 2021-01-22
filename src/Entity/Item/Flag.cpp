@@ -2,7 +2,8 @@
 #include "../../Utils/generalUtils.h"
 
 Flag::Flag(sf::Vector2f pos, bool who) : 
-	Item(pos, "suitcase"), m_trail(m_sprite, true) 
+	Item(pos, "suitcase"), m_trail(m_sprite, true),
+	m_who(who)
 {
 	m_sprite.setTexture(m_textures[0]);
 	
@@ -32,5 +33,10 @@ void Flag::Update ( ) {
 		
 		m_trail.AddPosition(sf::Vector2f(globals.left, globals.top));
 	} else m_trail.Clear();
+}
+
+void Flag::SetOwner (int owner) {
+	prev_owner = Owner();
+	Item::SetOwner(owner);
 }
 

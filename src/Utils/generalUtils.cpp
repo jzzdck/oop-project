@@ -57,15 +57,8 @@ namespace utils {
 		return utils::getColor(s["color-p"+std::to_string(player_index)]);
 	}
 	
-	float randf() { return rand()%1001 / 1000.f; }
-	
-	bool wasPressed(bool &prev, bool act) {
-		if (prev != act) {
-			prev = !prev;
-			return prev;
-		}
-		
-		return false;
+	float randf() { 
+		return rand()%1001 / 1000.f; 
 	}
 	
 	bool IsUnbounded(const sf::Rect<float> & to_check, const sf::Vector2f & bounds, float out_factor) {

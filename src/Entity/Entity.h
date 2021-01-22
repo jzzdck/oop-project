@@ -22,6 +22,7 @@ public:
 	sf::Vector2f &GetSpeed() { return m_speed; }
 	sf::Vector2f &GetInitPos() { return m_initpos; }
 	float GetFacing() const { return m_dir; } 
+	bool IsUsed() const { return in_use; }
 	
 	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
 	void SetPlatform(Plataform* relative_to) { m_platform = relative_to; }
@@ -38,6 +39,7 @@ protected:
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
 	Plataform * m_platform = nullptr;
+	bool in_use = true;
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include "../../Game.h"
 #include "../../Entity/Player.h"
 #include "../Menu/Menu_Principal.h"
+using namespace std;
 
 Match::Match(float width, float height) :
 	Escena(width, height), m_pause(false),
@@ -50,6 +51,12 @@ void Match::Update (Game& g) {
 	m_camera.Update();
 	m_entities.Update();
 	m_gamehud.Update();
+	
+	std::vector<int> aux = m_entities.GetRoundState();
+	cout << endl;
+	for (size_t i=0; i<aux.size(); ++i)
+		cout << "Player " << i << ": " << aux[i] << endl;
+	cout << endl;
 }
 
 void Match::Draw (sf::RenderWindow & win)

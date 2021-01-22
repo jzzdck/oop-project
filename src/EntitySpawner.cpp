@@ -33,26 +33,14 @@ Weapon * EntitySpawner::SpawnWeapon (const sf::Vector2f & pos, int index) {
 }
 
 Weapon * EntitySpawner::RandomWeapon ( ) {
-	Weapon* new_weapon;
-	int index = rand()%3;
-	
-	switch (index) {
-	case 0:
-		new_weapon = new Shovel     ( {m_winsize.x * utils::randf(), m_winsize.y * utils::randf()} );
-		break;
-	case 1:
-		new_weapon = new Revolver   ( {m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, 1);
-		break;
-	case 2:
-		new_weapon = new Handcannon ( {m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, 1);
-	};
-	
-	return new_weapon;
+	return SpawnWeapon( 
+		{m_winsize.x * utils::randf(), m_winsize.y * utils::randf()},
+		rand() % max_weapons
+	);
 }
 
-Item * EntitySpawner::RandomItem ( ) {
+Item * EntitySpawner::SpawnItem ( const sf::Vector2f & pos, int index ) {
 	Item* new_weapon;
-	int index = rand()%1;
 	
 	switch (index) {
 	case 0:
@@ -61,5 +49,12 @@ Item * EntitySpawner::RandomItem ( ) {
 	};
 	
 	return new_weapon;
+}
+
+Item * EntitySpawner::RandomItem ( ) {
+	return SpawnItem( 
+		{m_winsize.x * utils::randf(), m_winsize.y * utils::randf()},
+		rand() % max_items
+	);
 }
 

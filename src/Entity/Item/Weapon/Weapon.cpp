@@ -1,8 +1,9 @@
 #include "Weapon.h"
 
-Weapon::Weapon(sf::Vector2f pos, std::string keyword, float facing) :
+Weapon::Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_count) :
 	Item(pos, keyword), 
-	attack_state(false)
+	attack_state(false),
+	m_ammo(ammo_count)
 {
 	m_dir = facing;
 }
@@ -21,4 +22,11 @@ void Weapon::SetPos(const sf::Rect<float> & relative_to, float facing) {
 	m_dir = facing;
 	m_pos = OffSet(relative_to);
 	m_sprite.setPosition(m_pos);
+}
+
+void Weapon::Update ( ) {
+	Item::Update();
+	
+	if (m_speed.x == 0 && m_speed.y == 0 && m_ammo < 0)
+		in_use = false;
 }
