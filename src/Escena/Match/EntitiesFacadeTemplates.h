@@ -19,9 +19,8 @@ std::vector<T*> EraseUnused (std::vector<T*> entities ) {
 }
 	
 template<class T> 
-std::vector<T*> EraseUnbounded(std::vector<T*> objects) {
+std::vector<T*> EraseUnbounded(std::vector<T*> &objects) {
 	for (size_t i=0; i<objects.size(); ++i) {
-		UpdateEntity(objects[i]);
 		if (utils::IsUnbounded(objects[i]->GetSprite().getGlobalBounds(), {m_width, m_height})) {
 			delete objects[i];
 			objects[i] = nullptr;
