@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Entity/Item/Weapon/Weapon.h
+current_source=Entity/EntitiesFacade.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -24,7 +24,8 @@ path=Game.cpp
 cursor=59:0
 [source]
 path=Entity/EntitiesFacade.cpp
-cursor=0:0
+cursor=105:11
+open=true
 [source]
 path=Graphics/Trail.cpp
 cursor=40:13
@@ -153,7 +154,7 @@ path=Entity/Item/Flag.h
 cursor=12:15
 [header]
 path=Entity/Item/Weapon/Weapon.h
-cursor=37:0
+cursor=13:23
 open=true
 [header]
 path=Entity/Item/Weapon/Shovel.h
