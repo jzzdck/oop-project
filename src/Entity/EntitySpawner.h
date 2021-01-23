@@ -1,11 +1,12 @@
 #ifndef ENTITYSPAWNER_H
 #define ENTITYSPAWNER_H
-#include "Entity/Player.h"
-#include "Entity/Item/Item.h"
-#include "Entity/Item/Flag.h"
-#include "Entity/Item/Weapon/Shovel.h"
-#include "Entity/Item/Weapon/Revolver.h"
-#include "Entity/Item/Weapon/Handcannon.h"
+#include "Player.h"
+#include "Item/Weapon/Shovel.h"
+#include "Item/Weapon/Revolver.h"
+#include "Item/Weapon/Handcannon.h"
+#include "Item/Flag.h"
+#include "Item/Item.h"
+#include "Item/Weapon/Weapon.h"
 
 class EntitySpawner {
 public:

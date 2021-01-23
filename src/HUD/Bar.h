@@ -2,8 +2,8 @@
 #define BAR_H
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
-#include "Entity/Player.h"
 #include <string>
+#include "../Entity/Player.h"
 
 class Bar {
 public:

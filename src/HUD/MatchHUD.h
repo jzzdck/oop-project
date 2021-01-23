@@ -2,7 +2,7 @@
 #define MATCHHUD_H
 #include <vector>
 #include "HUD.h"
-#include "Entity/Player.h"
+#include "../Entity/Player.h"
 using namespace std;
 
 class MatchHUD {

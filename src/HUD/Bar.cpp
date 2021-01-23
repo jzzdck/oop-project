@@ -1,5 +1,5 @@
 #include "Bar.h"
-#include "Utils/generalUtils.h"
+#include "../Utils/generalUtils.h"
 
 Bar::Bar(std::string keyword) {
 	FileManager settings("PlayerHUD.conf", keyword);

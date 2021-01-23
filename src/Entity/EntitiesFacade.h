@@ -11,7 +11,7 @@
 #include "proyectile/Projectile.h"
 #include "../Escena/Match/World.h"
 #include "../Game.h"
-#include "../EntitySpawner.h"
+#include "EntitySpawner.h"
 
 class EntitiesFacade {
 public:

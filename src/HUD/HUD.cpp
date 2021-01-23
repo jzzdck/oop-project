@@ -1,6 +1,6 @@
 #include "HUD.h"
-#include "Utils/generalUtils.h"
-#include "Utils/FileManager.h"
+#include "../Utils/FileManager.h"
+#include "../Utils/generalUtils.h"
 
 HUD::HUD (const Player* target) : m_playercolor("player-color"), m_target(target)
 {

@@ -1,5 +1,5 @@
 #include "EntitySpawner.h"
-#include "Utils/generalUtils.h"
+#include "../Utils/generalUtils.h"
 #include <cstdlib>
 using namespace std;
 

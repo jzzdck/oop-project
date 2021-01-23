@@ -4,10 +4,10 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "Entity/Player.h"
 #include <vector>
 #include "Healthbar.h"
 #include "Bar.h"
+#include "../Entity/Player.h"
 
 class HUD {
 public:
