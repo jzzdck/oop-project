@@ -1,6 +1,7 @@
 #include "EntitySpawner.h"
 #include "../Utils/generalUtils.h"
 #include <cstdlib>
+#include "../TeslaGun.h"
 using namespace std;
 
 EntitySpawner::EntitySpawner(const sf::Vector2f &winsize) {
@@ -27,6 +28,8 @@ Weapon * EntitySpawner::SpawnWeapon (const sf::Vector2f & pos, int index) {
 		break;
 	case 2:
 		new_weapon = new Handcannon ( pos, 1);
+	case 3:
+		new_weapon = new TeslaGun (pos, 1);
 	};
 	
 	return new_weapon;
