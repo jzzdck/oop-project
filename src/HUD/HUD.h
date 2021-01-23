@@ -8,22 +8,22 @@
 #include "Healthbar.h"
 #include "Bar.h"
 #include "../Entity/Player.h"
+#include "AmmoBar.h"
 
 class HUD {
 public:
 	HUD(const Player* target);
 	void Draw(sf::RenderWindow &win, float zoom_level);
 	void DrawHUD(sf::RenderWindow &win, float zoom_level);
-	void DrawPlayerColor(sf::RenderWindow &win, float zoom_level);
-	void SetPlayer(const Player* target);
 	void Update();
 private:
 	const Player* m_target;
 	sf::Vector2f m_pos, m_relative_percentage;
 	
 	float m_dir;
-	HealthBar m_healthbar;
 	Bar m_playercolor;
+	AmmoBar m_ammobar;
+	HealthBar m_healthbar;
 	
 	sf::Sprite m_hud;
 	sf::Texture m_texture;

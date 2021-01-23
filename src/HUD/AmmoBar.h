@@ -5,6 +5,7 @@
 class AmmoBar : public Bar {
 public:
 	AmmoBar();
+	void Update(const Player *target) override;
 private:
 	
 };

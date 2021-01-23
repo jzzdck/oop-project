@@ -5,6 +5,7 @@ Weapon::Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_cou
 	attack_state(false),
 	m_ammo(ammo_count)
 {
+	max_ammo = m_ammo;
 	m_dir = facing;
 }
 

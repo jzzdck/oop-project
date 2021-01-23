@@ -25,15 +25,13 @@ void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
 	
 	m_healthbar.Draw(m_pos, win, zoom_level, m_dir);
 	m_playercolor.Draw(m_pos, win, zoom_level, m_dir);
+	m_ammobar.Draw(m_pos, win, zoom_level, m_dir);
 	DrawHUD(win, zoom_level);
 }
 
 void HUD::Update ( ) {
 	m_healthbar.Update(m_target);
-}
-
-void HUD::SetPlayer (const Player * target) {
-	m_target = target;
+	m_ammobar.Update(m_target);
 }
 
 void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) {

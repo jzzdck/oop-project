@@ -123,3 +123,10 @@ void Player::UnassignObjects ( ) {
 	if (m_item)
 		UnassignObject(m_item);
 }
+
+sf::Vector2i Player::GetAmmo ( ) const {
+	if (!m_weapon)
+		return {-1, -1};
+	else
+		return m_weapon->GetAmmo();
+}
