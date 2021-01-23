@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Entity/EntitiesFacade.cpp
+current_source=Entity/Item/Weapon/Weapon.h
 path_char=/
 [source]
 path=main.cpp

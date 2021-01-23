@@ -6,6 +6,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Entity/Player.h"
 #include <vector>
+#include "Healthbar.h"
+#include "Bar.h"
 
 class HUD {
 public:
@@ -13,21 +15,18 @@ public:
 	void Draw(sf::RenderWindow &win, float zoom_level);
 	void DrawHUD(sf::RenderWindow &win, float zoom_level);
 	void DrawPlayerColor(sf::RenderWindow &win, float zoom_level);
-	void DrawHealthbar(sf::RenderWindow &win, float zoom_level);
 	void SetPlayer(const Player* target);
 	void Update();
 private:
 	const Player* m_target;
-	sf::Vector2f m_pos, winsize;
-	std::vector<sf::Vector2f> m_auxpos;
+	sf::Vector2f m_pos, m_relative_percentage;
 	
-	float prev_percentage, current_percentage, m_dir;
+	float m_dir;
+	HealthBar m_healthbar;
+	Bar m_playercolor;
 	
 	sf::Sprite m_hud;
 	sf::Texture m_texture;
-	sf::RectangleShape m_playercolor;
-	std::vector<sf::RectangleShape> m_healthbar;
-	// 2: current health, 1: previous health, 0: background
 };
 
 #endif
