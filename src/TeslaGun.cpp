@@ -2,7 +2,7 @@
 #include "ElectricShot.h"
 
 TeslaGun::TeslaGun(const sf::Vector2f &pos, float facing) : 
-	Weapon(pos, "teslagun", 1.f, 100) 
+	Weapon(pos, "teslagun", 1.f, 50) 
 {
 	m_ammo = 1;
 }
@@ -10,8 +10,12 @@ TeslaGun::TeslaGun(const sf::Vector2f &pos, float facing) :
 bool TeslaGun::IsAttacking ( ) {
 	if (attack_state && not shot)
 		m_ammo++;
-	else if (not shot)
-		m_ammo = 1;
+	else if (not shot) {
+		if (Owner() == -1)
+			m_ammo = 1;
+		else if (m_ammo > 0)
+			m_ammo--;
+	}
 	
 	if (m_ammo >= max_ammo) {
 		m_ammo = -1000;

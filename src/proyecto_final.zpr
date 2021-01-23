@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=ElectricShot.cpp
+current_source=TeslaGun.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -144,11 +144,11 @@ cursor=31:37
 open=true
 [source]
 path=TeslaGun.cpp
-cursor=29:31
+cursor=7:1
 open=true
 [source]
 path=ElectricShot.cpp
-cursor=13:27
+cursor=11:0
 open=true
 [header]
 path=Game.h
