@@ -144,7 +144,7 @@ cursor=31:37
 open=true
 [source]
 path=TeslaGun.cpp
-cursor=7:1
+cursor=4:34
 open=true
 [source]
 path=ElectricShot.cpp
