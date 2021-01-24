@@ -3,6 +3,7 @@
 ElectricShot::ElectricShot(sf::Rect<float> rect, const sf::Vector2f &pos, float facing) : 
 	Projectile(pos, "electricshot", 100.f) 
 {
+	m_dir = facing;
 	if (facing == -1.f) {
 		utils::flipTexture(facing, m_scale, m_sprite);
 		m_sprite.move(-rect.width - m_sprite.getGlobalBounds().width, 0);
