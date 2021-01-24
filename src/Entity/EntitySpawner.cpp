@@ -28,8 +28,10 @@ Weapon * EntitySpawner::SpawnWeapon (const sf::Vector2f & pos, int index) {
 		break;
 	case 2:
 		new_weapon = new Handcannon ( pos, 1);
+		break;
 	case 3:
 		new_weapon = new TeslaGun (pos, 1);
+		break;
 	};
 	
 	return new_weapon;

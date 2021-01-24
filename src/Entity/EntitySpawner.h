@@ -20,7 +20,7 @@ public:
 	Weapon * RandomWeapon();
 private:
 	sf::Vector2f m_winsize;
-	int max_items = 1, max_weapons = 3;
+	int max_items = 1, max_weapons = 4;
 };
 
 #endif
