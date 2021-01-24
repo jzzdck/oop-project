@@ -2,7 +2,7 @@
 #define MATCHTEMPLATES_H
 
 template<class T>
-std::vector<T*> EraseUnused (std::vector<T*> entities ) {
+std::vector<T*> EraseUnused (std::vector<T*> &entities ) {
 	for (size_t i=0; i<entities.size(); ++i) {
 		if (!entities[i]->IsUsed()) {
 			delete entities[i];
@@ -36,7 +36,7 @@ std::vector<T*> EraseUnbounded(std::vector<T*> &objects) {
 }
 
 template<class T> 
-void UpdateOwnerships(Player* player, std::vector<T*> item_or_weapons) {
+void UpdateOwnerships(Player* player, std::vector<T*> &item_or_weapons) {
 	bool colliding_with_any_object = false;
 	
 	for (T * item_or_weapon : item_or_weapons) { 

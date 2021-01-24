@@ -35,19 +35,13 @@ void Match::Update (Game& g) {
 	m_camera.Update();
 	m_entities.Update();
 	m_gamehud.Update();
-	
-	std::vector<int> aux = m_entities.GetRoundState();
-	cout << endl;
-	for (size_t i=0; i<aux.size(); ++i)
-		cout << "Player " << i << ": " << aux[i] << endl;
-	cout << endl;
 }
 
 void Match::Draw (sf::RenderWindow & win) {
 	win.clear({158, 207, 222});
 	m_camera.SetToWindow(win);
 	m_entities.Draw(win);
-	m_gamehud.Draw(win, m_camera.GetZoom());
+	m_gamehud.Draw(win, m_camera.GetZoom(), m_entities.GetRoundState());
 	
 	if (m_pause) { 
 		/* draw pause */
