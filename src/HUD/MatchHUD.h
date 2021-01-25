@@ -8,11 +8,12 @@
 #include <vector>
 #include "HUD.h"
 #include "../Entity/Player.h"
+#include "MatchHUD.h"
 using namespace std;
 
 class MatchHUD {
 public:
-	MatchHUD();
+	MatchHUD(const sf::Vector2f &winsize, std::string mapname);
 	void SetPlayers(std::vector<Player*> players);
 	void Draw(sf::RenderWindow &win, float zoom_level, const std::vector<int> &roundpoints);
 	void Update();

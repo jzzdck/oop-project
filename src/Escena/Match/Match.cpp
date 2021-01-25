@@ -10,7 +10,7 @@ using namespace std;
 Match::Match(float width, float height) :
 	Escena(width, height), m_pause(false),
 	m_entities(width, height, "MAIN"), 
-	m_camera(width, height)
+	m_camera(width, height), m_gamehud({width, height}, "MAIN")
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
 	m_gamehud.SetPlayers(m_entities.GetPlayers());
