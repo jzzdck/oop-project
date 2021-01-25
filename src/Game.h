@@ -5,6 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include "Utils/FileManager.h"
+#include "Graphics/DrawingEnviroment.h"
 
 class Escena;
 
@@ -43,6 +44,8 @@ private:
 	Escena *m_current_scene;
 	Escena *m_next_scene = nullptr;
 	float win_width, win_height;
+	
+	DrawingEnviroment m_drawEnv;
 };
 
 #endif
