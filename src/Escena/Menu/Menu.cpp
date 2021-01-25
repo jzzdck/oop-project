@@ -31,7 +31,8 @@ void Menu::LoadTexts ( )
 		m_texts[i].setString(str);
 		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
 		
-		m_texts[i].setFillColor(utils::getColor( s[key+"color"]) );
+		m_text_color.push_back(utils::getColor( s[key+"color"]));
+		m_texts[i].setFillColor(m_text_color[m_text_color.size()-1]);
 		
 		m_texts[i].setOrigin(utils::getCenter(m_texts[i].getLocalBounds()));
 		sf::Vector2f pos=utils::getXY(s[key+"xy"]);
@@ -116,8 +117,16 @@ void Menu::RandomizeMyColor(unsigned const& text_position)
 void Menu::HighlightCurrentOption()
 {
 	for (size_t i=m_Noptions.x; i<=m_Noptions.y; ++i)
-		m_texts[i].setFillColor({150, 150, 150, 150});
-	m_texts[m_Noptions.x+current_option].setFillColor({255, 255, 255});
+	{
+		utils::HSV aux=utils::MakeHSV(m_text_color[i]);
+		aux.SetAlpha(30);
+		m_texts[i].setFillColor(aux.MakeRGB());
+	}
+	
+	m_texts[m_Noptions.x+current_option].setFillColor(m_text_color[m_Noptions.x+current_option]);
+	
+	
+	
 	//esto sirve para dar el efecto de selecionar la opcion actual 
 	//(basicamente oscurece todos los textos selecionables menos el actual)
 }

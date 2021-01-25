@@ -48,6 +48,7 @@ protected:
 	sf::Vector2i m_Noptions;//los numeros son [x,y] inlcuyendo (y) 
 	Controls m_input;
 	sf::Font m_font;
+	std::vector<sf::Color> m_text_color;
 	std::string m_location;
 	
 };

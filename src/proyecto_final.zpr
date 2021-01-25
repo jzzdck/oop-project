@@ -12,7 +12,7 @@ version_saved=20191006
 version_required=20140318
 tab_width=4
 tab_use_spaces=0
-explorer_path=Entity/proyectile
+explorer_path=../../oop-proyect
 inherits_from=
 path_char=/
 [source]
@@ -58,7 +58,7 @@ path=Escena/Match/World.cpp
 cursor=6:22
 [source]
 path=Escena/Match/Match.cpp
-cursor=12:53
+cursor=14:1
 [source]
 path=Escena/Menu/Slider.cpp
 cursor=23:17
@@ -144,6 +144,9 @@ cursor=4:34
 [source]
 path=ElectricShot.cpp
 cursor=11:0
+[source]
+path=Escena/Menu/Menu_Pause.cpp
+cursor=0:0
 [header]
 path=Game.h
 cursor=6:16
@@ -182,7 +185,7 @@ path=Escena/Match/World.h
 cursor=30:10
 [header]
 path=Escena/Match/Match.h
-cursor=8:20
+cursor=10:0
 [header]
 path=Escena/Menu/Slider.h
 cursor=0:0
@@ -267,6 +270,9 @@ cursor=10:19
 [header]
 path=ElectricShot.h
 cursor=6:29
+[header]
+path=Escena/Menu/Menu_Pause.h
+cursor=0:0
 [other]
 path=Leeme.txt
 cursor=6:145
