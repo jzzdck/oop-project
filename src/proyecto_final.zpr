@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=Entity/proyectile
 inherits_from=
-current_source=Entity/EntitiesFacade.cpp
+current_source=HUD/MatchHUD.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -130,7 +130,7 @@ path=HUD/AmmoBar.cpp
 cursor=14:16
 [source]
 path=HUD/MatchHUD.cpp
-cursor=21:0
+cursor=6:0
 open=true
 [source]
 path=HUD/Healthbar.cpp

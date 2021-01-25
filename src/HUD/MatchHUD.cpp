@@ -4,10 +4,11 @@
 
 MatchHUD::MatchHUD() {
 	m_font.loadFromFile("res/Chava-Regular.ttf");
+
+	// cast the font (sized 40) to a texture and set it smoothness to false 
+	const_cast<sf::Texture&>(m_font.getTexture(40)).setSmooth(false);
 	m_roundpoint.setFont(m_font);
-	m_roundpoint.setCharacterSize(30);
-	m_roundpoint.setOutlineColor({0,0,0});
-	m_roundpoint.setOutlineThickness(2);	
+	m_roundpoint.setCharacterSize(40);
 }
 
 void MatchHUD::SetPlayers(std::vector<Player*> players) {
