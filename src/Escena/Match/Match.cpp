@@ -10,7 +10,7 @@ using namespace std;
 Match::Match(float width, float height) :
 	Escena(width, height), m_pause(false),
 	m_entities(width, height, "MAIN"), 
-	m_camera(width, height),
+	m_camera(width, height), m_gamehud({width, height}, "MAIN"),
 	m_pmenu(width,height,&m_pause,m_camera)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
@@ -46,12 +46,6 @@ void Match::Update (Game& g) {
 	m_camera.Update();
 	m_entities.Update();
 	m_gamehud.Update();
-//	std::cout<<m_camera.getCenter().x<<" "<<m_camera.getCenter().y<<endl;
-	std::vector<int> aux = m_entities.GetRoundState();
-	cout << endl;
-	for (size_t i=0; i<aux.size(); ++i)
-		cout << "Player " << i << ": " << aux[i] << endl;
-	cout << endl;
 }
 
 void Match::Draw (sf::RenderWindow & win)
@@ -59,7 +53,7 @@ void Match::Draw (sf::RenderWindow & win)
 	win.clear({158, 207, 222});
 	m_camera.SetToWindow(win);
 	m_entities.Draw(win);
-	m_gamehud.Draw(win, m_camera.GetZoom());
+	m_gamehud.Draw(win, m_camera.GetZoom(), m_entities.GetRoundState());
 	
 	if (m_pause)
 		m_pmenu.Draw(win);

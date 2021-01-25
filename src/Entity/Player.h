@@ -27,6 +27,7 @@ public:
 	int GetIndex() const { return m_index; }
 	bool IsAttacking() { return m_input["attack"] && m_weapon; }
 	Controls &GetControls() { return m_input;}
+	sf::Vector2i GetAmmo() const;
  	
 	void UnassignObject(Item* if_item);
 	void UnassignObject(Weapon* if_weapon);

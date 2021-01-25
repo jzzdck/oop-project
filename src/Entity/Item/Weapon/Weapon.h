@@ -13,8 +13,9 @@ public:
 	virtual void Draw(sf::RenderWindow &win) { Item::Draw(win); };
 	void Update() override;
 	
-	virtual bool IsAttacking() {return attack_state;}
+	virtual bool IsAttacking() { return attack_state; }
 	void SetAttacking(bool state) { attack_state = state; }
+	sf::Vector2i GetAmmo() const { return {m_ammo, max_ammo}; }
 	
 	/// @brief Set the weapon position in relation to where the player is facing.
 	void SetPos(const sf::Rect<float> &relative_to, float facing);
@@ -27,7 +28,7 @@ public:
 	virtual ~Weapon() {}
 protected:
 	sf::Vector2f OffSet(const sf::Rect<float> &to_offset);
-	int m_ammo;
+	int m_ammo, max_ammo;
 	
 	sf::Clock firerate;
 	bool attack_state = false;

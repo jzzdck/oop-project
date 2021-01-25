@@ -7,7 +7,7 @@
 #include "../../Graphics/Camera.h"
 #include "../../Entity/EntitiesFacade.h"
 #include "../Menu/Menu_Pause.h"
-#include "../../MatchHUD.h"
+#include "../../HUD/MatchHUD.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.

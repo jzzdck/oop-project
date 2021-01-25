@@ -15,7 +15,7 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 	m_players.push_back(m_spawner.SpawnPlayer({m_width*0.15f, m_height*0.4f}, 1));
 	m_roundpoints.assign(m_players.size(), 0);
 	
-	size_t randitems = rand()%5, randweapons = rand()%20;
+	size_t randitems = rand()%10, randweapons = rand()%20;
 	for (size_t i=0; i<randitems; ++i)
 		m_items.push_back(m_spawner.RandomItem());
 	
@@ -43,8 +43,8 @@ void EntitiesFacade::PlayersUpdate ( ) {
 	for (Player *player : m_players) {
 		UpdateEntity(player);
 		
-		if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_width, m_height}))
-			player->AssignHealth(-1000.f); 
+		if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_width-100, m_height-100}))
+			player->AssignHealth(-1000.f);
 		
 		if (!player->IsAlive() && m_respawners[player->GetIndex()] == 0.00f) {
 			m_respawners[player->GetIndex()] = m_gameclock.getElapsedTime().asSeconds();
