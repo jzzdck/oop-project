@@ -119,7 +119,7 @@ void Menu::HighlightCurrentOption()
 	for (size_t i=m_Noptions.x; i<=m_Noptions.y; ++i)
 	{
 		utils::HSV aux=utils::MakeHSV(m_text_color[i]);
-//		aux.SetSat(aux.GetSat()/4);
+		aux.SetAlpha(30);
 		m_texts[i].setFillColor(aux.MakeRGB());
 	}
 	
@@ -127,9 +127,6 @@ void Menu::HighlightCurrentOption()
 	
 	
 	
-//	for (size_t i=m_Noptions.x; i<=m_Noptions.y; ++i)
-//		m_texts[i].setFillColor({150, 150, 150, 150});
-//	m_texts[m_Noptions.x+current_option].setFillColor({255, 255, 255});
 	//esto sirve para dar el efecto de selecionar la opcion actual 
 	//(basicamente oscurece todos los textos selecionables menos el actual)
 }

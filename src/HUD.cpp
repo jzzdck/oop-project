@@ -24,7 +24,8 @@ HUD::HUD (const Player* target) : m_target(target)
 	m_playercolor.setFillColor(utils::loadPlayerColor(target->GetIndex()));
 }
 
-void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
+void HUD::Draw (sf::RenderWindow & win, float zoom_level) 
+{
 	winsize = sf::Vector2f(win.getSize());
 	
 	m_pos = { 
@@ -48,7 +49,8 @@ void HUD::SetPlayer (const Player * target) {
 	m_target = target;
 }
 
-void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) {
+void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) 
+{
 	m_hud.setTexture(m_texture);
 	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
 	m_hud.setPosition(pos);
@@ -56,7 +58,8 @@ void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) {
 	win.draw(m_hud);
 }
 
-void HUD::DrawPlayerColor (sf::RenderWindow & win, float zoom_level) {
+void HUD::DrawPlayerColor (sf::RenderWindow & win, float zoom_level)
+{
 	sf::Vector2f aux = {
 		winsize.x * m_auxpos[1].x * m_dir, 
 		winsize.y * m_auxpos[1].y
@@ -68,7 +71,8 @@ void HUD::DrawPlayerColor (sf::RenderWindow & win, float zoom_level) {
 	win.draw(m_playercolor);
 }
 
-void HUD::DrawHealthbar (sf::RenderWindow & win, float zoom_level) {
+void HUD::DrawHealthbar (sf::RenderWindow & win, float zoom_level)
+{
 	sf::Vector2f aux = {
 		winsize.x * m_auxpos[2].x * m_dir, 
 		winsize.y * m_auxpos[2].y
