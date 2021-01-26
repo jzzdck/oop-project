@@ -5,12 +5,15 @@
 #include "../../Game.h"
 #include "../../Entity/Player.h"
 #include "../Menu/Menu_Principal.h"
+#include "../../MatchSettings.h"
 using namespace std;
 
-Match::Match(float width, float height) :
+Match::Match(MatchSettings m, float width, float height) :
 	Escena(width, height), m_pause(false),
 	m_entities(width, height, "MAIN"), 
-	m_camera(width, height), m_gamehud({width, height}, "MAIN"),
+	m_camera(width, height), 
+	m_gamehud({width, height}, "MAIN"),
+	m_settings(m),
 	m_pmenu(width,height,&m_pause,m_camera)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
@@ -43,6 +46,7 @@ void Match::Update (Game& g) {
 		m_pmenu.Update(g);
 		return;
 	}
+	
 	m_camera.Update();
 	m_entities.Update();
 	m_gamehud.Update();
