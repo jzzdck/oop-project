@@ -12,7 +12,7 @@ Match::Match(float width, float height) :
 	Escena(width, height), m_pause(false),
 	m_entities(width, height, "MAIN"), 
 	m_camera(width, height), m_gamehud({width, height}, "MAIN"),
-	m_pmenu(width,height,&m_pause,m_camera)
+	m_pmenu(width,height,&m_pause,&m_camera)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
 	m_gamehud.SetPlayers(m_entities.GetPlayers());
@@ -51,6 +51,15 @@ void Match::Update (Game& g) {
 
 void Match::Draw (DrawingEnviroment& drawEnv)
 {
+	drawEnv.ClearWindow();
+	
+	m_camera.SetToWindow(*drawEnv.getWin());
+	m_entities.Draw(*drawEnv.getWin());
+	m_gamehud.Draw(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
+	
+	if(m_pause)
+		m_pmenu.Draw(drawEnv);
+	drawEnv.DrawAll();
 //	win.clear({158, 207, 222});
 //	m_camera.SetToWindow(win);
 //	m_entities.Draw(win);
@@ -60,6 +69,7 @@ void Match::Draw (DrawingEnviroment& drawEnv)
 //		m_pmenu.Draw(drawEnv);
 //	
 //	win.display();
+
 }
 
 Match::~Match() {

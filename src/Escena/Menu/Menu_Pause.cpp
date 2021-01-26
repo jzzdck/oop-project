@@ -3,7 +3,7 @@
 #include <SFML/Window/Event.hpp>
 #include "Menu_Principal.h"
 
-Menu_Pause::Menu_Pause(float width, float height,bool* pause,Camera &c):
+Menu_Pause::Menu_Pause(float width, float height,bool* pause,Camera* c):
 	Menu(width,height,"pause"),
 	m_pause(pause),m_c(c)
 {
@@ -64,10 +64,10 @@ void Menu_Pause::Update (Game & g)
 
 void Menu_Pause::Draw (DrawingEnviroment& drawEnv) 
 {
-//	RelocateText(win);
-//	Fade(win);
-//	for(const auto &text : m_texts)
-//		win.draw(text);
+	RelocateText(*drawEnv.getWin());
+	Fade(*drawEnv.getWin());
+	for(auto &text : m_texts)
+		drawEnv.AddToLayer(&text,0);
 }
 
 void Menu_Pause::Close()
@@ -83,7 +83,7 @@ void Menu_Pause::Fade(sf::RenderWindow & win)
 }
 void Menu_Pause::RelocateText(sf::RenderWindow & win)
 {
-	float zoom_level=m_c.GetZoom();
+	float zoom_level=m_c->GetZoom();
 	for(size_t i=0;i<m_texts.size();i++) 
 	{
 		sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_auxpos[i]));
