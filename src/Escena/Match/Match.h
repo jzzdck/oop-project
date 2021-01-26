@@ -8,6 +8,7 @@
 #include "../../Entity/EntitiesFacade.h"
 #include "../Menu/Menu_Pause.h"
 #include "../../HUD/MatchHUD.h"
+#include "../../MatchSettings.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
@@ -18,7 +19,7 @@ public:
 	void ProcessEvent(sf::Event& e,Game& g) override;
 	void Update(Game & g);
 	void Draw(sf::RenderWindow & win);
-	Match(float width, float height);
+	Match(MatchSettings m, float width, float height);
 	~Match();
 private:
 	MatchHUD m_gamehud; 
