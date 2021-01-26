@@ -8,12 +8,13 @@
 #include <vector>
 #include "Plataform/Plataform.h"
 #include "../../Entity/Entity.h"
+#include "../../Graphics/DrawingEnviroment.h"
 
 /** @brief The World class is the place where the Match occurs **/
 class World {
 public:
 	void Update();
-	void Draw(sf::RenderWindow &win);
+	void Draw(DrawingEnviroment& drawEnv);
 	
 	float GetGravity() const { return m_gravity; }
 	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);

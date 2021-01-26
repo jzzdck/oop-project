@@ -7,9 +7,9 @@ Plataform::Plataform(std::string const& key):m_key(key),
 {
 
 }
-void Plataform::Draw(sf::RenderWindow& w)
+void Plataform::draw(sf::RenderTarget& target, sf::RenderStates states)const
 {
-	w.draw(m_rec);
+	target.draw(m_rec);
 }
 
 

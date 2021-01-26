@@ -7,7 +7,6 @@
 #include "../../Utils/FileManager.h"
 #include "../../Utils/generalUtils.h"
 #include "Plataform/Plataform_static.h"
-#include <vector>
 #include "Plataform/Plataform_dynamic.h"
 #include "../../Utils/CollisionUtil.h"
 
@@ -46,9 +45,9 @@ void World::Update() {
 		x->Update();
 }
 
-void World::Draw (sf::RenderWindow& win) {
+void World::Draw (DrawingEnviroment& drawEnv) {
 	for (Plataform* &p: m_platforms)
-		p->Draw(win);
+		drawEnv.AddToLayer(p,1);
 }
 
 World::~World() {

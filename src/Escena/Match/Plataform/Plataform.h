@@ -2,16 +2,19 @@
 #define PLATAFORM_H
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
 #include "../../../Utils/FileManager.h"
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
-class Plataform {
+class Plataform:public sf::Drawable {
 public:
 	Plataform(std::string const& key);
 	virtual void Move()=0;
 	virtual void Update()=0;
-	virtual void LoadData(FileManager const& s_aux,float const& win_width,float const& win_height  )=0;
-	void Draw(sf::RenderWindow& w);
+	virtual void LoadData(FileManager const& s_aux,float const& win_width,float const& win_height)=0;
+	
+	
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	sf::Rect<float> getGlobalBounds()const;
 	void setColor(sf::Color const& c);
 	sf::Vector2f getSpeed() const { return m_linear_speed + m_angular; }

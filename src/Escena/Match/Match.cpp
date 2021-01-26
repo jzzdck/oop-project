@@ -51,10 +51,10 @@ void Match::Update (Game& g) {
 
 void Match::Draw (DrawingEnviroment& drawEnv)
 {
-	drawEnv.ClearWindow();
+	drawEnv.ClearWindow({158, 207, 222});
 	
 	m_camera.SetToWindow(*drawEnv.getWin());
-	m_entities.Draw(*drawEnv.getWin());
+	m_entities.Draw(drawEnv);
 	m_gamehud.Draw(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
 	
 	if(m_pause)
