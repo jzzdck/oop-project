@@ -17,6 +17,12 @@ Entity::Entity (sf::Vector2f pos, std::string keyword) :
 	m_sprite.setScale(m_dir*m_scale, m_scale);
 }
 
+void Entity::draw(sf::RenderTarget& target, sf::RenderStates states)const
+{
+	target.draw(m_sprite, states);
+}
+
+
 bool Entity::CollidesWith(const sf::Sprite &another) {
 	return m_sprite.getGlobalBounds().intersects(another.getGlobalBounds());
 }
