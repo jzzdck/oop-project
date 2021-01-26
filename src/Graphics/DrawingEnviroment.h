@@ -6,12 +6,12 @@
 class DrawingEnviroment
 {
 public:
-	DrawingEnviroment(sf::RenderWindow& win,unsigned layer_amount=4);
+	DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount=4);
 	void AddToLayer(sf::Drawable* obj,unsigned layer_index);
 	void ClearWindow();
 	void DrawAll();
 private:
-	sf::RenderWindow& m_window;
+	sf::RenderWindow* m_window;
 	unsigned m_layer_amount;
 	std::vector<std::vector<sf::Drawable*>> m_layer_pointers;
 };

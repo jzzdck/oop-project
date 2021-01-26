@@ -1,14 +1,14 @@
 #include "DrawingEnviroment.h"
 #include <iostream>
 
-DrawingEnviroment::DrawingEnviroment(sf::RenderWindow& win,unsigned layer_amount):
+DrawingEnviroment::DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount):
 	m_window(win)
 {
 	m_layer_pointers.resize(layer_amount);
 }
 void DrawingEnviroment::ClearWindow()
 {
-	m_window.clear();
+	m_window->clear({0, 0, 0});
 	for(size_t i=0;i<m_layer_pointers.size();i++)
 	{
 		m_layer_pointers[i].resize(0);
@@ -25,9 +25,9 @@ void DrawingEnviroment::AddToLayer(sf::Drawable* obj,unsigned layer_index)
 }
 void DrawingEnviroment::DrawAll()
 {
-	for(size_t i=0;i<m_layer_pointers.size();i++) 
-	{
-		for(sf::Drawable* x:m_layer_pointers[i])
-			m_window.draw(*x);
-	}
+	for(auto it_vec=m_layer_pointers.rbegin();it_vec!=m_layer_pointers.rend();it_vec++)
+		for(size_t j=0;j<it_vec->size();j++)
+			m_window->draw(*(*it_vec)[j]);
+
+	m_window->display();
 }
