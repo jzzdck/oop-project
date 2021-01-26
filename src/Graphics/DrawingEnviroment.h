@@ -8,8 +8,9 @@ class DrawingEnviroment
 public:
 	DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount=4);
 	void AddToLayer(sf::Drawable* obj,unsigned layer_index);
-	void ClearWindow();
+	void ClearWindow(sf::Color c=sf::Color::Black);
 	void DrawAll();
+	sf::RenderWindow* getWin();///temporal function, it will probably deleted in the future
 private:
 	sf::RenderWindow* m_window;
 	unsigned m_layer_amount;

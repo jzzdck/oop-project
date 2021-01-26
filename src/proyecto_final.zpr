@@ -58,10 +58,10 @@ path=Escena/Match/World.cpp
 cursor=6:22
 [source]
 path=Escena/Match/Match.cpp
-cursor=32:1
+cursor=41:0
 [source]
 path=Escena/Menu/Slider.cpp
-cursor=17:0
+cursor=10:30
 [source]
 path=Escena/Menu/Menu_Principal.cpp
 cursor=36:22
@@ -149,7 +149,7 @@ path=Escena/Menu/Menu_Pause.cpp
 cursor=69:19
 [source]
 path=Graphics/DrawingEnviroment.cpp
-cursor=33:0
+cursor=8:45
 breakpoint=31
 breakpoint_annotation=
 [header]
@@ -280,7 +280,7 @@ path=Escena/Menu/Menu_Pause.h
 cursor=9:38
 [header]
 path=Graphics/DrawingEnviroment.h
-cursor=8:36
+cursor=10:27
 [other]
 path=Leeme.txt
 cursor=6:145

@@ -6,9 +6,9 @@ DrawingEnviroment::DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount
 {
 	m_layer_pointers.resize(layer_amount);
 }
-void DrawingEnviroment::ClearWindow()
+void DrawingEnviroment::ClearWindow(sf::Color c)
 {
-	m_window->clear({0, 0, 0});
+	m_window->clear(c);
 	for(size_t i=0;i<m_layer_pointers.size();i++)
 	{
 		m_layer_pointers[i].resize(0);
@@ -30,4 +30,8 @@ void DrawingEnviroment::DrawAll()
 			m_window->draw(*(*it_vec)[j]);
 
 	m_window->display();
+}
+sf::RenderWindow* DrawingEnviroment::getWin()
+{
+	return m_window;
 }
