@@ -3,6 +3,8 @@
 #include "../../Utils/FileManager.h"
 #include "../../Utils/generalUtils.h"
 #include "../../Utils/HSV.h"
+#include <algorithm>
+using namespace std;
 
 Menu::Menu(float width, float height,std::string location) : 
 	Escena(width, height),	frame_count(0),	current_option(0), 
@@ -22,12 +24,12 @@ void Menu::LoadTexts ( )
 	int choice_max=stoi(choices.substr(choices.find(",")+1,choices.size()));
 	m_Noptions={choice_min,choice_max};
 	
-	
 	for (size_t i=0; i<m_texts.size(); ++i) 
 	{ 
 		m_texts[i].setFont(m_font);
 		std::string key = "str" + std::to_string(i) + "-";
 		std::string str = s[key+"set"];
+		
 		m_texts[i].setString(str);
 		m_texts[i].setCharacterSize( stoi(s[key+"charsize"]) );
 		

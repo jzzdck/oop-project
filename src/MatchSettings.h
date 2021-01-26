@@ -3,11 +3,17 @@
 #include <string>
 
 struct MatchSettings {
-	bool is_timed;
-	sf::Time total_time;
-	int max_points;
-	int rounds_left;
-	std::string map_name;
+	int rounds_left = 5;
+	int round_type = 0;
+	int max_seconds = 60;
+	int max_points = 7;
+	std::string map_name = "MAIN";
+	
+	void Randomize() {
+		round_type = rand()%4;
+		max_points = rand()%(31-5) + 5;
+		max_seconds = rand()%(201-15) + 15;
+	}
 };
 
 #endif

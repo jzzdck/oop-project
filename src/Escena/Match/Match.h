@@ -22,8 +22,10 @@ public:
 	Match(MatchSettings m, float width, float height);
 	~Match();
 private:
+	MatchSettings m_settings;
 	MatchHUD m_gamehud; 
 	EntitiesFacade m_entities;
+	
 	Camera m_camera;
 	bool m_pause;
 	
