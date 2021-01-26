@@ -7,7 +7,7 @@ public:
 	Menu_Pause(float width, float height,bool* pause,Camera &c);
 	void ProcessEvent (sf::Event & e, Game & g)override;
 	void Update (Game & g)override;
-	void Draw (sf::RenderWindow & win)override;
+	void Draw (DrawingEnviroment& drawEnv)override;
 	void Close();
 	void Fade(sf::RenderWindow & win);
 protected:

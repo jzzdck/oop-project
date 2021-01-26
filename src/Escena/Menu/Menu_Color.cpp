@@ -59,16 +59,16 @@ void Menu_Color::Update (Game & g)
 		CopyDistance(i,i-(m_texts.size()-3));
 }
 
-void Menu_Color::Draw (sf::RenderWindow & win) 
+void Menu_Color::Draw (DrawingEnviroment& drawEnv) 
 {
-	win.clear({0, 0, 0});
-	for(const auto &text : m_texts)
-		win.draw(text);
-	for (const auto &rectangle : m_rectangles)
-		win.draw(rectangle);
-	for(const auto &slider:m_sliders)
-		win.draw(slider.getRect());
-	win.display();
+	drawEnv.ClearWindow();
+	for(auto &text : m_texts)
+		drawEnv.AddToLayer(&text,0);
+	for (auto &rectangle : m_rectangles)
+		drawEnv.AddToLayer(&rectangle,0);
+	for(auto &slider:m_sliders)
+		drawEnv.AddToLayer(&slider,0);
+	drawEnv.DrawAll();
 }
 
 void Menu_Color::Select(Game& g)

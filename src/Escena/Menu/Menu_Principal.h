@@ -8,7 +8,7 @@ public:
 	
 	void ProcessEvent(sf::Event& e,Game& g)override;
 	void Update (Game & g)override;
-	void Draw (sf::RenderWindow & win)override;
+	void Draw (DrawingEnviroment& drawEnv)override;
 	
 private:
 	void Select(Game& g)override;

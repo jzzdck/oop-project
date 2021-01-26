@@ -5,6 +5,7 @@
 #include "../../Game.h"
 #include "../../Entity/Player.h"
 #include "../Menu/Menu_Principal.h"
+#include "../../Graphics/DrawingEnviroment.h"
 using namespace std;
 
 Match::Match(float width, float height) :
@@ -48,17 +49,17 @@ void Match::Update (Game& g) {
 	m_gamehud.Update();
 }
 
-void Match::Draw (sf::RenderWindow & win)
+void Match::Draw (DrawingEnviroment& drawEnv)
 {
-	win.clear({158, 207, 222});
-	m_camera.SetToWindow(win);
-	m_entities.Draw(win);
-	m_gamehud.Draw(win, m_camera.GetZoom(), m_entities.GetRoundState());
-	
-	if (m_pause)
-		m_pmenu.Draw(win);
-	
-	win.display();
+//	win.clear({158, 207, 222});
+//	m_camera.SetToWindow(win);
+//	m_entities.Draw(win);
+//	m_gamehud.Draw(win, m_camera.GetZoom(), m_entities.GetRoundState());
+//	
+//	if (m_pause)
+//		m_pmenu.Draw(drawEnv);
+//	
+//	win.display();
 }
 
 Match::~Match() {

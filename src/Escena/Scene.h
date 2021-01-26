@@ -1,6 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "../Graphics/DrawingEnviroment.h"
 
 class Game;
 
@@ -12,7 +13,8 @@ class Escena {
 public:
 	virtual void ProcessEvent(sf::Event& e,Game& g)=0;
 	virtual void Update(Game &g) = 0;
-	virtual void Draw(sf::RenderWindow &win) = 0;
+//	virtual void Draw(sf::RenderWindow &win) = 0;
+	virtual void Draw(DrawingEnviroment& drawEnv) = 0;
 	Escena(float width, float height);
 	virtual ~Escena() {};
 protected:

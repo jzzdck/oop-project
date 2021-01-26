@@ -62,12 +62,12 @@ void Menu_Pause::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Pause::Draw (sf::RenderWindow & win) 
+void Menu_Pause::Draw (DrawingEnviroment& drawEnv) 
 {
-	RelocateText(win);
-	Fade(win);
-	for(const auto &text : m_texts)
-		win.draw(text);
+//	RelocateText(win);
+//	Fade(win);
+//	for(const auto &text : m_texts)
+//		win.draw(text);
 }
 
 void Menu_Pause::Close()

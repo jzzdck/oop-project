@@ -28,12 +28,13 @@ void Menu_Options::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Options::Draw (sf::RenderWindow & win) 
+void Menu_Options::Draw (DrawingEnviroment& drawEnv) 
 {
-	win.clear({0, 0, 0});
-	for(const auto &text : m_texts)
-		win.draw(text);
-	win.display();
+	drawEnv.ClearWindow();
+	for(auto& text:m_texts)
+		drawEnv.AddToLayer(&text,0);
+	drawEnv.DrawAll();
+
 }
 
 void Menu_Options::Select(Game& g)
