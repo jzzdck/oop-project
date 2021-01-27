@@ -51,6 +51,7 @@ private:
 	
 	Jump m_jump; 
 	Animation m_animation;
+	Animation::State m_state;
 	
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 

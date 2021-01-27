@@ -11,7 +11,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_jump({2, -15}),
 	m_animation(&m_sprite, &ms_belly)
 {
-	m_topspeed = 10.5f;
+	m_topspeed = 8.5f;
 	
 	LoadKeys();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
@@ -34,6 +34,7 @@ void Player::LoadKeys() {
 void Player::ProcessEvents (sf::Event & e, Game & g) {
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == m_input<="jump" && m_jump.count > 0) {
+			m_state = Animation::State::Jumping;
 			m_speed.y = m_jump.speed;
 			--m_jump.count;
 		}
@@ -49,12 +50,18 @@ void Player::Update() {
 	
 	m_speed.x = std::fabs(m_speed.x);
 	if (m_input["right"] || m_input["left"]) {
+		m_state = Animation::State::Running | m_state;
+		
 		m_dir = 1.f;
 		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
 		
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
-	} else m_speed.x = 0.f;
+	} else {
+		m_speed.x = 0.f;
+		if (m_state != Animation::State::Jumping)
+			m_state = Animation::State::Idle;
+	}
 	
 	if (m_weapon)
 		m_weapon->SetAttacking(m_input["attack"]);
@@ -64,7 +71,7 @@ void Player::Update() {
 	
 	m_sprite.setTexture(m_textures[0], true);
 	ms_belly.setTexture(m_textures[1], true);
-	m_animation.Update(m_speed);
+	m_animation.Update(m_state);
 	m_sprite.move(m_speed.x, m_speed.y);
 }
 
@@ -87,6 +94,11 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
 	
 	if (vec.y) m_speed.y = 0;
+	if (vec.y < 0 && m_speed.x)
+		m_state = Animation::State::Running;
+	else if (!m_speed.x)
+		m_state = Animation::State::Idle;
+	
 	m_jump.count = 2;
 }
 
