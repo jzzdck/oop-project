@@ -9,14 +9,13 @@ Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 {
 }
 
-void Handcannon::Render() {
+void Handcannon::Render(DrawingEnviroment &drawEnv) {
 	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
 	if (m_speed.x != 0.f || Owner() != -1)
 		m_sprite.setScale(m_dir*2, 2);
 	
 	if (Owner() != -1 && m_dir == -1.f)
 		m_sprite.move(m_sprite.getGlobalBounds().width, 0);
-	
 }
 
 bool Handcannon::IsAttacking ( ) {

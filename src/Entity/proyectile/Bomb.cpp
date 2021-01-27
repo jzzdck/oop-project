@@ -38,12 +38,17 @@ void Bomb::Explode ( ) {
 	lifetime.restart();
 }
 
-void Bomb::Render () {
+void Bomb::Render (DrawingEnviroment &drawEnv) {
 	utils::flipTexture(m_dir, m_scale, m_sprite);
-//	m_trail.Render(win); check this !!! (need to change trail render logic);
+	m_trail.Render(drawEnv); 
 }
 
 void Bomb::ApplyGravity (float gravity) {
 	m_speed.y += gravity*0.75;
+}
+
+void Bomb::draw (sf::RenderTarget & target, sf::RenderStates states) const {
+	target.draw(m_trail);
+	target.draw(m_sprite);
 }
 

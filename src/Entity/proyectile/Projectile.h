@@ -10,6 +10,11 @@ class Projectile : public Entity {
 public:
 	Projectile(sf::Vector2f pos, std::string keyword, float m_damage);
 	
+	virtual void Render(DrawingEnviroment &drawEnv) 
+	{ 
+		utils::flipTexture(m_dir, m_scale, m_sprite);
+	}
+	
 	virtual void Render() 
 	{ 
 		utils::flipTexture(m_dir, m_scale, m_sprite);

@@ -12,11 +12,12 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
+#include "../Graphics/DrawingEnviroment.h"
 
-class HUD:public sf::Drawable {
+class HUD : public sf::Drawable {
 public:
 	HUD(const Player* target);
-	void Render(sf::RenderWindow &win, float zoom_level);
+	void Render(DrawingEnviroment &drawEnv, float zoom_level);
 	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
 	void Update();
 private:

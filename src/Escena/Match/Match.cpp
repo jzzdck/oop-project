@@ -52,27 +52,13 @@ void Match::Update (Game& g) {
 void Match::Render (DrawingEnviroment& drawEnv)
 {
 	drawEnv.ClearWindow({158, 207, 222});
-	
 	m_camera.SetToWindow(*drawEnv.getWin());
+	m_gamehud.Render(drawEnv, m_camera.GetZoom(), m_entities.GetRoundState());
 	m_entities.Render(drawEnv);
 	
-//	m_gamehud.Render(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
-	
-//	drawEnv.AddToLayer(m_gamehud,0);
-	
+	drawEnv.DrawAll();
 	if(m_pause)
 		m_pmenu.Render(drawEnv);
-	drawEnv.DrawAll();
-//	win.clear({158, 207, 222});
-//	m_camera.SetToWindow(win);
-//	m_entities.Render(win);
-//	m_gamehud.Render(win, m_camera.GetZoom(), m_entities.GetRoundState());
-//	
-//	if (m_pause)
-//		m_pmenu.Render(drawEnv);
-//	
-//	win.display();
-
 }
 
 Match::~Match() {

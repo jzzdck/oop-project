@@ -19,7 +19,6 @@ public:
 	void ProcessEvents(sf::Event &e, Game &g);
 	void Update() override; 
 	void Render() override;
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	void RelocateSprites();
 	
 	
@@ -42,6 +41,7 @@ public:
 	
 	Player(sf::Vector2f pos, int player_index);
 private:
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	void LoadKeys();
 	
 	int m_index;

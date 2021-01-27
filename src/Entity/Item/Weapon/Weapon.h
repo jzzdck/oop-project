@@ -10,7 +10,7 @@ class Projectile;
 class Weapon : public Item {
 public:
 	/// @brief Render the weapon in the current window
-	virtual void Render() { Item::Render(); };
+	virtual void Render(DrawingEnviroment &drawEnv) override { Item::Render(drawEnv); };
 	void Update() override;
 	
 	virtual bool IsAttacking() { return attack_state; }
@@ -33,6 +33,10 @@ protected:
 	sf::Clock firerate;
 	bool attack_state = false;
 	sf::Vector2f m_pos;
+private:
+	int PreviousOwner() const override { return -2; }
+	bool IsTheFlag() const override { return false; }
+	int BelongsTo() const override { return -1; }
 };
 
 #endif

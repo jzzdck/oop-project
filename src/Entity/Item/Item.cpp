@@ -31,7 +31,7 @@ void Item::ApplyResponse (const sf::Vector2f & vec) {
 	else Entity::ApplyResponse(vec);
 }
 
-void Item::Render() {
+void Item::Render(DrawingEnviroment &drawEnv) {
 	if (m_owner != -1 || m_speed.x != 0.f) 
 		utils::flipTexture(m_dir, m_scale, m_sprite);
 }

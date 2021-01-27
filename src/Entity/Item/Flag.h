@@ -6,7 +6,7 @@
 class Flag : public Item {
 public:
 	Flag(sf::Vector2f pos, bool who);
-	void Render() override;
+	void Render(DrawingEnviroment &drawEnv) override;
 	void Update() override;
 	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
 	bool IsTheFlag() const override { return true; }

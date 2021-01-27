@@ -4,7 +4,7 @@
 
 class Handcannon : public Weapon {
 public:
-	void Render() override;
+	void Render(DrawingEnviroment &drawEnv) override;
 	Handcannon(sf::Vector2f pos, float facing);
 	bool IsAttacking ( ) override;
 	Projectile * GetProjectile ( ) override;
