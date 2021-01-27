@@ -53,48 +53,43 @@ void LobbyMenu::ProcessEvent (sf::Event & e, Game & g) {
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == sf::Keyboard::Escape)
 			g.SetScene(new Menu_Principal(win_width, win_height));
-		
-		if (e.key.code == m_input.GetKey("go_up"))
-			Move_Option_Up();
-		if (e.key.code == m_input.GetKey("go_down"))
+		else if (e.key.code == m_input.GetKey("go_down"))
 			Move_Option_Down();
-		
-		if (e.key.code == m_input.GetKey("go_right")) {
-			if (current_option == 1) {
-				int current = m_settings.round_type;
-				
-				m_settings.round_type++;
-				if (m_settings.round_type >= m_roundtypes.size())
-					m_settings.round_type = 0;
-				
-				ReplaceRoundType(current, m_settings.round_type);
-			} else if (current_option == 0)
-				m_settings.rounds_left++;
-			else if (current_option == 2) {
-				if (m_settings.round_type == 1)
-					m_settings.max_points++;
-			}
-		}
-		
-		if (e.key.code == m_input.GetKey("go_left")) {
-			if (current_option == 1) {
-				int current = m_settings.round_type;
-				
-				m_settings.round_type--;
-				if (m_settings.round_type < 0)
-					m_settings.round_type = m_roundtypes.size()-1;
-				
-				ReplaceRoundType(current, m_settings.round_type);
-			} else if (current_option == 0 && m_settings.rounds_left > 1)
-				m_settings.rounds_left--;
-			else if (current_option == 2) {
-				if (m_settings.round_type == 1 && m_settings.max_points > 1)
-					m_settings.max_points--;
-			}
-		}
-		
-		if (e.key.code == m_input.GetKey("select"))
+		else if (e.key.code == m_input.GetKey("go_up"))
+			Move_Option_Up();
+		else if (e.key.code == m_input.GetKey("select"))
 			Select(g);
+		
+		int dir = 1;
+		if (e.key.code == m_input.GetKey("go_right") || e.key.code == m_input.GetKey("go_left")) {
+			if (e.key.code == m_input.GetKey("go_left"))
+				dir = -1;
+			
+			switch (current_option) {
+			case 0:
+				m_settings.rounds_left += dir;
+				if (m_settings.rounds_left == 0)
+					m_settings.rounds_left = 1;
+				break;
+			case 1: {
+				int current = m_settings.round_type;
+				
+				m_settings.round_type += dir;
+				if (m_settings.round_type >= m_roundtypes.size() || m_settings.round_type < 0)
+					m_settings.round_type %= m_roundtypes.size();
+				
+				ReplaceRoundType(current, m_settings.round_type);
+				break;
+			} case 2:
+				if (m_settings.round_type == 1) {
+					m_settings.max_points += dir;
+					if (m_settings.max_points == 0)
+						m_settings.max_points = 1;
+				}
+				
+				break;
+			}
+		}
 	}
 }
 

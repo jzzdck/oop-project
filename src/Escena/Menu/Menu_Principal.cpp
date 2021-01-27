@@ -5,6 +5,7 @@
 #include "../../Utils/generalUtils.h"
 #include "../Match/Match.h"
 #include "../../LobbyMenu.h"
+#include <iostream>
 
 Menu_Principal::Menu_Principal(float width,float height):Menu(width,height,"principal") 
 {
@@ -68,6 +69,7 @@ void Menu_Principal::Select(Game& g)
 		g.SetScene(new Menu_Options(win_width, win_height));
 		break; 
 	case 2:
+		std::cout << "Chau!" << std::endl;
 		g.Close();
 		break;
 	}
