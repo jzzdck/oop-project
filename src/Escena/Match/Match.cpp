@@ -55,7 +55,10 @@ void Match::Render (DrawingEnviroment& drawEnv)
 	
 	m_camera.SetToWindow(*drawEnv.getWin());
 	m_entities.Render(drawEnv);
-	m_gamehud.Render(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
+	
+//	m_gamehud.Render(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
+	
+//	drawEnv.AddToLayer(m_gamehud,0);
 	
 	if(m_pause)
 		m_pmenu.Render(drawEnv);

@@ -25,8 +25,8 @@ void Flag::Render () {
 
 void Flag::draw(sf::RenderTarget& target,sf::RenderStates states)const
 {
-	target.draw(m_sprite);
-	target.draw(m_dep);
+	target.draw(m_sprite,states);
+	target.draw(m_dep,states);
 }
 
 void Flag::Update ( ) {

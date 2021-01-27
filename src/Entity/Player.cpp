@@ -78,8 +78,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states)const
 	if (!IsAlive()) 
 		return;
 	
-	target.draw(m_sprite);
-	target.draw(ms_belly);
+	target.draw(m_sprite,states);
+	target.draw(ms_belly,states);
 
 	
 }
