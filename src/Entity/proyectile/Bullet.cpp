@@ -20,7 +20,8 @@ void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 	impact_life.restart();
 }
 
-void Bullet::Update ( ) {
+void Bullet::Update ( ) 
+{
 	m_sprite.move(m_speed);
 	if (impacted && impact_life.getElapsedTime().asSeconds() < 0.5f)
 		in_use = false;
