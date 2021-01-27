@@ -15,10 +15,12 @@ class MatchHUD {
 public:
 	MatchHUD(const sf::Vector2f &winsize, std::string mapname);
 	void SetPlayers(std::vector<Player*> players);
-	void Draw(sf::RenderWindow &win, float zoom_level, const std::vector<int> &roundpoints);
+	void SetRoundState(const std::vector<int> &new_roundpoints);
+	void Draw(sf::RenderWindow &win, float zoom_level);
 	void Update();
 private:
 	std::vector<HUD> m_playerHUDs;
+	std::vector<int> roundpoints;
 
 	sf::Text m_roundpoint;
 	sf::Font m_font;

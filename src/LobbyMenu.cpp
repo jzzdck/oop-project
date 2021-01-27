@@ -34,6 +34,11 @@ void LobbyMenu::Select (Game & g) {
 	switch (current_option) 
 	{
 	case 3:
+		if (m_settings.round_type != 0)
+			m_settings.random_rounds = false;
+		else
+			m_settings.Randomize();
+		
 		g.SetScene(new Match(m_settings, winsize.x, winsize.y));
 		break;
 	case 4:
@@ -128,7 +133,8 @@ void LobbyMenu::ReplaceRoundType(int current, int next) {
 	std::string aux = m_roundtypes[current];
 	
 	size_t pos = str.find(aux);
-	str = str.replace(pos, aux.size(), m_roundtypes[next]);
+	if (pos != std::string::npos)
+		str = str.replace(pos, aux.size(), m_roundtypes[next]);
 	m_texts[1].setString(str);
 	m_texts[2].setString(m_descriptions[next]);
 	
@@ -147,7 +153,8 @@ void LobbyMenu::ReplaceNumber (int index, int new_number, size_t starting_pos) {
 	std::string str = m_texts[index].getString();
 	size_t b_pos = str.find_first_of("1234567890", starting_pos);
 	size_t e_pos = str.find_first_not_of("1234567890", b_pos);
-	str = str.replace(b_pos, e_pos-b_pos, std::to_string(new_number));
+	if (b_pos != std::string::npos && e_pos != std::string::npos)
+		str = str.replace(b_pos, e_pos-b_pos, std::to_string(new_number));
 	m_texts[index].setString(str);
 	CenterText(index);
 }

@@ -13,6 +13,11 @@
 
 class Weapon;
 
+struct Jump {
+	int count;
+	int speed;
+};
+
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
@@ -43,13 +48,14 @@ private:
 	int m_index;
 	Controls m_input;
 	
-	int m_jumpcount, m_jumpspeed; 
+	Jump m_jump; 
 	
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
 	
 	float m_health = 1000.f;
 	sf::Sprite ms_belly;
+	
 };
 
 #endif

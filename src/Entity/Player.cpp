@@ -8,8 +8,7 @@
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
-	m_jumpcount(2),
-	m_jumpspeed(-15)
+	m_jump({2, -15})
 {
 	m_topspeed = 10.5f;
 	
@@ -33,9 +32,9 @@ void Player::LoadKeys() {
 
 void Player::ProcessEvents (sf::Event & e, Game & g) {
 	if (e.type == sf::Event::KeyPressed) {
-		if (e.key.code == m_input<="jump" && m_jumpcount > 0) {
-			m_speed.y = m_jumpspeed;
-			--m_jumpcount;
+		if (e.key.code == m_input<="jump" && m_jump.count > 0) {
+			m_speed.y = m_jump.speed;
+			--m_jump.count;
 		}
 	} else if (e.type == sf::Event::KeyReleased) {
 		if (e.key.code == m_input<="jump" && m_speed.y < -5)
@@ -84,7 +83,7 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
 	
 	if (vec.y) m_speed.y = 0;
-	m_jumpcount = 2;
+	m_jump.count = 2;
 }
 
 void Player::UnassignObject (Item * if_item) {

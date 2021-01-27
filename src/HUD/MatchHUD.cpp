@@ -31,9 +31,7 @@ void MatchHUD::SetPlayers(std::vector<Player*> players) {
 		m_playerHUDs.push_back( HUD(players[i]) );
 }
 
-void MatchHUD::Draw (sf::RenderWindow & win, float zoom_level, 
-					 const std::vector<int> & roundpoints) 
-{
+void MatchHUD::Draw (sf::RenderWindow & win, float zoom_level) {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
 		m_playerHUDs[i].Draw(win, zoom_level);
 	
@@ -51,5 +49,9 @@ void MatchHUD::Draw (sf::RenderWindow & win, float zoom_level,
 void MatchHUD::Update () {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
 		m_playerHUDs[i].Update();	
+}
+
+void MatchHUD::SetRoundState (const std::vector<int> & new_roundpoints) {
+	roundpoints = new_roundpoints;
 }
 

@@ -22,9 +22,13 @@ public:
 	Match(MatchSettings m, float width, float height);
 	~Match();
 private:
+	int CurrentRoundEnded(const std::vector<int> &round_state);
+	void UpdateGameState(int someone_won, Game & g);
+	
 	MatchSettings m_settings;
 	MatchHUD m_gamehud; 
 	EntitiesFacade m_entities;
+	sf::Clock m_gameclock;
 	
 	Camera m_camera;
 	bool m_pause;
