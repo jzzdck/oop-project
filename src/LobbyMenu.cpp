@@ -14,20 +14,22 @@ LobbyMenu::LobbyMenu(float width, float height) :
 	m_descriptions = { 
 		"Every round is different \nand decided at random.", // random
 		
-		"The first player to score << 7 >> points\nwins the round.", // points
+		"The first player to score << 7 >>\npoints wins the round.", // points
 		
 		"The player who scored more points\nwhen the clock stops wins the round.\n" 
 		"Clock will stop at: << 60 >> seconds.", // timed
 		
 		"A combination of the previous types,\n" // both
-		"The player who scores 7 points \n"
-		"OR scores more points when\nthe clock stops, wins the round.\n" // both
+		"The player who scores 7 points OR\n"
+		"scored more points when the clock\n"
+		"stops, wins the round.\n" // both
 		"Clock will stop at: 60 seconds" // both
 	};
 	
 	ReplaceRoundType(m_settings.round_type, 0);
 	current_option = 3;
-	m_texts[current_option].setStyle(sf::Text::Italic|sf::Text::Bold);
+	m_texts[current_option].setStyle(sf::Text::Bold);
+	m_texts[2].setStyle(sf::Text::Italic);
 }
 
 void LobbyMenu::Select (Game & g) {
@@ -100,7 +102,7 @@ void LobbyMenu::Update (Game & g) {
 	HighlightCurrentOption();
 	
 	if (current_option == 2 && m_settings.round_type == 2) {
-		if (m_input.KeyState("go_left") && m_settings.max_seconds > 15)
+		if (m_input.KeyState("go_left") && m_settings.max_seconds > 5)
 			m_settings.max_seconds--;
 		else if (m_input.KeyState("go_right"))
 			m_settings.max_seconds++;

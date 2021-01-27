@@ -41,8 +41,16 @@ void Match::Update (Game& g) {
 	m_gamehud.SetRoundState(round_state);
 	
 	int someone_won = CurrentRoundEnded(round_state);
-	if (someone_won != -1)
+	if (someone_won != -1) {
+		if (someone_won == -2) {
+			std::cout << "Nobody won!" << std::endl;
+			// DRAW, continue match:
+			g.SetScene(new Match(m_settings, win_width, win_height));
+			return;
+		}
+		
 		UpdateGameState(someone_won, g);
+	}
 	
 	m_camera.Update();
 	m_entities.Update();
@@ -83,6 +91,8 @@ int Match::CurrentRoundEnded ( const std::vector<int> &round_state ) {
 		{
 			if (draw == 1)
 				return winning_player - round_state.begin();
+			else 
+				return -2;
 		}
 	}
 	
