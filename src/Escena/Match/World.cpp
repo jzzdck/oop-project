@@ -45,7 +45,7 @@ void World::Update() {
 		x->Update();
 }
 
-void World::Draw (DrawingEnviroment& drawEnv) {
+void World::Render (DrawingEnviroment& drawEnv) {
 	for (Plataform* &p: m_platforms)
 		drawEnv.AddToLayer(p,1);
 }

@@ -63,22 +63,13 @@ void Player::Update() {
 		m_sprite.move(m_platform->getSpeed());
 	
 	m_sprite.move(m_speed.x, m_speed.y);
-	RelocateSprites();
 }
 
-void Player::Draw(sf::RenderWindow & win) {
+void Player::Render() {
 	if (!IsAlive()) 
 		return;
+	RelocateSprites();
 	
-	ms_belly.setPosition(m_sprite.getPosition());
-	utils::flipTexture(m_dir, m_scale, ms_belly);
-	utils::flipTexture(m_dir, m_scale, m_sprite);
-	
-	if (m_item) 
-		m_item->GetSprite().setPosition(m_sprite.getPosition());
-	
-	win.draw(m_sprite);
-	win.draw(ms_belly);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states)const

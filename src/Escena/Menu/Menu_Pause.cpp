@@ -62,7 +62,7 @@ void Menu_Pause::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Pause::Draw (DrawingEnviroment& drawEnv) 
+void Menu_Pause::Render (DrawingEnviroment& drawEnv) 
 {
 	RelocateText(*drawEnv.getWin());
 	Fade(*drawEnv.getWin());

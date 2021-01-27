@@ -12,7 +12,7 @@
 class Entity: public sf::Drawable {
 public:
 	virtual void Update() = 0;
-	virtual void Draw(sf::RenderWindow &win) = 0;
+	virtual void Render() = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	
 	bool CollidesWith(const sf::Sprite &another);

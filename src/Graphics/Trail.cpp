@@ -20,7 +20,7 @@ void Trail::AddPosition (const sf::Vector2f & new_pos) {
 		m_positions.pop_back();
 }
 
-void Trail::Draw (sf::RenderWindow & win) {
+void Trail::Render (sf::RenderWindow & win) {
 	for(size_t i=1; i<m_positions.size(); ++i) { 
 		if (has_deps) {
 			m_dep.setOrigin(0,0);

@@ -14,7 +14,7 @@
 class World {
 public:
 	void Update();
-	void Draw(DrawingEnviroment& drawEnv);
+	void Render(DrawingEnviroment& drawEnv);
 	
 	float GetGravity() const { return m_gravity; }
 	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);

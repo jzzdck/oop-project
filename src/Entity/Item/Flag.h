@@ -6,9 +6,9 @@
 class Flag : public Item {
 public:
 	Flag(sf::Vector2f pos, bool who);
-	void Draw(sf::RenderWindow & win) override;
+	void Render() override;
 	void Update() override;
-	
+	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
 	bool IsTheFlag() const override { return true; }
 	void SetOwner(int owner) override;
 	int PreviousOwner() const override { return prev_owner; }

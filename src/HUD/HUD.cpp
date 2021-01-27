@@ -15,7 +15,7 @@ HUD::HUD (const Player* target) : m_playercolor("player-color"), m_target(target
 	m_playercolor.SetColor(utils::loadPlayerColor(target->GetIndex()));
 }
 
-void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
+void HUD::Render (sf::RenderWindow & win, float zoom_level) {
 	sf::Vector2f winsize = sf::Vector2f(win.getSize());
 	
 	m_pos = { 
@@ -23,9 +23,9 @@ void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
 		winsize.y * m_relative_percentage.y
 	};
 	
-	m_healthbar.Draw(m_pos, win, zoom_level, m_dir);
-	m_playercolor.Draw(m_pos, win, zoom_level, m_dir);
-	m_ammobar.Draw(m_pos, win, zoom_level, m_dir);
+	m_healthbar.Render(m_pos, win, zoom_level, m_dir);
+	m_playercolor.Render(m_pos, win, zoom_level, m_dir);
+	m_ammobar.Render(m_pos, win, zoom_level, m_dir);
 	DrawHUD(win, zoom_level);
 }
 

@@ -11,7 +11,7 @@ public:
 	void ApplyGravity(float gravity) override;
 	void Update ( ) override;
 	void Explode();
-	void Draw(sf::RenderWindow& win) override;
+	void Render() override;
 private:
 	bool exploding = false;
 	float max_life = 1.2f;

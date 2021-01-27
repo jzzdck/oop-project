@@ -28,7 +28,7 @@ void Menu_Options::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Options::Draw (DrawingEnviroment& drawEnv) 
+void Menu_Options::Render (DrawingEnviroment& drawEnv) 
 {
 	drawEnv.ClearWindow();
 	for(auto& text:m_texts)

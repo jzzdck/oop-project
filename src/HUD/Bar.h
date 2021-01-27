@@ -12,7 +12,7 @@ public:
 	void SetColor(const sf::Color &color);
 	
 	virtual void Update(const Player *target);
-	void Draw(const sf::Vector2f &pos, sf::RenderWindow &win, float zoom_level, float dir);
+	void Render(const sf::Vector2f &pos, sf::RenderWindow &win, float zoom_level, float dir);
 protected:
 	bool with_background = false;
 private:

@@ -15,7 +15,7 @@ public:
 	void AddPosition(const sf::Vector2f &new_pos);
 	void SetDep(const sf::Sprite &dep) { m_dep = dep; }
 	void SetIndep(const sf::Sprite &indep) { m_target = indep; }
-	void Draw(sf::RenderWindow &win);
+	void Render(sf::RenderWindow &win);
 	void Clear() { m_positions.clear(); }
 private:
 	void TrailEffect(sf::Sprite &with_this, int index, sf::RenderWindow &win);

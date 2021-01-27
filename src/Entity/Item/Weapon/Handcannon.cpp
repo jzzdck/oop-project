@@ -9,7 +9,7 @@ Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 {
 }
 
-void Handcannon::Draw(sf::RenderWindow & win) {
+void Handcannon::Render() {
 	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
 	if (m_speed.x != 0.f || Owner() != -1)
 		m_sprite.setScale(m_dir*2, 2);
@@ -17,7 +17,6 @@ void Handcannon::Draw(sf::RenderWindow & win) {
 	if (Owner() != -1 && m_dir == -1.f)
 		m_sprite.move(m_sprite.getGlobalBounds().width, 0);
 	
-	win.draw(m_sprite);
 }
 
 bool Handcannon::IsAttacking ( ) {

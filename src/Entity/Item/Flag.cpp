@@ -16,14 +16,17 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 }
 
 
-void Flag::Draw (sf::RenderWindow & win) {
+void Flag::Render () {
 	m_dep.setPosition(m_sprite.getPosition());
 	
-	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
-		m_trail.Draw(win);
-	
-	win.draw(m_sprite);
-	win.draw(m_dep);
+//	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
+//		m_trail.Render(win); check this after changing traielr render
+}
+
+void Flag::draw(sf::RenderTarget& target,sf::RenderStates states)const
+{
+	target.draw(m_sprite);
+	target.draw(m_dep);
 }
 
 void Flag::Update ( ) {

@@ -31,9 +31,8 @@ void Item::ApplyResponse (const sf::Vector2f & vec) {
 	else Entity::ApplyResponse(vec);
 }
 
-void Item::Draw (sf::RenderWindow & win) {
+void Item::Render() {
 	if (m_owner != -1 || m_speed.x != 0.f) 
 		utils::flipTexture(m_dir, m_scale, m_sprite);
-	win.draw(m_sprite);
 }
 

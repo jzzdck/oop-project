@@ -59,7 +59,7 @@ void Menu_Color::Update (Game & g)
 		CopyDistance(i,i-(m_texts.size()-3));
 }
 
-void Menu_Color::Draw (DrawingEnviroment& drawEnv) 
+void Menu_Color::Render (DrawingEnviroment& drawEnv) 
 {
 	drawEnv.ClearWindow();
 	for(auto &text : m_texts)

@@ -22,7 +22,7 @@ void Game::Run() {
 	while(m_window.isOpen()) {
 		ProcessEvents();
 		Update();
-		Draw();
+		Render();
 		
 		if (m_next_scene) {
 			delete m_current_scene;
@@ -37,9 +37,9 @@ void Game::Update() {
 	m_current_scene->Update(*this);
 }
 
-void Game::Draw() 
+void Game::Render() 
 {
-	m_current_scene->Draw(m_drawEnv);
+	m_current_scene->Render(m_drawEnv);
 }
 
 void Game::SetScene (Escena * next_scene) {

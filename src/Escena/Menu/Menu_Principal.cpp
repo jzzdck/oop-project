@@ -30,7 +30,7 @@ void Menu_Principal::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Principal::Draw (DrawingEnviroment& drawEnv)
+void Menu_Principal::Render (DrawingEnviroment& drawEnv)
 {
 	drawEnv.ClearWindow();
 	for(auto& text: m_texts)

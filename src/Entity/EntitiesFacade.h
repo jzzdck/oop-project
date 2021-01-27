@@ -18,7 +18,7 @@ public:
 	EntitiesFacade(float width, float height, std::string map_name);
 	~EntitiesFacade();
 	void Update();
-	void Draw(DrawingEnviroment& drawEnv);
+	void Render(DrawingEnviroment& drawEnv);
 	
 	std::vector<Player*> GetPlayers() { return m_players; }
 	std::vector<int> GetRoundState() { return m_roundpoints; }

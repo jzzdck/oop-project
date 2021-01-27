@@ -31,11 +31,11 @@ void MatchHUD::SetPlayers(std::vector<Player*> players) {
 		m_playerHUDs.push_back( HUD(players[i]) );
 }
 
-void MatchHUD::Draw (sf::RenderWindow & win, float zoom_level, 
+void MatchHUD::Render (sf::RenderWindow & win, float zoom_level, 
 					 const std::vector<int> & roundpoints) 
 {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
-		m_playerHUDs[i].Draw(win, zoom_level);
+		m_playerHUDs[i].Render(win, zoom_level);
 	
 	win.draw(m_roundcounter);	
 

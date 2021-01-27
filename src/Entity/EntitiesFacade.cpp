@@ -31,14 +31,16 @@ void EntitiesFacade::Update ( ) {
 	ProjectilesUpdate();
 }
 
-void EntitiesFacade::Draw (DrawingEnviroment& drawEnv) {
-	for (Player *player : m_players) 
-		drawEnv.AddToLayer(player,2);
-
-//	for (Item *item : m_items) item->Draw(win);
-//	for (Weapon *weapon : m_weapons) weapon->Draw(win);
-//	for (Projectile *projectile : m_projectiles) projectile->Draw(win);
-	m_world.Draw(drawEnv);
+void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
+	for (Player *player : m_players)
+	{
+		player->Render();
+		drawEnv.AddToLayer(player,3);
+	}
+//	for (Item *item : m_items) item->Render(win);
+//	for (Weapon *weapon : m_weapons) weapon->Render(win);
+//	for (Projectile *projectile : m_projectiles) projectile->Render(win);
+	m_world.Render(drawEnv);
 }
 
 void EntitiesFacade::PlayersUpdate ( ) {

@@ -18,7 +18,7 @@ class Player : public Entity {
 public:
 	void ProcessEvents(sf::Event &e, Game &g);
 	void Update() override; 
-	void Draw(sf::RenderWindow &win) override;
+	void Render() override;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	void RelocateSprites();
 	

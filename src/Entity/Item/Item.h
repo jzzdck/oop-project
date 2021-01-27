@@ -15,7 +15,7 @@ public:
 	virtual int BelongsTo() const { return -1; }
 	
 	void Update() override;
-	virtual void Draw(sf::RenderWindow & win);
+	virtual void Render();
 	virtual ~Item() { }
 private:
 	int m_owner;

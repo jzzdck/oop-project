@@ -13,7 +13,7 @@
 class HUD {
 public:
 	HUD(const Player* target);
-	void Draw(sf::RenderWindow &win, float zoom_level);
+	void Render(sf::RenderWindow &win, float zoom_level);
 	void DrawHUD(sf::RenderWindow &win, float zoom_level);
 	void Update();
 private:

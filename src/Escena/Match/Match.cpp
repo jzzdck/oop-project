@@ -49,24 +49,24 @@ void Match::Update (Game& g) {
 	m_gamehud.Update();
 }
 
-void Match::Draw (DrawingEnviroment& drawEnv)
+void Match::Render (DrawingEnviroment& drawEnv)
 {
 	drawEnv.ClearWindow({158, 207, 222});
 	
 	m_camera.SetToWindow(*drawEnv.getWin());
-	m_entities.Draw(drawEnv);
-	m_gamehud.Draw(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
+	m_entities.Render(drawEnv);
+	m_gamehud.Render(*drawEnv.getWin(), m_camera.GetZoom(), m_entities.GetRoundState());
 	
 	if(m_pause)
-		m_pmenu.Draw(drawEnv);
+		m_pmenu.Render(drawEnv);
 	drawEnv.DrawAll();
 //	win.clear({158, 207, 222});
 //	m_camera.SetToWindow(win);
-//	m_entities.Draw(win);
-//	m_gamehud.Draw(win, m_camera.GetZoom(), m_entities.GetRoundState());
+//	m_entities.Render(win);
+//	m_gamehud.Render(win, m_camera.GetZoom(), m_entities.GetRoundState());
 //	
 //	if (m_pause)
-//		m_pmenu.Draw(drawEnv);
+//		m_pmenu.Render(drawEnv);
 //	
 //	win.display();
 

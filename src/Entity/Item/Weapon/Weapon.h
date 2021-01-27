@@ -9,8 +9,8 @@ class Projectile;
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
-	/// @brief Draw the weapon in the current window
-	virtual void Draw(sf::RenderWindow &win) { Item::Draw(win); };
+	/// @brief Render the weapon in the current window
+	virtual void Render() { Item::Render(); };
 	void Update() override;
 	
 	virtual bool IsAttacking() { return attack_state; }
