@@ -8,7 +8,8 @@
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
 	m_index(player_index),
-	m_jump({2, -15})
+	m_jump({2, -15}),
+	m_animation(&m_sprite, &ms_belly)
 {
 	m_topspeed = 10.5f;
 	
@@ -61,6 +62,9 @@ void Player::Update() {
 	if (m_platform) 
 		m_sprite.move(m_platform->getSpeed());
 	
+	m_sprite.setTexture(m_textures[0], true);
+	ms_belly.setTexture(m_textures[1], true);
+	m_animation.Update(m_speed);
 	m_sprite.move(m_speed.x, m_speed.y);
 }
 

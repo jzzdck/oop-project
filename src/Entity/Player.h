@@ -10,6 +10,7 @@
 #include "Item/Item.h"
 #include "../Escena/Match/Plataform/Plataform.h"
 #include "../Game.h"
+#include "../Animation.h"
 
 class Weapon;
 
@@ -49,6 +50,7 @@ private:
 	Controls m_input;
 	
 	Jump m_jump; 
+	Animation m_animation;
 	
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
