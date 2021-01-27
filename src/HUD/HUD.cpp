@@ -26,7 +26,15 @@ void HUD::Render (sf::RenderWindow & win, float zoom_level) {
 	m_healthbar.Render(m_pos, win, zoom_level, m_dir);
 	m_playercolor.Render(m_pos, win, zoom_level, m_dir);
 	m_ammobar.Render(m_pos, win, zoom_level, m_dir);
-	DrawHUD(win, zoom_level);
+	
+	m_hud.setTexture(m_texture);
+	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
+	m_hud.setPosition(pos);
+	m_hud.setScale(m_dir*3*zoom_level, 3*zoom_level);
+}
+void HUD::draw(sf::RenderTarget& target,sf::RenderStates states)const
+{
+	target.draw(m_hud,states);
 }
 
 void HUD::Update ( ) {
@@ -34,10 +42,3 @@ void HUD::Update ( ) {
 	m_ammobar.Update(m_target);
 }
 
-void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) {
-	m_hud.setTexture(m_texture);
-	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
-	m_hud.setPosition(pos);
-	m_hud.setScale(m_dir*3*zoom_level, 3*zoom_level);
-	win.draw(m_hud);
-}

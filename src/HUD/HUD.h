@@ -9,12 +9,15 @@
 #include "Bar.h"
 #include "../Entity/Player.h"
 #include "AmmoBar.h"
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
-class HUD {
+class HUD:public sf::Drawable {
 public:
 	HUD(const Player* target);
 	void Render(sf::RenderWindow &win, float zoom_level);
-	void DrawHUD(sf::RenderWindow &win, float zoom_level);
+	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
 	void Update();
 private:
 	const Player* m_target;
