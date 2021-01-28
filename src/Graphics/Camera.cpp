@@ -11,7 +11,7 @@ Camera::Camera(float width, float height) :
 }
 
 void Camera::Update ( const CameraInfo &info ) {
-	auto prev_center = target_center;
+	auto prev_center = m_view.getCenter();
 	
 	if (info.living_states[0] && info.living_states[1]) {
 		auto sp0 = info.global_bounds[0];
@@ -29,14 +29,11 @@ void Camera::Update ( const CameraInfo &info ) {
 			cam_size.x/2.f + std::min(center0.x, center1.x), 
 			cam_size.y/2.f + std::min(center0.y, center1.y)
 		};
-	} else {
-		for (size_t i=0;i<info.living_states.size();i++) { 
-			if (info.living_states[i]) {
-				auto sp0 = info.global_bounds[i];
-				target_center = utils::getCenter(sp0);
-				prev_center = m_view.getCenter();
-				cam_size = {sp0.width, sp0.height};
-			}
+	} else for (size_t i=0;i<info.living_states.size();i++) { 
+		if (info.living_states[i]) {
+			auto sp0 = info.global_bounds[i];
+			target_center = utils::getCenter(sp0);
+			cam_size = {sp0.width, sp0.height};
 		}
 	}
 	

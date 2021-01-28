@@ -48,22 +48,20 @@ void EntitiesFacade::UpdatePlayerInfo() {
 		if (m_infos.at(i).weapon_index == -1) 
 			m_infos.at(i).ammo_data =  {-1, -1};
 //		else
-//			m_infos.at(i).ammo_data = m_weapons.at(weapon_index)->GetAmmo();
+//			m_infos.at(i).ammo_data = m_entity_arrays.at(2)[weapon_index]->GetAmmo();
 		
 		m_infos.at(i).health_data = m_players.at(i)->GetHealthData(); 
 	}
 }
 
 CameraInfo EntitiesFacade::GetCameraInfo ( ) {
-	std::vector<bool> living = {
-		m_players.at(0)->GetHealthData().is_alive,
-		m_players.at(1)->GetHealthData().is_alive
-	};
+	std::vector<bool> living(2);
+	std::vector<sf::Rect<float>> global_bounds(2);
 	
-	std::vector<sf::Rect<float>> global_bounds = {
-		m_players.at(0)->GetSprite().getGlobalBounds(),
-		m_players.at(1)->GetSprite().getGlobalBounds()
-	};
+	for(size_t i=0;i<living.size();i++) { 
+		living.at(i) = m_players.at(i)->GetHealthData().is_alive;
+		global_bounds.at(i) = m_players.at(i)->GetSprite().getGlobalBounds();
+	}
 	
 	return { living, global_bounds };
 }
