@@ -13,9 +13,7 @@ public:
 	virtual void SetPos(const sf::Rect<float> &relative_to, float facing);
 	int Owner() const { return m_owner; }
 	virtual void SetOwner(int owner, const sf::Vector2f &release_speed);
-	virtual int PreviousOwner() const { return -2; }
-	virtual bool IsTheFlag() const { return false; }
-	virtual int BelongsTo() const { return -1; }
+	virtual int WasCaptured(int base_index) { return -1; }
 	
 	void Update() override;
 	virtual void Render(DrawingEnviroment &drawEnv) ;

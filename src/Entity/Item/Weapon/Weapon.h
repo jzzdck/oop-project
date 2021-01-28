@@ -28,11 +28,8 @@ protected:
 	
 	sf::Clock firerate;
 	bool attack_state = false;
-	sf::Vector2f m_pos;
 private:
-	int PreviousOwner() const override { return -34404; }
-	bool IsTheFlag() const override { return false; }
-	int BelongsTo() const override { return -34404; }
+	int WasCaptured(int base_index) override { return -1; }
 };
 
 #endif

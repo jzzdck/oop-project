@@ -25,7 +25,12 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 }
 
 void EntitiesFacade::Update ( ) {
-	m_world.Update();	
+	m_world.Update();
+	
+	for(Player* player : players)
+		for (EntityArray *updater : updaters)
+			updater->UpdateWith(player);
+	
 	PlayersUpdate();
 	ItemsUpdate();
 	WeaponsUpdate();
@@ -33,6 +38,9 @@ void EntitiesFacade::Update ( ) {
 }
 
 void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
+	for (EntityArray *drawer : updaters)
+		drawer->RenderWith(drawEnv);
+	
 	for (Player *player : m_players) {
 		player->Render();
 		drawEnv.AddToLayer(player,2);
@@ -84,18 +92,10 @@ void EntitiesFacade::PlayersUpdate ( ) {
 void EntitiesFacade::ItemsUpdate ( ) {
 	for (size_t i=0; i<m_items.size(); ++i) { 
 		int base_col = UpdateEntity(m_items[i]);
+		int who_captured = m_items[i]->WasCaptured(base_col);
 		
-		if (m_items[i]->IsTheFlag() && base_col != -1) {
-			int previous_owner = m_items[i]->PreviousOwner();
-			bool was_stolen, taken_home;
-			was_stolen = (m_items[i]->BelongsTo() != previous_owner);
-			taken_home = (previous_owner == base_col);
-			
-			if (was_stolen && taken_home && previous_owner != -1)  {
-				m_items[i]->SetUsing(false);
-				m_roundpoints[previous_owner]++;
-			}
-		}
+		if (who_captured != -1)
+			m_roundpoints.at(who_captured)++; 
 	}
 	
 	m_items = EraseUnbounded(m_items);
