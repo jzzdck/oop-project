@@ -5,8 +5,10 @@
 #include "../../Game.h"
 #include "../../Entity/Player.h"
 #include "../Menu/Menu_Principal.h"
+#include "../../Graphics/DrawingEnviroment.h"
 #include "../../MatchSettings.h"
 #include <algorithm>
+using namespace std;
 
 Match::Match(MatchSettings m, float width, float height) :
 	Escena(width, height), m_pause(false),
@@ -14,7 +16,7 @@ Match::Match(MatchSettings m, float width, float height) :
 	m_camera(width, height), 
 	m_gamehud({width, height}, "MAIN"),
 	m_settings(m),
-	m_pmenu(width,height,&m_pause,m_camera)
+	m_pmenu(width,height,&m_pause,&m_camera)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
 	m_gamehud.SetPlayers(m_entities.GetPlayers());
@@ -57,16 +59,17 @@ void Match::Update (Game& g) {
 	m_gamehud.Update();
 }
 
-void Match::Draw (sf::RenderWindow & win) {
-	win.clear({158, 207, 222});
-	m_camera.SetToWindow(win);
-	m_entities.Draw(win);
-	m_gamehud.Draw(win, m_camera.GetZoom());
+void Match::Render (DrawingEnviroment& drawEnv)
+{
+	drawEnv.ClearWindow({158, 207, 222});
+	m_camera.SetToWindow(*drawEnv.getWin());
+	m_gamehud.Render(drawEnv, m_camera.GetZoom(), m_entities.GetRoundState());
+	m_entities.Render(drawEnv);
 	
-	if (m_pause)
-		m_pmenu.Draw(win);
 	
-	win.display();
+	if(m_pause)
+		m_pmenu.Render(drawEnv);
+	drawEnv.DrawAll();
 }
 
 Match::~Match() {
@@ -128,4 +131,3 @@ void Match::UpdateGameState (int someone_won, Game & g) {
 		g.SetScene(new Menu_Principal(win_width, win_height));
 	}
 }
-

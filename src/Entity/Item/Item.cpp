@@ -31,9 +31,8 @@ void Item::ApplyResponse (const sf::Vector2f & vec) {
 	else Entity::ApplyResponse(vec);
 }
 
-void Item::Draw (sf::RenderWindow & win) {
+void Item::Render(DrawingEnviroment &drawEnv) {
 	m_sprite.setScale(m_dir*m_scale, m_scale);
-	win.draw(m_sprite);
 }
 
 void Item::SetPos (const sf::Rect<float> & relative_to, float facing) {

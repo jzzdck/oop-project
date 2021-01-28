@@ -32,13 +32,12 @@ void Menu_Principal::Update (Game & g)
 	HighlightCurrentOption();
 }
 
-void Menu_Principal::Draw (sf::RenderWindow & win)
+void Menu_Principal::Render (DrawingEnviroment& drawEnv)
 {
-	win.clear({0, 0, 0});
-	for(const auto &text : m_texts)
-		win.draw(text);
-	win.display();
-	
+	drawEnv.ClearWindow();
+	for(auto& text: m_texts)
+		drawEnv.AddToLayer(&text,0);
+	drawEnv.DrawAll();
 }
 void Menu_Principal::LoadHeadline() {
 	std::ifstream fin("res/headlines.txt");

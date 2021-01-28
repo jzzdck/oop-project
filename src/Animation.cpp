@@ -17,10 +17,8 @@ void Animation::Update (State current_state) {
 		UpdateRun();
 		break;
 	case State::Jumping:
-		std::cout << "idle jump!" << std::endl;
 		break;
 	case State::Running | State::Jumping:
-		std::cout << "jumping and running!" << std::endl;
 		break;
 	default:
 		current_frame = 0;

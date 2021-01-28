@@ -15,7 +15,8 @@ HUD::HUD (const Player* target) : m_playercolor("player-color"), m_target(target
 	m_playercolor.SetColor(utils::loadPlayerColor(target->GetIndex()));
 }
 
-void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
+void HUD::Render (DrawingEnviroment &drawEnv, float zoom_level) {
+	sf::RenderWindow& win = *drawEnv.getWin();
 	sf::Vector2f winsize = sf::Vector2f(win.getSize());
 	
 	m_pos = { 
@@ -23,21 +24,21 @@ void HUD::Draw (sf::RenderWindow & win, float zoom_level) {
 		winsize.y * m_relative_percentage.y
 	};
 	
-	m_healthbar.Draw(m_pos, win, zoom_level, m_dir);
-	m_playercolor.Draw(m_pos, win, zoom_level, m_dir);
-	m_ammobar.Draw(m_pos, win, zoom_level, m_dir);
-	DrawHUD(win, zoom_level);
+	m_healthbar.Render(m_pos, drawEnv, zoom_level, m_dir);
+	m_playercolor.Render(m_pos, drawEnv, zoom_level, m_dir);
+	m_ammobar.Render(m_pos, drawEnv, zoom_level, m_dir);
+	
+	m_hud.setTexture(m_texture);
+	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
+	m_hud.setPosition(pos);
+	m_hud.setScale(m_dir*3*zoom_level, 3*zoom_level);
+}
+
+void HUD::draw(sf::RenderTarget& target,sf::RenderStates states) const {
+	target.draw(m_hud,states);
 }
 
 void HUD::Update ( ) {
 	m_healthbar.Update(m_target);
 	m_ammobar.Update(m_target);
-}
-
-void HUD::DrawHUD (sf::RenderWindow & win, float zoom_level) {
-	m_hud.setTexture(m_texture);
-	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
-	m_hud.setPosition(pos);
-	m_hud.setScale(m_dir*3*zoom_level, 3*zoom_level);
-	win.draw(m_hud);
 }

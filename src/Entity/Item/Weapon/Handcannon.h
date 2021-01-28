@@ -4,7 +4,7 @@
 
 class Handcannon : public Weapon {
 public:
-	void Draw(sf::RenderWindow &win) override;
+	void Render(DrawingEnviroment &drawEnv) override;
 	Handcannon(sf::Vector2f pos, float facing);
 	void Update() override;
 	bool IsAttacking ( ) override;

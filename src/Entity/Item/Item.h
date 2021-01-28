@@ -1,6 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 #include "../Entity.h"
+#include "../../Graphics/DrawingEnviroment.h"
 
 class Item : public Entity {
 public:
@@ -17,9 +18,10 @@ public:
 	virtual int BelongsTo() const { return -1; }
 	
 	void Update() override;
-	virtual void Draw(sf::RenderWindow & win) override;
+	virtual void Render(DrawingEnviroment &drawEnv) ;
 	virtual ~Item() { }
 private:
+	void Render() override {};
 	int m_owner;
 };
 

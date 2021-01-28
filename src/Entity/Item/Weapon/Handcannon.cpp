@@ -10,8 +10,7 @@ Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 {
 }
 
-void Handcannon::Draw(sf::RenderWindow & win) {
-	win.draw(m_sprite);
+void Handcannon::Render(DrawingEnviroment &drawEnv) {
 }
 
 bool Handcannon::IsAttacking ( ) {

@@ -116,13 +116,13 @@ void LobbyMenu::Update (Game & g) {
 	}
 }
 
-void LobbyMenu::Draw (sf::RenderWindow & win) {
-	win.clear({0, 0, 0});
+void LobbyMenu::Render (DrawingEnviroment & drawEnv) {
+	drawEnv.ClearWindow();
 	
-	for(const auto &text : m_texts)
-		win.draw(text);
+	for (auto& text : m_texts)
+		drawEnv.AddToLayer(&text,0);
 	
-	win.display();
+	drawEnv.DrawAll();
 }
 
 void LobbyMenu::ReplaceRoundType(int current, int next) {
