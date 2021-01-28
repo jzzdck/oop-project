@@ -121,10 +121,10 @@ void EntitiesFacade::WeaponsUpdate ( ) {
 			Player *owner = m_players[weapon->Owner()];
 			weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
 			weapon->SetAttacking(owner->GetControls()["attack"]);
+			
+			if (weapon->IsAttacking())
+				m_projectiles.push_back(weapon->GetProjectile());
 		}
-		
-		if (weapon->IsAttacking())
-			m_projectiles.push_back(weapon->GetProjectile());
 	}
 }
 
