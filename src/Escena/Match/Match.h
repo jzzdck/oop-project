@@ -8,6 +8,7 @@
 #include "../../Entity/EntitiesFacade.h"
 #include "../Menu/Menu_Pause.h"
 #include "../../HUD/MatchHUD.h"
+#include "../../MatchSettings.h"
 
 /** @brief The Match class handles the connection between the elements of the game 
 World, Player, Weapon, etc.
@@ -18,11 +19,17 @@ public:
 	void ProcessEvent(sf::Event& e,Game& g) override;
 	void Update(Game & g);
 	void Render(DrawingEnviroment& drawEnv)override;
-	Match(float width, float height);
+	Match(MatchSettings m, float width, float height);
 	~Match();
 private:
+	int CurrentRoundEnded(const std::vector<int> &round_state);
+	void UpdateGameState(int someone_won, Game & g);
+	
+	MatchSettings m_settings;
 	MatchHUD m_gamehud; 
 	EntitiesFacade m_entities;
+	sf::Clock m_gameclock;
+	
 	Camera m_camera;
 	bool m_pause;
 	

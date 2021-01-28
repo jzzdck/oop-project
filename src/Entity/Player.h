@@ -10,8 +10,14 @@
 #include "Item/Item.h"
 #include "../Escena/Match/Plataform/Plataform.h"
 #include "../Game.h"
+#include "../Animation.h"
 
 class Weapon;
+
+struct Jump {
+	int count;
+	int speed;
+};
 
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
@@ -47,13 +53,16 @@ private:
 	int m_index;
 	Controls m_input;
 	
-	int m_jumpcount, m_jumpspeed; 
+	Jump m_jump; 
+	Animation m_animation;
+	Animation::State m_state;
 	
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
 	
 	float m_health = 1000.f;
 	sf::Sprite ms_belly;
+	
 };
 
 #endif

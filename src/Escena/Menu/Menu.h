@@ -50,7 +50,6 @@ protected:
 	sf::Font m_font;
 	std::vector<sf::Color> m_text_color;
 	std::string m_location;
-	
 };
 
 #endif

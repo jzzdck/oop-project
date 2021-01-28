@@ -18,7 +18,7 @@ public:
 	sf::Vector2i GetAmmo() const { return {m_ammo, max_ammo}; }
 	
 	/// @brief Set the weapon position in relation to where the player is facing.
-	void SetPos(const sf::Rect<float> &relative_to, float facing);
+	virtual void SetPos(const sf::Rect<float> &relative_to, float facing);
 	virtual Projectile* GetProjectile() = 0;
 	
 	/// @brief Construct a weapon in relation to where the player's facing.

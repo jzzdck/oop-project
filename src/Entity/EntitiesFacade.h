@@ -31,7 +31,6 @@ private:
 	void ItemsUpdate();
 	void WeaponsUpdate();
 	void ProjectilesUpdate();
-	void EraseUnusedProjectiles();
 	
 // atributes:
 	EntitySpawner m_spawner;

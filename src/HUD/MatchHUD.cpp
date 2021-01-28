@@ -32,6 +32,7 @@ void MatchHUD::SetPlayers(std::vector<Player*> players) {
 		m_playerHUDs.push_back( HUD(players[i]) );
 }
 
+
 void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level, 
 					 const std::vector<int> & roundpoints) 
 {
@@ -64,6 +65,9 @@ void MatchHUD::draw (sf::RenderTarget & target, sf::RenderStates states) const {
 	for(size_t i=0;i<m_roundpoint.size();i++) {
 		target.draw(m_roundpoint.at(i));
 		target.draw(m_playerHUDs.at(i));
-	}
+}
+
+void MatchHUD::SetRoundState (const std::vector<int> & new_roundpoints) {
+	roundpoints = new_roundpoints;
 }
 

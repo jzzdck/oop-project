@@ -39,8 +39,8 @@ void Camera::Update ( ) {
 	}
 	
 	m_view.setCenter({ 
-		prev_center.x*0.97f + target_center.x*0.03f,
-		prev_center.y*0.97f + target_center.y*0.03f
+		prev_center.x*0.90f + target_center.x*0.1f,
+		prev_center.y*0.90f + target_center.y*0.1f
 	});
 	
 	m_view.setSize( {m_width, m_height} );
