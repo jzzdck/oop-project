@@ -21,7 +21,7 @@ bool Handcannon::IsAttacking ( ) {
 	
 	if (attack_state != is_shooting) {
 		is_shooting = !is_shooting;
-		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f;
+		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f && Owner() != -1;
 		if (!is_shooting && can_shoot && m_ammo.current >= 0) 
 			m_nextangle = m_angle, firerate.restart(), --m_ammo.current;
 		else
@@ -55,6 +55,9 @@ void Handcannon::Update ( ) {
 		m_sprite.setScale(m_scale, m_dir*m_scale);
 	} else
 		m_sprite.setScale(m_scale, m_scale);
+	
+	if (Owner() == -1)
+		m_angle = m_nextangle = 0, is_shooting = false;
 }
 
 void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
