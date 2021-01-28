@@ -5,7 +5,8 @@ Projectile::Projectile(sf::Vector2f pos, std::string keyword, float damage) :
 { }
 
 void Projectile::ApplyEffect (Player * target) {
-	target->AssignHealth(target->GetHealth() - m_damage);
+	HealthData &h = target->GetHealthData();
+	h.current_health -= m_damage;
 	in_use = false;
 }
 

@@ -19,6 +19,12 @@ struct Jump {
 	int speed;
 };
 
+struct HealthData {
+	const float max_health = 1000.f;
+	float current_health = 1000.f;
+	bool is_alive = true;
+};
+
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
@@ -27,12 +33,10 @@ public:
 	void Render() override;
 	void RelocateSprites();
 	
-	
 	void ApplyResponse(const sf::Vector2f &vec) override;
 	
-	bool IsAlive() const {  return m_health > 0.0f; }
-	void AssignHealth(float new_health) { m_health = new_health; }
-	float GetHealth() const { return m_health; }
+	HealthData &GetHealthData() { return m_health; };
+	HealthData  GetHealthData() const { return m_health; };
 	int GetIndex() const { return m_index; }
 	bool IsAttacking() { return m_input["attack"] && m_weapon; }
 	Controls &GetControls() { return m_input;}
@@ -55,14 +59,12 @@ private:
 	
 	Jump m_jump; 
 	Animation m_animation;
-	Animation::State m_state;
 	
 	Item *m_item = nullptr;
 	Weapon *m_weapon = nullptr; 
 	
-	float m_health = 1000.f;
+	HealthData m_health;
 	sf::Sprite ms_belly;
-	
 };
 
 #endif

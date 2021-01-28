@@ -1,14 +1,16 @@
 #include "Healthbar.h"
+#include "../Entity/Player.h"
 
 HealthBar::HealthBar() : Bar("healthbar") {
 	with_background = true;
 }
 
 void HealthBar::Update (const Player * target) {
-	float health = target->GetHealth();
-	if (health <= 0.f) 
-		health = 0.f;
+	HealthData h = target->GetHealthData();
+	float current = h.current_health;
+	if (h.current_health <= 0.f) 
+		current = 0.f;
 	
-	this->SetWidth(health/1000.f);
+	this->SetWidth(current/h.max_health);
 }
 

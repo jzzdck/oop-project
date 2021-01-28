@@ -18,7 +18,8 @@ void Bomb::ApplyResponse (const sf::Vector2f & vec) {
 
 void Bomb::ApplyEffect (Player * target) {
 	if (!exploding) { max_life = 0.1f; return; }
-	target->AssignHealth(target->GetHealth() - m_damage);
+	HealthData &h = target->GetHealthData();
+	h.current_health -= m_damage;
 }
 
 void Bomb::Update ( ) {

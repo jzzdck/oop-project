@@ -10,8 +10,12 @@ Camera::Camera(float width, float height) :
 
 void Camera::Update ( ) {
 	sf::Vector2f prev_center = m_view.getCenter();
+	std::vector<HealthData> h = { 
+		m_players[0]->GetHealthData(),
+		m_players[1]->GetHealthData()
+	};
 	
-	if (m_players[0]->IsAlive() && m_players[1]->IsAlive()) {
+	if (h[0].is_alive && h[1].is_alive) {
 		auto sp0 = m_players[0]->GetSprite().getGlobalBounds();
 		auto sp1 = m_players[1]->GetSprite().getGlobalBounds(); 
 		
@@ -29,7 +33,7 @@ void Camera::Update ( ) {
 		};
 	} else {
 		for (size_t i=0;i<m_players.size();i++) { 
-			if (m_players[i]->IsAlive()) {
+			if (h[i].is_alive) {
 				auto sp0 = m_players[i]->GetSprite().getGlobalBounds();
 				target_center = utils::getCenter(sp0);
 				prev_center = m_view.getCenter();

@@ -57,23 +57,26 @@ void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
 
 void EntitiesFacade::PlayersUpdate ( ) {
 	for (Player *player : m_players) {
+		HealthData &h = player->GetHealthData();
 		UpdateEntity(player);
 		
 		if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_width-100, m_height-100}))
-			player->AssignHealth(-1000.f);
+			h.current_health = -1000.f;
 		
-		if (!player->IsAlive() && m_respawners[player->GetIndex()] == 0.00f) {
+		if (!h.is_alive && m_respawners[player->GetIndex()] == 0.00f) {
 			m_respawners[player->GetIndex()] = m_gameclock.getElapsedTime().asSeconds();
 			player->UnassignObjects();
 		}
 	}
 	
 	for (size_t i=0; i<m_respawners.size(); ++i) {
+		HealthData &aux = m_players[i]->GetHealthData();
 		float can_respawn = m_gameclock.getElapsedTime().asSeconds() - m_respawners[i];
-		if (!m_players[i]->IsAlive() && can_respawn >= 1.5f) {
+		if (!aux.is_alive && can_respawn >= 1.5f) {
 			m_players[i]->GetSprite().setPosition(m_players[i]->GetInitPos());
 			m_players[i]->SetSpeed({0, 0});
-			m_players[i]->AssignHealth(1000.f);
+			aux.current_health = 1000.f;
+			aux.is_alive = true;
 			m_respawners[i] = 0.00f;
 		}
 	}
@@ -126,9 +129,11 @@ void EntitiesFacade::ProjectilesUpdate ( ) {
 	m_projectiles = EraseUnbounded(m_projectiles);
 	
 	for (Projectile *projectile : m_projectiles) {
-		for (Player *player : m_players)
-			if (projectile->CollidesWith(player->GetSprite()) && player->IsAlive())
+		for (Player *player : m_players) {
+			HealthData &h = player->GetHealthData(); 
+			if (projectile->CollidesWith(player->GetSprite()) && h.is_alive)
 				projectile->ApplyEffect(player);
+		}
 	}
 }
 
