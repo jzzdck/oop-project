@@ -14,11 +14,14 @@ public:
 		Jumping = 1 << 2
 	};
 	
+	State GetState() const { return m_state; }
+	void SetState(State new_state) { m_state = new_state; }
 	Animation(sf::Sprite* target, sf::Sprite *indep);
-	void Update(State current_state);
+	void Update();
 private:
 	void UpdateRun();
 	
+	State m_state;
 	sf::Clock m_clock;
 	sf::Time time_per_frame;
 	int run_frames = 8;

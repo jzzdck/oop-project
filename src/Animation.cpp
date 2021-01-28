@@ -11,8 +11,8 @@ Animation::Animation (sf::Sprite * target, sf::Sprite * indep) {
 	m_indeps.loadFromFile("res/running_indep.png");
 }
 
-void Animation::Update (State current_state) {
-	switch (current_state) {
+void Animation::Update () {
+	switch (m_state) {
 	case State::Running:
 		UpdateRun();
 		break;
