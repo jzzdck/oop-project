@@ -5,6 +5,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include "Utils/FileManager.h"
+#include "Graphics/DrawingEnviroment.h"
 
 class Escena;
 
@@ -15,7 +16,7 @@ class Escena;
 
 class Game {
 public:
-	/// @brief Execute the main loop: ProcessEvents() -> Update() -> Draw() -> repeat.
+	/// @brief Execute the main loop: ProcessEvents() -> Update() -> Render() -> repeat.
 	void Run(); 
 	
 	/// @brief Process game's events.
@@ -25,8 +26,8 @@ public:
 	/// In this function the game sets its current scene to another one, if necessary.
 	void Update();
 	
-	/// @brief Draw the game's elements.
-	void Draw();
+	/// @brief Render the game's elements.
+	void Render();
 	
 	/// @brief Change the game's scene.
 	/// @param new_scene Set the next scene to this.
@@ -43,6 +44,8 @@ private:
 	Escena *m_current_scene;
 	Escena *m_next_scene = nullptr;
 	float win_width, win_height;
+	
+	DrawingEnviroment m_drawEnv;
 };
 
 #endif

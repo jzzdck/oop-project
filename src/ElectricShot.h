@@ -6,7 +6,7 @@ class ElectricShot : public Projectile {
 public:
 	ElectricShot(sf::Rect<float> rect, const sf::Vector2f &pos, float facing);
 	void ApplyEffect (Player * target) override;
-	void Draw (sf::RenderWindow & win) override;
+	void Render () override;
 	void Update ( ) override;
 private:
 	sf::Clock m_lifetime;

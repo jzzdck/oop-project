@@ -1,9 +1,16 @@
 #include "Slider.h"
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
 Slider::Slider()
 {
 	
+}
+
+void Slider::draw(sf::RenderTarget& target, sf::RenderStates states)const
+{
+	target.draw(m_r, states);
 }
 
 void Slider::Move(bool const direction)
@@ -71,8 +78,4 @@ void Slider::setPosition(sf::Vector2f const p)
 void Slider::setTopValue(int const max_value)
 {
 	m_TopValue=max_value;
-}
-const sf::RectangleShape Slider::getRect()const
-{
-	return m_r;
 }

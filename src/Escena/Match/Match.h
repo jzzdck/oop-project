@@ -18,7 +18,7 @@ class Match : public Escena {
 public:
 	void ProcessEvent(sf::Event& e,Game& g) override;
 	void Update(Game & g);
-	void Draw(sf::RenderWindow & win);
+	void Render(DrawingEnviroment& drawEnv)override;
 	Match(MatchSettings m, float width, float height);
 	~Match();
 private:

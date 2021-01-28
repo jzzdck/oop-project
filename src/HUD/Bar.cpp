@@ -17,7 +17,8 @@ Bar::Bar(std::string keyword) {
 	m_bar.setFillColor(color);
 }
 
-void Bar::Draw (const sf::Vector2f & hud_pos, sf::RenderWindow & win, float zoom_level, float dir) {
+void Bar::Render (const sf::Vector2f & hud_pos, DrawingEnviroment &drawEnv, float zoom_level, float dir) {
+	auto &win = *drawEnv.getWin();
 	sf::Vector2f winsize = sf::Vector2f(win.getSize());
 	
 	sf::Vector2f relative_pos = {
@@ -30,12 +31,13 @@ void Bar::Draw (const sf::Vector2f & hud_pos, sf::RenderWindow & win, float zoom
 	if (with_background) {
 		m_background.setPosition(pos);
 		m_background.setScale(dir*zoom_level, zoom_level);
-		win.draw(m_background);
+		drawEnv.AddToLayer(&m_background, 0);
 	}
 	
 	m_bar.setPosition(pos);
 	m_bar.setScale(dir*zoom_level, zoom_level);
-	win.draw(m_bar);
+	
+	drawEnv.AddToLayer(&m_bar, 0);
 }
 
 void Bar::SetWidth (float new_width) {

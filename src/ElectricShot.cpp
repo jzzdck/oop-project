@@ -16,8 +16,9 @@ void ElectricShot::ApplyEffect (Player * target) {
 	Projectile::ApplyEffect(target);
 }
 
-void ElectricShot::Draw (sf::RenderWindow & win) {
-	win.draw(m_sprite);
+void ElectricShot::Render () 
+{
+	
 }
 
 void ElectricShot::Update ( ) {

@@ -16,14 +16,17 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 }
 
 
-void Flag::Draw (sf::RenderWindow & win) {
+void Flag::Render (DrawingEnviroment &drawEnv) {
 	m_dep.setPosition(m_sprite.getPosition());
 	
 	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
-		m_trail.Draw(win);
-	
-	win.draw(m_sprite);
-	win.draw(m_dep);
+		m_trail.Render(drawEnv);
+}
+
+void Flag::draw(sf::RenderTarget& target,sf::RenderStates states)const
+{
+	target.draw(m_sprite,states);
+	target.draw(m_dep,states);
 }
 
 void Flag::Update ( ) {

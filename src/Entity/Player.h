@@ -24,7 +24,10 @@ class Player : public Entity {
 public:
 	void ProcessEvents(sf::Event &e, Game &g);
 	void Update() override; 
-	void Draw(sf::RenderWindow &win) override;
+	void Render() override;
+	void RelocateSprites();
+	
+	
 	void ApplyResponse(const sf::Vector2f &vec) override;
 	
 	bool IsAlive() const {  return m_health > 0.0f; }
@@ -44,6 +47,7 @@ public:
 	
 	Player(sf::Vector2f pos, int player_index);
 private:
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	void LoadKeys();
 	
 	int m_index;

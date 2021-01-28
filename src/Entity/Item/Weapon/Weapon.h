@@ -9,8 +9,8 @@ class Projectile;
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
-	/// @brief Draw the weapon in the current window
-	virtual void Draw(sf::RenderWindow &win) { Item::Draw(win); };
+	/// @brief Render the weapon in the current window
+	virtual void Render(DrawingEnviroment &drawEnv) override { Item::Render(drawEnv); };
 	void Update() override;
 	
 	virtual bool IsAttacking() { return attack_state; }
@@ -33,6 +33,10 @@ protected:
 	sf::Clock firerate;
 	bool attack_state = false;
 	sf::Vector2f m_pos;
+private:
+	int PreviousOwner() const override { return -2; }
+	bool IsTheFlag() const override { return false; }
+	int BelongsTo() const override { return -1; }
 };
 
 #endif

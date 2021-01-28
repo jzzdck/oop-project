@@ -38,13 +38,17 @@ void Bomb::Explode ( ) {
 	lifetime.restart();
 }
 
-void Bomb::Draw (sf::RenderWindow& win) {
+void Bomb::Render (DrawingEnviroment &drawEnv) {
 	utils::flipTexture(m_dir, m_scale, m_sprite);
-	win.draw(m_sprite);
-	m_trail.Draw(win);
+	m_trail.Render(drawEnv); 
 }
 
 void Bomb::ApplyGravity (float gravity) {
 	m_speed.y += gravity*0.75;
+}
+
+void Bomb::draw (sf::RenderTarget & target, sf::RenderStates states) const {
+	target.draw(m_trail);
+	target.draw(m_sprite);
 }
 

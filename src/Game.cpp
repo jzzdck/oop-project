@@ -4,7 +4,8 @@
 Game::Game(float width, float height, std::string window_name) :
 	win_width(width), win_height(height), 
 	m_window(sf::VideoMode(width, height), window_name),
-	m_current_scene(new Menu_Principal(width, height))
+	m_current_scene(new Menu_Principal(width, height)),
+	m_drawEnv(&m_window)
 {
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	m_window.create(sf::VideoMode(1024, 768, desktop.bitsPerPixel), window_name);
@@ -21,7 +22,7 @@ void Game::Run() {
 	while(m_window.isOpen()) {
 		ProcessEvents();
 		Update();
-		Draw();
+		Render();
 		
 		if (m_next_scene) {
 			delete m_current_scene;
@@ -36,8 +37,9 @@ void Game::Update() {
 	m_current_scene->Update(*this);
 }
 
-void Game::Draw() {
-	m_current_scene->Draw(m_window);
+void Game::Render() 
+{
+	m_current_scene->Render(m_drawEnv);
 }
 
 void Game::SetScene (Escena * next_scene) {
