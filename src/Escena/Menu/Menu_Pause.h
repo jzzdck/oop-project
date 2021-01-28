@@ -2,6 +2,7 @@
 #define MENU_PAUSE_H
 #include "Menu.h"
 #include "../../Graphics/Camera.h"
+#include <SFML/Graphics/RectangleShape.hpp>
 class Menu_Pause : public Menu {
 public:
 	Menu_Pause(float width, float height,bool* pause,Camera* c);
@@ -9,16 +10,16 @@ public:
 	void Update (Game & g)override;
 	void Render (DrawingEnviroment& drawEnv)override;
 	void Close();
-	void Fade(sf::RenderWindow & win);
 protected:
 private:
 	void Select(Game& g)override;
-	void RelocateText(sf::RenderWindow & win);
+	void Relocate(sf::RenderWindow & win);
 	
 	bool* m_pause;
 	Camera* m_c;
 	sf::Vector2f m_pos, winsize;
 	std::vector<sf::Vector2f> m_auxpos;
+	sf::RectangleShape m_filter;
 
 };
 

@@ -2,15 +2,20 @@
 #include "../../Game.h"
 #include <SFML/Window/Event.hpp>
 #include "Menu_Principal.h"
+#include "../../Utils/generalUtils.h"
 
 Menu_Pause::Menu_Pause(float width, float height,bool* pause,Camera* c):
 	Menu(width,height,"pause"),
-	m_pause(pause),m_c(c)
+	m_pause(pause),m_c(c),m_filter({win_width*2.f, win_height*2.f})
 {
 	for(size_t i=0;i<m_texts.size();i++) 
 	{
 		m_auxpos.push_back(m_texts[i].getPosition());
 	}
+	m_filter.setOrigin(utils::getCenter(m_filter.getLocalBounds()));
+	m_filter.setPosition(-win_width/2.f, -win_height/2.f);
+	m_filter.setFillColor({0, 0, 0, 100});
+	
 }
 
 void Menu_Pause::Select (Game & g)
@@ -64,24 +69,18 @@ void Menu_Pause::Update (Game & g)
 
 void Menu_Pause::Render (DrawingEnviroment& drawEnv) 
 {
-	RelocateText(*drawEnv.getWin());
-	Fade(*drawEnv.getWin());
+	Relocate(*drawEnv.getWin());
+	
 	for(auto &text : m_texts)
-		drawEnv.AddToLayer(&text,0);
+		drawEnv.AddToLayer(&text,1);
+	drawEnv.AddToLayer(&m_filter,0);
 }
 
 void Menu_Pause::Close()
 {
 	*(m_pause)=false;
 }
-void Menu_Pause::Fade(sf::RenderWindow & win)
-{
-	sf::RectangleShape s({win_width*2.f, win_height*2.f});
-	s.setPosition(-win_width/2.f, -win_height/2.f);
-	s.setFillColor({0, 0, 0, 100});
-	win.draw(s);	
-}
-void Menu_Pause::RelocateText(sf::RenderWindow & win)
+void Menu_Pause::Relocate(sf::RenderWindow & win)
 {
 	float zoom_level=m_c->GetZoom();
 	for(size_t i=0;i<m_texts.size();i++) 
@@ -90,4 +89,6 @@ void Menu_Pause::RelocateText(sf::RenderWindow & win)
 		m_texts[i].setPosition(pos);
 		m_texts[i].setScale(0.8*zoom_level,0.8*zoom_level);
 	}
+	m_filter.setPosition(win.mapPixelToCoords(sf::Vector2i(-win_width/2.f, -win_height/2.f)));
+	m_filter.setScale(1.5*zoom_level,1.5*zoom_level);
 }
