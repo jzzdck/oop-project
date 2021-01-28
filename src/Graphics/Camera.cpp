@@ -3,13 +3,14 @@
 #include "../Utils/generalUtils.h"
 
 Camera::Camera(float width, float height) :
-	m_width(width), m_height(height)
+	m_width(width), m_height(height),m_increment(0)
 {
 	m_view.setCenter(m_width*utils::randf(), m_height*utils::randf());
 	m_view.setSize(0,0);
 }
 
 void Camera::Update ( ) {
+	
 	sf::Vector2f prev_center = m_view.getCenter();
 	std::vector<HealthData> h = { 
 		m_players[0]->GetHealthData(),
@@ -49,7 +50,7 @@ void Camera::Update ( ) {
 	});
 	
 	m_view.setSize( {m_width, m_height} );
-	float new_zoom = std::max(cam_size.x/m_width + 0.36f, cam_size.y/m_height + 0.36f);
+	float new_zoom = std::max(cam_size.x/m_width + 0.36f +m_increment, cam_size.y/m_height + 0.36f+m_increment);
 	m_zoom = new_zoom*0.05 + m_zoom*0.95;
 	m_view.zoom(m_zoom);
 }
@@ -62,3 +63,8 @@ void Camera::SetPlayers (std::vector<Player*> players) {
 	m_players = players;
 }
 
+void Camera::In_De_creaseZoom(float porcentual_increment)
+{
+	m_increment+=porcentual_increment;
+	
+}
