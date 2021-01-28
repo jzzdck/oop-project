@@ -50,7 +50,7 @@ void Camera::Update ( ) {
 	});
 	
 	m_view.setSize( {m_width, m_height} );
-	float new_zoom = std::max(cam_size.x/m_width + 0.36f +m_increment, cam_size.y/m_height + 0.36f+m_increment);
+	float new_zoom = std::max(cam_size.x/m_width + 0.36f +m_increment*m_zoom, cam_size.y/m_height + 0.36f+m_increment*m_zoom);
 	m_zoom = new_zoom*0.05 + m_zoom*0.95;
 	m_view.zoom(m_zoom);
 }
