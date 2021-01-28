@@ -45,3 +45,11 @@ void Item::SetPos (const sf::Rect<float> & relative_to, float facing) {
 		m_sprite.move(relative_to.width - 15, 0);
 }
 
+void Item::SetOwner(int owner, const sf::Vector2f &release_speed) {
+	m_owner = owner;
+	
+	if (owner == -1)
+		SetSpeed( {release_speed.x*1.3f, -6.f} );
+	else
+		SetSpeed( {0, 0} );
+}

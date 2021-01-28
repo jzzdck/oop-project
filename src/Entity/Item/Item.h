@@ -12,7 +12,7 @@ public:
 	/// @brief Set the weapon position in relation to where the player is facing.
 	virtual void SetPos(const sf::Rect<float> &relative_to, float facing);
 	int Owner() const { return m_owner; }
-	virtual void SetOwner(int owner) { m_owner = owner; }
+	virtual void SetOwner(int owner, const sf::Vector2f &release_speed);
 	virtual int PreviousOwner() const { return -2; }
 	virtual bool IsTheFlag() const { return false; }
 	virtual int BelongsTo() const { return -1; }

@@ -10,7 +10,7 @@ public:
 	void Update() override;
 	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
 	bool IsTheFlag() const override { return true; }
-	void SetOwner(int owner) override;
+	void SetOwner(int owner, const sf::Vector2f &release_speed) override;
 	int PreviousOwner() const override { return prev_owner; }
 	int BelongsTo() const override { return m_who; }
 private:

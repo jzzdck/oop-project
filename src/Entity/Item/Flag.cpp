@@ -37,8 +37,8 @@ void Flag::Update ( ) {
 	} else m_trail.Clear();
 }
 
-void Flag::SetOwner (int owner) {
+void Flag::SetOwner (int owner, const sf::Vector2f &release_speed) {
 	prev_owner = Owner();
-	Item::SetOwner(owner);
+	Item::SetOwner(owner, release_speed);
 }
 
