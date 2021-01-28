@@ -48,11 +48,23 @@ Projectile * Handcannon::GetProjectile ( ) {
 
 void Handcannon::Update ( ) {
 	Weapon::Update();
-	utils::flipTexture(m_dir, m_scale, m_sprite),
-	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
+	float angle = m_angle*180.f/M_PI;
+	m_sprite.setRotation(-angle);
 	
-	if (m_dir == -1.f && Owner() != -1)
-		m_sprite.setOrigin(m_sprite.getGlobalBounds().width/2.f, 0);
+	if (m_dir == -1.f) {
+		m_sprite.setRotation(180 + angle);
+		m_sprite.setScale(m_scale, m_dir*m_scale);
+	} else
+		m_sprite.setScale(m_scale, m_scale);
 }
 
+void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
+	m_dir = facing;
+	m_sprite.setPosition({relative_to.left, relative_to.top+30});
+	
+	if (facing == -1.f)
+		m_sprite.move(15, 0);
+	else
+		m_sprite.move(relative_to.width - 15, 0);
+}
 

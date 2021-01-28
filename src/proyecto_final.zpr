@@ -107,7 +107,7 @@ cursor=15:9
 [source]
 path=Entity/Item/Weapon/Handcannon.cpp
 obj_path=${TEMP_DIR}/${SRC_FNAME}.2.o
-cursor=54:62
+cursor=48:28
 open=true
 [source]
 path=Entity/proyectile/MeleeHit.cpp
