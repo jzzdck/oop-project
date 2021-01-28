@@ -52,7 +52,7 @@ void Player::Update() {
 	
 	m_speed.x = std::fabs(m_speed.x);
 	if (m_input["right"] || m_input["left"]) {
-		m_animation.SetState(Animation::State::Running | m_animation.GetState());
+		m_animation.SetState(Animation::State::Running|m_animation.GetState());
 		
 		m_dir = 1.f;
 		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
@@ -64,10 +64,7 @@ void Player::Update() {
 		if (m_animation.GetState() != Animation::State::Jumping)
 			m_animation.SetState(Animation::State::Idle);
 	}
-	
-	if (m_weapon)
-		m_weapon->SetAttacking(m_input["attack"]);
-	
+		
 	if (m_platform) 
 		m_sprite.move(m_platform->getSpeed());
 	
@@ -96,9 +93,6 @@ void Player::RelocateSprites() {
 	ms_belly.setPosition(m_sprite.getPosition());
 	utils::flipTexture(m_dir, m_scale, ms_belly);
 	utils::flipTexture(m_dir, m_scale, m_sprite);
-	
-	if (m_item) 
-		m_item->GetSprite().setPosition(m_sprite.getPosition());
 }
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {
@@ -111,48 +105,4 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 		m_animation.SetState(Animation::State::Idle);
 	
 	m_jump.count = 2;
-}
-
-void Player::UnassignObject (Item * if_item) {
-	m_item->SetOwner(-1);
-	m_item->SetSpeed({GetSpeed().x*1.3f, -6});
-	m_item = nullptr;
-}
-
-void Player::UnassignObject(Weapon *if_weapon) {
-	m_weapon->SetOwner(-1);
-	m_weapon->SetSpeed({GetSpeed().x*1.3f, -6.f});
-	m_weapon->SetAttacking(false);
-	m_weapon = nullptr;
-}
-
-void Player::AssignObject(Item *new_item) {
-	if (m_item) 
-		UnassignObject(m_item);
-	
-	m_item = new_item;
-	m_item->SetOwner(m_index);
-}
-
-void Player::AssignObject(Weapon *new_weapon) {
-	if (m_weapon) 
-		UnassignObject(m_weapon);
-	
-	m_weapon = new_weapon;
-	m_weapon->SetOwner(m_index);
-}
-
-void Player::UnassignObjects ( ) {
-	if (m_weapon) 
-		UnassignObject(m_weapon);
-	
-	if (m_item)
-		UnassignObject(m_item);
-}
-
-sf::Vector2i Player::GetAmmo ( ) const {
-	if (!m_weapon)
-		return {-1, -1};
-	else
-		return m_weapon->GetAmmo();
 }
