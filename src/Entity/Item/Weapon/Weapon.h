@@ -9,16 +9,11 @@ class Projectile;
 /// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
-	/// @brief Draw the weapon in the current window
-	virtual void Draw(sf::RenderWindow &win) { Item::Draw(win); };
 	void Update() override;
 	
 	virtual bool IsAttacking() { return attack_state; }
 	void SetAttacking(bool state) { attack_state = state; }
 	sf::Vector2i GetAmmo() const { return {m_ammo, max_ammo}; }
-	
-	/// @brief Set the weapon position in relation to where the player is facing.
-	virtual void SetPos(const sf::Rect<float> &relative_to, float facing);
 	virtual Projectile* GetProjectile() = 0;
 	
 	/// @brief Construct a weapon in relation to where the player's facing.
@@ -33,6 +28,10 @@ protected:
 	sf::Clock firerate;
 	bool attack_state = false;
 	sf::Vector2f m_pos;
+private:
+	int PreviousOwner() const override { return -34404; }
+	bool IsTheFlag() const override { return false; }
+	int BelongsTo() const override { return -34404; }
 };
 
 #endif

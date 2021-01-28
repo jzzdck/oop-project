@@ -19,12 +19,6 @@ sf::Vector2f Weapon::OffSet(const sf::Rect<float> &to_offset) {
 	return sf::Vector2f(x, y);
 }
 
-void Weapon::SetPos(const sf::Rect<float> & relative_to, float facing) {
-	m_dir = facing;
-	m_pos = OffSet(relative_to);
-	m_sprite.setPosition(m_pos);
-}
-
 void Weapon::Update ( ) {
 	Item::Update();
 	

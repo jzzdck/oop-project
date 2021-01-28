@@ -32,8 +32,17 @@ void Item::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Item::Draw (sf::RenderWindow & win) {
-	if (m_owner != -1 || m_speed.x != 0.f) 
-		utils::flipTexture(m_dir, m_scale, m_sprite);
+	m_sprite.setScale(m_dir*m_scale, m_scale);
 	win.draw(m_sprite);
+}
+
+void Item::SetPos (const sf::Rect<float> & relative_to, float facing) {
+	m_dir = facing;
+	m_sprite.setPosition({relative_to.left, relative_to.top+30});
+	
+	if (facing == -1.f)
+		m_sprite.move(15, 0);
+	else
+		m_sprite.move(relative_to.width - 15, 0);
 }
 
