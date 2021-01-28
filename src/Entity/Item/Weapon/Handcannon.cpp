@@ -3,6 +3,7 @@
 #include <iostream>
 #include "../../proyectile/Bomb.h"
 #include <cmath>
+#include "../../../Utils/generalUtils.h"
 
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 	Weapon(pos, "handcannon", facing, 2)
@@ -10,13 +11,6 @@ Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 }
 
 void Handcannon::Draw(sf::RenderWindow & win) {
-	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
-	if (m_speed.x != 0.f || Owner() != -1)
-		m_sprite.setScale(m_dir*2, 2);
-	
-	if (Owner() != -1 && m_dir == -1.f)
-		m_sprite.move(m_sprite.getGlobalBounds().width, 0);
-	
 	win.draw(m_sprite);
 }
 
@@ -51,3 +45,14 @@ Projectile * Handcannon::GetProjectile ( ) {
 		pos
 	);
 }
+
+void Handcannon::Update ( ) {
+	Weapon::Update();
+	utils::flipTexture(m_dir, m_scale, m_sprite),
+	m_sprite.setRotation(-m_dir*m_angle*180.f/M_PI);
+	
+	if (m_dir == -1.f && Owner() != -1)
+		m_sprite.setOrigin(m_sprite.getGlobalBounds().width/2.f, 0);
+}
+
+
