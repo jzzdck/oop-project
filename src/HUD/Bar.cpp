@@ -44,10 +44,6 @@ void Bar::SetWidth (float new_width) {
 	m_bar.setSize({m_width*new_width, m_bar.getSize().y});
 }
 
-void Bar::Update (const Player * target) {
-	return;
-}
-
 void Bar::SetColor (const sf::Color & color) {
 	m_bar.setFillColor(color);
 }

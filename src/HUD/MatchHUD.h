@@ -11,20 +11,17 @@
 #include "../Entity/Player.h"
 #include "MatchHUD.h"
 #include "../Graphics/DrawingEnviroment.h"
-using namespace std;
+#include "../Entity/EntitiesFacade.h"
 
 class MatchHUD : public sf::Drawable {
 public:
 	MatchHUD(const sf::Vector2f &winsize, std::string mapname);
-	void SetPlayers(std::vector<Player*> players);
-	void Render(DrawingEnviroment &drawEnv, float zoom_level, const std::vector<int> &roundpoints);
-	void SetRoundState(const std::vector<int> &new_roundpoints);
-	void Draw(sf::RenderWindow &win, float zoom_level);
-	void Update();
+	void Render(DrawingEnviroment &drawEnv, float zoom_level);
+	void Update(const vector<HUDinfo> &info);
+	void Init(const vector<HUDinfo> &info);
 private:
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	std::vector<HUD> m_playerHUDs;
-	std::vector<int> roundpoints;
 
 	std::vector<sf::Text> m_roundpoint;
 	sf::Font m_font;

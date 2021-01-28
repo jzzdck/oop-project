@@ -27,24 +27,10 @@ MatchHUD::MatchHUD(const sf::Vector2f &winsize, std::string mapname) {
 	m_roundcounter.scale(2.f, 2.f);
 }
 
-void MatchHUD::SetPlayers(std::vector<Player*> players) {
-	for (size_t i=0; i<players.size(); ++i)
-		m_playerHUDs.push_back( HUD(players[i]) );
-}
-
-
-void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level, 
-					 const std::vector<int> & roundpoints) 
+void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level) 
 {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
 		m_playerHUDs[i].Render(drawEnv, zoom_level);
-	
-	sf::Vector2f relative_to = m_roundcounter.getPosition();
-	for (size_t i=0; i<roundpoints.size(); ++i) { 
-		m_roundpoint.at(i).setString(std::to_string(roundpoints[i]));
-		m_roundpoint.at(i).setFillColor(utils::loadPlayerColor(i));
-		m_roundpoint.at(i).setPosition({relative_to.x + 26.8f + float(i)*42, relative_to.y + 19});
-	}
 	
 	drawEnv.AddToLayer(&m_roundcounter, 3);
 	for(size_t i=0;i<m_roundpoint.size();i++)
@@ -54,9 +40,16 @@ void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level,
 		drawEnv.AddToLayer(&m_playerHUDs.at(i), 0);
 }
 
-void MatchHUD::Update () {
+void MatchHUD::Update (const vector<HUDinfo> &info) {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
-		m_playerHUDs[i].Update();	
+		m_playerHUDs[i].Update(info[i]);	
+	
+	sf::Vector2f relative_to = m_roundcounter.getPosition();
+	for (size_t i=0; i<info.size(); ++i) { 
+		m_roundpoint.at(i).setString(std::to_string(info[i].round_data));
+		m_roundpoint.at(i).setFillColor(utils::loadPlayerColor(i));
+		m_roundpoint.at(i).setPosition({relative_to.x + 26.8f + float(i)*42, relative_to.y + 19});
+	}
 }
 
 void MatchHUD::draw (sf::RenderTarget & target, sf::RenderStates states) const {
@@ -68,7 +61,10 @@ void MatchHUD::draw (sf::RenderTarget & target, sf::RenderStates states) const {
 	}
 }
 
-void MatchHUD::SetRoundState (const std::vector<int> & new_roundpoints) {
-	roundpoints = new_roundpoints;
+void MatchHUD::Init (const vector<HUDinfo> & info) {
+	for (size_t i=0; i<info.size(); ++i) {
+		m_playerHUDs.push_back(HUD(i));
+		m_playerHUDs.at(i).Update(info.at(i));
+	}
 }
 

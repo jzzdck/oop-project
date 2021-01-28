@@ -5,6 +5,7 @@
 #include <string>
 #include "../Entity/Player.h"
 #include "../Graphics/DrawingEnviroment.h"
+#include "../Entity/EntitiesFacade.h"
 
 class Bar {
 public:
@@ -12,7 +13,7 @@ public:
 	void SetWidth(float new_width);
 	void SetColor(const sf::Color &color);
 	
-	virtual void Update(const Player *target);
+	virtual void Update(const HUDinfo &info) {};
 	void Render(const sf::Vector2f &pos, DrawingEnviroment &drawEnv, float zoom_level, float dir);
 protected:
 	bool with_background = false;

@@ -2,9 +2,9 @@
 #include "../Utils/FileManager.h"
 #include "../Utils/generalUtils.h"
 
-HUD::HUD (const Player* target) : m_playercolor("player-color"), m_target(target)
+HUD::HUD (int player_index) : m_playercolor("player-color")
 {
-	m_dir = target->GetIndex() ? 1.f : -1.f;
+	m_dir = player_index ? 1.f : -1.f;
 	FileManager s("PlayerHUD.conf", "HUD");
 	
 	m_relative_percentage = utils::getXY(s["relative_percentage"]);
@@ -12,7 +12,7 @@ HUD::HUD (const Player* target) : m_playercolor("player-color"), m_target(target
 	m_texture.loadFromFile("res/healthbar.png");
 	m_hud.setTexture(m_texture);
 	
-	m_playercolor.SetColor(utils::loadPlayerColor(target->GetIndex()));
+	m_playercolor.SetColor(utils::loadPlayerColor(player_index));
 }
 
 void HUD::Render (DrawingEnviroment &drawEnv, float zoom_level) {
@@ -38,7 +38,7 @@ void HUD::draw(sf::RenderTarget& target,sf::RenderStates states) const {
 	target.draw(m_hud,states);
 }
 
-void HUD::Update ( ) {
-	m_healthbar.Update(m_target);
-	m_ammobar.Update(m_target);
+void HUD::Update (const HUDinfo &info) {
+	m_healthbar.Update(info);
+	m_ammobar.Update(info);
 }

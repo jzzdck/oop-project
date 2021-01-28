@@ -13,15 +13,15 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../Graphics/DrawingEnviroment.h"
+#include "../Entity/EntitiesFacade.h"
 
 class HUD : public sf::Drawable {
 public:
-	HUD(const Player* target);
+	HUD(int index);
 	void Render(DrawingEnviroment &drawEnv, float zoom_level);
-	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
-	void Update();
+	void draw(sf::RenderTarget& target,sf::RenderStates states) const override;
+	void Update(const HUDinfo &info);
 private:
-	const Player* m_target;
 	sf::Vector2f m_pos, m_relative_percentage;
 	
 	float m_dir;
