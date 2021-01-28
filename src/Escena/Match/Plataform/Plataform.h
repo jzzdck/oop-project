@@ -5,6 +5,7 @@
 #include "../../../Utils/FileManager.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
+#include "../../../Graphics/DrawingEnviroment.h"
 
 class Plataform:public sf::Drawable {
 public:
@@ -12,7 +13,7 @@ public:
 	virtual void Move()=0;
 	virtual void Update()=0;
 	virtual void LoadData(FileManager const& s_aux,float const& win_width,float const& win_height)=0;
-	
+	virtual void Render(DrawingEnviroment& drawEnv);
 	
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	sf::Rect<float> getGlobalBounds()const;

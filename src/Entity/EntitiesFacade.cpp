@@ -40,17 +40,17 @@ void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
 	
 	for (Item *item : m_items) {
 		item->Render(drawEnv);
-		drawEnv.AddToLayer(item,1);
+		drawEnv.AddToLayer(item,3);
 	}
 	
 	for (Weapon *weapon : m_weapons) {
 		weapon->Render(drawEnv);
-		drawEnv.AddToLayer(weapon,1);
+		drawEnv.AddToLayer(weapon,3);
 	}
 	
 	for (Projectile *projectile : m_projectiles) {
 		projectile->Render(drawEnv);
-		drawEnv.AddToLayer(projectile,3);
+		drawEnv.AddToLayer(projectile,8);
 	}
 	
 	m_world.Render(drawEnv);

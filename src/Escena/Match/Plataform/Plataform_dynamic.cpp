@@ -49,6 +49,10 @@ void Plataform_dynamic::Update ( )
 {
 	this->Move();
 }
+void Plataform_dynamic::Render(DrawingEnviroment& drawEnv)
+{
+	drawEnv.AddToLayer(this,5);
+}
 
 float Plataform_dynamic::getAngSpeed()const
 {

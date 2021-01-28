@@ -9,7 +9,7 @@ public:
 	void Move ();
 	void Update ( );
 	void LoadData (FileManager const& s_aux,float const& win_width,float const& win_height  );
-	
+	void Render(DrawingEnviroment& drawEnv)override;
 	float getAngSpeed()const;
 	
 	void setLSpeed(sf::Vector2f const& speed);

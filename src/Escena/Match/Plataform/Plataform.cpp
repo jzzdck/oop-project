@@ -7,6 +7,11 @@ Plataform::Plataform(std::string const& key):m_key(key),
 {
 
 }
+void Plataform::Render(DrawingEnviroment& drawEnv)
+{
+	drawEnv.AddToLayer(this,4);
+}
+
 void Plataform::draw(sf::RenderTarget& target, sf::RenderStates states)const
 {
 	target.draw(m_rec,states);
