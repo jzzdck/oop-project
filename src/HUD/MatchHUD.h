@@ -17,8 +17,8 @@ class MatchHUD : public sf::Drawable {
 public:
 	MatchHUD(const sf::Vector2f &winsize, std::string mapname);
 	void Render(DrawingEnviroment &drawEnv, float zoom_level);
-	void Update(const vector<HUDinfo> &info);
-	void Init(const vector<HUDinfo> &info);
+	void Update(const vector<PlayerInfo> &info);
+	void Init(const vector<PlayerInfo> &info);
 private:
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	std::vector<HUD> m_playerHUDs;

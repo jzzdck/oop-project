@@ -6,7 +6,7 @@
 class HealthBar : public Bar {
 public:
 	HealthBar();
-	void Update(const HUDinfo &info) override;
+	void Update(const PlayerInfo &info) override;
 private:
 };
 

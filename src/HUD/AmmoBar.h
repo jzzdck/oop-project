@@ -6,7 +6,7 @@
 class AmmoBar : public Bar {
 public:
 	AmmoBar();
-	void Update(const HUDinfo &info) override;
+	void Update(const PlayerInfo &info) override;
 private:
 	
 };

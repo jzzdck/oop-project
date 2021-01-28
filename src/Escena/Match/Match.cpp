@@ -18,8 +18,7 @@ Match::Match(MatchSettings m, float width, float height) :
 	m_settings(m),
 	m_pmenu(width,height,&m_pause,&m_camera)
 {
-	m_camera.SetPlayers(m_entities.GetPlayers());
-	m_gamehud.Init(m_entities.GetHUDinfo());
+	m_gamehud.Init(m_entities.GetPlayersInfos());
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) {
@@ -39,9 +38,13 @@ void Match::Update (Game& g) {
 		return;
 	}
 	
-	auto hud_info = m_entities.GetHUDinfo();
+	auto hud_info = m_entities.GetPlayersInfos();
 	
-	std::vector<int> aux = { hud_info.at(0).round_data, hud_info.at(1).round_data };
+	std::vector<int> aux = { 
+		hud_info.at(0).round_points, 
+		hud_info.at(1).round_points
+	};
+	
 	int someone_won = CurrentRoundEnded(aux);
 	if (someone_won != -1) {
 		if (someone_won == -2) {
@@ -54,9 +57,9 @@ void Match::Update (Game& g) {
 		UpdateGameState(someone_won, g);
 	}
 	
-	m_camera.Update();
 	m_entities.Update();
-	m_gamehud.Update(m_entities.GetHUDinfo());
+	m_gamehud.Update(hud_info);
+	m_camera.Update(m_entities.GetCameraInfo());
 }
 
 void Match::Render (DrawingEnviroment& drawEnv)

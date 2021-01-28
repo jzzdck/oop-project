@@ -12,17 +12,20 @@
 #include "../Escena/Match/World.h"
 #include "../Game.h"
 #include "EntitySpawner.h"
+#include "../EntityArray.h"
 
-struct PlayerOwnership {
+struct PlayerInfo {
 	int weapon_index = -1;
 	int item_index = -1;
-};
-
-struct HUDinfo {
+	int round_points = 0;
+	
 	Ammo ammo_data;
 	HealthData health_data;
-	int round_data;
-	float dir = -1;
+};
+
+struct CameraInfo {
+	vector<bool> living_states;
+	vector<sf::Rect<float>> global_bounds;
 };
 
 class EntitiesFacade {
@@ -32,32 +35,19 @@ public:
 	void Update();
 	void Render(DrawingEnviroment& drawEnv);
 	
-	std::vector<HUDinfo> GetHUDinfo();
-	std::vector<Player*> GetPlayers() { return m_players; }
+	std::vector<PlayerInfo> GetPlayersInfos();
+	CameraInfo GetCameraInfo();
 	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
 // private methods:
-	#include "../Escena/Match/EntitiesFacadeTemplates.h"
 	int UpdateEntity(Entity* entity);
-	void PlayersUpdate();
-	void ItemsUpdate();
-	void WeaponsUpdate();
-	void ProjectilesUpdate();
+	void UpdatePlayerInfo();
 	
 // atributes:
-	EntitySpawner m_spawner;
-	std::vector<int> m_roundpoints;
-	std::vector<PlayerOwnership> m_ownerships;
+	std::vector<EntityArray*> m_entity_arrays;
 	std::vector<Player*> m_players;
-	std::vector<Item*> m_items;
-	std::vector<Weapon*> m_weapons;
-	std::vector<Projectile*> m_projectiles;
+	std::vector<PlayerInfo> m_infos;
 	World m_world;
-	
-	std::vector<float> m_respawners;
-	sf::Clock m_gameclock;
-	
-	float m_width, m_height;
 };
 
 #endif

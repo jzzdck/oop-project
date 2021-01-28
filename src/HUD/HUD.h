@@ -20,7 +20,7 @@ public:
 	HUD(int index);
 	void Render(DrawingEnviroment &drawEnv, float zoom_level);
 	void draw(sf::RenderTarget& target,sf::RenderStates states) const override;
-	void Update(const HUDinfo &info);
+	void Update(const PlayerInfo &info);
 private:
 	sf::Vector2f m_pos, m_relative_percentage;
 	

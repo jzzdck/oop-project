@@ -4,7 +4,7 @@ AmmoBar::AmmoBar() : Bar("ammobar") {
 	with_background = true;
 }
 
-void AmmoBar::Update (const HUDinfo &info) {
+void AmmoBar::Update (const PlayerInfo &info) {
 	Ammo ammo = info.ammo_data;
 	float percentage = 1.f;
 	
