@@ -22,12 +22,12 @@ bool Handcannon::IsAttacking ( ) {
 	if (attack_state != is_shooting) {
 		is_shooting = !is_shooting;
 		bool can_shoot = firerate.getElapsedTime().asSeconds() > 0.5f;
-		if (!is_shooting && can_shoot && m_ammo >= 0) 
-			m_nextangle = m_angle, firerate.restart(), --m_ammo;
+		if (!is_shooting && can_shoot && m_ammo.current >= 0) 
+			m_nextangle = m_angle, firerate.restart(), --m_ammo.current;
 		else
 			m_angle = 0;
 		
-		return !is_shooting && can_shoot && m_ammo >= 0;
+		return !is_shooting && can_shoot && m_ammo.current >= 0;
 	} else return false;
 }
 

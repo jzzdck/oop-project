@@ -4,26 +4,27 @@
 #include "../Item.h"
 #include "../../proyectile/Projectile.h"
 
-class Projectile;
+struct Ammo {
+	int max;
+	int current;
+	
+	Ammo() : max(-1), current(-1) {}
+	Ammo(int m, int c) : max(m), current(c) {}
+};
 
-/// @brief Abstract class where all weapons inherit.
 class Weapon : public Item {
 public:
 	void Update() override;
 	
 	virtual bool IsAttacking() { return attack_state; }
 	void SetAttacking(bool state) { attack_state = state; }
-	sf::Vector2i GetAmmo() const { return {m_ammo, max_ammo}; }
+	Ammo GetAmmo() const { return m_ammo; }
 	virtual Projectile* GetProjectile() = 0;
 	
-	/// @brief Construct a weapon in relation to where the player's facing.
-	Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_count);
-	
-	/// @brief Virtual destructor; the class is abstract
+	Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_count);	
 	virtual ~Weapon() {}
 protected:
-	sf::Vector2f OffSet(const sf::Rect<float> &to_offset);
-	int m_ammo, max_ammo;
+	Ammo m_ammo;
 	
 	sf::Clock firerate;
 	bool attack_state = false;

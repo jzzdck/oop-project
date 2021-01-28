@@ -18,8 +18,8 @@ Projectile * Revolver::GetProjectile ( ) {
 bool Revolver::IsAttacking ( ) {
 	if (is_shooting != attack_state) {
 		is_shooting = !is_shooting;
-		if (is_shooting) --m_ammo;
-		return is_shooting && m_ammo >= 0;
+		if (is_shooting) --m_ammo.current;
+		return is_shooting && m_ammo.current >= 0;
 	}
 	
 	return false;
