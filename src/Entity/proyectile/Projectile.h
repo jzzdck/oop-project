@@ -4,8 +4,6 @@
 #include "../Entity.h"
 #include "../../Utils/generalUtils.h"
 
-class Player;
-
 class Projectile : public Entity {
 public:
 	Projectile(sf::Vector2f pos, std::string keyword, float m_damage);

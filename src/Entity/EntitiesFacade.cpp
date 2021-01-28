@@ -10,6 +10,7 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 	m_spawner( {width, height} ),
 	m_width(width), m_height(height)
 {
+	m_ownerships.resize(2);
 	m_respawners.resize(2, 0.00f);
 	m_players.push_back(m_spawner.SpawnPlayer({m_width*0.9f, m_height*0.9f} , 0));
 	m_players.push_back(m_spawner.SpawnPlayer({m_width*0.15f, m_height*0.4f}, 1));
@@ -63,10 +64,8 @@ void EntitiesFacade::PlayersUpdate ( ) {
 		if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_width-100, m_height-100}))
 			h.current_health = -1000.f;
 		
-		if (!h.is_alive && m_respawners[player->GetIndex()] == 0.00f) {
+		if (!h.is_alive && m_respawners[player->GetIndex()] == 0.00f)
 			m_respawners[player->GetIndex()] = m_gameclock.getElapsedTime().asSeconds();
-			player->UnassignObjects();
-		}
 	}
 	
 	for (size_t i=0; i<m_respawners.size(); ++i) {
@@ -101,6 +100,13 @@ void EntitiesFacade::ItemsUpdate ( ) {
 	
 	m_items = EraseUnbounded(m_items);
 	m_items = EraseUnused(m_items);
+	
+	for (Item *item : m_items) {
+		if (item->Owner() != -1) {
+			Player *owner = m_players[item->Owner()];
+			item->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+		}
+	}
 }
 
 void EntitiesFacade::WeaponsUpdate ( ) {
@@ -114,6 +120,7 @@ void EntitiesFacade::WeaponsUpdate ( ) {
 		if (weapon->Owner() != -1) {
 			Player *owner = m_players[weapon->Owner()];
 			weapon->SetPos(owner->GetSprite().getGlobalBounds(), owner->GetFacing());
+			weapon->SetAttacking(owner->GetControls()["attack"]);
 		}
 		
 		if (weapon->IsAttacking())
@@ -160,15 +167,15 @@ int EntitiesFacade::UpdateEntity (Entity * entity) {
 }
 
 void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
-	for (Player * player : m_players) {
-		player->ProcessEvents(e, g);
+	for (size_t i=0; i<m_players.size(); ++i) {
+		m_players.at(i)->ProcessEvents(e, g);
 		
-		Controls player_controls = player->GetControls();
+		Controls player_controls = m_players.at(i)->GetControls();
 		if (e.type == sf::Event::KeyPressed && e.key.code == player_controls.GetKey("grab")) {
 			if (player_controls["down"])
-				UpdateOwnerships(player, m_items);
+				UpdateOwnerships(m_ownerships.at(i).item_index, m_players.at(i), m_items);
 			else
-				UpdateOwnerships(player, m_weapons);
+				UpdateOwnerships(m_ownerships.at(i).weapon_index, m_players.at(i), m_weapons);
 		}
 	}
 }
@@ -185,4 +192,21 @@ EntitiesFacade::~EntitiesFacade ( ) {
 	
 	for(size_t i=0;i<m_projectiles.size();i++)
 		delete m_projectiles[i];
+}
+
+std::vector<HUDinfo> EntitiesFacade::GetHUDinfo ( ) {
+	std::vector<HUDinfo> info;
+	info.resize(2);
+	
+	for (size_t i=0; i<info.size(); ++i) { 
+		info.at(i).health_data = m_players.at(i)->GetHealthData();
+		info.at(i).round_data = m_roundpoints.at(i);
+		
+		if (m_ownerships.at(i).weapon_index != -1)
+			info.at(i).ammo_data = m_weapons.at(m_ownerships.at(i).weapon_index)->GetAmmo();
+		else
+			info.at(i).ammo_data = {1, -1};
+	}
+	
+	return info;
 }

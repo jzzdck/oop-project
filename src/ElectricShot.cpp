@@ -12,7 +12,7 @@ ElectricShot::ElectricShot(sf::Rect<float> rect, const sf::Vector2f &pos, float 
 }
 
 void ElectricShot::ApplyEffect (Player * target) {
-	target->UnassignObjects();
+//	target->UnassignObjects();
 	Projectile::ApplyEffect(target);
 }
 
@@ -25,4 +25,3 @@ void ElectricShot::Update ( ) {
 	if (m_lifetime.getElapsedTime().asSeconds() >= 0.5f)
 		in_use = false;
 }
-

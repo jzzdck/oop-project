@@ -13,6 +13,18 @@
 #include "../Game.h"
 #include "EntitySpawner.h"
 
+struct PlayerOwnership {
+	int weapon_index = -1;
+	int item_index = -1;
+};
+
+struct HUDinfo {
+	Ammo ammo_data;
+	HealthData health_data;
+	int round_data;
+	float dir = -1;
+};
+
 class EntitiesFacade {
 public:
 	EntitiesFacade(float width, float height, std::string map_name);
@@ -20,8 +32,8 @@ public:
 	void Update();
 	void Render(DrawingEnviroment& drawEnv);
 	
+	std::vector<HUDinfo> GetHUDinfo();
 	std::vector<Player*> GetPlayers() { return m_players; }
-	std::vector<int> GetRoundState() { return m_roundpoints; }
 	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
 // private methods:
@@ -35,6 +47,7 @@ private:
 // atributes:
 	EntitySpawner m_spawner;
 	std::vector<int> m_roundpoints;
+	std::vector<PlayerOwnership> m_ownerships;
 	std::vector<Player*> m_players;
 	std::vector<Item*> m_items;
 	std::vector<Weapon*> m_weapons;
@@ -46,7 +59,6 @@ private:
 	
 	float m_width, m_height;
 };
-
 
 #endif
 

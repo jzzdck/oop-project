@@ -36,23 +36,27 @@ std::vector<T*> EraseUnbounded(std::vector<T*> &objects) {
 }
 
 template<class T> 
-void UpdateOwnerships(Player* player, std::vector<T*> &item_or_weapons) {
+void UpdateOwnerships(int &currently_held, Player* player, std::vector<T*> &objects) {
 	bool colliding_with_any_object = false;
 	
-	for (T * item_or_weapon : item_or_weapons) { 
-		if (item_or_weapon->CollidesWith(player->GetSprite()) && 
-			item_or_weapon->Owner() == -1) 
+	for (size_t i=0; i<objects.size(); ++i) { 
+		if (objects.at(i)->CollidesWith(player->GetSprite()) && 
+			objects.at(i)->Owner() == -1) 
 		{
-			player->AssignObject(item_or_weapon);
+			if (currently_held != -1)
+				objects.at(currently_held)->SetOwner(-1, player->GetSpeed());
+			
+			currently_held = i;
+			objects.at(i)->SetOwner(player->GetIndex(), {0,0});
 			colliding_with_any_object = true;
 			break;
 		}
 	}
 	
 	if (not colliding_with_any_object) 
-		for (T * item_or_weapon : item_or_weapons)
-			if (item_or_weapon->Owner() == player->GetIndex())
-				player->UnassignObject(item_or_weapon);
+		for (size_t i=0; i<objects.size(); ++i)
+			if (objects.at(i)->Owner() == player->GetIndex())
+				currently_held = -1, objects.at(i)->SetOwner(-1, player->GetSpeed());
 }
 
 #endif

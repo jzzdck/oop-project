@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <cmath>
+#include "../Utils/generalUtils.h"
 
 Camera::Camera(float width, float height) :
 	m_width(width), m_height(height)

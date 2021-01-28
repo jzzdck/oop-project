@@ -19,7 +19,7 @@ Match::Match(MatchSettings m, float width, float height) :
 	m_pmenu(width,height,&m_pause,&m_camera)
 {
 	m_camera.SetPlayers(m_entities.GetPlayers());
-	m_gamehud.SetPlayers(m_entities.GetPlayers());
+	m_gamehud.Init(m_entities.GetHUDinfo());
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) {
@@ -39,10 +39,10 @@ void Match::Update (Game& g) {
 		return;
 	}
 	
-	auto round_state = m_entities.GetRoundState();
-	m_gamehud.SetRoundState(round_state);
+	auto hud_info = m_entities.GetHUDinfo();
 	
-	int someone_won = CurrentRoundEnded(round_state);
+	std::vector<int> aux = { hud_info.at(0).round_data, hud_info.at(1).round_data };
+	int someone_won = CurrentRoundEnded(aux);
 	if (someone_won != -1) {
 		if (someone_won == -2) {
 			std::cout << "Nobody won!" << std::endl;
@@ -56,16 +56,15 @@ void Match::Update (Game& g) {
 	
 	m_camera.Update();
 	m_entities.Update();
-	m_gamehud.Update();
+	m_gamehud.Update(m_entities.GetHUDinfo());
 }
 
 void Match::Render (DrawingEnviroment& drawEnv)
 {
 	drawEnv.ClearWindow({158, 207, 222});
 	m_camera.SetToWindow(*drawEnv.getWin());
-	m_gamehud.Render(drawEnv, m_camera.GetZoom(), m_entities.GetRoundState());
+	m_gamehud.Render(drawEnv, m_camera.GetZoom());
 	m_entities.Render(drawEnv);
-	
 	
 	if(m_pause)
 		m_pmenu.Render(drawEnv);
