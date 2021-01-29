@@ -7,7 +7,7 @@ PlayerUpdater::PlayerUpdater(const sf::Vector2f &winsize)
 	m_respawners.assign(2, 0.00f);
 }
 
-void PlayerUpdater::UpdateRegardingTo(Player * player, World &world) {
+void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &world) {
 	HealthData &h = player->GetHealthData();
 	auto &respawner = m_respawners[player->GetIndex()];
 	Update(player, world);
@@ -30,7 +30,7 @@ void PlayerUpdater::UpdateRegardingTo(Player * player, World &world) {
 	}
 }
 
-void PlayerUpdater::ProcessPlayerEvents (Player * player, sf::Event & e, Game & g) {
-	player->ProcessEvents(e, g);
+void PlayerUpdater::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) {
+	player->ProcessEvents(e);
 }
 

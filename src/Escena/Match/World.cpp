@@ -14,6 +14,7 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 	win_width(wdt), win_height(hgt), m_gravity(gravity),
 	m_map(map_name), m_base0(-1), m_base1(-1)
 {
+	m_bounds = { 0, 0, wdt, hgt };
 	LoadMap(map_name);
 }
 
@@ -78,5 +79,9 @@ int World::CollidesWith (Entity * entity, sf::Vector2f & response, int index) {
 	}
 	
 	return -1;
+}
+
+bool World::IsUnbounded (Entity * entity) const {
+	return !m_bounds.intersects(entity->GetSprite().getGlobalBounds());
 }
 

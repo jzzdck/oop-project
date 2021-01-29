@@ -19,10 +19,13 @@ public:
 	float GetGravity() const { return m_gravity; }
 	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);
 	int GetBaseIndex(int which) const { return which ? m_base1 : m_base0; };
+	bool IsUnbounded(Entity* entity) const;
 	
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 	~World();
 private:
+	sf::Rect<float> m_bounds;
+	
 	void LoadMap(std::string map_name);
 	std::vector<Plataform*> m_platforms;
 	float m_gravity;

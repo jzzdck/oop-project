@@ -27,4 +27,3 @@ int EntityArray::Update (Entity * entity, World &world) {
 	
 	return base_col;
 }
-

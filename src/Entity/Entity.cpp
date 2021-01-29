@@ -23,8 +23,8 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states)const
 }
 
 
-bool Entity::CollidesWith(const sf::Sprite &another) {
-	return m_sprite.getGlobalBounds().intersects(another.getGlobalBounds());
+bool Entity::CollidesWith(Entity *another) {
+	return m_sprite.getGlobalBounds().intersects(another->GetSprite().getGlobalBounds());
 }
 
 void Entity::ApplyResponse (const sf::Vector2f & vec) {

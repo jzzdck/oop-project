@@ -5,12 +5,14 @@
 #include "Item/Weapon/Handcannon.h"
 #include "Item/Flag.h"
 #include "../PlayerUpdater.h"
+#include "../ItemArray.h"
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name)
 {
 	m_entity_arrays = {
-		new PlayerUpdater({width, height})
+		new PlayerUpdater({width, height}),
+		new ItemArray({width, height})
 	};
 	
 	m_infos.resize(2);	
@@ -19,13 +21,15 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 }
 
 void EntitiesFacade::Update ( ) {
+	UpdatePlayerInfo();
 	m_world.Update();
+	
+	for (EntityArray *updater : m_entity_arrays)
+		m_infos = updater->UpdateArray(m_infos, m_world);
 	
 	for(Player* player : m_players)
 		for (EntityArray *updater : m_entity_arrays)
-			updater->UpdateRegardingTo(player, m_world);
-	
-	UpdatePlayerInfo();
+			updater->UpdateRegardingTo(m_infos.at(player->GetIndex()), player, m_world);
 }
 
 void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
@@ -39,8 +43,9 @@ void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
 }
 
 void EntitiesFacade::ProcessPlayersEvents (sf::Event & e, Game & g) {
-	for (size_t i=0; i<m_players.size(); ++i)
-		m_entity_arrays.at(0)->ProcessPlayerEvents(m_players.at(i), e, g);
+	for (Player *player : m_players)
+		for (EntityArray *eventers : m_entity_arrays)
+			eventers->ProcessPlayerEvents(m_infos.at(player->GetIndex()), player, e);
 }
 
 void EntitiesFacade::UpdatePlayerInfo() {

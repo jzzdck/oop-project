@@ -13,15 +13,7 @@
 #include "../Game.h"
 #include "EntitySpawner.h"
 #include "../EntityArray.h"
-
-struct PlayerInfo {
-	int weapon_index = -1;
-	int item_index = -1;
-	int round_points = 0;
-	
-	Ammo ammo_data;
-	HealthData health_data;
-};
+#include "../ItemArray.h"
 
 struct CameraInfo {
 	vector<bool> living_states;
