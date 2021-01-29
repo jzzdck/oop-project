@@ -22,11 +22,15 @@ public:
 	virtual void ProcessPlayerEvents(PlayerInfo &info, Player* player, sf::Event &e) = 0;
 	virtual void RenderWith(DrawingEnviroment &drawEnv) = 0;
 protected:
+	sf::Vector2f m_winsize;
+	bool PlayerPressedGrab(Controls &c, sf::Event & e, bool and_down);
+	
 	template<class T>
 	std::vector<T*> EraseUnused(std::vector<T*> &v, World & world) {
 		for (auto it = v.begin(); it != v.end();) {
 			if (!(*it)->IsUsed() or world.IsUnbounded(*it)) {
 				delete *it;
+				*it = nullptr;
 				it = v.erase(it);
 			} else ++it;
 		}
@@ -34,8 +38,22 @@ protected:
 		return v;
 	};
 	
-	sf::Vector2f m_winsize;
-private:
+	template<class T>
+	int FirstToCollide(const vector<T*> &v, Player* player, int &current) {
+		auto it = find_if(v.begin(),v.end(), [&](Item *item) {
+			return player->CollidesWith(item) && item->Owner() == -1;
+		});
+		
+		auto update_current = find_if(v.begin(),v.end(), [&](Item *item) {
+			return player->CollidesWith(item) && item->Owner() == player->GetIndex();
+		});
+		
+		if (update_current != v.end())
+			current = update_current - v.begin();
+		// because it may be updated in EraseUnused
+		
+		return it != v.end() ? it - v.begin() : -1;
+	}
 };
 
 #endif

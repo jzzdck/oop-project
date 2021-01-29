@@ -8,7 +8,7 @@ ItemArray::ItemArray(const sf::Vector2f &winsize) :
 {
 	size_t randitems = rand()%15 + 5;
 	for (size_t i=0; i<randitems; ++i)
-		SpawnAt(winsize*0.5f, 0);
+		SpawnAt();
 }
 
 void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
@@ -41,9 +41,9 @@ void ItemArray::RenderWith (DrawingEnviroment & drawEnv) {
 }
 
 void ItemArray::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) {
-	int collision = FirstItemColliding(player);
+	int collision = FirstToCollide(m_items, player, info.item_index);
 	
-	if (PlayerPressedGrab(player, e)) {
+	if (PlayerPressedGrab(player->GetControls(), e, true)) {
 		if (collision != -1) {
 			if (info.item_index != -1)
 				m_items.at(info.item_index)->SetOwner(-1, player->GetSpeed());
@@ -57,22 +57,10 @@ void ItemArray::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Even
 	}
 }
 
-int ItemArray::FirstItemColliding (Player * player) {
-	for(size_t i=0;i<m_items.size();i++)
-		if (player->CollidesWith(m_items.at(i)) && m_items.at(i)->Owner() == -1)
-			return i;
-	
-	return -1;
-}
-
-bool ItemArray::PlayerPressedGrab (Player * player, sf::Event & e) {
-	Controls c = player->GetControls();
-	return e.type == sf::Event::KeyPressed && e.key.code == c.GetKey("grab") && c.KeyState("down");
-}
-
 std::vector<PlayerInfo> ItemArray::UpdateArray (std::vector<PlayerInfo> &info, World &world ) {
+	vector<int> aux = {info.at(0).item_index, info.at(1).item_index};
 	m_items = EraseUnused(m_items, world);
-	for(size_t i=0;i<m_items.size();i++) {
+	for (size_t i=0;i<m_items.size();i++) {
 		int base_col = Update(m_items.at(i), world);
 		int capturer = m_items.at(i)->WasCaptured(base_col);
 		if (capturer != -1) 
@@ -81,4 +69,3 @@ std::vector<PlayerInfo> ItemArray::UpdateArray (std::vector<PlayerInfo> &info, W
 	
 	return info;
 }
-

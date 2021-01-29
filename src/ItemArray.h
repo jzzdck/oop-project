@@ -15,8 +15,6 @@ public:
 	void RenderWith (DrawingEnviroment & drawEnv) override;
 	void ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) override;
 private:
-	int FirstItemColliding(Player* player);
-	bool PlayerPressedGrab(Player* player, sf::Event & e);
 	std::vector<Item*> m_items;
 	int max_items = 1;
 };

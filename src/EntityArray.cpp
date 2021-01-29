@@ -1,4 +1,5 @@
 #include "EntityArray.h"
+#include "Utils/Controls.h"
 
 EntityArray::EntityArray(const sf::Vector2f &winsize) :
 	m_winsize(winsize)
@@ -27,3 +28,12 @@ int EntityArray::Update (Entity * entity, World &world) {
 	
 	return base_col;
 }
+
+bool EntityArray::PlayerPressedGrab (Controls &c, sf::Event & e, bool and_down) {
+	bool down_key = c.KeyState("down");
+	if (!and_down)
+		down_key = !down_key;
+	
+	return e.type == sf::Event::KeyPressed && e.key.code == c.GetKey("grab") && down_key;
+}
+
