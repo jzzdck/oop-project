@@ -8,7 +8,7 @@ ItemArray::ItemArray(const sf::Vector2f &winsize) :
 {
 	size_t randitems = rand()%15 + 5;
 	for (size_t i=0; i<randitems; ++i)
-		SpawnAt();
+		SpawnRandom();
 }
 
 void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
@@ -20,13 +20,7 @@ void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
 }
 
 void ItemArray::SpawnRandom () {
-	int index = rand()%max_items;
-	
-	switch (index) {
-	case 0:
-		m_items.push_back(new Flag( {m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%2));
-		break;
-	};
+	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%1);
 }
 
 void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & world) {
@@ -58,7 +52,6 @@ void ItemArray::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Even
 }
 
 std::vector<PlayerInfo> ItemArray::UpdateArray (std::vector<PlayerInfo> &info, World &world ) {
-	vector<int> aux = {info.at(0).item_index, info.at(1).item_index};
 	m_items = EraseUnused(m_items, world);
 	for (size_t i=0;i<m_items.size();i++) {
 		int base_col = Update(m_items.at(i), world);

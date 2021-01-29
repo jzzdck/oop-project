@@ -6,13 +6,15 @@
 #include "Item/Flag.h"
 #include "../PlayerUpdater.h"
 #include "../ItemArray.h"
+#include "../WeaponArray.h"
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name)
 {
 	m_entity_arrays = {
 		new PlayerUpdater({width, height}),
-		new ItemArray({width, height})
+		new ItemArray({width, height}),
+		new WeaponArray({width, height})
 	};
 	
 	m_infos.resize(2);	
@@ -27,7 +29,7 @@ void EntitiesFacade::Update ( ) {
 	for (EntityArray *updater : m_entity_arrays)
 		m_infos = updater->UpdateArray(m_infos, m_world);
 	
-	for(Player* player : m_players)
+	for (Player* player : m_players)
 		for (EntityArray *updater : m_entity_arrays)
 			updater->UpdateRegardingTo(m_infos.at(player->GetIndex()), player, m_world);
 }
@@ -52,8 +54,6 @@ void EntitiesFacade::UpdatePlayerInfo() {
 	for(size_t i=0;i<m_infos.size();i++) { 
 		if (m_infos.at(i).weapon_index == -1) 
 			m_infos.at(i).ammo_data =  {-1, -1};
-//		else
-//			m_infos.at(i).ammo_data = m_entity_arrays.at(2)[weapon_index]->GetAmmo();
 		
 		m_infos.at(i).health_data = m_players.at(i)->GetHealthData(); 
 	}
