@@ -40,13 +40,13 @@ void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level)
 		drawEnv.AddToLayer(&m_playerHUDs.at(i), 0);
 }
 
-void MatchHUD::Update (const vector<HUDinfo> &info) {
+void MatchHUD::Update (const std::vector<PlayerInfo> &info) {
 	for (size_t i=0; i<m_playerHUDs.size(); ++i) 
 		m_playerHUDs[i].Update(info[i]);	
 	
 	sf::Vector2f relative_to = m_roundcounter.getPosition();
 	for (size_t i=0; i<info.size(); ++i) { 
-		m_roundpoint.at(i).setString(std::to_string(info[i].round_data));
+		m_roundpoint.at(i).setString(std::to_string(info[i].round_points));
 		m_roundpoint.at(i).setFillColor(utils::loadPlayerColor(i));
 		m_roundpoint.at(i).setPosition({relative_to.x + 26.8f + float(i)*42, relative_to.y + 19});
 	}
@@ -61,7 +61,7 @@ void MatchHUD::draw (sf::RenderTarget & target, sf::RenderStates states) const {
 	}
 }
 
-void MatchHUD::Init (const vector<HUDinfo> & info) {
+void MatchHUD::Init (const std::vector<PlayerInfo> & info) {
 	for (size_t i=0; i<info.size(); ++i) {
 		m_playerHUDs.push_back(HUD(i));
 		m_playerHUDs.at(i).Update(info.at(i));

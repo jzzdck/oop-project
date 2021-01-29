@@ -38,7 +38,7 @@ void HUD::draw(sf::RenderTarget& target,sf::RenderStates states) const {
 	target.draw(m_hud,states);
 }
 
-void HUD::Update (const HUDinfo &info) {
+void HUD::Update (const PlayerInfo &info) {
 	m_healthbar.Update(info);
 	m_ammobar.Update(info);
 }

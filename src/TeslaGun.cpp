@@ -1,10 +1,10 @@
 #include "TeslaGun.h"
-#include "ElectricShot.h"
 
 TeslaGun::TeslaGun(const sf::Vector2f &pos, float facing) : 
 	Weapon(pos, "teslagun", 1.f, 50) 
 {
 	m_ammo.current = 1;
+	projectile_index = 3;
 }
 
 bool TeslaGun::IsAttacking ( ) {
@@ -18,15 +18,5 @@ bool TeslaGun::IsAttacking ( ) {
 		shot = true;
 		return shot;
 	} else return false;
-}
-
-Projectile * TeslaGun::GetProjectile ( ) {
-	auto rect = m_sprite.getGlobalBounds();
-	float x, y;
-	
-	y = rect.top - rect.height/2.f;
-	x = rect.left + rect.width;
-	
-	return new ElectricShot(rect, {x, y}, m_dir);
 }
 

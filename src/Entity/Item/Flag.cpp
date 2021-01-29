@@ -42,3 +42,16 @@ void Flag::SetOwner (int owner, const sf::Vector2f &release_speed) {
 	Item::SetOwner(owner, release_speed);
 }
 
+int Flag::WasCaptured (int base_index) {
+	bool was_stolen, taken_home;
+	was_stolen = (m_who != prev_owner);
+	taken_home = (prev_owner == base_index);
+	
+	if (was_stolen && taken_home && prev_owner != -1)  {
+		SetUsing(false);
+		return prev_owner;
+	}
+	
+	return -1;
+}
+

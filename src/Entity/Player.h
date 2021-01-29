@@ -24,7 +24,7 @@ struct HealthData {
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
-	void ProcessEvents(sf::Event &e, Game &g);
+	void ProcessEvents(sf::Event &e);
 	void Update() override; 
 	void Render() override;
 	

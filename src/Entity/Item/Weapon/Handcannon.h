@@ -9,7 +9,6 @@ public:
 	void Update() override;
 	bool IsAttacking ( ) override;
 	void SetPos(const sf::Rect<float> &relative_to, float facing) override;
-	Projectile * GetProjectile ( ) override;
 private:
 	float m_angle = 0;
 	float m_nextangle = 0;

@@ -6,7 +6,6 @@
 class Revolver : public Weapon {
 public:
 	bool IsAttacking() override;
-	Projectile* GetProjectile() override;
 	/// @brief Construct a Revolver with a fixed damage.
 	Revolver(sf::Vector2f pos, float facing);
 private:

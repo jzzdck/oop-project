@@ -38,4 +38,3 @@ void Bullet::Render () {
 		m_sprite.setTexture(m_textures[0], true);
 	}
 }
-

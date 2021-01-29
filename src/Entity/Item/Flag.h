@@ -9,10 +9,8 @@ public:
 	void Render(DrawingEnviroment &drawEnv) override;
 	void Update() override;
 	void draw(sf::RenderTarget& target,sf::RenderStates states)const override;
-	bool IsTheFlag() const override { return true; }
+	int WasCaptured(int base_index) override;
 	void SetOwner(int owner, const sf::Vector2f &release_speed) override;
-	int PreviousOwner() const override { return prev_owner; }
-	int BelongsTo() const override { return m_who; }
 private:
 	int prev_owner = -1;
 	int m_who;

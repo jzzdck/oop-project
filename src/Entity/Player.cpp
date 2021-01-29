@@ -31,7 +31,7 @@ void Player::LoadKeys() {
 		m_input.BindKey(keys[i], m_input<s["key-" + keys[i]]);
 }
 
-void Player::ProcessEvents (sf::Event & e, Game & g) {
+void Player::ProcessEvents (sf::Event & e) {
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == m_input<="jump" && m_jump.count > 0) {
 			m_animation.SetState(Animation::State::Jumping);

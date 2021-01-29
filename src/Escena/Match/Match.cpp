@@ -18,8 +18,7 @@ Match::Match(MatchSettings m, float width, float height) :
 	m_settings(m),
 	m_pmenu(width,height,&m_pause,&m_camera)
 {
-	m_camera.SetPlayers(m_entities.GetPlayers());
-	m_gamehud.Init(m_entities.GetHUDinfo());
+	m_gamehud.Init(m_entities.GetPlayersInfos());
 }
 
 void Match::ProcessEvent(sf::Event& e, Game& g) {
@@ -44,10 +43,7 @@ void Match::Update (Game& g) {
 		return;
 	}
 	
-	auto hud_info = m_entities.GetHUDinfo();
-	
-	std::vector<int> aux = { hud_info.at(0).round_data, hud_info.at(1).round_data };
-	int someone_won = CurrentRoundEnded(aux);
+	int someone_won = CurrentRoundEnded(m_entities.GetRoundPoints());
 	if (someone_won != -1) {
 		if (someone_won == -2) {
 			std::cout << "Nobody won!" << std::endl;
@@ -59,9 +55,9 @@ void Match::Update (Game& g) {
 		UpdateGameState(someone_won, g);
 	}
 	
-	m_camera.Update();
 	m_entities.Update();
-	m_gamehud.Update(m_entities.GetHUDinfo());
+	m_gamehud.Update(m_entities.GetPlayersInfos());
+	m_camera.Update(m_entities.GetCameraInfo());
 }
 
 void Match::Render (DrawingEnviroment& drawEnv)
@@ -81,12 +77,10 @@ Match::~Match() {
 }
 
 int Match::CurrentRoundEnded ( const std::vector<int> &round_state ) {
-	auto winning_player = std::max_element(round_state.begin(),
-										   round_state.end());
+	auto winning_player = std::max_element(round_state.begin(), round_state.end());
 	
 	float total_time = m_gameclock.getElapsedTime().asSeconds();
-	int draw = std::count(round_state.begin(), round_state.end(), 
-						  *winning_player); 
+	int draw = std::count(round_state.begin(), round_state.end(), *winning_player); 
 	
 	bool ended_by_time = total_time > m_settings.max_seconds;
 	bool ended_by_points = *winning_player >= m_settings.max_points;

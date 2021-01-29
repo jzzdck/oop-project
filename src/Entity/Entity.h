@@ -9,13 +9,13 @@
 #include <vector>
 #include "../Escena/Match/Plataform/Plataform.h"
 
-class Entity: public sf::Drawable {
+class Entity : public sf::Drawable {
 public:
 	virtual void Update() = 0;
 	virtual void Render() = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	
-	bool CollidesWith(const sf::Sprite &another);
+	bool CollidesWith(Entity *another);
 	virtual void ApplyGravity(float gravity) { m_speed.y += gravity; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
