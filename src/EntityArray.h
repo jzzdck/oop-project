@@ -6,6 +6,8 @@
 #include "Entity/Entity.h"
 #include "Game.h"
 #include "PlayerInfo.h"
+#include <iostream>
+using namespace std;
 
 class EntityArray {
 public:
@@ -21,21 +23,15 @@ public:
 	virtual void RenderWith(DrawingEnviroment &drawEnv) = 0;
 protected:
 	template<class T>
-	void EraseUnused(std::vector<T*> &v, World & world) {
-		for(size_t i=0;i<v.size();i++) { 
-			if (!v.at(i)->IsUsed() or world.IsUnbounded(v.at(i))) {
-				delete v.at(i);
-				v.at(i) = nullptr;
-			}
+	std::vector<T*> EraseUnused(std::vector<T*> &v, World & world) {
+		for (auto it = v.begin(); it != v.end();) {
+			if (!(*it)->IsUsed() or world.IsUnbounded(*it)) {
+				delete *it;
+				it = v.erase(it);
+			} else ++it;
 		}
 		
-		std::vector<T*> aux;
-		for (size_t i=0;i<v.size();i++) { 
-			if (v.at(i))
-				aux.push_back(v.at(i));
-		}
-		
-		v = aux;
+		return v;
 	};
 	
 	sf::Vector2f m_winsize;

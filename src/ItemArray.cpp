@@ -8,7 +8,7 @@ ItemArray::ItemArray(const sf::Vector2f &winsize) :
 {
 	size_t randitems = rand()%15 + 5;
 	for (size_t i=0; i<randitems; ++i)
-		SpawnRandom();
+		SpawnAt(winsize*0.5f, 0);
 }
 
 void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
@@ -71,8 +71,8 @@ bool ItemArray::PlayerPressedGrab (Player * player, sf::Event & e) {
 }
 
 std::vector<PlayerInfo> ItemArray::UpdateArray (std::vector<PlayerInfo> &info, World &world ) {
-	EraseUnused(m_items, world);
-	for(size_t i=0;i<m_items.size();i++) { 
+	m_items = EraseUnused(m_items, world);
+	for(size_t i=0;i<m_items.size();i++) {
 		int base_col = Update(m_items.at(i), world);
 		int capturer = m_items.at(i)->WasCaptured(base_col);
 		if (capturer != -1) 
