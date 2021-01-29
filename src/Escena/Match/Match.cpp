@@ -12,9 +12,9 @@ using namespace std;
 
 Match::Match(MatchSettings m, float width, float height) :
 	Escena(width, height), m_pause(false),
-	m_entities(width, height, "MAIN"), 
+	m_entities(width, height,m.map_name), 
 	m_camera(width, height), 
-	m_gamehud({width, height}, "MAIN"),
+	m_gamehud({width, height},m.map_name),
 	m_settings(m),
 	m_pmenu(width,height,&m_pause,&m_camera)
 {
@@ -23,9 +23,14 @@ Match::Match(MatchSettings m, float width, float height) :
 
 void Match::ProcessEvent(sf::Event& e, Game& g) {
 	if (e.type == sf::Event::KeyPressed)
+	{
 		if (e.key.code == sf::Keyboard::Escape)
 			m_pause = !m_pause;
-	
+		if(e.key.code == sf::Keyboard::Add)
+			m_camera.In_De_creaseZoom(0.05);
+		if(e.key.code == sf::Keyboard::Subtract)
+			m_camera.In_De_creaseZoom(-0.05);
+	}	
 	if (m_pause)
 		m_pmenu.ProcessEvent(e,g);
 	else
