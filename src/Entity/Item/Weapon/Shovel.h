@@ -3,12 +3,10 @@
 #include "Weapon.h"
 #include <iostream>
 
-class Shovel : public Weapon 
-{
+class Shovel : public Weapon {
 public:
 	Shovel(sf::Vector2f pos);
 	bool IsAttacking() override;
-	Projectile* GetProjectile() override;
 private:
 	bool is_attacking = false;
 };

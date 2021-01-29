@@ -8,6 +8,7 @@
 class ItemArray : public EntityArray {
 public:
 	ItemArray(const sf::Vector2f &winsize);
+	~ItemArray();
 	void SpawnAt (const sf::Vector2f & pos, int switch_index) override;
 	void SpawnRandom () override;
 	std::vector<PlayerInfo> UpdateArray(std::vector<PlayerInfo> &info, World &world) override;
@@ -16,7 +17,7 @@ public:
 	void ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) override;
 private:
 	std::vector<Item*> m_items;
-	int max_items = 1;
+	const int max_size = 1;
 };
 
 #endif

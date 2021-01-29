@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "Utils/Controls.h"
 #include "Entity/Item/Flag.h"
+#include "Utils/generalUtils.h"
 
 ItemArray::ItemArray(const sf::Vector2f &winsize) :
 	EntityArray(winsize)
@@ -20,7 +21,7 @@ void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
 }
 
 void ItemArray::SpawnRandom () {
-	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%1);
+	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%max_size);
 }
 
 void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & world) {
@@ -62,3 +63,9 @@ std::vector<PlayerInfo> ItemArray::UpdateArray (std::vector<PlayerInfo> &info, W
 	
 	return info;
 }
+
+ItemArray::~ItemArray ( ) {
+	for (size_t i=0; i<m_items.size(); ++i) 
+		delete m_items.at(i);
+}
+

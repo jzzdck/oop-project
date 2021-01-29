@@ -31,7 +31,6 @@ public:
 	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
 // private methods:
-	int UpdateEntity(Entity* entity);
 	void UpdatePlayerInfo();
 	
 // atributes:

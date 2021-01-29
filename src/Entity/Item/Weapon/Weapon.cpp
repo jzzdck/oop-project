@@ -14,3 +14,11 @@ void Weapon::Update ( ) {
 	if (m_speed.x == 0 && m_speed.y == 0 && m_ammo.current < 0)
 		in_use = false;
 }
+
+ProjectileData Weapon::GetProjectileData ( ) {
+	return { 
+		GetSprite().getGlobalBounds(), 
+		projectile_index, GetFacing() 
+	};
+}
+

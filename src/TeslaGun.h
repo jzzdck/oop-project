@@ -6,7 +6,6 @@ class TeslaGun : public Weapon {
 public:
 	TeslaGun(const sf::Vector2f &pos, float facing);
 	bool IsAttacking ( ) override;
-	Projectile * GetProjectile ( ) override;
 private:
 	bool shot = false;
 };

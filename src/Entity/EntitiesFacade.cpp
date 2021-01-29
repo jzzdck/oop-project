@@ -1,12 +1,9 @@
 #include "EntitiesFacade.h"
 #include "Player.h"
-#include "Item/Weapon/Shovel.h"
-#include "Item/Weapon/Revolver.h"
-#include "Item/Weapon/Handcannon.h"
-#include "Item/Flag.h"
 #include "../PlayerUpdater.h"
 #include "../ItemArray.h"
 #include "../WeaponArray.h"
+#include "../ProjectileArray.h"
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name)
@@ -14,7 +11,8 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 	m_entity_arrays = {
 		new PlayerUpdater({width, height}),
 		new ItemArray({width, height}),
-		new WeaponArray({width, height})
+		new WeaponArray({width, height}),
+		new ProjectileArray({width, height})
 	};
 	
 	m_infos.resize(2);	

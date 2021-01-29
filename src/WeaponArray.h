@@ -6,6 +6,7 @@
 class WeaponArray : public EntityArray {
 public:
 	WeaponArray(const sf::Vector2f &winsize);
+	~WeaponArray();
 	void SpawnAt (const sf::Vector2f & pos, int switch_index) override;
 	void SpawnRandom ( ) override;
 	std::vector<PlayerInfo> UpdateArray (std::vector<PlayerInfo> & info, World & world) override;
@@ -14,7 +15,7 @@ public:
 	void RenderWith (DrawingEnviroment & drawEnv) override;
 private:
 	std::vector<Weapon*> m_weapons;
-	int max_weapons = 4;
+	const int max_size = 4;
 };
 
 #endif

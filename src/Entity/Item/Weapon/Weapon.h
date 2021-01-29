@@ -3,14 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 #include "../Item.h"
 #include "../../proyectile/Projectile.h"
-
-struct Ammo {
-	int max;
-	int current;
-	
-	Ammo() : max(-1), current(-1) {}
-	Ammo(int m, int c) : max(m), current(c) {}
-};
+#include "../../../PlayerInfo.h"
 
 class Weapon : public Item {
 public:
@@ -19,12 +12,13 @@ public:
 	virtual bool IsAttacking() { return attack_state; }
 	void SetAttacking(bool state) { attack_state = state; }
 	Ammo GetAmmo() const { return m_ammo; }
-	virtual Projectile* GetProjectile() = 0;
+	ProjectileData GetProjectileData();
 	
 	Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_count);	
 	virtual ~Weapon() {}
 protected:
 	Ammo m_ammo;
+	int projectile_index = -1;
 	
 	sf::Clock firerate;
 	bool attack_state = false;

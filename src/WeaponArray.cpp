@@ -30,7 +30,7 @@ void WeaponArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
 }
 
 void WeaponArray::SpawnRandom ( ) {
-	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, rand() % max_weapons);
+	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, rand() % max_size);
 }
 
 std::vector<PlayerInfo> WeaponArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {
@@ -49,9 +49,8 @@ void WeaponArray::UpdateRegardingTo (PlayerInfo & info, Player * player, World &
 			weapon->SetAttacking(player->GetControls()["attack"]);
 			info.ammo_data = weapon->GetAmmo();
 			
-			if (weapon->IsAttacking()) {
-				/* do nothing for now */
-			}
+			if (weapon->IsAttacking())
+				info.new_projectile = weapon->GetProjectileData();
 		}
 	}
 }
@@ -78,5 +77,10 @@ void WeaponArray::RenderWith (DrawingEnviroment & drawEnv) {
 		weapon->Render(drawEnv);
 		drawEnv.AddToLayer(weapon, 3);
 	}
+}
+
+WeaponArray::~WeaponArray ( ) {
+	for (size_t i=0; i<m_weapons.size(); ++i) 
+		delete m_weapons.at(i);
 }
 

@@ -8,6 +8,7 @@
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 	Weapon(pos, "handcannon", facing, 2)
 {
+	projectile_index = 2;
 }
 
 void Handcannon::Render(DrawingEnviroment &drawEnv) {
@@ -29,20 +30,6 @@ bool Handcannon::IsAttacking ( ) {
 		
 		return !is_shooting && can_shoot && m_ammo.current >= 0;
 	} else return false;
-}
-
-Projectile * Handcannon::GetProjectile ( ) {
-	auto globals = m_sprite.getGlobalBounds();
-	
-	sf::Vector2f pos = { 
-		globals.left + globals.width * (m_dir == -1.f ? 1.5f : 1.f),
-		globals.top + 4
-	};
-	
-	return new Bomb(
-		{m_dir * 20.f * std::cos(m_angle), -20.f * std::sin(m_angle)}, 
-		pos
-	);
 }
 
 void Handcannon::Update ( ) {

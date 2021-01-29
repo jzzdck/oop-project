@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "PlayerInfo.h"
 #include <iostream>
+#include "Entity/Item/Item.h"
 using namespace std;
 
 class EntityArray {
@@ -40,19 +41,23 @@ protected:
 	
 	template<class T>
 	int FirstToCollide(const vector<T*> &v, Player* player, int &current) {
-		auto it = find_if(v.begin(),v.end(), [&](Item *item) {
+		//find the first item that collides and can be owned
+		auto firt_collision = find_if(v.begin(), v.end(), [&](Item *item) {
 			return player->CollidesWith(item) && item->Owner() == -1;
 		});
 		
-		auto update_current = find_if(v.begin(),v.end(), [&](Item *item) {
+		// find the item that belongs to the player, if it exists
+		auto update_current = find_if(v.begin(), v.end(), [&](Item *item) {
 			return player->CollidesWith(item) && item->Owner() == player->GetIndex();
 		});
 		
 		if (update_current != v.end())
 			current = update_current - v.begin();
+		else
+			current = -1;
 		// because it may be updated in EraseUnused
 		
-		return it != v.end() ? it - v.begin() : -1;
+		return firt_collision != v.end() ? firt_collision - v.begin() : -1;
 	}
 };
 
