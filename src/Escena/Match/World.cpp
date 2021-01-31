@@ -19,8 +19,8 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 }
 
 void World::LoadMap(std::string map_name) {
-	FileManager s1("maps.conf", map_name+"-static");
-	FileManager s2("maps.conf", map_name+"-dynamic");
+	FileManager s1(map_name + ".conf", map_name+"-static");
+	FileManager s2(map_name + ".conf", map_name+"-dynamic");
 	size_t size1=stoi(s1["size"]);
 	size_t size2=stoi(s2["size"]);
 	

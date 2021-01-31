@@ -9,7 +9,7 @@ struct MatchSettings {
 	int round_type = 0;
 	int max_seconds = 60;
 	int max_points = 7;
-	std::string map_name = "MAIN";
+	std::string map_name = "new_map";
 	std::vector<int> rounds_won = { 0, 0 };
 	
 	void Randomize() {

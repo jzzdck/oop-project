@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Utils/generalUtils.h"
 #include "Escena/Match/Match.h"
+#include <fstream>
 
 LobbyMenu::LobbyMenu(float width, float height) : 
 	Menu(width, height, "lobby"), winsize(sf::Vector2f(width, height)) 
@@ -41,6 +42,7 @@ void LobbyMenu::Select (Game & g) {
 		else
 			m_settings.Randomize();
 		
+		m_settings.map_name = GetRandomMap();
 		g.SetScene(new Match(m_settings, winsize.x, winsize.y));
 		break;
 	case 4:
@@ -154,5 +156,16 @@ void LobbyMenu::ReplaceNumber (int index, int new_number, size_t starting_pos) {
 		str = str.replace(b_pos, e_pos-b_pos, std::to_string(new_number));
 	m_texts[index].setString(str);
 	CenterText(index);
+}
+
+std::string LobbyMenu::GetRandomMap ( ) {
+	std::ifstream fin("res/configuration-files/allmaps.conf");
+	std::vector<std::string> all_maps;
+	
+	std::string aux;
+	while (getline(fin, aux))
+		all_maps.push_back(aux);
+	
+	return all_maps.at(rand()%(all_maps.size()));
 }
 
