@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Flag::Flag(sf::Vector2f pos, bool who) : 
-	Item(pos, "suitcase"), m_trail(m_sprite, true),
+	Item(pos, "suitcase"), m_trail(m_sprite, true, 0.5f),
 	m_who(who)
 {
 	m_sprite.setTexture(m_textures[0]);
@@ -10,7 +10,7 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 	m_dep.setTexture(m_textures[1]);
 	m_dep.setColor(utils::loadPlayerColor(who));
 	m_dep.setOrigin(m_dep.getGlobalBounds().width, 0);
-	m_dep.scale(2,2);
+	m_dep.scale(m_scale,m_scale);
 	m_dep.setPosition(pos);
 	m_trail.SetDep(m_dep);
 }

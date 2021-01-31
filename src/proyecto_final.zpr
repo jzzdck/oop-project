@@ -36,12 +36,14 @@ cursor=33:41
 [source]
 path=Entity/Entity.cpp
 cursor=25:26
+open=true
 [source]
 path=Entity/Item/Item.cpp
 cursor=29:0
 [source]
 path=Entity/Item/Flag.cpp
-cursor=41:23
+cursor=12:28
+open=true
 [source]
 path=Entity/Item/Weapon/Weapon.cpp
 cursor=19:14
@@ -56,7 +58,8 @@ path=Escena/Scene.cpp
 cursor=0:0
 [source]
 path=Escena/Match/World.cpp
-cursor=49:5
+cursor=22:25
+open=true
 [source]
 path=Escena/Match/Match.cpp
 cursor=77:63
@@ -188,7 +191,8 @@ path=Entity/Player.h
 cursor=26:32
 [header]
 path=Entity/Entity.h
-cursor=11:13
+cursor=38:25
+open=true
 [header]
 path=Entity/Item/Item.h
 cursor=14:67
@@ -210,6 +214,7 @@ cursor=0:0
 [header]
 path=Escena/Match/World.h
 cursor=30:10
+open=true
 [header]
 path=Escena/Match/Match.h
 cursor=14:0
@@ -243,9 +248,11 @@ cursor=14:22
 [header]
 path=Escena/Match/Plataform/Plataform.h
 cursor=15:29
+open=true
 [header]
 path=Escena/Match/Plataform/Plataform_static.h
-cursor=10:39
+cursor=6:23
+open=true
 [header]
 path=Escena/Match/Plataform/Plataform_dynamic.h
 cursor=11:49

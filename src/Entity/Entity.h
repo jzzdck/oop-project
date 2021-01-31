@@ -36,7 +36,7 @@ protected:
 	sf::Vector2f m_speed, m_initpos;
 	float m_topspeed;
 	
-	float m_dir, m_scale = 2.f;
+	float m_dir, m_scale = 1.f;
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
 	Plataform * m_platform = nullptr;
