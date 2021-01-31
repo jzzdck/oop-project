@@ -5,7 +5,7 @@
 #include <string>
 #include "../Entity/Player.h"
 #include "../Graphics/DrawingEnviroment.h"
-#include "../Entity/EntitiesFacade.h"
+#include "../PlayerInfo.h"
 
 class Bar {
 public:

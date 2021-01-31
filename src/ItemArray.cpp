@@ -25,9 +25,15 @@ void ItemArray::SpawnRandom () {
 }
 
 void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & world) {
-	for(size_t i=0;i<m_items.size();i++)
-		if (m_items.at(i)->Owner() == player->GetIndex())
-			m_items.at(i)->SetPos(player->GetSprite().getGlobalBounds(), player->GetFacing());
+	for (Item* item : m_items) {
+		if (item->Owner() == player->GetIndex()) {
+			if (info.item_index == -1)
+				item->SetOwner(-1, player->GetSpeed());
+			
+			item->SetPos(player->GetSprite().getGlobalBounds(), player->GetFacing());
+			break;
+		}
+	}
 }
 
 void ItemArray::RenderWith (DrawingEnviroment & drawEnv) {

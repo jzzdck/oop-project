@@ -16,6 +16,8 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 		h.current_health = -1000.f;
 
 	if (!h.is_alive) {
+		info.weapon_index = -1;
+		
 		if (respawner == 0.00f)
 			respawner = m_gameclock.getElapsedTime().asSeconds();
 		

@@ -3,6 +3,7 @@
 #include "Entity/Item/Weapon/Revolver.h"
 #include "Entity/Item/Weapon/Handcannon.h"
 #include "TeslaGun.h"
+#include <iostream>
 
 WeaponArray::WeaponArray(const sf::Vector2f &winsize) : 
 	EntityArray(winsize)
@@ -36,7 +37,7 @@ void WeaponArray::SpawnRandom ( ) {
 std::vector<PlayerInfo> WeaponArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {
 	m_weapons = EraseUnused(m_weapons, world);
 	
-	for (size_t i=0; i<m_weapons.size(); ++i) 
+	for (size_t i=0; i<m_weapons.size(); ++i)
 		Update(m_weapons.at(i), world);
 	
 	return info;
@@ -45,12 +46,17 @@ std::vector<PlayerInfo> WeaponArray::UpdateArray (std::vector<PlayerInfo> & info
 void WeaponArray::UpdateRegardingTo (PlayerInfo & info, Player * player, World & world) {
 	for (Weapon *weapon : m_weapons) {
 		if (weapon->Owner() == player->GetIndex()) {
+			if (info.weapon_index == -1)
+				weapon->SetOwner(-1, player->GetSpeed());
+			
 			weapon->SetPos(player->GetSprite().getGlobalBounds(), player->GetFacing());
 			weapon->SetAttacking(player->GetControls()["attack"]);
 			info.ammo_data = weapon->GetAmmo();
 			
 			if (weapon->IsAttacking())
 				info.new_projectile = weapon->GetProjectileData();
+			
+			break;
 		}
 	}
 }

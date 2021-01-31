@@ -62,3 +62,8 @@ void ProjectileArray::RenderWith (DrawingEnviroment & drawEnv) {
 		projectile->Render(drawEnv), drawEnv.AddToLayer(projectile, 8);
 }
 
+ProjectileArray::~ProjectileArray ( ) {
+	for(size_t i=0;i<m_projectiles.size();i++) 
+		delete m_projectiles.at(i);
+}
+

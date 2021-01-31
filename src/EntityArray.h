@@ -4,11 +4,9 @@
 #include "Graphics/DrawingEnviroment.h"
 #include "Escena/Match/World.h"
 #include "Entity/Entity.h"
-#include "Game.h"
 #include "PlayerInfo.h"
 #include <iostream>
 #include "Entity/Item/Item.h"
-using namespace std;
 
 class EntityArray {
 public:
@@ -40,9 +38,9 @@ protected:
 	};
 	
 	template<class T>
-	int FirstToCollide(const vector<T*> &v, Player* player, int &current) {
-		//find the first item that collides and can be owned
-		auto firt_collision = find_if(v.begin(), v.end(), [&](Item *item) {
+	int FirstToCollide(const std::vector<T*> &v, Player* player, int &current) {
+		// find the first item that collides and can be owned
+		auto first_collision = find_if(v.begin(), v.end(), [&](Item *item) {
 			return player->CollidesWith(item) && item->Owner() == -1;
 		});
 		
@@ -57,7 +55,7 @@ protected:
 			current = -1;
 		// because it may be updated in EraseUnused
 		
-		return firt_collision != v.end() ? firt_collision - v.begin() : -1;
+		return first_collision != v.end() ? first_collision - v.begin() : -1;
 	}
 };
 

@@ -7,13 +7,11 @@
 #include <vector>
 #include "Healthbar.h"
 #include "Bar.h"
-#include "../Entity/Player.h"
 #include "AmmoBar.h"
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include "../Graphics/DrawingEnviroment.h"
-#include "../Entity/EntitiesFacade.h"
 
 class HUD : public sf::Drawable {
 public:

@@ -1,22 +1,14 @@
 #ifndef ENTITIESFACADE_H
 #define ENTITIESFACADE_H
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <string>
-#include "Entity.h"
 #include "Player.h"
-#include "Item/Item.h"
-#include "proyectile/Projectile.h"
 #include "../Escena/Match/World.h"
 #include "../Game.h"
 #include "../EntityArray.h"
-#include "../ItemArray.h"
 
 struct CameraInfo {
-	vector<bool> living_states;
-	vector<sf::Rect<float>> global_bounds;
+	std::vector<bool> living_states;
+	std::vector<sf::Rect<float>> global_bounds;
 };
 
 class EntitiesFacade {
@@ -27,13 +19,12 @@ public:
 	void Render(DrawingEnviroment& drawEnv);
 	
 	std::vector<PlayerInfo> GetPlayersInfos();
+	std::vector<int> GetRoundPoints();
 	CameraInfo GetCameraInfo();
 	void ProcessPlayersEvents(sf::Event &e, Game &g);
 private:
-// private methods:
 	void UpdatePlayerInfo();
 	
-// atributes:
 	std::vector<EntityArray*> m_entity_arrays;
 	std::vector<Player*> m_players;
 	std::vector<PlayerInfo> m_infos;

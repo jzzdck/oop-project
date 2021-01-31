@@ -1,5 +1,4 @@
 #include "EntitiesFacade.h"
-#include "Player.h"
 #include "../PlayerUpdater.h"
 #include "../ItemArray.h"
 #include "../WeaponArray.h"
@@ -80,3 +79,13 @@ EntitiesFacade::~EntitiesFacade ( ) {
 	for(size_t i=0;i<m_entity_arrays.size();i++) 
 		delete m_entity_arrays.at(i);
 }
+
+std::vector<int> EntitiesFacade::GetRoundPoints ( ) {
+	std::vector<int> aux;
+	
+	for(size_t i=0;i<m_infos.size();i++) 
+		aux.push_back(m_infos.at(i).round_points);
+	
+	return aux;
+}
+
