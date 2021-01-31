@@ -8,6 +8,7 @@
 namespace utils {
 	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
 	sf::Rect<float> getRectDim(std::string s);
+	std::string rectDimsToString(const sf::Rect<float> &to_convert);
 	sf::Vector2f getXY(std::string s);
 	
 	/// @brief Get the center point of a rectangle
@@ -26,8 +27,6 @@ namespace utils {
 	
 	/// @brief Get a random float between 0 and 1.
 	float randf();
-	
-	bool IsUnbounded(const sf::Rect<float> & to_check, const sf::Vector2f & bounds, float out_factor = 0.5f);
 }
 
 #endif

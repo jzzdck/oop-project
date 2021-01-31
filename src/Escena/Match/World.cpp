@@ -14,13 +14,16 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 	win_width(wdt), win_height(hgt), m_gravity(gravity),
 	m_map(map_name), m_base0(-1), m_base1(-1)
 {
-	m_bounds = { 0, 0, wdt, hgt };
 	LoadMap(map_name);
 }
 
 void World::LoadMap(std::string map_name) {
 	FileManager s1(map_name + ".conf", map_name+"-static");
 	FileManager s2(map_name + ".conf", map_name+"-dynamic");
+	
+	auto aux = utils::getXY(s1["bounds"]);
+	m_bounds = { 0, 0, aux.x, aux.y };
+	
 	size_t size1=stoi(s1["size"]);
 	size_t size2=stoi(s2["size"]);
 	

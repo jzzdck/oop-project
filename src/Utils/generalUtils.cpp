@@ -20,16 +20,15 @@ namespace utils {
 		return { x_center, y_center };
 	}
 	
-	sf::Rect<float> getRectDim(std::string s)
-	{
+	sf::Rect<float> getRectDim(std::string s){
 		std::stringstream ss(s);
 		sf::Rect<float> aux;
 		ss>>aux.left>>aux.top>>aux.width>>aux.height;
 		return aux;
 		
 	}
-	sf::Vector2f getXY(std::string s)
-	{
+	
+	sf::Vector2f getXY(std::string s) {
 		std::stringstream ss(s);
 		sf::Vector2f aux;
 		ss>>aux.x>>aux.y;
@@ -61,13 +60,12 @@ namespace utils {
 		return rand()%1001 / 1000.f; 
 	}
 	
-	bool IsUnbounded(const sf::Rect<float> & to_check, const sf::Vector2f & bounds, float out_factor) {
-		// get bools for cheking if entity is in between out_factor% + screen width/height 
-		bool is_xout = to_check.left < -bounds.x*out_factor || bounds.x*out_factor + bounds.x < to_check.left;
-		bool is_yout = to_check.top < -bounds.y*out_factor || bounds.y*out_factor + bounds.y < to_check.top;
+	std::string rectDimsToString(const sf::Rect<float> & to_convert) {
+		std::stringstream ss;
 		
-		// if both conditions are met, then entity is bounded
-		return is_yout || is_xout;
+		ss << to_convert.left << " " << to_convert.top << " " << to_convert.width << " " << to_convert.height;
+		
+		return ss.str();
 	}
 }
 

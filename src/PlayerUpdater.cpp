@@ -12,7 +12,7 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 	auto &respawner = m_respawners[player->GetIndex()];
 	Update(player, world);
 	
-	if (utils::IsUnbounded(player->GetSprite().getGlobalBounds(), {m_winsize.x-100, m_winsize.y-100}))
+	if (world.IsUnbounded(player))
 		h.current_health = -1000.f;
 
 	if (!h.is_alive) {
