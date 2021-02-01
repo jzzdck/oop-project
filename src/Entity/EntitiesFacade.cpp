@@ -36,7 +36,7 @@ void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
 		drawer->RenderWith(drawEnv);
 	
 	for (Player *player : m_players)
-		player->Render(), drawEnv.AddToLayer(player, 2);
+		player->Render(), drawEnv.AddToLayer(player, 4);
 	
 	m_world.Render(drawEnv);
 }

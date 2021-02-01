@@ -59,7 +59,7 @@ void ProjectileArray::UpdateRegardingTo (PlayerInfo & info, Player * player, Wor
 
 void ProjectileArray::RenderWith (DrawingEnviroment & drawEnv) {
 	for (Projectile *projectile : m_projectiles)
-		projectile->Render(drawEnv), drawEnv.AddToLayer(projectile, 8);
+		projectile->Render(drawEnv), drawEnv.AddToLayer(projectile, 0);
 }
 
 ProjectileArray::~ProjectileArray ( ) {

@@ -2,7 +2,7 @@
 #include <iostream>
 
 DrawingEnviroment::DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount):
-	m_window(win)
+	m_window(win), m_layer_amount(layer_amount)
 {
 	m_layer_pointers.resize(layer_amount);
 }

@@ -38,7 +38,7 @@ void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & wo
 
 void ItemArray::RenderWith (DrawingEnviroment & drawEnv) {
 	for (Item* item : m_items)
-		item->Render(drawEnv), drawEnv.AddToLayer(item, 3);
+		item->Render(drawEnv), drawEnv.AddToLayer(item, 5);
 }
 
 void ItemArray::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) {

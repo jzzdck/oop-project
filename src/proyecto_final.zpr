@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Entity/EntitiesFacade.cpp
+current_source=Escena/Match/World.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -55,7 +55,8 @@ path=Escena/Scene.cpp
 cursor=0:0
 [source]
 path=Escena/Match/World.cpp
-cursor=22:25
+cursor=23:23
+open=true
 [source]
 path=Escena/Match/Match.cpp
 cursor=17:0

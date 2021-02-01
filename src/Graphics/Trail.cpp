@@ -40,7 +40,7 @@ void Trail::Render (DrawingEnviroment &drawEnv) {
 		TrailEffect(m_target[i], i);
 	}
 	
-	drawEnv.AddToLayer(this, 3);
+	drawEnv.AddToLayer(this, 8);
 }
 
 void Trail::TrailEffect (sf::Sprite & with_this, int index) {
