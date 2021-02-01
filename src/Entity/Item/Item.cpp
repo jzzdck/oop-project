@@ -32,12 +32,13 @@ void Item::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Item::Render(DrawingEnviroment &drawEnv) {
-	m_sprite.setScale(m_dir*m_scale, m_scale);
+	if (m_speed.x != 0 || Owner() != -1)
+		m_sprite.setScale(m_dir*m_scale, m_scale);
 }
 
 void Item::SetPos (const sf::Rect<float> & relative_to, float facing) {
 	m_dir = facing;
-	m_sprite.setPosition({relative_to.left, relative_to.top+30});
+	m_sprite.setPosition({relative_to.left, relative_to.top+relative_to.height/3.f});
 	
 	if (facing == -1.f)
 		m_sprite.move(15, 0);

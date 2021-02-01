@@ -4,7 +4,7 @@
 
 class MeleeHit : public Projectile {
 public:
-	MeleeHit(const sf::Vector2f &pos);
+	MeleeHit(const sf::Rect<float> &rect, float facing);
 	void ApplyResponse (const sf::Vector2f & vec) override {}
 	void Update ( ) override;
 private:

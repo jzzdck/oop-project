@@ -4,7 +4,7 @@
 
 class Bullet : public Projectile {
 public:
-	Bullet(const sf::Vector2f &speed, const sf::Vector2f &pos);
+	Bullet(const sf::Vector2f &speed, const sf::Rect<float> &rect, float facing);
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void ApplyGravity(float gravity) override {};
 	void Update ( ) override;

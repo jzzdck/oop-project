@@ -2,14 +2,13 @@
 #include "../../Utils/generalUtils.h"
 
 Flag::Flag(sf::Vector2f pos, bool who) : 
-	Item(pos, "suitcase"), m_trail(m_sprite, true, 0.5f),
+	Item(pos, "suitcase"), m_trail(m_sprite, true),
 	m_who(who)
 {
 	m_sprite.setTexture(m_textures[0]);
 	
 	m_dep.setTexture(m_textures[1]);
 	m_dep.setColor(utils::loadPlayerColor(who));
-	m_dep.setOrigin(m_dep.getGlobalBounds().width, 0);
 	m_dep.scale(m_scale,m_scale);
 	m_dep.setPosition(pos);
 	m_trail.SetDep(m_dep);
@@ -17,6 +16,11 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 
 void Flag::Render (DrawingEnviroment &drawEnv) {
 	m_dep.setPosition(m_sprite.getPosition());
+	
+	if (m_speed.x != 0 || Owner() != -1) {
+		m_sprite.setScale(m_dir*m_scale, m_scale);
+		m_dep.setScale(m_dir*m_scale, m_scale);
+	}
 	
 	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
 		m_trail.Render(drawEnv);

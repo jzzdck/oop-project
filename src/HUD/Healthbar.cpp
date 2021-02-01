@@ -1,5 +1,4 @@
 #include "Healthbar.h"
-#include "../Entity/Player.h"
 
 HealthBar::HealthBar() : Bar("healthbar") {
 	with_background = true;

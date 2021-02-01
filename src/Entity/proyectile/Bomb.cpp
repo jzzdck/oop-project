@@ -1,11 +1,14 @@
 #include "Bomb.h"
 
-Bomb::Bomb(const sf::Vector2f &vel, const sf::Vector2f &pos) :
-	Projectile(pos, "bomb", 50.f), m_trail(m_sprite, false, 2.0f)
+Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
+	Projectile(rect, "bomb", 50.f, facing), m_trail(m_sprite, false, 2.0f)
 {
 	m_scale *= 2;
 	m_sprite.scale(m_scale, m_scale);
 	m_speed = vel;
+	
+	if (m_dir == -1.f && m_speed.x > -10.5f)
+		m_sprite.move(-30, 0);
 }
 
 void Bomb::ApplyResponse (const sf::Vector2f & vec) {

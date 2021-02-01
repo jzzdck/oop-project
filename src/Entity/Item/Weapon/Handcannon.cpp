@@ -1,7 +1,6 @@
 #include "Handcannon.h"
 #include <algorithm>
 #include <iostream>
-#include "../../proyectile/Bomb.h"
 #include <cmath>
 #include "../../../Utils/generalUtils.h"
 
@@ -55,5 +54,12 @@ void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
 		m_sprite.move(15, 0);
 	else
 		m_sprite.move(relative_to.width - 15, 0);
+}
+
+ProjectileData Handcannon::GetProjectileData ( ) {
+	return {
+		GetSprite().getGlobalBounds(), 
+		projectile_index, GetFacing(), m_angle
+	};
 }
 

@@ -1,14 +1,9 @@
 #include "ElectricShot.h"
 
-ElectricShot::ElectricShot(sf::Rect<float> rect, const sf::Vector2f &pos, float facing) : 
-	Projectile(pos, "electricshot", 100.f) 
+ElectricShot::ElectricShot(const sf::Rect<float> &rect, float facing) : 
+	Projectile(rect, "electricshot", 100.f, facing) 
 {
-	m_dir = facing;
-	if (facing == -1.f) {
-		utils::flipTexture(facing, m_scale, m_sprite);
-		m_sprite.move(-rect.width - m_sprite.getGlobalBounds().width, 0);
-	} else 
-		utils::flipTexture(facing, m_scale, m_sprite);
+	
 }
 
 void ElectricShot::ApplyEffect (Player * target) {

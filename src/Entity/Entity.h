@@ -33,13 +33,13 @@ public:
 protected:
 	std::string m_key;
 	
-	sf::Vector2f m_speed, m_initpos;
+	sf::Vector2f m_speed, m_accel, m_initpos;
 	float m_topspeed;
 	
-	float m_dir, m_scale = 1.f;
+	float m_dir = 1.f, m_scale = 2.f;
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
-	Plataform * m_platform = nullptr;
+	const Plataform * m_platform = nullptr;
 	bool in_use = true;
 };
 

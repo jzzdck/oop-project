@@ -6,6 +6,8 @@ class Handcannon : public Weapon {
 public:
 	void Render(DrawingEnviroment &drawEnv) override;
 	Handcannon(sf::Vector2f pos, float facing);
+	
+	ProjectileData GetProjectileData() override;
 	void Update() override;
 	bool IsAttacking ( ) override;
 	void SetPos(const sf::Rect<float> &relative_to, float facing) override;

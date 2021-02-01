@@ -60,8 +60,7 @@ void Match::Update (Game& g) {
 	m_camera.Update(m_entities.GetCameraInfo());
 }
 
-void Match::Render (DrawingEnviroment& drawEnv)
-{
+void Match::Render (DrawingEnviroment& drawEnv) {
 	drawEnv.ClearWindow({158, 207, 222});
 	m_camera.SetToWindow(*drawEnv.getWin());
 	m_gamehud.Render(drawEnv, m_camera.GetZoom());

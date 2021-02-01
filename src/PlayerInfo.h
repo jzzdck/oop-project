@@ -13,8 +13,9 @@ struct Ammo {
 
 struct ProjectileData {
 	sf::Rect<float> weapon_position;
-	int projectile_index;
+	int projectile_index = -1;
 	float direction;
+	float handcannon_angle;
 };
 
 struct PlayerInfo {

@@ -2,7 +2,6 @@
 #define WEAPON_H
 #include <SFML/System/Vector2.hpp>
 #include "../Item.h"
-#include "../../proyectile/Projectile.h"
 #include "../../../PlayerInfo.h"
 
 class Weapon : public Item {
@@ -12,7 +11,7 @@ public:
 	virtual bool IsAttacking() { return attack_state; }
 	void SetAttacking(bool state) { attack_state = state; }
 	Ammo GetAmmo() const { return m_ammo; }
-	ProjectileData GetProjectileData();
+	virtual ProjectileData GetProjectileData();
 	
 	Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_count);	
 	virtual ~Weapon() {}

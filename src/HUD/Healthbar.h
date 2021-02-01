@@ -1,7 +1,6 @@
 #ifndef HEALTHBAR_H
 #define HEALTHBAR_H
 #include "Bar.h"
-#include "../Entity/EntitiesFacade.h"
 
 class HealthBar : public Bar {
 public:

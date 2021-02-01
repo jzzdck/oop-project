@@ -3,7 +3,6 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
-#include "../Entity/Player.h"
 #include "../Graphics/DrawingEnviroment.h"
 #include "../PlayerInfo.h"
 

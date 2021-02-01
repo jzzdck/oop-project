@@ -6,7 +6,7 @@
 
 class Projectile : public Entity {
 public:
-	Projectile(sf::Vector2f pos, std::string keyword, float m_damage);
+	Projectile(const sf::Rect<float> &rect, std::string keyword, float m_damage, float facing);
 	
 	virtual void Render(DrawingEnviroment &drawEnv) 
 	{ 

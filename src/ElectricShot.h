@@ -4,7 +4,7 @@
 
 class ElectricShot : public Projectile {
 public:
-	ElectricShot(sf::Rect<float> rect, const sf::Vector2f &pos, float facing);
+	ElectricShot(const sf::Rect<float> &rect, float facing);
 	void ApplyEffect (Player * target) override;
 	void Render () override;
 	void Update ( ) override;

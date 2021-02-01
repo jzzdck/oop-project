@@ -3,7 +3,7 @@
 #include "../Utils/generalUtils.h"
 
 Entity::Entity (sf::Vector2f pos, std::string keyword) : 
-	m_key(keyword), m_initpos(pos), m_dir(m_speed.x > 0 ? 1.f : -1.f)
+	m_key(keyword), m_initpos(pos)
 {
 	FileManager s("textures.conf", m_key);
 	int psize = std::stoi(s[m_key+"-size"]);
