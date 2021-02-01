@@ -46,7 +46,7 @@ protected:
 		
 		// find the item that belongs to the player, if it exists
 		auto update_current = find_if(v.begin(), v.end(), [&](Item *item) {
-			return player->CollidesWith(item) && item->Owner() == player->GetIndex();
+			return item->Owner() == player->GetIndex();
 		});
 		
 		if (update_current != v.end())
