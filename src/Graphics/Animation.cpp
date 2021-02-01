@@ -3,7 +3,7 @@
 #include <iostream>
 
 Animation::Animation (sf::Sprite * target, sf::Sprite * indep) {
-	time_per_frame = sf::seconds(0.055f);
+	time_per_frame = sf::seconds(0.06f);
 	
 	m_target = target;
 	m_indep = indep;

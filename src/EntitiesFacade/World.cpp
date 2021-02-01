@@ -63,14 +63,14 @@ int World::CollidesWith (Entity * entity, sf::Vector2f & response, int index) {
 	if (index >= m_platforms.size()) return -1;
 	
 	utils::Box entity_box = {
-		entity->GetSprite().getGlobalBounds(), 
-			entity->GetSpeed()
+		entity->GetBounds(), 
+		entity->GetSpeed()
 	};
 	
 	for (size_t i = index; i < m_platforms.size(); ++i) {
 		utils::Box platform_box = {
 			m_platforms[i]->getGlobalBounds(), 
-				m_platforms[i]->getSpeed()
+			m_platforms[i]->getSpeed()
 		};
 		
 		sf::Rect<float> md = utils::minkowskiDifference(entity_box, platform_box);
@@ -85,6 +85,6 @@ int World::CollidesWith (Entity * entity, sf::Vector2f & response, int index) {
 }
 
 bool World::IsUnbounded (Entity * entity) const {
-	return !m_bounds.intersects(entity->GetSprite().getGlobalBounds());
+	return !m_bounds.intersects(entity->GetBounds());
 }
 

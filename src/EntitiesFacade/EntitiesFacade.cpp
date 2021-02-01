@@ -62,7 +62,7 @@ CameraInfo EntitiesFacade::GetCameraInfo ( ) {
 	
 	for(size_t i=0;i<living.size();i++) { 
 		living.at(i) = m_players.at(i)->GetHealthData().is_alive;
-		global_bounds.at(i) = m_players.at(i)->GetSprite().getGlobalBounds();
+		global_bounds.at(i) = m_players.at(i)->GetBounds();
 	}
 	
 	return { living, global_bounds };

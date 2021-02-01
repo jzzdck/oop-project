@@ -40,9 +40,9 @@ private:
 	Animation m_animation;
 	HealthData m_health;
 	sf::Sprite ms_belly;
+	float m_topspeed;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void RelocateSprites();
 	void LoadKeys();
 };
 

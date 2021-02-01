@@ -17,14 +17,13 @@ Entity::Entity (sf::Vector2f pos, std::string keyword) :
 	m_sprite.setScale(m_dir*m_scale, m_scale);
 }
 
-void Entity::draw(sf::RenderTarget& target, sf::RenderStates states)const
-{
+void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	target.draw(m_sprite, states);
 }
 
 
 bool Entity::CollidesWith(Entity *another) {
-	return m_sprite.getGlobalBounds().intersects(another->GetSprite().getGlobalBounds());
+	return this->GetBounds().intersects(another->GetBounds());
 }
 
 void Entity::ApplyResponse (const sf::Vector2f & vec) {

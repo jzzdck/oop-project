@@ -57,9 +57,6 @@ void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
 }
 
 ProjectileData Handcannon::GetProjectileData ( ) {
-	return {
-		GetSprite().getGlobalBounds(), 
-		projectile_index, GetFacing(), m_angle
-	};
+	return { GetBounds(), projectile_index, GetFacing(), m_angle };
 }
 

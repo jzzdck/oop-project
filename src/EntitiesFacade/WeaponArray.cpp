@@ -50,7 +50,7 @@ void WeaponArray::UpdateRegardingTo (PlayerInfo & info, Player * player, World &
 			if (info.weapon_index == -1)
 				weapon->SetOwner(-1, player->GetSpeed());
 			
-			weapon->SetPos(player->GetSprite().getGlobalBounds(), player->GetFacing());
+			weapon->SetPos(player->GetBounds(), player->GetFacing());
 			weapon->SetAttacking(player->GetControls()["attack"]);
 			info.ammo_data = weapon->GetAmmo();
 			

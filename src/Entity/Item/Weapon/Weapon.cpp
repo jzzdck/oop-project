@@ -16,9 +16,6 @@ void Weapon::Update ( ) {
 }
 
 ProjectileData Weapon::GetProjectileData ( ) {
-	return { 
-		GetSprite().getGlobalBounds(), 
-		projectile_index, GetFacing(), 0 
-	};
+	return { GetBounds(), projectile_index, GetFacing(), 0 };
 }
 

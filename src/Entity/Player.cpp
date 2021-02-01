@@ -78,7 +78,9 @@ void Player::Render() {
 	if (!m_health.is_alive)
 		return;
 	
-	RelocateSprites();
+	ms_belly.setPosition(m_sprite.getPosition());
+	utils::flipTexture(m_dir, m_scale, ms_belly);
+	utils::flipTexture(m_dir, m_scale, m_sprite);
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -87,12 +89,6 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	
 	target.draw(m_sprite,states);
 	target.draw(ms_belly,states);	
-}
-
-void Player::RelocateSprites() {
-	ms_belly.setPosition(m_sprite.getPosition());
-	utils::flipTexture(m_dir, m_scale, ms_belly);
-	utils::flipTexture(m_dir, m_scale, m_sprite);
 }
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {

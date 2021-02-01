@@ -29,7 +29,7 @@ void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & wo
 			if (info.item_index == -1)
 				item->SetOwner(-1, player->GetSpeed());
 			
-			item->SetPos(player->GetSprite().getGlobalBounds(), player->GetFacing());
+			item->SetPos(player->GetBounds(), player->GetFacing());
 			break;
 		}
 	}
