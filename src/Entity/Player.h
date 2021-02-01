@@ -6,9 +6,8 @@
 #include <string>
 #include "Entity.h"
 #include "../Utils/Controls.h"
-#include "../Escena/Match/Plataform/Plataform.h"
 #include "../Game.h"
-#include "../Animation.h"
+#include "../Graphics/Animation.h"
 
 struct Jump {
 	int count;

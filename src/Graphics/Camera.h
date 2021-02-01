@@ -2,7 +2,7 @@
 #define CAMERA_H
 #include <vector>
 #include "../Entity/Player.h"
-#include "../Entity/EntitiesFacade.h"
+#include "../EntitiesFacade/EntitiesFacade.h"
 
 class Camera {
 public:

@@ -7,7 +7,7 @@
 #include "Utils/FileManager.h"
 #include "Graphics/DrawingEnviroment.h"
 
-class Escena;
+class Scene;
 
 /** @brief The highest hierarchy level of the game.
 		   The game class serves as a nexus for all the components in the game, 
@@ -31,7 +31,7 @@ public:
 	
 	/// @brief Change the game's scene.
 	/// @param new_scene Set the next scene to this.
-	void SetScene(Escena *new_scene);
+	void SetScene(Scene *new_scene);
 	
 	/// @brief Close the game's window.
 	void Close();
@@ -41,8 +41,8 @@ public:
 	~Game();
 private:
 	sf::RenderWindow m_window;
-	Escena *m_current_scene;
-	Escena *m_next_scene = nullptr;
+	Scene *m_current_scene;
+	Scene *m_next_scene = nullptr;
 	float win_width, win_height;
 	
 	DrawingEnviroment m_drawEnv;

@@ -1,6 +1,5 @@
 #include "Shovel.h"
 #include "../../../Utils/generalUtils.h"
-#include "../../../PlayerInfo.h"
 
 Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", true, 0)
 {

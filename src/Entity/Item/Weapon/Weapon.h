@@ -2,7 +2,7 @@
 #define WEAPON_H
 #include <SFML/System/Vector2.hpp>
 #include "../Item.h"
-#include "../../../PlayerInfo.h"
+#include "../../../EntitiesFacade/PlayerInfo.h"
 
 class Weapon : public Item {
 public:

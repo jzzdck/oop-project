@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <vector>
-#include "../Escena/Match/Plataform/Plataform.h"
+#include "../EntitiesFacade/Platform/Platform.h"
 
 class Entity : public sf::Drawable {
 public:
@@ -26,7 +26,7 @@ public:
 	bool IsUsed() const { return in_use; }
 	
 	void SetSpeed(sf::Vector2f new_speed) { m_speed = new_speed; }
-	void SetPlatform(Plataform* relative_to) { m_platform = relative_to; }
+	void SetPlatform(Platform* relative_to) { m_platform = relative_to; }
 	
 	Entity(sf::Vector2f pos, std::string keyword);
 	virtual ~Entity() = default;
@@ -39,7 +39,7 @@ protected:
 	float m_dir = 1.f, m_scale = 2.f;
 	std::vector<sf::Texture> m_textures;
 	sf::Sprite m_sprite;
-	const Plataform * m_platform = nullptr;
+	const Platform * m_platform = nullptr;
 	bool in_use = true;
 };
 

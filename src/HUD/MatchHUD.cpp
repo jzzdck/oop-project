@@ -4,7 +4,7 @@
 #include <iostream>
 
 MatchHUD::MatchHUD(const sf::Vector2f &winsize, std::string mapname) {
-	m_font.loadFromFile("res/Chava-Regular.ttf");
+	m_font.loadFromFile("../res/Chava-Regular.ttf");
 
 	m_roundpoint.resize(2);
 	for(size_t i=0;i<m_roundpoint.size();i++) {

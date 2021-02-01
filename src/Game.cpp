@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Escena/Menu/Menu_Principal.h"
+#include "Scene/Menu/Menu_Principal.h"
 
 Game::Game(float width, float height, std::string window_name) :
 	win_width(width), win_height(height), 
@@ -42,7 +42,7 @@ void Game::Render()
 	m_current_scene->Render(m_drawEnv);
 }
 
-void Game::SetScene (Escena * next_scene) {
+void Game::SetScene (Scene * next_scene) {
 	m_next_scene = next_scene;
 }
 

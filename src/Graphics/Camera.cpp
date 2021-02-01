@@ -1,7 +1,6 @@
 #include "Camera.h"
 #include <cmath>
 #include "../Utils/generalUtils.h"
-#include "../Entity/EntitiesFacade.h"
 
 Camera::Camera(float width, float height) :
 	m_width(width), m_height(height),m_increment(0)

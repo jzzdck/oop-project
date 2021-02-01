@@ -10,7 +10,7 @@ Trail::Trail (const sf::Sprite & target, bool deps, float scale) :
 	
 	if (!sf::Shader::isAvailable())
 		std::cerr << "Shaders aren't available" << std::endl;
-	else if (!m_monochromizer.loadFromFile("src/Graphics/Shaders/solid_color.frag", sf::Shader::Fragment))
+	else if (!m_monochromizer.loadFromFile("Graphics/Shaders/solid_color.frag", sf::Shader::Fragment))
 		std::cerr << "Couldn't load shaders" << std::endl;
 	else
 		using_shaders = true;

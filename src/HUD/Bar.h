@@ -4,7 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <string>
 #include "../Graphics/DrawingEnviroment.h"
-#include "../PlayerInfo.h"
+#include "../EntitiesFacade/PlayerInfo.h"
 
 class Bar {
 public:

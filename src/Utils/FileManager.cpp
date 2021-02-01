@@ -1,11 +1,11 @@
 #include "FileManager.h"
 
 FileManager::FileManager(std::string const& FileName,std::string const& KeyWord) :
-	m_FileName(std::string("res/configuration-files/"+FileName)),
+	m_FileName(std::string("../res/configuration-files/"+FileName)),
 	m_KeyWord(KeyWord),
 	m_divisor("------------------"),
 	m_NameSign("[###]"),
-	m_BackUpFile_name(std::string("res/configuration-files/BackUpConf/B_"+FileName))
+	m_BackUpFile_name(std::string("../res/configuration-files/BackUpConf/B_"+FileName))
 {
 	LoadBackUp();
 	LoadFile();

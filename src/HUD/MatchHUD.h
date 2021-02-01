@@ -9,7 +9,7 @@
 #include <vector>
 #include "HUD.h"
 #include "../Graphics/DrawingEnviroment.h"
-#include "../PlayerInfo.h"
+#include "../EntitiesFacade/PlayerInfo.h"
 
 class MatchHUD : public sf::Drawable {
 public:
