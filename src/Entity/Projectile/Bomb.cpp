@@ -1,14 +1,15 @@
 #include "Bomb.h"
+#include "../../Utils/generalUtils.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
 	Projectile(rect, "bomb", 50.f, facing), m_trail(m_sprite, false, 2.0f)
 {
-	m_scale *= 2;
-	m_sprite.scale(m_scale, m_scale);
+	m_dir = facing;
 	m_speed = vel;
 	
-	if (m_dir == -1.f && m_speed.x > -10.5f)
-		m_sprite.move(-30, 0);
+	sf::Color trail_color = { 235, 106, 55, 125 };
+	m_trail.SetColor(trail_color);
+	m_trail.SetLength(14);
 }
 
 void Bomb::ApplyResponse (const sf::Vector2f & vec) {
@@ -27,23 +28,30 @@ void Bomb::ApplyEffect (Player * target) {
 
 void Bomb::Update ( ) {
 	if (!exploding) {
-		m_sprite.move(m_speed);
 		if (timer.getElapsedTime().asSeconds() > max_life)
 			Explode();
-	} else if (lifetime.getElapsedTime().asSeconds() > 0.25f)
-		in_use = false;
-	
-	m_trail.AddPosition(m_sprite.getPosition());
+		else {
+			m_sprite.move(m_speed);
+			m_trail.AddPosition(GetBounds(), utils::getCenter(m_sprite.getLocalBounds()));
+		}
+	} else {
+		m_trail.Pop();
+		
+		if (lifetime.getElapsedTime().asSeconds() > 0.25f)
+			in_use = false;
+	}
 }
 
 void Bomb::Explode ( ) {
+	m_sprite.setPosition(utils::getCenter(m_sprite.getGlobalBounds()));
 	m_sprite.setTexture(m_textures[1], true);
+	m_sprite.setOrigin(utils::getCenter(m_sprite.getLocalBounds()));
 	exploding = true;
 	lifetime.restart();
 }
 
 void Bomb::Render (DrawingEnviroment &drawEnv) {
-	utils::flipTexture(m_dir, m_scale, m_sprite);
+	m_sprite.setScale(m_dir*m_scale*2.f, m_scale*2.f);
 	m_trail.Render(drawEnv); 
 }
 

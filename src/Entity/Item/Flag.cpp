@@ -12,6 +12,7 @@ Flag::Flag(sf::Vector2f pos, bool who) :
 	m_dep.scale(m_scale,m_scale);
 	m_dep.setPosition(pos);
 	m_trail.SetDep(m_dep);
+	m_trail.SetColor(m_dep.getColor());
 }
 
 void Flag::Render (DrawingEnviroment &drawEnv) {
@@ -22,8 +23,7 @@ void Flag::Render (DrawingEnviroment &drawEnv) {
 		m_dep.setScale(m_dir*m_scale, m_scale);
 	}
 	
-	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
-		m_trail.Render(drawEnv);
+	m_trail.Render(drawEnv);
 }
 
 void Flag::draw(sf::RenderTarget& target,sf::RenderStates states)const
@@ -34,11 +34,9 @@ void Flag::draw(sf::RenderTarget& target,sf::RenderStates states)const
 
 void Flag::Update ( ) {
 	Item::Update();
-	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0) { 
-		auto globals = m_sprite.getGlobalBounds();
-		
-		m_trail.AddPosition(sf::Vector2f(globals.left, globals.top));
-	} else m_trail.Clear();
+	if (Owner() != -1 || m_speed.x != 0 || m_speed.y != 0)
+		m_trail.AddPosition(GetBounds(), utils::getCenter(m_sprite.getLocalBounds()));
+	else m_trail.Pop();
 }
 
 void Flag::SetOwner (int owner, const sf::Vector2f &release_speed) {

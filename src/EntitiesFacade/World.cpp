@@ -18,8 +18,8 @@ World::World(float wdt, float hgt, float gravity, std::string map_name) :
 }
 
 void World::LoadMap(std::string map_name) {
-	FileManager s1(map_name + ".conf", map_name+"-static");
-	FileManager s2(map_name + ".conf", map_name+"-dynamic");
+	FileManager s1("/maps/" + map_name + ".conf", map_name+"-static");
+	FileManager s2("/maps/" + map_name + ".conf", map_name+"-dynamic");
 	
 	auto aux = utils::getXY(s1["bounds"]);
 	m_bounds = { 0, 0, aux.x, aux.y };

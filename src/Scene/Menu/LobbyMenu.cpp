@@ -158,7 +158,7 @@ void LobbyMenu::ReplaceNumber (int index, int new_number, size_t starting_pos) {
 }
 
 std::string LobbyMenu::GetRandomMap ( ) {
-	std::ifstream fin("../res/configuration-files/allmaps.conf");
+	std::ifstream fin("../res/configuration-files/maps/allmaps.conf");
 	std::vector<std::string> all_maps;
 	
 	std::string aux;

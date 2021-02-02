@@ -10,4 +10,3 @@ void MeleeHit::Update ( ) {
 	if (lifetime.getElapsedTime().asSeconds() > 0.05f)
 		in_use = false;
 }
-

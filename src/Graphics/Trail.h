@@ -13,16 +13,13 @@ using namespace std;
 class Trail : public sf::Drawable {
 public:
 	Trail(const sf::Sprite &target, bool deps = false, float scale = 1.f);
-	void AddPosition(const sf::Vector2f &new_pos);
-	void SetDep(const sf::Sprite &dep) { 
-			m_dep.resize(1);
-			m_dep.at(0) = dep;
-	}
+	void AddPosition(const sf::Rect<float> &new_pos, const sf::Vector2f &local_center);
 	
-	void SetIndep(const sf::Sprite &indep) {
-			m_target.at(0) = indep;
-			m_target.resize(1);
-	}
+	void SetDep(const sf::Sprite &dep);
+	void SetIndep(const sf::Sprite &indep);
+	void Pop();
+	void SetLength(int new_length);
+	void SetColor(const sf::Color &c);
 	
 	void Render(DrawingEnviroment &drawEnv);
 	void Clear() { m_positions.clear(); }
@@ -31,7 +28,10 @@ private:
 	void TrailEffect(sf::Sprite &with_this, int index);
 	
 	float m_scale;
-	bool has_deps, using_shaders = false;
+	int m_length;
+	sf::Color m_color;
+	bool has_deps;
+	
 	std::vector<sf::Sprite> m_target;
 	std::vector<sf::Sprite> m_dep;
 	std::vector<sf::Vector2f> m_positions;
