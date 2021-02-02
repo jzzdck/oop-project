@@ -1,6 +1,6 @@
 #ifndef ELECTRICSHOT_H
 #define ELECTRICSHOT_H
-#include "../Proyectile/Projectile.h"
+#include "Projectile.h"
 
 class ElectricShot : public Projectile {
 public:

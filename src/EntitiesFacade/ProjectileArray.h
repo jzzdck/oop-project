@@ -1,7 +1,7 @@
 #ifndef PROJECTILEARRAY_H
 #define PROJECTILEARRAY_H
 #include "EntityArray.h"
-#include "../Entity/Proyectile/Projectile.h"
+#include "../Entity/Projectile/Projectile.h"
 
 class ProjectileArray : public EntityArray {
 public:

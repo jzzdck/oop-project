@@ -1,9 +1,9 @@
 #include "ProjectileArray.h"
 #include "PlayerInfo.h"
 #include <cmath>
-#include "../Entity/Proyectile/Bullet.h"
-#include "../Entity/Proyectile/Bomb.h"
-#include "../Entity/Proyectile/MeleeHit.h"
+#include "../Entity/Projectile/Bullet.h"
+#include "../Entity/Projectile/Bomb.h"
+#include "../Entity/Projectile/MeleeHit.h"
 #include "../Entity/Projectile/ElectricShot.h"
 
 ProjectileArray::ProjectileArray(const sf::Vector2f &winsize) :
