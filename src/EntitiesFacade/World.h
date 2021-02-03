@@ -16,6 +16,7 @@ public:
 	void Update();
 	void Render(DrawingEnviroment& drawEnv);
 	
+	sf::Rect<float> GetWorldBounds() { return m_bounds; }
 	float GetGravity() const { return m_gravity; }
 	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);
 	int GetBaseIndex(int which) const { return which ? m_base1 : m_base0; };

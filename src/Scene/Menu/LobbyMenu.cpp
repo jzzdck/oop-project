@@ -61,11 +61,10 @@ void LobbyMenu::ProcessEvent (sf::Event & e, Game & g) {
 		else if (e.key.code == m_input.GetKey("select"))
 			Select(g);
 		
-		int dir = 1;
-		if (e.key.code == m_input.GetKey("go_right") || e.key.code == m_input.GetKey("go_left")) {
-			if (e.key.code == m_input.GetKey("go_left"))
-				dir = -1;
-			
+		int dir = e.key.code == m_input.GetKey("go_right") ?  1 : 
+				 (e.key.code == m_input.GetKey("go_left")  ? -1 : -2);
+		
+		if (dir != -2) {
 			switch (current_option) {
 			case 0:
 				m_settings.rounds_left += dir;

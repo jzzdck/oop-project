@@ -7,16 +7,19 @@
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name)
 {
+	auto world_bounds = m_world.GetWorldBounds();
+	sf::Vector2f world_size = {world_bounds.width, world_bounds.height};
+	
 	m_entity_arrays = {
-		new PlayerUpdater({width, height}),
-		new ItemArray({width, height}),
-		new WeaponArray({width, height}),
-		new ProjectileArray({width, height})
+		new PlayerUpdater(world_size),
+		new ItemArray(world_size),
+		new WeaponArray(world_size),
+		new ProjectileArray(world_size)
 	};
 	
 	m_infos.resize(2);	
-	m_players.push_back(new Player({width*0.9f, height*0.9f} , 0));
-	m_players.push_back(new Player({width*0.15f, height*0.4f}, 1));
+	m_players.push_back(new Player({world_size.x*0.1f, world_size.y*0.1f}, 0));
+	m_players.push_back(new Player({world_size.x*0.12f, world_size.y*0.12f}, 1));
 }
 
 void EntitiesFacade::Update ( ) {
