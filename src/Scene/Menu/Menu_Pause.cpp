@@ -33,34 +33,12 @@ void Menu_Pause::Select (Game & g)
 
 void Menu_Pause::ProcessEvent (sf::Event & e, Game & g) 
 {
-	switch(e.type)
-	{
-	case sf::Event::KeyPressed:
-		if(e.key.code==sf::Keyboard::P)
-		{
-			*m_pause=!*(m_pause);
-			return;
-		}
-		if(e.key.code==m_input<="go_up")
-		{
-		   Move_Option_Up();
-		   return;
-		}
-		if(e.key.code==m_input<="go_down")
-		{
-		   Move_Option_Down();
-			return;
-		}
-		if(e.key.code==m_input<="select")
-		{	
-		   Select(g);
-		   return;
-		}
-	default:
-		
-		break;
-	}
-
+	// only keypresses are important
+	if (e.type != sf::Event::KeyPressed) return;
+	
+	if (e.key.code==sf::Keyboard::P)
+		*m_pause=!*(m_pause);
+	else StandardMenuInput(g, e.key.code);
 }
 void Menu_Pause::Update (Game & g)
 {

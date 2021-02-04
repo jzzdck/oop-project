@@ -13,12 +13,7 @@ void Menu_Options::ProcessEvent(sf::Event& e,Game& g)
 	{
 		if(e.key.code==sf::Keyboard::Escape)
 			g.SetScene(new Menu_Principal(win_width, win_height));
-		if(e.key.code==m_input<="go_up")
-			Move_Option_Up();
-		if(e.key.code==m_input<="go_down")
-			Move_Option_Down();
-		if(e.key.code==m_input<="select")
-			Select(g);
+		else StandardMenuInput(g, e.key.code);
 	}	
 }
 

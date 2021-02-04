@@ -103,10 +103,7 @@ void Menu::LoadSliders()
 		
 		int max=stoi(s[key+"top-value"]);
 		m_sliders[i].setTopValue(max);
-		
-		
 	}
-	
 }
 void Menu::RandomizeMyColor(unsigned const& text_position)
 {
@@ -127,23 +124,23 @@ void Menu::HighlightCurrentOption()
 	
 	m_texts[m_Noptions.x+current_option].setFillColor(m_text_color[m_Noptions.x+current_option]);
 	
-	
-	
 	//esto sirve para dar el efecto de selecionar la opcion actual 
 	//(basicamente oscurece todos los textos selecionables menos el actual)
 }
 
-void Menu::Move_Option_Up()
+void Menu::Move_Option(int dir)
 {
-	--current_option;
-	if (current_option < 0)
-		current_option = m_Noptions.y-m_Noptions.x;
-}
-void Menu::Move_Option_Down()
-{
-	++current_option;
-	if (current_option > m_Noptions.y-m_Noptions.x)
-		current_option = 0;
+	current_option += dir;
+	current_option %= m_Noptions.y-m_Noptions.x+1;
+	if (current_option < 0) current_option = m_Noptions.y-m_Noptions.x;
 }
 
-
+void Menu::StandardMenuInput (Game &g, const sf::Keyboard::Key & keycode) 
+{
+	if (keycode == m_input.GetKey("go_up"))
+		Move_Option(-1);
+	else if (keycode == m_input.GetKey("go_down"))
+		Move_Option(1);
+	else if (keycode == m_input.GetKey("select"))
+		Select(g);
+}

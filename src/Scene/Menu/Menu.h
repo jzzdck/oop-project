@@ -20,7 +20,6 @@ public:
 	Menu(float width, float height,std::string location="principal");
 	virtual ~Menu() = default;
 private:
-	
 protected:
 	///Load elements on contructor
 	void LoadTexts();
@@ -30,13 +29,12 @@ protected:
 	
 	///Movement and actions in menu
 	virtual void Select(Game& g)=0;
-	void Move_Option_Down();
-	void Move_Option_Up();
+	void StandardMenuInput(Game &g, const sf::Keyboard::Key &keycode);
+	void Move_Option(int dir);
 	
 	///TextOperations
 	void RandomizeMyColor(unsigned const& text_position);
 	void HighlightCurrentOption();
-	void CopyColorFromPlayer(unsigned const& text_position);
 	
 	///Variables
 	unsigned frame_count;

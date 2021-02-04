@@ -18,12 +18,7 @@ void Menu_Principal::ProcessEvent(sf::Event& e,Game& g)
 	{
 		if(e.key.code==sf::Keyboard::Escape)
 			g.Close();
-		if(e.key.code==m_input<="go_up")
-			Move_Option_Up();
-		if(e.key.code==m_input<="go_down")
-			Move_Option_Down();
-		if(e.key.code==m_input<="select")
-			Select(g);
+		else StandardMenuInput(g, e.key.code);
 	}
 }
 void Menu_Principal::Update (Game & g)

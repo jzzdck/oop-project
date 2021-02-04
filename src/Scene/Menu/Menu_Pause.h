@@ -10,7 +10,6 @@ public:
 	void Update (Game & g)override;
 	void Render (DrawingEnviroment& drawEnv)override;
 	void Close();
-protected:
 private:
 	void Select(Game& g)override;
 	void Relocate(sf::RenderWindow & win);
