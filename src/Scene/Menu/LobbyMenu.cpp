@@ -51,45 +51,34 @@ void LobbyMenu::Select (Game & g) {
 }
 
 void LobbyMenu::ProcessEvent (sf::Event & e, Game & g) {
-	if (e.type == sf::Event::KeyPressed) {
-		if (e.key.code == sf::Keyboard::Escape)
-			g.SetScene(new Menu_Principal(win_width, win_height));
-		else if (e.key.code == m_input.GetKey("go_down"))
-			Move_Option_Down();
-		else if (e.key.code == m_input.GetKey("go_up"))
-			Move_Option_Up();
-		else if (e.key.code == m_input.GetKey("select"))
-			Select(g);
-		
-		int dir = e.key.code == m_input.GetKey("go_right") ?  1 : 
-				 (e.key.code == m_input.GetKey("go_left")  ? -1 : -2);
-		
-		if (dir != -2) {
-			switch (current_option) {
-			case 0:
-				m_settings.rounds_left += dir;
-				if (m_settings.rounds_left == 0)
-					m_settings.rounds_left = 1;
-				break;
-			case 1: {
-				int current = m_settings.round_type;
-				
-				m_settings.round_type += dir;
-				if (m_settings.round_type >= m_roundtypes.size() || m_settings.round_type < 0)
-					m_settings.round_type %= m_roundtypes.size();
-				
-				ReplaceRoundType(current, m_settings.round_type);
-				break;
-			} case 2:
-				if (m_settings.round_type == 1) {
-					m_settings.max_points += dir;
-					if (m_settings.max_points == 0)
-						m_settings.max_points = 1;
-				}
-				
-				break;
-			}
-		}
+	// this menu only cares about key presses
+	if (e.type != sf::Event::KeyPressed) return;
+	
+	if (e.key.code == sf::Keyboard::Escape)
+		g.SetScene(new Menu_Principal(win_width, win_height));
+	else StandardMenuInput(g, e.key.code);
+	
+	int dir = e.key.code == m_input.GetKey("go_right") ?  1 : 
+			 (e.key.code == m_input.GetKey("go_left")  ? -1 : 0);
+	
+	// if key pressed isnt left nor right, then return
+	if (!dir) return;
+	switch (current_option) {
+	case 0:
+		m_settings.rounds_left += dir;
+		m_settings.rounds_left = std::max(m_settings.rounds_left, 1);
+		break;
+	case 1: {
+		int current = m_settings.round_type;
+		m_settings.round_type += dir;
+		m_settings.round_type %= m_roundtypes.size();
+		ReplaceRoundType(current, m_settings.round_type);
+		break;
+	} case 2:
+		if (m_settings.round_type != 1) return;
+		m_settings.max_points += dir;
+		m_settings.max_points = std::max(m_settings.max_points, 1);
+		break;
 	}
 }
 
@@ -104,13 +93,12 @@ void LobbyMenu::Update (Game & g) {
 	}
 	
 	ReplaceNumber(0, m_settings.rounds_left);
-	if (m_settings.round_type == 1) 
+	if (m_settings.round_type == 1 || m_settings.round_type == 3)
 		ReplaceNumber(2, m_settings.max_points);
 	else if (m_settings.round_type == 2) 
 		ReplaceNumber(2, m_settings.max_seconds);
 	else if (m_settings.round_type == 3) { 
 		ReplaceNumber(2, m_settings.max_points);
-		
 		size_t pos = m_texts[2].getString().find("Clock");
 		ReplaceNumber(2, m_settings.max_seconds, pos);
 	}
@@ -166,4 +154,3 @@ std::string LobbyMenu::GetRandomMap ( ) {
 	
 	return all_maps.at(rand()%(all_maps.size()));
 }
-
