@@ -6,7 +6,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Config.hpp>
 #include <vector>
-#include "Platform/Platform.h"
+#include "Platform.h"
 #include "../Entity/Entity.h"
 #include "../Graphics/DrawingEnviroment.h"
 
@@ -28,7 +28,7 @@ private:
 	sf::Rect<float> m_bounds;
 	
 	void LoadMap(std::string map_name);
-	std::vector<Platform*> m_platforms;
+	std::vector<Platform> m_platforms;
 	float m_gravity;
 	float win_width, win_height;
 	std::string m_map;

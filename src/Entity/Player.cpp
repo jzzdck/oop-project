@@ -66,7 +66,7 @@ void Player::Update() {
 	}
 		
 	if (m_platform) 
-		m_sprite.move(m_platform->getSpeed());
+		m_sprite.move(m_platform->GetSpeed());
 	
 	m_sprite.setTexture(m_textures[0], true);
 	ms_belly.setTexture(m_textures[1], true);

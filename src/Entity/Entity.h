@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <vector>
-#include "../EntitiesFacade/Platform/Platform.h"
+#include "../EntitiesFacade/Platform.h"
 
 class Entity : public sf::Drawable {
 public:

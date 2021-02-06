@@ -10,7 +10,7 @@ void Item::Update ( ) {
 	m_dir = m_speed.x > 0 ? 1.f : -1.f;
 	
 	if (m_platform) 
-		m_sprite.move(m_platform->getSpeed());
+		m_sprite.move(m_platform->GetSpeed());
 	m_sprite.move(m_speed.x, m_speed.y);
 	
 	float fr = 0.25;
