@@ -13,7 +13,6 @@ public:
 	sf::RenderWindow* getWin();///temporal function, it will probably deleted in the future
 private:
 	sf::RenderWindow* m_window;
-	unsigned m_layer_amount;
 	std::vector<std::vector<sf::Drawable*>> m_layer_pointers;
 };
 

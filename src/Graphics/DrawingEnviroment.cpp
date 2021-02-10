@@ -2,7 +2,7 @@
 #include <iostream>
 
 DrawingEnviroment::DrawingEnviroment(sf::RenderWindow* win,unsigned layer_amount):
-	m_window(win), m_layer_amount(layer_amount)
+	m_window(win)
 {
 	m_layer_pointers.resize(layer_amount);
 }
@@ -16,9 +16,9 @@ void DrawingEnviroment::ClearWindow(sf::Color c)
 }
 void DrawingEnviroment::AddToLayer(sf::Drawable* obj,unsigned layer_index)
 {
-	if(layer_index>=m_layer_amount)
+	if(layer_index>=m_layer_pointers.size())
 	{
-		layer_index=m_layer_amount-1;
+		layer_index=m_layer_pointers.size()-1;
 		std::cerr<<"\nLayer index greater than layer amount, asuming last layer\n";
 	}
 	m_layer_pointers[layer_index].push_back(obj);
