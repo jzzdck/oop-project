@@ -8,17 +8,13 @@ Slider::Slider()
 	
 }
 
-void Slider::draw(sf::RenderTarget& target, sf::RenderStates states)const
-{
-	target.draw(m_r, states);
-}
 
 void Slider::Move(bool const direction)
 {
 	if(direction)
-		m_r.move(m_speed.x,m_speed.y);
+		this->move(m_speed.x,m_speed.y);
 	else
-		m_r.move(-m_speed.x,m_speed.y);
+		this->move(-m_speed.x,m_speed.y);
 }
 
 int Slider::getDistance()
@@ -27,14 +23,14 @@ int Slider::getDistance()
 }
 float Slider::getPorcentualDistance()
 {
-	sf::Rect<float> l=m_r.getGlobalBounds();
+	sf::Rect<float> l=this->getGlobalBounds();
 	return (l.left-m_MinPos)/(m_MaxPos-l.width-m_MinPos);
 }
 void Slider::JumpToPorcentage(float const value)
 {
-	sf::Rect<float> l=m_r.getGlobalBounds();
+	sf::Rect<float> l=this->getGlobalBounds();
 	float pos=value*(m_MaxPos-l.width-m_MinPos)+m_MinPos;
-	m_r.setPosition(pos,l.top);
+	this->setPosition(pos,l.top);
 }
 void Slider::setLimits(sf::Vector2f const min_max)
 {
@@ -48,7 +44,7 @@ void Slider::setLimits(float const MinPos,float const MaxPos)
 }
 bool Slider::isAtLimit(bool const right_limit)
 {
-	sf::Rect<float> dim=m_r.getGlobalBounds();
+	sf::Rect<float> dim=this->getGlobalBounds();
 	if(right_limit)
 		return ((dim.left+dim.width)<m_MaxPos);
 	else
@@ -66,14 +62,6 @@ void Slider::setSpeed(float const vel)
 void Slider::setColor(sf::Color const c)
 {
 	m_color=c;
-}
-void Slider::setSize(sf::Vector2f const s)
-{
-	m_r.setSize(s);
-}
-void Slider::setPosition(sf::Vector2f const p)
-{
-	m_r.setPosition(p);
 }
 void Slider::setTopValue(int const max_value)
 {

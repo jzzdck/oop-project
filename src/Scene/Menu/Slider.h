@@ -3,12 +3,10 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Drawable.hpp>
-class Slider:public sf::Drawable
+class Slider:public sf::RectangleShape
 {
 public:
 	Slider();
-	void draw(sf::RenderTarget& target,sf::RenderStates States)const override;
 	
 	void Move(bool const direction);
 	void JumpToPorcentage(float const value);
@@ -21,8 +19,6 @@ public:
 	void setSpeed(sf::Vector2f const vel);
 	void setSpeed(float const vel);
 	void setColor(sf::Color const c);
-	void setSize(sf::Vector2f const s);
-	void setPosition(sf::Vector2f const p);
 	void setTopValue(int const max_value);
 	
 private:
@@ -30,7 +26,6 @@ private:
 	float m_MinPos,m_MaxPos;
 	sf::Vector2f m_speed;
 	sf::Color m_color;
-	sf::RectangleShape m_r;
 };
 #endif
 
