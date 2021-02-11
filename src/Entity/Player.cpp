@@ -55,10 +55,10 @@ void Player::Update() {
 		m_animation.SetState(Animation::State::Running|m_animation.GetState());
 		
 		m_dir = 1.f;
-		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
-		
+		m_speed.x = std::min(m_speed.x, m_topspeed);
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
+		m_accel += {m_dir*0.7f, 0.f};
 	} else {
 		m_speed.x = 0.f;
 		if (m_animation.GetState() != Animation::State::Jumping)
@@ -71,7 +71,8 @@ void Player::Update() {
 	m_sprite.setTexture(m_textures[0], true);
 	ms_belly.setTexture(m_textures[1], true);
 	m_animation.Update();
-	m_sprite.move(m_speed.x, m_speed.y);
+	
+	Entity::Update();
 }
 
 void Player::Render() {
@@ -100,5 +101,13 @@ void Player::ApplyResponse(const sf::Vector2f &vec) {
 	else if (!m_speed.x)
 		m_animation.SetState(Animation::State::Idle);
 	
-	m_jump.count = 2;
+	if (vec.y < 0) m_jump.count = 2;
 }
+
+void Player::Respawn ( ) {
+	m_sprite.setPosition(GetInitPos());
+	m_speed = m_accel = {0, 0};
+	m_health.current_health = 1000.f;
+	m_health.is_alive = true;
+}
+

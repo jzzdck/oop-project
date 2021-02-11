@@ -11,12 +11,12 @@
 
 class Entity : public sf::Drawable {
 public:
-	virtual void Update() = 0;
+	virtual void Update();
 	virtual void Render() = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states)const override;
 	
 	bool CollidesWith(Entity *another);
-	virtual void ApplyGravity(float gravity) { m_speed.y += gravity; }
+	virtual void ApplyForce(const sf::Vector2f &force) { m_accel += force; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
 	
 	sf::Rect<float> GetBounds() const { return m_sprite.getGlobalBounds(); }

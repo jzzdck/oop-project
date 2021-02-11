@@ -27,6 +27,7 @@ public:
 	void Update() override; 
 	void Render() override;
 	
+	void Respawn();
 	void ApplyResponse(const sf::Vector2f &vec) override;
 	HealthData &GetHealthData() { return m_health; };
 	HealthData  GetHealthData() const { return m_health; };

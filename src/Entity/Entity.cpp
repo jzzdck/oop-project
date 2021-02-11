@@ -29,5 +29,12 @@ bool Entity::CollidesWith(Entity *another) {
 void Entity::ApplyResponse (const sf::Vector2f & vec) {
 	m_sprite.move(vec.x, vec.y);
 	if (!vec.x) m_speed.y = 0;
+	if (vec.x) m_speed.x *= -0.25f;
+}
+
+void Entity::Update ( ) {
+	m_speed += m_accel;
+	m_sprite.move(m_speed);
+	m_accel = {0.f, 0.f};
 }
 

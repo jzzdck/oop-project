@@ -6,24 +6,16 @@ Item::Item(sf::Vector2f pos, std::string keyword)
 	: Entity(pos, keyword), m_owner(-1) {}
 
 void Item::Update ( ) {
-	if (Owner() != -1) return;
-	m_dir = m_speed.x > 0 ? 1.f : -1.f;
-	
-	if (m_platform) 
-		m_sprite.move(m_platform->GetSpeed());
-	m_sprite.move(m_speed.x, m_speed.y);
-	
-	float fr = 0.25;
-	
-	if (m_speed.x < 0)
-		m_speed.x = std::fabs(m_speed.x);
-	
-	if (m_speed.x > 0) {
-		if (m_speed.x - fr < 0) m_speed.x = 0;
-		else m_speed.x -= fr;
+	if (Owner() != -1) {
+		m_speed = m_accel = {0,0};
+		return;
 	}
 	
-	m_speed.x *= m_dir;
+	m_accel.x += -m_speed.x*0.04f;
+	if (m_platform) 
+		m_sprite.move(m_platform->GetSpeed());
+	
+	Entity::Update();
 }
 
 void Item::ApplyResponse (const sf::Vector2f & vec) {

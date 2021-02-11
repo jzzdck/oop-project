@@ -38,10 +38,8 @@ void ProjectileArray::ApplyProjectileData ( ) {
 
 std::vector<PlayerInfo> ProjectileArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {
 	m_projectiles = EraseUnused(m_projectiles, world);
-	for (size_t i=0; i<info.size(); ++i) {
+	for (size_t i=0; i<info.size(); ++i)
 		current_data.push_back(info.at(i).new_projectile);
-		info.at(i).new_projectile.projectile_index = -1;
-	}
 	
 	ApplyProjectileData();
 	

@@ -4,7 +4,8 @@
 
 Revolver::Revolver(sf::Vector2f pos, float facing) : 
 	Weapon(pos, "revolver", facing, 6), is_shooting(false)
-{ 
+{
+	pushback = { 1, -1 };
 	projectile_index = 1;
 }
 

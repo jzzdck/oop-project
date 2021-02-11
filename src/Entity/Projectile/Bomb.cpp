@@ -31,7 +31,9 @@ void Bomb::Update ( ) {
 		if (timer.getElapsedTime().asSeconds() > max_life)
 			Explode();
 		else {
-			m_sprite.move(m_speed);
+			m_accel.y += -m_speed.y * 0.04f;
+			m_accel.x += -m_speed.x * 0.004f;
+			Entity::Update();
 			m_trail.AddPosition(GetBounds(), utils::getCenter(m_sprite.getLocalBounds()));
 		}
 	} else {
@@ -53,10 +55,6 @@ void Bomb::Explode ( ) {
 void Bomb::Render (DrawingEnviroment &drawEnv) {
 	m_sprite.setScale(m_dir*m_scale*2.f, m_scale*2.f);
 	m_trail.Render(drawEnv); 
-}
-
-void Bomb::ApplyGravity (float gravity) {
-	m_speed.y += gravity*0.75;
 }
 
 void Bomb::draw (sf::RenderTarget & target, sf::RenderStates states) const {
