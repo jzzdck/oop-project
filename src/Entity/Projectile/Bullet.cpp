@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Bullet::Bullet(const sf::Vector2f &speed, const sf::Rect<float> &rect, float facing) :
-	Projectile(rect, "bullet", 50.f, facing)
+	Projectile(rect, "bullet", rand()%(50-25) + 25, facing, 0.06f)
 {
 	m_speed = speed;
 	m_sprite.move(0, -5);

@@ -1,7 +1,7 @@
 #include "MeleeHit.h"
 
 MeleeHit::MeleeHit(const sf::Rect<float> &rect, float facing) : 
-	Projectile(rect, "melee", 250.f, facing) 
+	Projectile(rect, "melee", rand()%(250-100)+100, facing, 0.15f) 
 {
 	
 }

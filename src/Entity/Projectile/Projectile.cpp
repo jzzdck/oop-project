@@ -1,8 +1,8 @@
 #include "Projectile.h"
 #include <iostream>
 
-Projectile::Projectile(const sf::Rect<float> &rect, std::string keyword, float damage, float facing) : 
-	Entity({0, 0}, keyword), m_damage(damage)
+Projectile::Projectile(const sf::Rect<float> &rect, std::string keyword, float damage, float facing, float crit_chance) : 
+	Entity({0, 0}, keyword), m_damage(damage), crit_chance(crit_chance)
 { 
 	m_dir = facing;
 	
@@ -17,6 +17,6 @@ Projectile::Projectile(const sf::Rect<float> &rect, std::string keyword, float d
 
 void Projectile::ApplyEffect (Player * target) {
 	HealthData &h = target->GetHealthData();
-	h.current_health -= m_damage;
+	h.current_health -= m_damage * (utils::randf() < crit_chance ? 1.5f : 1.f);
 	in_use = false;
 }

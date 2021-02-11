@@ -55,7 +55,8 @@ void Player::Update() {
 		m_animation.SetState(Animation::State::Running|m_animation.GetState());
 		
 		m_dir = 1.f;
-		m_speed.x = std::min(m_speed.x + 0.7f, m_topspeed);
+		m_speed.x += 0.7f;
+		m_speed.x = std::min(m_speed.x, m_topspeed);
 		
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
@@ -64,7 +65,7 @@ void Player::Update() {
 		if (m_animation.GetState() != Animation::State::Jumping)
 			m_animation.SetState(Animation::State::Idle);
 	}
-		
+	
 	if (m_platform) 
 		m_sprite.move(m_platform->GetSpeed());
 	

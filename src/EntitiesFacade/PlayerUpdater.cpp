@@ -22,6 +22,9 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 		
 		float can_respawn = m_gameclock.getElapsedTime().asSeconds() - respawner;
 		if (can_respawn >= 1.5f) {
+			if (rand()%2 && info.round_points > 0)
+				--info.round_points;
+			
 			player->SetPosition(player->GetInitPos());
 			player->SetSpeed({0, 0});
 			h.current_health = 1000.f;
