@@ -28,7 +28,8 @@ void Match::ProcessEvent(sf::Event& e, Game& g) {
 			m_camera.In_De_creaseZoom(0.05);
 		if(e.key.code == sf::Keyboard::Subtract)
 			m_camera.In_De_creaseZoom(-0.05);
-	}	
+	} else if (e.type == sf::Event::LostFocus)
+		m_pause = true;
 	
 	if (m_pause)
 		m_pmenu.ProcessEvent(e,g);
