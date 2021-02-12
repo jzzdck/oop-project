@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <iostream>
+#include <filesystem>
 #include "FileManager.h"
 
 namespace utils {
@@ -67,6 +68,21 @@ namespace utils {
 		
 		return ss.str();
 	}
+	
+	std::string getRandomMap( ) {
+		std::vector<std::string> all_maps = getMapnames();
+		return all_maps.at(rand()%(all_maps.size()));
+	}
+	
+	std::vector<std::string> getMapnames( ) {
+		std::vector<std::string> mapnames;
+		
+		std::string path("../res/configuration-files/maps/");
+		for (auto &p : std::filesystem::directory_iterator(path))
+			if (p.path().extension() == ".conf")
+				mapnames.push_back(p.path().stem());
+		
+		return mapnames;
+	}
 }
-
 

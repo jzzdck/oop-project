@@ -37,7 +37,7 @@ void MatchHUD::Render (DrawingEnviroment &drawEnv, float zoom_level)
 		drawEnv.AddToLayer(&m_roundpoint.at(i), 3);
 	
 	for(size_t i=0;i<m_playerHUDs.size();i++)
-		drawEnv.AddToLayer(&m_playerHUDs.at(i), 0);
+		drawEnv.AddToLayer(&m_playerHUDs.at(i), 1);
 }
 
 void MatchHUD::Update (const std::vector<PlayerInfo> &info) {

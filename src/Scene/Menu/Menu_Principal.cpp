@@ -23,7 +23,7 @@ void Menu_Principal::ProcessEvent(sf::Event& e,Game& g)
 }
 void Menu_Principal::Update (Game & g)
 {
-	RandomizeMyColor(1);//el texto de headlines esta en la pos 1
+	RandomizeMyColor(1, 3);//el texto de headlines esta en la pos 1
 	HighlightCurrentOption();
 }
 

@@ -4,12 +4,15 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <sstream>
+#include <vector>
 
 namespace utils {
 	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
 	sf::Rect<float> getRectDim(std::string s);
 	std::string rectDimsToString(const sf::Rect<float> &to_convert);
 	sf::Vector2f getXY(std::string s);
+	std::string getRandomMap();
+	std::vector<std::string> getMapnames();
 	
 	/// @brief Get the center point of a rectangle
 	/// @return the x and y coordinates of the center

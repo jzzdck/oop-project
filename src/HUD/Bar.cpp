@@ -31,13 +31,13 @@ void Bar::Render (const sf::Vector2f & hud_pos, DrawingEnviroment &drawEnv, floa
 	if (with_background) {
 		m_background.setPosition(pos);
 		m_background.setScale(dir*zoom_level, zoom_level);
-		drawEnv.AddToLayer(&m_background, 0);
+		drawEnv.AddToLayer(&m_background, 1);
 	}
 	
 	m_bar.setPosition(pos);
 	m_bar.setScale(dir*zoom_level, zoom_level);
 	
-	drawEnv.AddToLayer(&m_bar, 0);
+	drawEnv.AddToLayer(&m_bar, 1);
 }
 
 void Bar::SetWidth (float new_width) {
