@@ -1,7 +1,7 @@
 #include "ElectricShot.h"
 
 ElectricShot::ElectricShot(const sf::Rect<float> &rect, float facing) : 
-	Projectile(rect, "electricshot", 100.f, facing) 
+	Projectile(rect, "electricshot", rand()%(100-70)+70, facing, 0.01f) 
 {
 	
 }

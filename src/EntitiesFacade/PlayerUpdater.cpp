@@ -28,6 +28,8 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 		float can_respawn = m_gameclock.getElapsedTime().asSeconds() - respawner;
 		if (can_respawn >= 1.5f) {
 			player->Respawn();
+			if (rand()%2 && info.round_points > 0)
+				--info.round_points;
 			respawner = 0.00f;
 		}
 	}

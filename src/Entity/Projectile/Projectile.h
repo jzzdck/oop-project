@@ -6,21 +6,19 @@
 
 class Projectile : public Entity {
 public:
-	Projectile(const sf::Rect<float> &rect, std::string keyword, float m_damage, float facing);
+	Projectile(const sf::Rect<float> &rect, std::string keyword, float m_damage, float facing, float crit_chance);
 	
-	virtual void Render(DrawingEnviroment &drawEnv) 
-	{ 
+	virtual void Render(DrawingEnviroment &drawEnv) { 
 		utils::flipTexture(m_dir, m_scale, m_sprite);
 	}
 	
-	virtual void Render() 
-	{ 
+	virtual void Render() { 
 		utils::flipTexture(m_dir, m_scale, m_sprite);
 	}
 	
 	virtual void ApplyEffect(Player *target);
 protected:
-	float m_damage;
+	float m_damage, crit_chance;
 };
 
 #endif

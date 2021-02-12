@@ -7,6 +7,7 @@ class Menu_Pause : public Menu {
 public:
 	Menu_Pause(float width, float height,bool* pause,Camera* c);
 	void ProcessEvent (sf::Event & e, Game & g)override;
+	void HighlightCurrentOption();
 	void Update (Game & g)override;
 	void Render (DrawingEnviroment& drawEnv)override;
 	void Close();

@@ -16,13 +16,6 @@ public:
 protected:
 	void Select (Game & g) override;
 private:
-	std::string GetRandomMap();
-	
-	// Text replacing methods
-	void ReplaceNumber(int index, int new_number, size_t starting_pos = 0);
-	void ReplaceRoundType(int current, int next);
-	void CenterText(int index);
-	
 	// attributes
 	sf::Vector2f winsize;
 	MatchSettings m_settings;

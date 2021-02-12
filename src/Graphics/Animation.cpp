@@ -9,6 +9,8 @@ Animation::Animation (sf::Sprite * target, sf::Sprite * indep) {
 	m_indep = indep;
 	m_spritesheet.loadFromFile("../res/running_dep.png");
 	m_indeps.loadFromFile("../res/running_indep.png");
+	m_jump.loadFromFile("../res/jump_dep.png");
+	m_ijump.loadFromFile("../res/jump_indep.png");
 }
 
 void Animation::Update () {
@@ -17,8 +19,12 @@ void Animation::Update () {
 		UpdateRun();
 		break;
 	case State::Jumping:
+		m_target->setTexture(m_ijump, true);
+		m_indep->setTexture(m_jump, true);
 		break;
 	case State::Running | State::Jumping:
+		m_target->setTexture(m_ijump, true);
+		m_indep->setTexture(m_jump, true);
 		break;
 	default:
 		current_frame = 0;

@@ -22,9 +22,9 @@ void HUD::Render (DrawingEnviroment &drawEnv, float zoom_level) {
 		winsize.y * m_relative_percentage.y
 	};
 	
-	m_healthbar.Render(m_pos, drawEnv, zoom_level, m_dir);
 	m_playercolor.Render(m_pos, drawEnv, zoom_level, m_dir);
 	m_ammobar.Render(m_pos, drawEnv, zoom_level, m_dir);
+	m_healthbar.Render(m_pos, drawEnv, zoom_level, m_dir);
 	
 	m_hud.setTexture(m_texture);
 	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
