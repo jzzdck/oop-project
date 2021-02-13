@@ -21,7 +21,6 @@ RoundSign::RoundSign (const sf::Vector2f &winsize, MatchSettings settings) :
 		m_relativepos.at(i) = utils::getXY(s["relative" + std::to_string(i)]);
 	
 	m_roundcounter.setTexture(m_texture);
-	m_roundcounter.setPosition({ winsize.x * 0.5f, winsize.y * 0.1f });
 	if (settings.round_type == 1)
 		m_roundcounter.setTextureRect({0,0,52,22});
 	
@@ -31,11 +30,8 @@ RoundSign::RoundSign (const sf::Vector2f &winsize, MatchSettings settings) :
 	m_timer.setCharacterSize(15);
 	m_timer.setOutlineColor({20, 20, 20});
 	
-	m_timer.setOrigin(utils::getCenter(m_timer.getLocalBounds()));
-	for (size_t i=0; i<m_roundpoint.size(); ++i) {
+	for (size_t i=0; i<m_roundpoint.size(); ++i)
 		m_roundpoint.at(i).setFillColor(utils::loadPlayerColor(i));
-		m_roundpoint.at(i).setOrigin(utils::getCenter(m_roundpoint.at(i).getLocalBounds()));
-	}
 }
 
 void RoundSign::Update ( const std::vector<PlayerInfo> &info, int time ) {	
@@ -50,27 +46,17 @@ void RoundSign::Update ( const std::vector<PlayerInfo> &info, int time ) {
 }
 
 void RoundSign::Render (DrawingEnviroment & drawEnv, float zoom_level) {
-	sf::Vector2u winsize = drawEnv.getWin()->getSize();
-	sf::Vector2f relative_to(winsize.x * 0.42382813f, winsize.y * 0.03f);
-	m_roundcounter.setPosition(drawEnv.getWin()->mapPixelToCoords(sf::Vector2i(relative_to)));
-	m_roundcounter.setScale(3.f*zoom_level, 3.f*zoom_level);
+	sf::Vector2f abpos(0.42382813f, 0.03f);
+	utils::fixInWindow(drawEnv.getWin(), &m_roundcounter, abpos, sf::Vector2f(0,0), 3.f*zoom_level);
 	drawEnv.AddToLayer(&m_roundcounter, 2);	
 	
 	for (size_t i=0; i<m_roundpoint.size(); ++i) {
-		sf::Vector2f pos(winsize.x * m_relativepos.at(i).x, winsize.y * m_relativepos.at(i).y);
-		sf::Vector2i aux(pos + relative_to);
-		m_roundpoint.at(i).setScale(zoom_level, zoom_level);
-		m_roundpoint.at(i).setOrigin(utils::getCenter(m_roundpoint.at(i).getLocalBounds()));
- 		m_roundpoint.at(i).setPosition(drawEnv.getWin()->mapPixelToCoords(aux));
+		utils::fixInWindow(drawEnv.getWin(), &m_roundpoint.at(i), abpos, m_relativepos.at(i), zoom_level, true);
 		drawEnv.AddToLayer(&m_roundpoint.at(i), 1);
 	}
 	
 	if (m_settings.round_type != 1) {
-		sf::Vector2f pos(winsize.x * m_relativepos.at(2).x, winsize.y * m_relativepos.at(2).y);
-		sf::Vector2i aux(pos + relative_to);
-		m_timer.setScale(zoom_level, zoom_level);
-		m_timer.setOrigin(utils::getCenter(m_timer.getLocalBounds()));
-		m_timer.setPosition(drawEnv.getWin()->mapPixelToCoords(aux));
+		utils::fixInWindow(drawEnv.getWin(), &m_timer, abpos, m_relativepos.at(2), zoom_level, true);
 		drawEnv.AddToLayer(&m_timer, 1);
 	}
 }

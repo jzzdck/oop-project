@@ -5,6 +5,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <sstream>
 #include <vector>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 namespace utils {
 	void flipTexture(float direction, float scale, sf::Sprite &to_turn);
@@ -31,6 +33,22 @@ namespace utils {
 	
 	/// @brief Get a random float between 0 and 1.
 	float randf();
+	
+	
+	// NOTE: abpos and revpos are percentages of the RenderWindow's size
+	template<class T>
+	void fixInWindow(sf::RenderWindow * win, T * to_fix, 
+					 const sf::Vector2f & abpos, const sf::Vector2f & revpos, 
+					 float zoom, bool centered = false) 
+	{
+		sf::Vector2u winsize = win->getSize();
+		sf::Vector2f abs(winsize.x * abpos.x, winsize.y * abpos.y);
+		sf::Vector2f pos(winsize.x * revpos.x, winsize.y * revpos.y);
+		to_fix->setScale(zoom, zoom);
+		if (centered)
+			to_fix->setOrigin(utils::getCenter(to_fix->getLocalBounds()));
+		to_fix->setPosition(win->mapPixelToCoords(sf::Vector2i(pos + abs)));
+	}
 }
 
 #endif

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <filesystem>
 #include "FileManager.h"
+#include <SFML/Graphics/Transformable.hpp>
 
 namespace utils {
 	void flipTexture(float direction, float scale, sf::Sprite & to_turn) {
@@ -94,3 +95,4 @@ namespace utils {
 		return to_wrap;
 	}
 }
+
