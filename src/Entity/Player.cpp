@@ -11,7 +11,7 @@ Player::Player (sf::Vector2f pos, int player_index) :
 	m_jump({2, -15}),
 	m_animation(&m_sprite, &ms_belly)
 {
-	m_topspeed = 8.5f;
+	m_topspeed = 12.5f;
 	
 	LoadKeys();
 	m_sprite.setColor(utils::loadPlayerColor(m_index));
@@ -50,21 +50,18 @@ void Player::Update() {
 		return;
 	}
 	
-	if (m_input["right"] || m_input["left"]) {
-		m_speed.x = std::fabs(m_speed.x);
+	if (m_input["right"]) {
 		m_animation.SetState(Animation::State::Running|m_animation.GetState());
-		
 		m_dir = 1.f;
 		m_speed.x = std::min(m_speed.x, m_topspeed);
-		
-		if (m_input["left"])
-			m_speed.x *= -1, m_dir = -1.f;
 		m_accel += {m_dir*0.6f, 0.f};
-	} else {
-		m_accel.x += -m_speed.x * 0.085f;
-		if (m_animation.GetState() != Animation::State::Jumping)
-			m_animation.SetState(Animation::State::Idle);
-	}
+	} else if (m_input["left"]) {
+		m_animation.SetState(Animation::State::Running|m_animation.GetState());
+		m_dir = -1.f;
+		m_speed.x = std::max(m_speed.x, -m_topspeed);
+		m_accel += {m_dir*0.6f, 0.f};
+	} else if (m_animation.GetState() != Animation::State::Jumping)
+		m_animation.SetState(Animation::State::Idle);
 	
 	if (m_platform) 
 		m_sprite.move(m_platform->GetSpeed());
@@ -73,6 +70,7 @@ void Player::Update() {
 	ms_belly.setTexture(m_textures[1], true);
 	m_animation.Update();
 	
+	m_accel.x += -m_speed.x * 0.05f;
 	Entity::Update();
 }
 

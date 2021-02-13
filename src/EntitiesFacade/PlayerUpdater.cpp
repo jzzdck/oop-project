@@ -12,7 +12,7 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 	Update(player, world);
 	
 	if (info.new_projectile.projectile_index != -1) {
-		player->ApplyForce(info.new_projectile.pushback);
+		player->ApplyForce(info.new_projectile.recoil);
 		info.new_projectile.projectile_index = -1;
 	}
 	

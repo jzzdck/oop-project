@@ -7,7 +7,7 @@
 MapEditor::MapEditor (float wdt, float hgt, std::string loadmap) :
 	Menu(wdt, hgt, "mapeditor"),
 	m_grid({12, 12, 1012, 512}, 8),
-	m_drawer({12, 12, 1012, 512}, 3.f),
+	m_drawer({12, 12, 1012, 512}, 2.f),
 	m_mapname(loadmap), inputing(false),
 	m_text(m_font, 15, sf::Color::White)
 {
