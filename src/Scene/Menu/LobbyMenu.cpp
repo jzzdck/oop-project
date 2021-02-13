@@ -73,7 +73,7 @@ void LobbyMenu::ProcessEvent (sf::Event & e, Game & g) {
 	case 1: {
 		int current = m_settings.round_type;
 		m_settings.round_type += dir;
-		m_settings.round_type %= m_roundtypes.size();
+		m_settings.round_type = utils::wrap(m_settings.round_type, m_roundtypes.size());
 		utils::replaceOption(current, m_settings.round_type, m_roundtypes, m_texts[1]);
 		utils::center(m_texts[1], winsize);
 		m_texts[2].setString(m_descriptions[m_settings.round_type]);

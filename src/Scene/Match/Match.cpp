@@ -13,7 +13,7 @@ Match::Match(MatchSettings m, float width, float height) :
 	Scene(width, height), m_pause(false),
 	m_entities(width, height, m.map_name), 
 	m_camera(width, height), 
-	m_gamehud({width, height}, m.map_name),
+	m_gamehud({width, height}, m.map_name, m),
 	m_settings(m),
 	m_pmenu(width,height,&m_pause,&m_camera)
 {
@@ -56,7 +56,7 @@ void Match::Update (Game& g) {
 	}
 	
 	m_entities.Update();
-	m_gamehud.Update(m_entities.GetPlayersInfos());
+	m_gamehud.Update(m_entities.GetPlayersInfos(), m_gameclock.getElapsedTime().asSeconds());
 	m_camera.Update(m_entities.GetCameraInfo());
 }
 

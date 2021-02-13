@@ -13,6 +13,7 @@ namespace utils {
 	sf::Vector2f getXY(std::string s);
 	std::string getRandomMap();
 	std::vector<std::string> getMapnames();
+	int wrap(int &to_wrap, int range);
 	
 	/// @brief Get the center point of a rectangle
 	/// @return the x and y coordinates of the center

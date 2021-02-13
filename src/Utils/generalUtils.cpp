@@ -84,5 +84,13 @@ namespace utils {
 		
 		return mapnames;
 	}
-}
 
+	int wrap(int &to_wrap, int range) {
+		if (to_wrap == -1)
+			to_wrap = range - 1;
+		else
+			to_wrap %= range;
+		
+		return to_wrap;
+	}
+}

@@ -57,11 +57,7 @@ void MapMenu::ProcessEvent (sf::Event & e, Game & g) {
 	if (current_option == 1) {
 		int previous = current_map;
 		current_map += dir;
-		if (current_map == -1)
-			current_map = m_mapnames.size() + dir;
-		else
-			current_map %= m_mapnames.size();
-		
+		current_map = utils::wrap(current_map, m_mapnames.size());
 		utils::replaceOption(previous, current_map, m_mapnames, m_texts[1]);
 		utils::center(m_texts[1], {win_width, win_height});
 	}

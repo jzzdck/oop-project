@@ -13,7 +13,8 @@ Menu_Pause::Menu_Pause(float width, float height,bool* pause,Camera* c):
 	{
 		m_auxpos.push_back(m_texts[i].getPosition());
 		m_texts[i].setFillColor(sf::Color::White);
-		m_texts[i].setOutlineThickness(2.f);
+		m_texts[i].setCharacterSize(50);
+		m_texts[i].setOutlineThickness(4);
 		m_texts[i].setOutlineColor(sf::Color::Black);
 	}
 	m_filter.setFillColor({0, 0, 0, 100});
@@ -66,7 +67,7 @@ void Menu_Pause::Relocate(sf::RenderWindow & win)
 	{
 		sf::Vector2i pos = sf::Vector2i(m_auxpos[i]);
 		m_texts[i].setPosition(win.mapPixelToCoords(pos));
-		m_texts[i].setScale(1.2*zoom_level,1.2*zoom_level);
+		m_texts[i].setScale(zoom_level,zoom_level);
 	}
 	
 	m_filter.setPosition(win.mapPixelToCoords({0, 0}));
