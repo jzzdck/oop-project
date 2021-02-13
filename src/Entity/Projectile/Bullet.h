@@ -8,6 +8,7 @@ public:
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void Update ( ) override;
 	void Render() override; 
+	sf::Vector2f GetPushbackForce() override;
 private:
 	bool first = true;
 	sf::Clock impact_life;

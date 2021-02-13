@@ -15,6 +15,7 @@ public:
 	void Explode();
 	void Render() override {};
 	void Render(DrawingEnviroment &drawEnv) override;
+	sf::Vector2f GetPushbackForce() override;
 private:
 	bool exploding = false;
 	float max_life = 1.2f;

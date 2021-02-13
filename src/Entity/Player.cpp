@@ -50,8 +50,8 @@ void Player::Update() {
 		return;
 	}
 	
-	m_speed.x = std::fabs(m_speed.x);
 	if (m_input["right"] || m_input["left"]) {
+		m_speed.x = std::fabs(m_speed.x);
 		m_animation.SetState(Animation::State::Running|m_animation.GetState());
 		
 		m_dir = 1.f;
@@ -59,9 +59,9 @@ void Player::Update() {
 		
 		if (m_input["left"])
 			m_speed.x *= -1, m_dir = -1.f;
-		m_accel += {m_dir*0.7f, 0.f};
+		m_accel += {m_dir*0.6f, 0.f};
 	} else {
-		m_speed.x = 0.f;
+		m_accel.x += -m_speed.x * 0.085f;
 		if (m_animation.GetState() != Animation::State::Jumping)
 			m_animation.SetState(Animation::State::Idle);
 	}

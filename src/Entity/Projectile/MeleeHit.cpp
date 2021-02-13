@@ -10,3 +10,8 @@ void MeleeHit::Update ( ) {
 	if (lifetime.getElapsedTime().asSeconds() > 0.05f)
 		in_use = false;
 }
+
+sf::Vector2f MeleeHit::GetPushbackForce ( ) {
+	return {m_dir*10, 0};
+}
+

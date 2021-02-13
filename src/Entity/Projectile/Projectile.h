@@ -16,6 +16,7 @@ public:
 		utils::flipTexture(m_dir, m_scale, m_sprite);
 	}
 	
+	virtual sf::Vector2f GetPushbackForce() = 0;
 	virtual void ApplyEffect(Player *target);
 protected:
 	float m_damage, crit_chance;
