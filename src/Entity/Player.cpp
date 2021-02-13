@@ -4,6 +4,7 @@
 #include "../Utils/FileManager.h"
 #include "../Utils/generalUtils.h"
 #include <cmath>
+#include <algorithm>
 
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
@@ -50,15 +51,10 @@ void Player::Update() {
 		return;
 	}
 	
-	if (m_input["right"]) {
+	if (m_input["right"] or m_input["left"]) {
+		m_dir = m_input["left"] ? -1.f : 1.f;
 		m_animation.SetState(Animation::State::Running|m_animation.GetState());
-		m_dir = 1.f;
-		m_speed.x = std::min(m_speed.x, m_topspeed);
-		m_accel += {m_dir*0.6f, 0.f};
-	} else if (m_input["left"]) {
-		m_animation.SetState(Animation::State::Running|m_animation.GetState());
-		m_dir = -1.f;
-		m_speed.x = std::max(m_speed.x, -m_topspeed);
+		m_speed.x = std::clamp(m_speed.x, -m_topspeed, m_topspeed);
 		m_accel += {m_dir*0.6f, 0.f};
 	} else if (m_animation.GetState() != Animation::State::Jumping)
 		m_animation.SetState(Animation::State::Idle);
