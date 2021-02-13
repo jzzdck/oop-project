@@ -17,10 +17,8 @@ RoundSign::RoundSign (const sf::Vector2f &winsize, MatchSettings settings) :
 	
 	FileManager s("MatchHUD.conf", "round-sign");
 	m_texture.loadFromFile(s["texture"] +  ".png");
-	for (size_t i=0; i<m_relativepos.size(); ++i) {
-		std::cout << s["relative" + std::to_string(i)] << std::endl;
+	for (size_t i=0; i<m_relativepos.size(); ++i)
 		m_relativepos.at(i) = utils::getXY(s["relative" + std::to_string(i)]);
-	}
 	
 	m_roundcounter.setTexture(m_texture);
 	m_roundcounter.setPosition({ winsize.x * 0.5f, winsize.y * 0.1f });
@@ -53,7 +51,7 @@ void RoundSign::Update ( const std::vector<PlayerInfo> &info, int time ) {
 
 void RoundSign::Render (DrawingEnviroment & drawEnv, float zoom_level) {
 	sf::Vector2u winsize = drawEnv.getWin()->getSize();
-	sf::Vector2f relative_to(winsize.x * 0.42382813f, winsize.y * 0.05f);
+	sf::Vector2f relative_to(winsize.x * 0.42382813f, winsize.y * 0.03f);
 	m_roundcounter.setPosition(drawEnv.getWin()->mapPixelToCoords(sf::Vector2i(relative_to)));
 	m_roundcounter.setScale(3.f*zoom_level, 3.f*zoom_level);
 	drawEnv.AddToLayer(&m_roundcounter, 2);	
