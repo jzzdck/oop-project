@@ -7,7 +7,7 @@
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 	Weapon(pos, "handcannon", facing, 50)
 {
-	pushback = { 5, 0 };
+	recoil = { 5, 0 };
 	projectile_index = 2;
 }
 
@@ -58,7 +58,7 @@ void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
 }
 
 ProjectileData Handcannon::GetProjectileData ( ) {	
-	sf::Vector2f aux = { -m_dir*pushback.x, pushback.y };
+	sf::Vector2f aux = { -m_dir*recoil.x, recoil.y };
 	return { GetBounds(), projectile_index, GetFacing(), m_angle, aux };
 }
 

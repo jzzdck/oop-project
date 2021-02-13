@@ -21,6 +21,6 @@ void Weapon::Update ( ) {
 }
 
 ProjectileData Weapon::GetProjectileData ( ) {
-	sf::Vector2f aux = { -m_dir*pushback.x, pushback.y };
+	sf::Vector2f aux = { -m_dir*recoil.x, recoil.y };
 	return { GetBounds(), projectile_index, GetFacing(), 0, aux };
 }

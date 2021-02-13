@@ -19,7 +19,7 @@ protected:
 	Ammo m_ammo;
 	int projectile_index = -1;
 	
-	sf::Vector2f pushback;
+	sf::Vector2f recoil;
 	sf::Clock firerate;
 	bool attack_state = false;
 private:
