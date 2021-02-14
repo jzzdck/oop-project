@@ -14,6 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
+current_source=Entity/Item/Weapon/TeslaGun.h
 path_char=/
 [source]
 path=main.cpp
@@ -101,8 +102,8 @@ breakpoint_annotation=
 path=Utils/HSV.cpp
 cursor=0:0
 [source]
-path=Entity/Item/TeslaGun.cpp
-cursor=5:7
+path=Utils/textOperations.cpp
+cursor=1:10
 [source]
 path=Entity/Item/Item.cpp
 cursor=11:0
@@ -123,7 +124,8 @@ path=Entity/Item/Weapon/Handcannon.cpp
 cursor=28:15
 [source]
 path=EntitiesFacade/WeaponArray.cpp
-cursor=11:16
+cursor=5:32
+open=true
 [source]
 path=EntitiesFacade/EntitiesFacade.cpp
 cursor=0:0
@@ -179,8 +181,8 @@ cursor=45:47
 path=Scene/Menu/MapMenu/Line.cpp
 cursor=0:0
 [source]
-path=Utils/textOperations.cpp
-cursor=1:10
+path=Entity/Item/Weapon/TeslaGun.cpp
+cursor=0:0
 [header]
 path=Game.h
 cursor=0:0
@@ -272,7 +274,7 @@ cursor=0:0
 path=Entity/Item/Flag.h
 cursor=0:0
 [header]
-path=Entity/Item/TeslaGun.h
+path=Utils/textOperations.h
 cursor=0:0
 [header]
 path=Entity/Item/Weapon/Handcannon.h
@@ -353,8 +355,9 @@ cursor=0:0
 path=Scene/Menu/MapMenu/Line.h
 cursor=0:0
 [header]
-path=Utils/textOperations.h
-cursor=0:0
+path=Entity/Item/Weapon/TeslaGun.h
+cursor=1:18
+open=true
 [other]
 path=Leeme.txt
 cursor=4:447

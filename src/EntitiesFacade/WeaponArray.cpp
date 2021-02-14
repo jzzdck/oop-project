@@ -3,7 +3,7 @@
 #include "../Entity/Item/Weapon/Shovel.h"
 #include "../Entity/Item/Weapon/Revolver.h"
 #include "../Entity/Item/Weapon/Handcannon.h"
-#include "../Entity/Item/TeslaGun.h"
+#include "../Entity/Item/Weapon/TeslaGun.h"
 #include "../Utils/generalUtils.h"
 
 WeaponArray::WeaponArray(const sf::Vector2f &winsize) : 
