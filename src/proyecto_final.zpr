@@ -14,7 +14,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=RoundSign.cpp
+current_source=HUD/Healthbar.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -27,17 +27,17 @@ path=HUD/AmmoBar.cpp
 cursor=2:24
 [source]
 path=HUD/Healthbar.cpp
-cursor=0:0
+cursor=14:0
 open=true
 [source]
 path=HUD/MatchHUD.cpp
 cursor=31:20
 [source]
 path=HUD/Bar.cpp
-cursor=24:45
+cursor=29:1
 [source]
 path=HUD/HUD.cpp
-cursor=22:3
+cursor=21:23
 [source]
 path=Graphics/DrawingEnviroment.cpp
 cursor=29:3
@@ -87,7 +87,7 @@ path=Entity/Entity.cpp
 cursor=19:69
 [source]
 path=Utils/generalUtils.cpp
-cursor=87:10
+cursor=95:2
 [source]
 path=Utils/Controls.cpp
 cursor=58:18
@@ -184,8 +184,7 @@ path=RectangleDrawer.cpp
 cursor=0:0
 [source]
 path=RoundSign.cpp
-cursor=0:1
-open=true
+cursor=63:70
 [header]
 path=Game.h
 cursor=0:0
@@ -260,7 +259,7 @@ path=Utils/FileManager.h
 cursor=0:0
 [header]
 path=Utils/generalUtils.h
-cursor=15:33
+cursor=40:4
 [header]
 path=Entity/Projectile/ElectricShot.h
 cursor=10:14

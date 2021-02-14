@@ -47,16 +47,24 @@ void RoundSign::Update ( const std::vector<PlayerInfo> &info, int time ) {
 
 void RoundSign::Render (DrawingEnviroment & drawEnv, float zoom_level) {
 	sf::Vector2f abpos(0.42382813f, 0.03f);
-	utils::fixInWindow(drawEnv.getWin(), &m_roundcounter, abpos, sf::Vector2f(0,0), 3.f*zoom_level);
+	sf::Vector2f aux = utils::getFixedPos(drawEnv.getWin(), abpos, {0,0});
+	m_roundcounter.setScale(3.f*zoom_level, 3.f*zoom_level);
+	m_roundcounter.setPosition(aux);
 	drawEnv.AddToLayer(&m_roundcounter, 2);	
 	
 	for (size_t i=0; i<m_roundpoint.size(); ++i) {
-		utils::fixInWindow(drawEnv.getWin(), &m_roundpoint.at(i), abpos, m_relativepos.at(i), zoom_level, true);
+		aux = utils::getFixedPos(drawEnv.getWin(), abpos, m_relativepos.at(i));
+		m_roundpoint.at(i).setScale(zoom_level, zoom_level);
+		m_roundpoint.at(i).setOrigin(utils::getCenter(m_roundpoint.at(i).getLocalBounds()));
+		m_roundpoint.at(i).setPosition(aux);
 		drawEnv.AddToLayer(&m_roundpoint.at(i), 1);
 	}
 	
 	if (m_settings.round_type != 1) {
-		utils::fixInWindow(drawEnv.getWin(), &m_timer, abpos, m_relativepos.at(2), zoom_level, true);
+		aux = utils::getFixedPos(drawEnv.getWin(), abpos, m_relativepos.at(2));
+		m_timer.setScale(zoom_level, zoom_level);
+		m_timer.setOrigin(utils::getCenter(m_timer.getLocalBounds()));
+		m_timer.setPosition(aux);
 		drawEnv.AddToLayer(&m_timer, 1);
 	}
 }

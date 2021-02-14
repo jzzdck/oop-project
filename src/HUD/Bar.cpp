@@ -18,15 +18,9 @@ Bar::Bar(std::string keyword) {
 }
 
 void Bar::Render (const sf::Vector2f & hud_pos, DrawingEnviroment &drawEnv, float zoom_level, float dir) {
-	auto &win = *drawEnv.getWin();
-	sf::Vector2f winsize = sf::Vector2f(win.getSize());
-	
-	sf::Vector2f relative_pos = {
-		winsize.x * m_relative_percentage.x * dir, 
-		winsize.y * m_relative_percentage.y
-	};
-	
-	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(hud_pos + relative_pos));
+	sf::Vector2f aux = m_relative_percentage;
+	if (dir == -1) aux.x = -m_relative_percentage.x;
+	sf::Vector2f pos = utils::getFixedPos(drawEnv.getWin(), hud_pos, aux);
 	
 	if (with_background) {
 		m_background.setPosition(pos);
@@ -36,7 +30,6 @@ void Bar::Render (const sf::Vector2f & hud_pos, DrawingEnviroment &drawEnv, floa
 	
 	m_bar.setPosition(pos);
 	m_bar.setScale(dir*zoom_level, zoom_level);
-	
 	drawEnv.AddToLayer(&m_bar, 1);
 }
 

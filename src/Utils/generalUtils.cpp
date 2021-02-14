@@ -94,5 +94,12 @@ namespace utils {
 		
 		return to_wrap;
 	}
+	
+	sf::Vector2f getFixedPos(sf::RenderWindow * win, const sf::Vector2f & abpos, const sf::Vector2f & revpos) {
+		sf::Vector2u winsize = win->getSize();
+		sf::Vector2f abs(winsize.x * abpos.x, winsize.y * abpos.y);
+		sf::Vector2f pos(winsize.x * revpos.x, winsize.y * revpos.y);
+		return win->mapPixelToCoords(sf::Vector2i(pos + abs));
+	}
 }
 
