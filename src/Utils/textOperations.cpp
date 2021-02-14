@@ -1,5 +1,5 @@
-#include "TextOperations.h"
-#include "Utils/generalUtils.h"
+#include "textOperations.h"
+#include "generalUtils.h"
 
 namespace utils {	
 	void replaceOption(int previous, int next, const std::vector<std::string> & options, sf::Text & to_replace) {

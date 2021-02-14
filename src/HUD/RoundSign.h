@@ -3,12 +3,14 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Drawable.hpp>
-#include "EntitiesFacade/PlayerInfo.h"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
-#include "Scene/Match/MatchSettings.h"
+#include "../Scene/Match/MatchSettings.h"
+#include "../EntitiesFacade/PlayerInfo.h"
+#include <vector>
+#include <SFML/System/Vector2.hpp>
 
 class RoundSign : public sf::Drawable {
 public:

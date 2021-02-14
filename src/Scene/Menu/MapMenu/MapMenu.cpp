@@ -1,10 +1,10 @@
 #include "MapMenu.h"
 #include <iostream>
-#include "Scene/Menu/Menu_Principal.h"
-#include "Game.h"
-#include "TextOperations.h"
-#include "Utils/generalUtils.h"
 #include "MapEditor.h"
+#include "../Menu_Principal.h"
+#include "../../../Game.h"
+#include "../../../Utils/textOperations.h"
+#include "../../../Utils/generalUtils.h"
 
 MapMenu::MapMenu(float wdt, float hgt) : Menu(wdt, hgt, "maps") {
 	m_mapnames = utils::getMapnames();

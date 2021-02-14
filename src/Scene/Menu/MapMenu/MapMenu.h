@@ -1,8 +1,8 @@
 #ifndef MAPMENU_H
 #define MAPMENU_H
-#include "Scene/Menu/Menu.h"
 #include <string>
 #include <vector>
+#include "../Menu.h"
 
 class MapMenu : public Menu {
 public:

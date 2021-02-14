@@ -1,8 +1,9 @@
 #include "Menu_Options.h"
 #include "Menu_Color.h"
-#include "../../Game.h"
 #include "Menu_Principal.h"
-#include "../../MapMenu.h"
+#include "MapMenu/MapMenu.h"
+#include <SFML/Window/Event.hpp>
+#include "../../Game.h"
 
 Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options") 
 {

@@ -7,7 +7,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <string>
 #include "Line.h"
-#include "EntitiesFacade/Platform.h"
+#include "../../../EntitiesFacade/Platform.h"
 
 class RectangleDrawer : public sf::Drawable {
 public:

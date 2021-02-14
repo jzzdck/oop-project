@@ -1,9 +1,9 @@
 #ifndef MAPEDITOR_H
 #define MAPEDITOR_H
-#include "Scene/Menu/Menu.h"
 #include "RectangleDrawer.h"
 #include "Grid.h"
 #include "InputBox.h"
+#include "../Menu.h"
 
 class MapEditor : public Menu {
 public:

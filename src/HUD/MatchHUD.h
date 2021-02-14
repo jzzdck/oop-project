@@ -10,8 +10,8 @@
 #include "HUD.h"
 #include "../Graphics/DrawingEnviroment.h"
 #include "../EntitiesFacade/PlayerInfo.h"
-#include "../RoundSign.h"
 #include "MatchHUD.h"
+#include "RoundSign.h"
 
 class MatchHUD : public sf::Drawable {
 public:

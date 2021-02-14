@@ -3,7 +3,7 @@
 #include "Menu_Principal.h"
 #include "../../Utils/generalUtils.h"
 #include "../Match/Match.h"
-#include "../../TextOperations.h"
+#include "../../Utils/textOperations.h"
 
 LobbyMenu::LobbyMenu(float width, float height) : 
 	Menu(width, height, "lobby"), winsize(sf::Vector2f(width, height)) 

@@ -1,6 +1,6 @@
 #include "RoundSign.h"
-#include "Utils/generalUtils.h"
 #include <iostream>
+#include "../Utils/generalUtils.h"
 
 RoundSign::RoundSign (const sf::Vector2f &winsize, MatchSettings settings) :
 	winsize(winsize), m_settings(settings)

@@ -1,8 +1,8 @@
 #include "MapEditor.h"
-#include "Graphics/DrawingEnviroment.h"
-#include "Game.h"
 #include "MapMenu.h"
-#include "TextOperations.h"
+#include "../../../Graphics/DrawingEnviroment.h"
+#include "../../../Utils/textOperations.h"
+#include "../../../Game.h"
 
 MapEditor::MapEditor (float wdt, float hgt, std::string loadmap) :
 	Menu(wdt, hgt, "mapeditor"),
