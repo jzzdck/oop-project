@@ -34,8 +34,8 @@ Platform::Platform (const sf::Vector2f & size) {
 
 void Platform::Update ( ) {
 	total_speed = getPosition();
-	Rotate();
 	
+	Rotate();
 	abpos += m_info.linear_speed;
 	setPosition(abpos + m_info.ang_speed);
 	CheckLimits();

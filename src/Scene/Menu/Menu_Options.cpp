@@ -1,7 +1,9 @@
 #include "Menu_Options.h"
 #include "Menu_Color.h"
-#include "../../Game.h"
 #include "Menu_Principal.h"
+#include "MapMenu/MapMenu.h"
+#include <SFML/Window/Event.hpp>
+#include "../../Game.h"
 
 Menu_Options::Menu_Options(float width,float height):Menu(width,height,"options") 
 {
@@ -39,7 +41,7 @@ void Menu_Options::Select(Game& g)
 		g.SetScene(new Menu_Color(win_width,win_height));
 		break;
 	case 1:
-		//controls menu
+		g.SetScene(new MapMenu(win_width, win_height));
 		break; 
 	case 2:
 		g.SetScene(new Menu_Principal(win_width,win_height));

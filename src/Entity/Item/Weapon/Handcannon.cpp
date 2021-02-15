@@ -7,6 +7,7 @@
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
 	Weapon(pos, "handcannon", facing, 50)
 {
+	recoil = { 5, 0 };
 	projectile_index = 2;
 }
 
@@ -56,7 +57,8 @@ void Handcannon::SetPos (const sf::Rect<float> & relative_to, float facing) {
 		m_sprite.move(relative_to.width - 15, 0);
 }
 
-ProjectileData Handcannon::GetProjectileData ( ) {
-	return { GetBounds(), projectile_index, GetFacing(), m_angle };
+ProjectileData Handcannon::GetProjectileData ( ) {	
+	sf::Vector2f aux = { -m_dir*recoil.x, recoil.y };
+	return { GetBounds(), projectile_index, GetFacing(), m_angle, aux };
 }
 

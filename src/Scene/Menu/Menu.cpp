@@ -105,9 +105,9 @@ void Menu::LoadSliders()
 		m_sliders[i].setTopValue(max);
 	}
 }
-void Menu::RandomizeMyColor(unsigned const& text_position)
+void Menu::RandomizeMyColor(unsigned const& text_position, int velocity)
 {
-	utils::HSV col((frame_count*3)%361, 100, 100);
+	utils::HSV col((frame_count*velocity)%361, 100, 100);
 	
 	m_texts[text_position].setFillColor(col.MakeRGB());
 	++frame_count;

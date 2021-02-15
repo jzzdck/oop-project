@@ -8,6 +8,7 @@ public:
 	void ApplyEffect (Player * target) override;
 	void Render () override;
 	void Update ( ) override;
+	sf::Vector2f GetPushbackForce() override;
 private:
 	sf::Clock m_lifetime;
 };

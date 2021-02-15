@@ -3,6 +3,7 @@
 TeslaGun::TeslaGun(const sf::Vector2f &pos, float facing) : 
 	Weapon(pos, "teslagun", 1.f, 50) 
 {
+	recoil = { 12, -3 }; 
 	m_ammo.current = 1;
 	projectile_index = 3;
 }

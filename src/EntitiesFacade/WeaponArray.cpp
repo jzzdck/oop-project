@@ -3,13 +3,13 @@
 #include "../Entity/Item/Weapon/Shovel.h"
 #include "../Entity/Item/Weapon/Revolver.h"
 #include "../Entity/Item/Weapon/Handcannon.h"
-#include "../Entity/Item/TeslaGun.h"
+#include "../Entity/Item/Weapon/TeslaGun.h"
 #include "../Utils/generalUtils.h"
 
 WeaponArray::WeaponArray(const sf::Vector2f &winsize) : 
 	EntityArray(winsize)
 {
-	size_t rands = rand()%15;
+	size_t rands = 30;
 	for (size_t i=0; i<rands; ++i) 
 		SpawnRandom();
 }
@@ -32,7 +32,7 @@ void WeaponArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
 }
 
 void WeaponArray::SpawnRandom ( ) {
-	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, rand() % max_size);
+	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, rand()%max_size);
 }
 
 std::vector<PlayerInfo> WeaponArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {

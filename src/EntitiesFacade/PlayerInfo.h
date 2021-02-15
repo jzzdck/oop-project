@@ -16,6 +16,7 @@ struct ProjectileData {
 	int projectile_index = -1;
 	float direction;
 	float handcannon_angle;
+	sf::Vector2f recoil;
 };
 
 struct PlayerInfo {

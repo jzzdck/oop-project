@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
-	Projectile(rect, "bomb", 50.f, facing), m_trail(m_sprite, false, 2.0f)
+	Projectile(rect, "bomb", rand()%(20-2) + 2, facing, 0.1f), m_trail(m_sprite, false, 2.0f)
 {
 	m_dir = facing;
 	m_speed = vel;
@@ -16,14 +16,17 @@ void Bomb::ApplyResponse (const sf::Vector2f & vec) {
 	if (exploding) return;
 	m_sprite.move(vec);
 	
-	if (vec.x) m_speed = { -1.f*m_speed.x, m_speed.y };
-	else if (vec.y) m_speed = { m_speed.x, -1.f*m_speed.y };
+	if (vec.x) {
+		m_speed = { -1.f*m_speed.x, m_speed.y }; 
+		m_dir = m_speed.x < 0.f ? -1.f : 1.f;
+	} else if (vec.y) 
+		m_speed = { m_speed.x, -1.f*m_speed.y };
 }
 
 void Bomb::ApplyEffect (Player * target) {
 	if (!exploding) { max_life = 0.1f; return; }
 	HealthData &h = target->GetHealthData();
-	h.current_health -= m_damage;
+	h.current_health -= m_damage * (utils::randf() < crit_chance ? 1.2f : 1.f);
 }
 
 void Bomb::Update ( ) {
@@ -31,7 +34,9 @@ void Bomb::Update ( ) {
 		if (timer.getElapsedTime().asSeconds() > max_life)
 			Explode();
 		else {
-			m_sprite.move(m_speed);
+			m_accel.y += -m_speed.y * 0.04f;
+			m_accel.x += -m_speed.x * 0.004f;
+			Entity::Update();
 			m_trail.AddPosition(GetBounds(), utils::getCenter(m_sprite.getLocalBounds()));
 		}
 	} else {
@@ -55,12 +60,12 @@ void Bomb::Render (DrawingEnviroment &drawEnv) {
 	m_trail.Render(drawEnv); 
 }
 
-void Bomb::ApplyGravity (float gravity) {
-	m_speed.y += gravity*0.75;
-}
-
 void Bomb::draw (sf::RenderTarget & target, sf::RenderStates states) const {
 	target.draw(m_trail);
 	target.draw(m_sprite);
+}
+
+sf::Vector2f Bomb::GetPushbackForce ( ) {
+	return {m_dir*15, -5};
 }
 

@@ -19,9 +19,13 @@ protected:
 	Ammo m_ammo;
 	int projectile_index = -1;
 	
+	sf::Vector2f recoil;
 	sf::Clock firerate;
 	bool attack_state = false;
 private:
+	sf::Clock clock;
+	sf::Time lifetime, released;
+	bool start_time = false;
 	int WasCaptured(int base_index) override { return -1; }
 };
 

@@ -1,7 +1,8 @@
 #include "ElectricShot.h"
 
 ElectricShot::ElectricShot(const sf::Rect<float> &rect, float facing) : 
-	Projectile(rect, "electricshot", 100.f, facing) 
+	Projectile(rect, "electricshot", rand()%(100-70)+70, facing, 0.01f
+			   ) 
 {
 	
 }
@@ -20,3 +21,8 @@ void ElectricShot::Update ( ) {
 	if (m_lifetime.getElapsedTime().asSeconds() >= 0.5f)
 		in_use = false;
 }
+
+sf::Vector2f ElectricShot::GetPushbackForce ( ) {
+	return {m_dir*2, 0};
+}
+

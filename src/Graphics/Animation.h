@@ -26,8 +26,8 @@ private:
 	sf::Time time_per_frame;
 	int run_frames = 8;
 	int current_frame = 0;
-	sf::Texture m_spritesheet;
-	sf::Texture m_indeps;
+	sf::Texture m_spritesheet, m_jump;
+	sf::Texture m_indeps, m_ijump;
 	sf::Sprite* m_target;
 	sf::Sprite* m_indep;
 };

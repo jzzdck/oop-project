@@ -3,6 +3,7 @@
 #include "Menu_Principal.h"
 #include "../../Utils/generalUtils.h"
 #include "../Match/Match.h"
+#include "../../Utils/textOperations.h"
 
 LobbyMenu::LobbyMenu(float width, float height) : 
 	Menu(width, height, "lobby"), winsize(sf::Vector2f(width, height)) 
@@ -26,22 +27,23 @@ LobbyMenu::LobbyMenu(float width, float height) :
 		"Clock will stop at: 60 seconds" // both
 	};
 	
-	ReplaceRoundType(m_settings.round_type, 0);
+	utils::replaceOption(0, m_settings.round_type, m_roundtypes, m_texts[1]);
+	utils::center(m_texts[1], winsize);
+	m_texts[2].setString(m_descriptions[m_settings.round_type]);
 	current_option = 3;
 	m_texts[current_option].setStyle(sf::Text::Bold);
 	m_texts[2].setStyle(sf::Text::Italic);
 }
 
 void LobbyMenu::Select (Game & g) {
-	switch (current_option) 
-	{
+	switch (current_option) {
 	case 3:
 		if (m_settings.round_type != 0)
 			m_settings.random_rounds = false;
 		else
 			m_settings.Randomize();
 		
-		m_settings.map_name = GetRandomMap();
+		m_settings.map_name = utils::getRandomMap();
 		g.SetScene(new Match(m_settings, winsize.x, winsize.y));
 		break;
 	case 4:
@@ -71,8 +73,10 @@ void LobbyMenu::ProcessEvent (sf::Event & e, Game & g) {
 	case 1: {
 		int current = m_settings.round_type;
 		m_settings.round_type += dir;
-		m_settings.round_type %= m_roundtypes.size();
-		ReplaceRoundType(current, m_settings.round_type);
+		m_settings.round_type = utils::wrap(m_settings.round_type, m_roundtypes.size());
+		utils::replaceOption(current, m_settings.round_type, m_roundtypes, m_texts[1]);
+		utils::center(m_texts[1], winsize);
+		m_texts[2].setString(m_descriptions[m_settings.round_type]);
 		break;
 	} case 2:
 		if (m_settings.round_type != 1) return;
@@ -92,16 +96,17 @@ void LobbyMenu::Update (Game & g) {
 			m_settings.max_seconds++;
 	}
 	
-	ReplaceNumber(0, m_settings.rounds_left);
+	utils::replaceNumber(m_settings.rounds_left, m_texts[0]);
+	utils::center(m_texts[0], winsize);
 	if (m_settings.round_type == 1 || m_settings.round_type == 3)
-		ReplaceNumber(2, m_settings.max_points);
-	else if (m_settings.round_type == 2) 
-		ReplaceNumber(2, m_settings.max_seconds);
-	else if (m_settings.round_type == 3) { 
-		ReplaceNumber(2, m_settings.max_points);
+		utils::replaceNumber(m_settings.max_points, m_texts[2]);
+	
+	if (m_settings.round_type == 2 || m_settings.round_type == 3) {
 		size_t pos = m_texts[2].getString().find("Clock");
-		ReplaceNumber(2, m_settings.max_seconds, pos);
+		utils::replaceNumber(m_settings.max_seconds, m_texts[2], pos);
 	}
+	
+	utils::center(m_texts[2], winsize);
 }
 
 void LobbyMenu::Render (DrawingEnviroment & drawEnv) {
@@ -111,46 +116,4 @@ void LobbyMenu::Render (DrawingEnviroment & drawEnv) {
 		drawEnv.AddToLayer(&text,0);
 	
 	drawEnv.DrawAll();
-}
-
-void LobbyMenu::ReplaceRoundType(int current, int next) {
-	std::string str = m_texts[1].getString();
-	std::string aux = m_roundtypes[current];
-	
-	size_t pos = str.find(aux);
-	if (pos != std::string::npos)
-		str = str.replace(pos, aux.size(), m_roundtypes[next]);
-	m_texts[1].setString(str);
-	m_texts[2].setString(m_descriptions[next]);
-	
-	CenterText(1);
-	CenterText(2);
-}
-
-void LobbyMenu::CenterText (int index) {
-	float prev_pos = m_texts[index].getPosition().y, prev_origin = m_texts[index].getOrigin().y;
-	
-	m_texts[index].setOrigin(utils::getCenter(m_texts[index].getLocalBounds()).x, prev_origin);
-	m_texts[index].setPosition(winsize.x*0.5f, prev_pos);
-}
-
-void LobbyMenu::ReplaceNumber (int index, int new_number, size_t starting_pos) {
-	std::string str = m_texts[index].getString();
-	size_t b_pos = str.find_first_of("1234567890", starting_pos);
-	size_t e_pos = str.find_first_not_of("1234567890", b_pos);
-	if (b_pos != std::string::npos && e_pos != std::string::npos)
-		str = str.replace(b_pos, e_pos-b_pos, std::to_string(new_number));
-	m_texts[index].setString(str);
-	CenterText(index);
-}
-
-std::string LobbyMenu::GetRandomMap ( ) {
-	std::ifstream fin("../res/configuration-files/maps/allmaps.conf");
-	std::vector<std::string> all_maps;
-	
-	std::string aux;
-	while (getline(fin, aux))
-		all_maps.push_back(aux);
-	
-	return all_maps.at(rand()%(all_maps.size()));
 }

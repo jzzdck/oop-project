@@ -10,22 +10,19 @@
 #include "HUD.h"
 #include "../Graphics/DrawingEnviroment.h"
 #include "../EntitiesFacade/PlayerInfo.h"
+#include "MatchHUD.h"
+#include "RoundSign.h"
 
 class MatchHUD : public sf::Drawable {
 public:
-	MatchHUD(const sf::Vector2f &winsize, std::string mapname);
+	MatchHUD(const sf::Vector2f &winsize, std::string mapname, MatchSettings settings);
 	void Render(DrawingEnviroment &drawEnv, float zoom_level);
-	void Update(const std::vector<PlayerInfo> &info);
+	void Update(const std::vector<PlayerInfo> &info, int time);
 	void Init(const std::vector<PlayerInfo> &info);
 private:
 	virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 	std::vector<HUD> m_playerHUDs;
-
-	std::vector<sf::Text> m_roundpoint;
-	sf::Font m_font;
-	
-	sf::Sprite m_roundcounter;
-	sf::Texture m_texture;
+	RoundSign m_roundsign;
 };
 
 #endif

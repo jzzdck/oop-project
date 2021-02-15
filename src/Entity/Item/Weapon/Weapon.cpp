@@ -5,17 +5,22 @@ Weapon::Weapon(sf::Vector2f pos, std::string keyword, float facing, int ammo_cou
 	attack_state(false),
 	m_ammo({ ammo_count, ammo_count })
 {
+	lifetime = sf::seconds(5.f);
 	m_dir = facing;
 }
 
 void Weapon::Update ( ) {
 	Item::Update();
+	if (m_ammo.current < 0 && Owner() == -1)
+		start_time = true; 
 	
-	if (m_speed.x == 0 && m_speed.y == 0 && m_ammo.current < 0)
+	if (start_time && clock.getElapsedTime() - released > lifetime)
 		in_use = false;
+	else if (!start_time)
+		released = clock.getElapsedTime();
 }
 
 ProjectileData Weapon::GetProjectileData ( ) {
-	return { GetBounds(), projectile_index, GetFacing(), 0 };
+	sf::Vector2f aux = { -m_dir*recoil.x, recoil.y };
+	return { GetBounds(), projectile_index, GetFacing(), 0, aux };
 }
-

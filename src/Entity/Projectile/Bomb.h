@@ -11,11 +11,11 @@ public:
 	Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing);
 	void ApplyResponse (const sf::Vector2f & vec) override;
 	void ApplyEffect (Player * target) override;
-	void ApplyGravity(float gravity) override;
 	void Update ( ) override;
 	void Explode();
 	void Render() override {};
 	void Render(DrawingEnviroment &drawEnv) override;
+	sf::Vector2f GetPushbackForce() override;
 private:
 	bool exploding = false;
 	float max_life = 1.2f;

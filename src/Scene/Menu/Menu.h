@@ -33,7 +33,7 @@ protected:
 	void Move_Option(int dir);
 	
 	///TextOperations
-	void RandomizeMyColor(unsigned const& text_position);
+	void RandomizeMyColor(unsigned const& text_position, int velocity);
 	void HighlightCurrentOption();
 	
 	///Variables

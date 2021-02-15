@@ -1,6 +1,6 @@
 #ifndef TESLAGUN_H
 #define TESLAGUN_H
-#include "Weapon/Weapon.h"
+#include "Weapon.h"
 
 class TeslaGun : public Weapon {
 public:

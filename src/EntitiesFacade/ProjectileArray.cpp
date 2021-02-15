@@ -38,10 +38,8 @@ void ProjectileArray::ApplyProjectileData ( ) {
 
 std::vector<PlayerInfo> ProjectileArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {
 	m_projectiles = EraseUnused(m_projectiles, world);
-	for (size_t i=0; i<info.size(); ++i) {
+	for (size_t i=0; i<info.size(); ++i)
 		current_data.push_back(info.at(i).new_projectile);
-		info.at(i).new_projectile.projectile_index = -1;
-	}
 	
 	ApplyProjectileData();
 	
@@ -52,9 +50,12 @@ std::vector<PlayerInfo> ProjectileArray::UpdateArray (std::vector<PlayerInfo> & 
 }
 
 void ProjectileArray::UpdateRegardingTo (PlayerInfo & info, Player * player, World & world) {
-	for (Projectile* projectile : m_projectiles)
-		if (player->CollidesWith(projectile))
+	for (Projectile* projectile : m_projectiles) {
+		if (player->CollidesWith(projectile) && info.health_data.is_alive) {
 			projectile->ApplyEffect(player);
+			player->ApplyForce(projectile->GetPushbackForce());
+		}
+	}
 }
 
 void ProjectileArray::RenderWith (DrawingEnviroment & drawEnv) {

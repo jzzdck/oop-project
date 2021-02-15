@@ -16,6 +16,7 @@ public:
 	Controls();
 private:
 	std::map<std::string,sf::Keyboard::Key> m_keys;
+	std::map<std::string,sf::Keyboard::Key> m_special_keys;
 };
 
 #endif

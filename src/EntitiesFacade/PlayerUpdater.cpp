@@ -11,6 +11,11 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 	auto &respawner = m_respawners[player->GetIndex()];
 	Update(player, world);
 	
+	if (info.new_projectile.projectile_index != -1) {
+		player->ApplyForce(info.new_projectile.recoil);
+		info.new_projectile.projectile_index = -1;
+	}
+	
 	if (world.IsUnbounded(player))
 		h.current_health = -1000.f;
 
@@ -22,10 +27,9 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 		
 		float can_respawn = m_gameclock.getElapsedTime().asSeconds() - respawner;
 		if (can_respawn >= 1.5f) {
-			player->SetPosition(player->GetInitPos());
-			player->SetSpeed({0, 0});
-			h.current_health = 1000.f;
-			h.is_alive = true;
+			player->Respawn();
+			if (rand()%2 && info.round_points > 0)
+				--info.round_points;
 			respawner = 0.00f;
 		}
 	}
@@ -34,4 +38,3 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 void PlayerUpdater::ProcessPlayerEvents (PlayerInfo &info, Player * player, sf::Event & e) {
 	player->ProcessEvents(e);
 }
-

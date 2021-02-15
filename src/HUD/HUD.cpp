@@ -14,21 +14,16 @@ HUD::HUD (int player_index) : m_playercolor("player-color")
 }
 
 void HUD::Render (DrawingEnviroment &drawEnv, float zoom_level) {
-	sf::RenderWindow& win = *drawEnv.getWin();
-	sf::Vector2f winsize = sf::Vector2f(win.getSize());
+	m_pos = m_relative_percentage;
+	if (m_dir == -1.f)
+		m_pos.x += 0.9f;
 	
-	m_pos = { 
-		winsize.x * (m_relative_percentage.x + (m_dir == -1.f ? 0.9f : 0.0f)), 
-		winsize.y * m_relative_percentage.y
-	};
-	
-	m_healthbar.Render(m_pos, drawEnv, zoom_level, m_dir);
 	m_playercolor.Render(m_pos, drawEnv, zoom_level, m_dir);
 	m_ammobar.Render(m_pos, drawEnv, zoom_level, m_dir);
+	m_healthbar.Render(m_pos, drawEnv, zoom_level, m_dir);
 	
 	m_hud.setTexture(m_texture);
-	sf::Vector2f pos = win.mapPixelToCoords(sf::Vector2i(m_pos));
-	m_hud.setPosition(pos);
+	m_hud.setPosition(utils::getFixedPos(drawEnv.getWin(), m_pos, {0,0}));
 	m_hud.setScale(m_dir*3*zoom_level, 3*zoom_level);
 }
 
