@@ -15,6 +15,8 @@ protected:
 	void Select (Game & g);
 private:
 	std::map<RectangleDrawer::State, std::string> m_toolnames;
+	std::vector<std::pair<std::string, sf::Color>> m_bucketcolors;
+	int current_color;
 	std::string m_mapname;
 	RectangleDrawer m_drawer;
 	Grid m_grid;

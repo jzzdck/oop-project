@@ -16,8 +16,9 @@ class EntitiesFacade {
 public:
 	EntitiesFacade(float width, float height, std::string map_name);
 	~EntitiesFacade();
-	void Update();
+	void Update(const sf::Time &total_time);
 	void Render(DrawingEnviroment& drawEnv);
+	void SpawnSomethingAtRandom();
 	
 	std::vector<PlayerInfo> GetPlayersInfos();
 	std::vector<int> GetRoundPoints();
@@ -29,6 +30,7 @@ private:
 	std::vector<EntityArray*> m_entity_arrays;
 	std::vector<Player*> m_players;
 	std::vector<PlayerInfo> m_infos;
+	sf::Time m_spawnlapse, m_elapsed;
 	World m_world;
 };
 

@@ -13,6 +13,7 @@ public:
 	virtual ~EntityArray() = default;
 	
 	int Update(Entity* entity, World &world);
+	virtual size_t Size() const { return -1; }
 	virtual void SpawnAt(const sf::Vector2f &pos, int switch_index) = 0;
 	virtual void SpawnRandom() = 0;
 	virtual std::vector<PlayerInfo> UpdateArray(std::vector<PlayerInfo> &info, World &world) = 0;

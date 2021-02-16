@@ -3,6 +3,7 @@
 #include "ItemArray.h"
 #include "WeaponArray.h"
 #include "ProjectileArray.h"
+#include <algorithm>
 
 EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) :
 	m_world(width, height, 0.7, map_name)
@@ -18,11 +19,14 @@ EntitiesFacade::EntitiesFacade(float width, float height, std::string map_name) 
 	};
 	
 	m_infos.resize(2);	
-	m_players.push_back(new Player({world_size.x*0.1f, world_size.y*0.1f}, 0));
-	m_players.push_back(new Player({world_size.x*0.12f, world_size.y*0.12f}, 1));
+	m_players.push_back(new Player(m_world.GetBaseSpawnPoint(0), 0));
+	m_players.push_back(new Player(m_world.GetBaseSpawnPoint(1), 1));
+	
+	m_spawnlapse = sf::seconds(std::min(30.f*utils::randf(), 10.f));
+	m_elapsed = sf::seconds(0);
 }
 
-void EntitiesFacade::Update ( ) {
+void EntitiesFacade::Update ( const sf::Time &total_time ) {
 	UpdatePlayerInfo();
 	m_world.Update();
 	
@@ -32,6 +36,12 @@ void EntitiesFacade::Update ( ) {
 	for (Player* player : m_players)
 		for (EntityArray *updater : m_entity_arrays)
 			updater->UpdateRegardingTo(m_infos.at(player->GetIndex()), player, m_world);
+	
+	if (total_time - m_elapsed > m_spawnlapse) {
+		m_spawnlapse = m_spawnlapse = sf::seconds(10.f*utils::randf());
+		m_elapsed = total_time;
+		SpawnSomethingAtRandom();
+	}
 }
 
 void EntitiesFacade::Render (DrawingEnviroment& drawEnv) {
@@ -90,5 +100,17 @@ std::vector<int> EntitiesFacade::GetRoundPoints ( ) {
 		aux.push_back(m_infos.at(i).round_points);
 	
 	return aux;
+}
+
+void EntitiesFacade::SpawnSomethingAtRandom ( ) {
+	bool spawnflag = utils::randf() < 0.30f;
+	bool player = rand()%2;
+	
+	if (spawnflag && m_entity_arrays.at(1)->Size() < 1000) 
+		m_entity_arrays.at(1)->SpawnAt(m_world.GetBaseSpawnPoint(player), player);
+	
+	int index = (utils::randf() > 0.6f) + 1; 
+	if (rand()%2 && m_entity_arrays.at(index)->Size() < 1000)
+		m_entity_arrays.at(index)->SpawnRandom();
 }
 

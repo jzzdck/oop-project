@@ -7,7 +7,7 @@ Bullet::Bullet(const sf::Vector2f &speed, const sf::Rect<float> &rect, float fac
 {
 	bool bad_shot = utils::randf() <= 0.40f;
 	if (bad_shot)
-		m_speed.y = (utils::randf() < 0.5f ? 1.f : -1.f) * utils::randf() * 7.f;
+		m_speed.y = utils::randCentered(7.f);
 	m_speed.x = speed.x*3.2f;
 	
 	float angle = std::atan2(m_speed.y, m_speed.x) * 180.f / M_PI;

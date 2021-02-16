@@ -3,6 +3,7 @@
 #include "../../../Graphics/DrawingEnviroment.h"
 #include "../../../Utils/textOperations.h"
 #include "../../../Game.h"
+#include "../../../Utils/generalUtils.h"
 
 MapEditor::MapEditor (float wdt, float hgt, std::string loadmap) :
 	Menu(wdt, hgt, "mapeditor"),
@@ -27,6 +28,14 @@ MapEditor::MapEditor (float wdt, float hgt, std::string loadmap) :
 		{RectangleDrawer::State::Vertical,     "Add Vertical Motion"},
 	};
 	
+	m_bucketcolors = {
+		{"<< Standard >>", sf::Color::White},
+		{"<< Player 0 >>", utils::loadPlayerColor(0)},
+		{"<< Player 1 >>", utils::loadPlayerColor(1)},
+	};
+	
+	current_color = 0;
+	utils::center(m_texts.at(1), {win_width, win_height});
 	m_text.setMaxChars(1000);
 	m_text.setValue("ENTER MAP NAME");
 }
@@ -60,6 +69,12 @@ void MapEditor::ProcessEvent (sf::Event & e, Game & g) {
 			Select(g);
 		}
 	} else StandardMenuInput(g, e.key.code);
+	
+	int dir = e.key.code == m_input.GetKey("go_left") ? -1 : (e.key.code == m_input.GetKey("go_right") ? 1 : 0);  
+	if (current_option == 1) {
+		current_color += dir;
+		utils::wrap(current_color, m_bucketcolors.size());
+	}
 }
 
 void MapEditor::Update (Game & g) {
@@ -74,6 +89,11 @@ void MapEditor::Update (Game & g) {
 	std::string str = "Current Tool: " + m_toolnames[m_drawer.GetState()];
 	m_texts[0].setString(str);
 	utils::center(m_texts[0], {win_width, win_height});
+	
+	str = "Current Color: " + m_bucketcolors.at(current_color).first;
+	m_texts[1].setString(str);
+	utils::center(m_texts[1], {win_width, win_height});
+	m_drawer.SetColor(m_bucketcolors.at(current_color).second);
 }
 
 void MapEditor::Render (DrawingEnviroment & drawEnv) {

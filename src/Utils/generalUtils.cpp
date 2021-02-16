@@ -108,4 +108,9 @@ namespace utils {
 		pos.y += spawnbox.height * randf();
 		return pos;
 	}
+	
+	float randCentered(float radius) {
+		return (utils::randf() < 0.5f ? 1.f : -1.f) * utils::randf() * radius;
+	}
 }
+

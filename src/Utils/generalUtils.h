@@ -33,6 +33,8 @@ namespace utils {
 	
 	/// @brief Get a random float between 0 and 1.
 	float randf();
+	/// @brief Get a random float between -radius and radius
+	float randCentered(float radius);
 	
 	// NOTE: abpos and revpos are percentages of the RenderWindow's size
 	sf::Vector2f getFixedPos(sf::RenderWindow * win, const sf::Vector2f & abpos, const sf::Vector2f & revpos);

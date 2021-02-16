@@ -9,7 +9,7 @@
 WeaponArray::WeaponArray(const sf::Vector2f &winsize) : 
 	EntityArray(winsize)
 {
-	size_t rands = 30;
+	size_t rands = rand()%3;
 	for (size_t i=0; i<rands; ++i) 
 		SpawnRandom();
 }
@@ -32,7 +32,7 @@ void WeaponArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
 }
 
 void WeaponArray::SpawnRandom ( ) {
-	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf()}, rand()%max_size);
+	SpawnAt(utils::randomPos({{0,0}, m_winsize}), rand()%max_size);
 }
 
 std::vector<PlayerInfo> WeaponArray::UpdateArray (std::vector<PlayerInfo> & info, World & world) {

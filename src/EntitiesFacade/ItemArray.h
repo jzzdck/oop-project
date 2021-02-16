@@ -11,6 +11,7 @@ public:
 	~ItemArray();
 	void SpawnAt (const sf::Vector2f & pos, int switch_index) override;
 	void SpawnRandom () override;
+	size_t Size() const override { return m_items.size(); }
 	std::vector<PlayerInfo> UpdateArray(std::vector<PlayerInfo> &info, World &world) override;
 	void UpdateRegardingTo (PlayerInfo &info, Player * player, World & world) override;
 	void RenderWith (DrawingEnviroment & drawEnv) override;

@@ -14,8 +14,8 @@ struct MatchSettings {
 	
 	void Randomize() {
 		round_type = rand()%(4-1) + 1;
-		max_points = rand()%(31-5) + 5;
-		max_seconds = rand()%(201-15) + 15;
+		max_points = rand()%(15-2) + 2;
+		max_seconds = rand()%(150-15) + 15;
 	}
 };
 

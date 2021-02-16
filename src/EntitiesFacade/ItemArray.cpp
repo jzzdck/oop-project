@@ -6,21 +6,17 @@
 ItemArray::ItemArray(const sf::Vector2f &winsize) :
 	EntityArray(winsize)
 {
-	size_t randitems = rand()%15 + 5;
+	size_t randitems = rand()%3;
 	for (size_t i=0; i<randitems; ++i)
 		SpawnRandom();
 }
 
 void ItemArray::SpawnAt (const sf::Vector2f & pos, int switch_index) {
-	switch (switch_index) {
-	case 0:
-		m_items.push_back(new Flag(pos, rand()%2));
-		break;
-	};
+	m_items.push_back(new Flag(pos, switch_index));
 }
 
 void ItemArray::SpawnRandom () {
-	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%max_size);
+	SpawnAt({m_winsize.x * utils::randf(), m_winsize.y * utils::randf() }, rand()%2);
 }
 
 void ItemArray::UpdateRegardingTo (PlayerInfo &info, Player * player, World & world) {
