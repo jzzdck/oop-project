@@ -78,3 +78,10 @@ bool World::IsUnbounded (Entity * entity) const {
 	return !m_bounds.intersects(entity->GetBounds());
 }
 
+sf::Vector2f World::GetBaseSpawnPoint (int which) const {
+	auto pos = m_platforms.at(which ? m_base1 : m_base0).getGlobalBounds();
+	sf::Vector2f spawnpoint = utils::getCenter(pos);
+	spawnpoint.y -= pos.width/2.f - 100.f;
+	return spawnpoint;
+}
+

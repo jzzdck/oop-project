@@ -20,7 +20,8 @@ public:
 	sf::Vector2f GetGravity() const { return {0.f, m_gravity}; }
 	int CollidesWith(Entity *entity, sf::Vector2f &response, int index = 0);
 	int GetBaseIndex(int which) const { return which ? m_base1 : m_base0; };
-	bool IsUnbounded(Entity* entity) const;
+	sf::Vector2f GetBaseSpawnPoint(int which) const;
+ 	bool IsUnbounded(Entity* entity) const;
 	
 	World(float wdt, float hgt, float gravity, std::string map_name = "MAIN");
 	~World();

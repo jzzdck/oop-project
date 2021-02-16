@@ -5,6 +5,7 @@
 #include "../Utils/generalUtils.h"
 #include <cmath>
 #include <algorithm>
+#include <SFML/Graphics/Shader.hpp>
 
 Player::Player (sf::Vector2f pos, int player_index) :
 	Entity(pos, "player"), 
@@ -83,8 +84,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	if (!m_health.is_alive) 
 		return;
 	
-	target.draw(m_sprite,states);
-	target.draw(ms_belly,states);	
+	target.draw(m_sprite,&s);
+	target.draw(ms_belly,&s);	
 }
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {

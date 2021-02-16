@@ -23,6 +23,6 @@ void ElectricShot::Update ( ) {
 }
 
 sf::Vector2f ElectricShot::GetPushbackForce ( ) {
-	return {m_dir*2, 0};
+	return {m_dir*25, 0};
 }
 

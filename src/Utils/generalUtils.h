@@ -36,6 +36,8 @@ namespace utils {
 	
 	// NOTE: abpos and revpos are percentages of the RenderWindow's size
 	sf::Vector2f getFixedPos(sf::RenderWindow * win, const sf::Vector2f & abpos, const sf::Vector2f & revpos);
+	
+	sf::Vector2f randomPos(const sf::Rect<float> &spawnbox);
 }
 
 #endif

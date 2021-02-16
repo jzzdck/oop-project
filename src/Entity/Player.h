@@ -8,6 +8,7 @@
 #include "../Utils/Controls.h"
 #include "../Game.h"
 #include "../Graphics/Animation.h"
+#include <SFML/Graphics/Shader.hpp>
 
 struct Jump {
 	int count;
@@ -35,6 +36,7 @@ public:
 	Controls &GetControls() { return m_input;}
 	Player(sf::Vector2f pos, int player_index);
 private:
+	sf::Shader s;
 	int m_index;
 	Jump m_jump;
 	Controls m_input;

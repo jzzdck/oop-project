@@ -101,5 +101,11 @@ namespace utils {
 		sf::Vector2f pos(winsize.x * revpos.x, winsize.y * revpos.y);
 		return win->mapPixelToCoords(sf::Vector2i(pos + abs));
 	}
+	
+	sf::Vector2f randomPos(const sf::Rect<float> & spawnbox) {
+		sf::Vector2f pos = {spawnbox.left, spawnbox.top};
+		pos.x += spawnbox.width * randf();
+		pos.y += spawnbox.height * randf();
+		return pos;
+	}
 }
-
