@@ -97,7 +97,13 @@ std::string Platform::GetStringInfo (const sf::Vector2f & winsize, float scale, 
 	std::string aux = std::to_string(auxpos.x) + " " + std::to_string(auxpos.y);
 	info += key + "-dim=" + utils::rectDimsToString(bounds) + "\n";
 	info += key + "-abs-pos=" + aux + "\n";
-	info += key + "-base-info=" + std::to_string(m_player) + "\n";
+	
+	if (getFillColor() == utils::loadPlayerColor(1))
+		info += key + "-base-info=" + std::to_string(1) + "\n";
+	else if (getFillColor() == utils::loadPlayerColor(0))
+		info += key + "-base-info=" + std::to_string(0) + "\n";
+	else
+		info += key + "-base-info=" + std::to_string(-1) + "\n";
 	
 	if (dynamic) {
 		info += key + "-is-dynamic=YES\n";

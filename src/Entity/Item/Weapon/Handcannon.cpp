@@ -5,7 +5,7 @@
 #include "../../../Utils/generalUtils.h"
 
 Handcannon::Handcannon(sf::Vector2f pos, float facing) :
-	Weapon(pos, "handcannon", facing, 50)
+	Weapon(pos, "handcannon", facing, 5)
 {
 	recoil = { 5, 0 };
 	projectile_index = 2;

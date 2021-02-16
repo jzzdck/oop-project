@@ -5,11 +5,7 @@
 Bullet::Bullet(const sf::Vector2f &speed, const sf::Rect<float> &rect, float facing) :
 	Projectile(rect, "bullet", rand()%(125-50) + 50, facing, 0.40f)
 {
-	bool bad_shot = utils::randf() <= 0.40f;
-	if (bad_shot)
-		m_speed.y = utils::randCentered(7.f);
-	m_speed.x = speed.x*3.2f;
-	
+	m_speed = speed;
 	float angle = std::atan2(m_speed.y, m_speed.x) * 180.f / M_PI;
 	m_sprite.move(0, -5);
 	ray.setScale(-m_dir, 1.f);

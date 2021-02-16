@@ -9,7 +9,7 @@
 WeaponArray::WeaponArray(const sf::Vector2f &winsize) : 
 	EntityArray(winsize)
 {
-	size_t rands = rand()%3;
+	size_t rands = rand()%10;
 	for (size_t i=0; i<rands; ++i) 
 		SpawnRandom();
 }

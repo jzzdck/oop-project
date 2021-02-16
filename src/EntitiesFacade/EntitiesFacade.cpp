@@ -103,14 +103,17 @@ std::vector<int> EntitiesFacade::GetRoundPoints ( ) {
 }
 
 void EntitiesFacade::SpawnSomethingAtRandom ( ) {
-	bool spawnflag = utils::randf() < 0.30f;
+	bool spawnflag = utils::randf() < 0.60f;
 	bool player = rand()%2;
 	
 	if (spawnflag && m_entity_arrays.at(1)->Size() < 1000) 
 		m_entity_arrays.at(1)->SpawnAt(m_world.GetBaseSpawnPoint(player), player);
 	
 	int index = (utils::randf() > 0.6f) + 1; 
-	if (rand()%2 && m_entity_arrays.at(index)->Size() < 1000)
+	if (utils::randf() <= 0.6f && m_entity_arrays.at(index)->Size() < 1000)
 		m_entity_arrays.at(index)->SpawnRandom();
+	
+	if (utils::randf() <= 0.2f && m_entity_arrays.at(2)->Size() < 1000)
+		m_entity_arrays.at(2)->SpawnRandom();
 }
 

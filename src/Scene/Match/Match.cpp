@@ -59,8 +59,6 @@ void Match::Update (Game& g) {
 	m_entities.Update(m_gameclock.getElapsedTime());
 	m_gamehud.Update(m_entities.GetPlayersInfos(), m_gameclock.getElapsedTime().asSeconds());
 	m_camera.Update(m_entities.GetCameraInfo());
-	if (utils::randf() < 0.0005f)
-		m_entities.SpawnSomethingAtRandom();
 }
 
 void Match::Render (DrawingEnviroment& drawEnv) {

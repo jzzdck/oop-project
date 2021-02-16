@@ -13,6 +13,7 @@ ProjectileArray::ProjectileArray(const sf::Vector2f &winsize) :
 }
 
 void ProjectileArray::ApplyProjectileData ( ) {
+	sf::Vector2f speed;
 	for (ProjectileData data : current_data) {
 		switch (data.projectile_index) {
 		case -1:
@@ -20,14 +21,19 @@ void ProjectileArray::ApplyProjectileData ( ) {
 		case 0:
 			m_projectiles.push_back(new MeleeHit(data.weapon_position, data.direction));
 			break;
-		case 1:
-			m_projectiles.push_back(new Bullet({20.f*data.direction, 0}, data.weapon_position, data.direction));
+		case 1: {
+			bool bad_shot = utils::randf() <= 0.60f;
+			if (bad_shot)
+				speed.y = utils::randCentered(7.f);
+			speed.x = 65.f*data.direction;
+			
+			m_projectiles.push_back(new Bullet(speed, data.weapon_position, data.direction));
 			break;
-		case 2: {
-			sf::Vector2f speed = {data.direction * 20.f * std::cos(data.handcannon_angle), -20.f * std::sin(data.handcannon_angle)};
+		} case 2:
+			speed = {data.direction * 20.f * std::cos(data.handcannon_angle), -20.f * std::sin(data.handcannon_angle)};
 			m_projectiles.push_back(new Bomb(speed, data.weapon_position, data.direction));
 			break;
-		} case 3:
+		case 3:
 			m_projectiles.push_back(new ElectricShot(data.weapon_position, data.direction));
 			break;
 		};
