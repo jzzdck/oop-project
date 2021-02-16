@@ -3,7 +3,7 @@
 
 Shovel::Shovel(sf::Vector2f pos) : Weapon(pos, "shovel", true, 0)
 {
-	recoil = { 0, 0 };
+	recoil = {0, 0};
 	projectile_index = 0;
 }
 

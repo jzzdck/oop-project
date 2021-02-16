@@ -35,13 +35,13 @@ void Player::LoadKeys() {
 
 void Player::ProcessEvents (sf::Event & e) {
 	if (e.type == sf::Event::KeyPressed) {
-		if (e.key.code == m_input<="jump" && m_jump.count > 0) {
+		if (e.key.code == m_input.GetKey("jump") && m_jump.count > 0) {
 			m_animation.SetState(Animation::State::Jumping);
 			m_speed.y = m_jump.speed;
 			--m_jump.count;
 		}
 	} else if (e.type == sf::Event::KeyReleased) {
-		if (e.key.code == m_input<="jump" && m_speed.y < -5)
+		if (e.key.code == m_input.GetKey("jump") && m_speed.y < -5)
 			m_speed.y = -5;
 	}
 }
