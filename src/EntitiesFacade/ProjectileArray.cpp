@@ -60,6 +60,7 @@ void ProjectileArray::UpdateRegardingTo (PlayerInfo & info, Player * player, Wor
 		if (player->CollidesWith(projectile) && info.health_data.is_alive) {
 			projectile->ApplyEffect(player);
 			player->ApplyForce(projectile->GetPushbackForce());
+			player->SetState(Player::State::Hit);
 		}
 	}
 }

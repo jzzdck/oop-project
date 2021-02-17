@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
-	Projectile(rect, "bomb", rand()%(20-2) + 2, facing, 0.1f), m_trail(m_sprite, false, 2.0f)
+	Projectile(rect, "bomb", rand()%(500-400) + 2, facing, 0.1f), m_trail(m_sprite, false, 2.0f)
 {
 	m_dir = facing;
 	m_speed = vel;
@@ -26,7 +26,7 @@ void Bomb::ApplyResponse (const sf::Vector2f & vec) {
 void Bomb::ApplyEffect (Player * target) {
 	if (!exploding) { max_life = 0.1f; return; }
 	HealthData &h = target->GetHealthData();
-	h.current_health -= m_damage * (utils::randf() < crit_chance ? 1.2f : 1.f);
+	h.current_health -= m_damage;
 }
 
 void Bomb::Update ( ) {

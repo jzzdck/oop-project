@@ -1,50 +1,40 @@
 #include "Animation.h"
 #include <cmath>
 #include <iostream>
+#include "../Utils/generalUtils.h"
 
-Animation::Animation (sf::Sprite * target, sf::Sprite * indep) {
-	time_per_frame = sf::seconds(0.06f);
+Animation::Animation (sf::Sprite * target, sf::Sprite * indep, std::string sprite_sheet, AnimationInfo info) :
+	m_info(info)
+{
+	if (target != nullptr) {
+		m_target = target;
+		m_spritesheet.loadFromFile("../res/spritesheets/" + sprite_sheet + "_dep.png");
+	}
 	
-	m_target = target;
-	m_indep = indep;
-	m_spritesheet.loadFromFile("../res/running_dep.png");
-	m_indeps.loadFromFile("../res/running_indep.png");
-	m_jump.loadFromFile("../res/jump_dep.png");
-	m_ijump.loadFromFile("../res/jump_indep.png");
-}
-
-void Animation::Update () {
-	switch (m_state) {
-	case State::Running:
-		UpdateRun();
-		break;
-	case State::Jumping:
-		m_target->setTexture(m_ijump, true);
-		m_indep->setTexture(m_jump, true);
-		break;
-	case State::Running | State::Jumping:
-		m_target->setTexture(m_ijump, true);
-		m_indep->setTexture(m_jump, true);
-		break;
-	default:
-		current_frame = 0;
-		break;
+	if (indep != nullptr) {
+		m_indep = indep;
+		m_indeps.loadFromFile("../res/spritesheets/" + sprite_sheet + "_indep.png");
 	}
 }
 
-void Animation::UpdateRun ( ) {
-	sf::Rect<int> sub_rect = { 42*current_frame, 0, 42, 50};
+void Animation::Update () {
+	sf::Rect<int> sub_rect = { int(m_info.dims.x)*m_info.current, 0, int(m_info.dims.x), int(m_info.dims.y)};
 	
-	m_target->setTexture(m_spritesheet, true);
-	m_target->setTextureRect(sub_rect);
+	if (m_target != nullptr) {
+		m_target->setTexture(m_spritesheet, true);
+		m_target->setTextureRect(sub_rect);
+	}
 	
-	m_indep->setTexture(m_indeps, true);
-	m_indep->setTextureRect(sub_rect);
+	if (m_indep != nullptr) {
+		m_indep->setTexture(m_indeps, true);
+		m_indep->setTextureRect(sub_rect);
+	}
 	
-	if (m_clock.getElapsedTime().asSeconds() > time_per_frame.asSeconds())
-		m_clock.restart(), current_frame++;
+	if (m_clock.getElapsedTime().asSeconds() > m_info.time_step)
+		m_clock.restart(), m_info.current++;
 	
-	if (current_frame >= run_frames)
-		current_frame = 0;
+	if (m_info.current >= m_info.frames && !loopable)
+		m_info.current = m_info.frames-1;
+	else
+		utils::wrap(m_info.current, m_info.frames);
 }
-

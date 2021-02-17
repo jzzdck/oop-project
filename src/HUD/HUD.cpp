@@ -8,7 +8,7 @@ HUD::HUD (int player_index) : m_playercolor("player-color")
 	FileManager s("PlayerHUD.conf", "HUD");
 	
 	m_relative_percentage = utils::getXY(s["relative_percentage"]);
-	m_texture.loadFromFile("../res/healthbar.png");
+	m_texture.loadFromFile("../res/sprites/healthbar.png");
 	m_hud.setTexture(m_texture);
 	m_playercolor.SetColor(utils::loadPlayerColor(player_index));
 }

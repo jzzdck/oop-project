@@ -6,37 +6,28 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 
+struct AnimationInfo {
+	int frames;
+	int current;
+	float time_step;
+	sf::Vector2f dims;
+};
+
 class Animation {
 public:
-	enum State {
-		Idle    = 1 << 0, 
-		Running = 1 << 1, 
-		Jumping = 1 << 2
-	};
-	
-	State GetState() const { return m_state; }
-	void SetState(State new_state) { m_state = new_state; }
-	Animation(sf::Sprite* target, sf::Sprite *indep);
+	Animation(sf::Sprite* target, sf::Sprite *indep, std::string sprite_sheet, AnimationInfo info);
 	void Update();
+	void SetLoopability(bool looped) { loopable = looped; }
+	void Reset() { m_info.current = 0; }
 private:
-	void UpdateRun();
-	
-	State m_state;
+	bool loopable = true;
+	AnimationInfo m_info;
 	sf::Clock m_clock;
-	sf::Time time_per_frame;
-	int run_frames = 8;
-	int current_frame = 0;
-	sf::Texture m_spritesheet, m_jump;
-	sf::Texture m_indeps, m_ijump;
+	sf::Texture m_spritesheet;
+	sf::Texture m_indeps;
 	sf::Sprite* m_target;
 	sf::Sprite* m_indep;
 };
-
-
-inline constexpr Animation::State operator|(Animation::State a, Animation::State b) {
-	return static_cast<Animation::State>(static_cast<int>(a) |
-										 static_cast<int>(b));
-}
 
 #endif
 

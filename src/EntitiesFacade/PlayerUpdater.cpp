@@ -20,6 +20,7 @@ void PlayerUpdater::UpdateRegardingTo(PlayerInfo &info, Player * player, World &
 		h.current_health = -1000.f;
 
 	if (!h.is_alive) {
+		player->SetState(Player::State::Dead);
 		info.weapon_index = -1, info.item_index = -1;
 		
 		if (respawner == 0.00f)
