@@ -24,19 +24,20 @@ void Bullet::ApplyResponse (const sf::Vector2f & vec) {
 }
 
 void Bullet::Update ( ) {
-	auto ray_width = std::fabs(m_sprite.getPosition().x - pos.x); 
-	ray.setPosition(m_sprite.getPosition());
-	ray.setSize({m_dir*ray_width, m_sprite.getGlobalBounds().height});
-	if (m_sprite.getColor().a < 20)
-		in_use = false;
-	
-	if (!impacted)
+	if (!impacted) {
+		ray_width = std::fabs(m_sprite.getPosition().x - pos.x); 
 		m_sprite.move(m_speed);
-	else {
+	} else {
+		auto dim = ray.getGlobalBounds();
 		sf::Uint8 alpha(ray.getFillColor().a * 0.95f + sf::Color::Transparent.a * 0.05f);
 		ray.setFillColor({250, 250, 250, alpha});
 		m_sprite.setColor({250, 250, 250, alpha});
 	}
+	
+	ray.setPosition(m_sprite.getPosition());
+	ray.setSize({m_dir*ray_width, m_sprite.getGlobalBounds().height});
+	if (m_sprite.getColor().a < 20)
+		in_use = false;
 }
 
 sf::Vector2f Bullet::GetPushbackForce ( ) {

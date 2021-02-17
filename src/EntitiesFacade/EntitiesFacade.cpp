@@ -110,10 +110,10 @@ void EntitiesFacade::SpawnSomethingAtRandom ( ) {
 		m_entity_arrays.at(1)->SpawnAt(m_world.GetBaseSpawnPoint(player), player);
 	
 	int index = (utils::randf() > 0.6f) + 1; 
-	if (utils::randf() <= 0.6f && m_entity_arrays.at(index)->Size() < 1000)
+	if (utils::randf() <= 0.6f && m_entity_arrays.at(index)->Size() < 20)
 		m_entity_arrays.at(index)->SpawnRandom();
 	
-	if (utils::randf() <= 0.2f && m_entity_arrays.at(2)->Size() < 1000)
+	if (utils::randf() <= 0.2f && m_entity_arrays.at(2)->Size() < 20)
 		m_entity_arrays.at(2)->SpawnRandom();
 }
 

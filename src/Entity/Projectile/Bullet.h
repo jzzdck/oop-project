@@ -13,6 +13,7 @@ public:
 	sf::Vector2f GetPushbackForce() override;
 private:
 	sf::RectangleShape ray;
+	float ray_width;
 	sf::Vector2f pos;
 	bool first = true;
 	sf::Clock impact_life;

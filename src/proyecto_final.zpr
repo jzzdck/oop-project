@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Scene/Match/Match.cpp
+current_source=Scene/Menu/MapMenu/MapEditor.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -97,7 +97,7 @@ path=Utils/FileManager.cpp
 cursor=0:0
 [source]
 path=Entity/Projectile/Bullet.cpp
-cursor=7:17
+cursor=33:44
 [source]
 path=Utils/HSV.cpp
 cursor=0:0
@@ -321,7 +321,7 @@ path=Entity/Projectile/Projectile.h
 cursor=9:1
 [header]
 path=Entity/Projectile/Bullet.h
-cursor=10:43
+cursor=15:17
 [header]
 path=Utils/HSV.h
 cursor=0:0
