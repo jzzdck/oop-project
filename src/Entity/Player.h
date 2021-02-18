@@ -9,7 +9,7 @@
 #include "../Game.h"
 #include "../Graphics/Animation.h"
 #include <SFML/Graphics/Shader.hpp>
-#include "../PlayerAnimation.h"
+#include "../Graphics/PlayerAnimation.h"
 
 struct Jump {
 	int count;

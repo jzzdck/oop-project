@@ -1,7 +1,7 @@
 #ifndef PLAYERANIMATION_H
 #define PLAYERANIMATION_H
 #include <vector>
-#include "Graphics/Animation.h"
+#include "Animation.h"
 
 class PlayerAnimation {
 public:

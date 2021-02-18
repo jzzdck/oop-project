@@ -2,7 +2,9 @@
 #include "../../Utils/generalUtils.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
-	Projectile(rect, "bomb", rand()%(500-400) + 2, facing, 0.1f), m_trail(m_sprite, false, 2.0f)
+	Projectile(rect, "bomb", rand()%(500-400) + 2, facing, 0.1f), 
+	m_trail(m_sprite, false, 2.0f),
+	explosion({nullptr, &m_sprite, "explosion", {8, 0, 0.05f, {40.f, 40.f}}})
 {
 	m_dir = facing;
 	m_speed = vel;
@@ -42,14 +44,15 @@ void Bomb::Update ( ) {
 	} else {
 		m_trail.Pop();
 		
-		if (lifetime.getElapsedTime().asSeconds() > 0.25f)
+		explosion.Update();
+		if (explosion.IsFinished())
 			in_use = false;
 	}
 }
 
 void Bomb::Explode ( ) {
 	m_sprite.setPosition(utils::getCenter(m_sprite.getGlobalBounds()));
-	m_sprite.setTexture(m_textures[1], true);
+	explosion.Update();
 	m_sprite.setOrigin(utils::getCenter(m_sprite.getLocalBounds()));
 	exploding = true;
 	lifetime.restart();

@@ -4,6 +4,7 @@
 #include "../../Graphics/Trail.h"
 #include "../../Graphics/DrawingEnviroment.h"
 #include <SFML/Graphics/RenderWindow.hpp>
+#include "../../Graphics/Animation.h"
 
 class Bomb : public Projectile {
 public:
@@ -18,6 +19,7 @@ public:
 	sf::Vector2f GetPushbackForce() override;
 private:
 	bool exploding = false;
+	Animation explosion;
 	float max_life = 1.2f;
 	sf::Clock timer, lifetime;
 	
