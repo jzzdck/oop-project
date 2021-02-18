@@ -5,6 +5,7 @@
 #include "../../Graphics/DrawingEnviroment.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "../../Graphics/Animation.h"
+#include "../../Utils/HSV.h"
 
 class Bomb : public Projectile {
 public:
@@ -24,6 +25,7 @@ private:
 	sf::Clock timer, lifetime;
 	
 	Trail m_trail;
+	utils::HSV trail_color;
 };
 
 #endif

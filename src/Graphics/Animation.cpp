@@ -6,15 +6,15 @@
 Animation::Animation (sf::Sprite * target, sf::Sprite * indep, std::string sprite_sheet, AnimationInfo info) :
 	m_info(info)
 {
+	std::string path = "../res/spritesheets/";
+	m_target = target;
 	if (target != nullptr) {
-		m_target = target;
-		m_spritesheet.loadFromFile("../res/spritesheets/" + sprite_sheet + "_dep.png");
+		m_spritesheet.loadFromFile(path + sprite_sheet + "_dep.png");
 	}
 	
-	if (indep != nullptr) {
-		m_indep = indep;
-		m_indeps.loadFromFile("../res/spritesheets/" + sprite_sheet + "_indep.png");
-	}
+	m_indep = indep;
+	if (indep != nullptr)
+		m_indeps.loadFromFile(path + sprite_sheet + "_indep.png");
 }
 
 void Animation::Update () {

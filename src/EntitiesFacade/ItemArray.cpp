@@ -6,7 +6,7 @@
 ItemArray::ItemArray(const sf::Vector2f &winsize) :
 	EntityArray(winsize)
 {
-	size_t randitems = rand()%100;
+	size_t randitems = rand()%1;
 	for (size_t i=0; i<randitems; ++i)
 		SpawnRandom();
 }
