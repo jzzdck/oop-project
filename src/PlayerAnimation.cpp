@@ -1,28 +1,29 @@
 #include "PlayerAnimation.h"
 
-PlayerAnimation::PlayerAnimation(sf::Sprite * target, sf::Sprite * indep) {
+PlayerAnimation::PlayerAnimation(sf::Sprite * target, sf::Sprite * indep) :
+	previous(0)
+{
 	m_animations = {
+		{target, indep, "jump", {3, 0, 1.f, {120.f/4.f, 49.f}}},
+		{target, indep, "impact", {4, 0, 0.07f, {108.f/4.f, 45.f}}},
+		{target, indep, "death", {4, 0, 0.08f, {248.f/4.f, 50.f}}},
 		{target, indep, "running", {8, 0, 0.06f, {42.f, 50.f}}},
-		{target, indep, "jump", {4, 0, 0.1f, {120.f/4.f, 50.f}}},
-		{target, indep, "idle", {4, 0, 0.08f, {22.f, 50.f}}},
-		{target, indep, "impact", {4, 0, 0.06f, {108.f/4.f, 45.f}}},
-		{target, indep, "death", {4, 0, 0.1f, {248.f/4.f, 50.f}}}
+		{target, indep, "idle", {4, 0, 0.08f, {22.f, 50.f}}}
 	};
 	
-	m_animations.at(1).SetLoopability(false);
-	m_animations.at(3).SetLoopability(false);
-	m_animations.at(4).SetLoopability(false);
+	for (int i=0; i<3; ++i) 
+		m_animations.at(i).loopable = false;
+	m_animations.at(1).interruptable = false;
 }
 
 void PlayerAnimation::Update ( int current_state ) {
-	if (previous != current_state && (previous == 3 or previous == 1 or previous == 4))
-		m_animations.at(previous).Reset();
+	auto &previous_anim = m_animations.at(previous);
 	
-	m_animations.at(current_state).Update();
-	previous = current_state;
+	bool special = !previous_anim.interruptable || !previous_anim.loopable;
+	if (previous_anim.interruptable || previous_anim.IsFinished()) {
+ 		m_animations.at(current_state).Update();
+		if (previous != current_state && special) 
+			previous_anim.Reset();
+		previous = current_state;
+	} else previous_anim.Update();
 }
-
-void PlayerAnimation::SetState (int new_state) {
-	
-}
-

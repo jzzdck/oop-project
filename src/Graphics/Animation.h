@@ -17,10 +17,11 @@ class Animation {
 public:
 	Animation(sf::Sprite* target, sf::Sprite *indep, std::string sprite_sheet, AnimationInfo info);
 	void Update();
-	void SetLoopability(bool looped) { loopable = looped; }
-	void Reset() { m_info.current = 0; }
-private:
+	void Reset() { m_info.current = 0, m_clock.restart(); }
+	bool IsFinished() { return m_info.current == m_info.frames-1; }
 	bool loopable = true;
+	bool interruptable = true;
+private:
 	AnimationInfo m_info;
 	sf::Clock m_clock;
 	sf::Texture m_spritesheet;

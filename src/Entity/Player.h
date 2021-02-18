@@ -25,9 +25,7 @@ struct HealthData {
 /// @brief The Player class relates players' input to the game.
 class Player : public Entity {
 public:
-	enum State {
-		Running = 0, Jumping = 1, Idle = 2, Hit = 3, Dead = 4
-	};
+	enum State { Jumping = 0, Hit, Dead, Running, Idle  };
 	
 	void ProcessEvents(sf::Event &e);
 	void Update() override; 
@@ -42,12 +40,11 @@ public:
 	Controls &GetControls() { return m_input;}
 	Player(sf::Vector2f pos, int player_index);
 private:
-	bool input;
-	sf::Shader s;
 	int m_index;
 	Jump m_jump;
 	Controls m_input;
 	PlayerAnimation m_animations;
+	bool jumped;
 	HealthData m_health;
 	sf::Sprite ms_belly;
 	float m_topspeed;

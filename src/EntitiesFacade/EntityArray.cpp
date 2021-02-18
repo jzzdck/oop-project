@@ -8,14 +8,12 @@ EntityArray::EntityArray(const sf::Vector2f &winsize) :
 
 int EntityArray::Update (Entity * entity, World &world) {
 	sf::Vector2f response;
-	
-	entity->Update();
-	entity->ApplyForce(world.GetGravity());
-	
-	int collision = world.CollidesWith(entity, response), base_col = -1;
-	if (collision == -1) entity->SetPlatform(nullptr);
-	
-	while (collision != -1) {
+	int collision = world.CollidesWith(entity, response);
+	int base_col = -1;
+
+	if (collision == -1)
+		entity->SetPlatform(nullptr);
+	else while (collision != -1) {
 		if (collision == world.GetBaseIndex(0))
 			base_col = 0;
 		else if (collision == world.GetBaseIndex(1))
@@ -24,6 +22,10 @@ int EntityArray::Update (Entity * entity, World &world) {
 		entity->ApplyResponse(-response);
 		collision = world.CollidesWith(entity, response, collision+1);
 	}
+	
+	entity->Update();
+	if (!entity->HasPlatform())
+		entity->ApplyForce(world.GetGravity());
 	
 	return base_col;
 }

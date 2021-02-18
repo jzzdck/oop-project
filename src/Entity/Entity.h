@@ -18,7 +18,7 @@ public:
 	bool CollidesWith(Entity *another);
 	virtual void ApplyForce(const sf::Vector2f &force) { m_accel += force; }
 	virtual void ApplyResponse(const sf::Vector2f &vec);
-	
+	bool HasPlatform() { return m_platform; }
 	sf::Rect<float> GetBounds() const { return m_sprite.getGlobalBounds(); }
 	sf::Vector2f GetSpeed() const { return m_speed; }
 	sf::Vector2f GetInitPos() const { return m_initpos; }

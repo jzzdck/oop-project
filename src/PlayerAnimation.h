@@ -7,7 +7,6 @@ class PlayerAnimation {
 public:
 	PlayerAnimation(sf::Sprite * target, sf::Sprite * indep);
 	void Update(int current_state);
-	void SetState(int new_state);
 private:
 	int previous;
 	std::vector <Animation> m_animations;

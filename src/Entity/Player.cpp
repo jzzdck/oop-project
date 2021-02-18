@@ -36,9 +36,12 @@ void Player::LoadKeys() {
 }
 
 void Player::ProcessEvents (sf::Event & e) {
+	jumped = false;
+	
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == m_input.GetKey("jump") && m_jump.count > 0) {
 			m_state = Jumping;
+			jumped = true;
 			m_speed.y = m_jump.speed;
 			--m_jump.count;
 		}
@@ -55,19 +58,20 @@ void Player::Update() {
 		return;
 	}
 	
-	if (m_input["right"] or m_input["left"]) {
-		m_dir = m_input["left"] ? -1.f : 1.f;
-		
-		if (m_state != Jumping)
-			m_state = Running;
-		
-		m_speed.x = std::clamp(m_speed.x, -m_topspeed, m_topspeed);
-		m_accel += {m_dir*0.6f, 0.f};
-	} else if (m_state != Jumping && m_state != Hit)
-		m_state = Idle;
+	int running_dir = m_input["right"] ? 1.f : (m_input["left"] ? -1.f : 0);
+	m_speed.x = std::clamp(m_speed.x, -m_topspeed, m_topspeed);
+	m_accel.x += running_dir*0.6f;
+	if (running_dir) m_dir = running_dir;
 	
-	if (m_platform)
+	if (m_platform) {
 		m_sprite.move(m_platform->GetSpeed());
+		if (not jumped) {
+			if (running_dir)
+				m_state = Running;
+			else
+				m_state = Idle;
+		}
+	}
 	
 	m_accel.x += -m_speed.x * 0.05f;
 	Entity::Update();
@@ -83,19 +87,14 @@ void Player::Render() {
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(m_sprite,&s);
-	target.draw(ms_belly,&s);	
+	target.draw(m_sprite);
+	target.draw(ms_belly);	
 }
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
 	
 	if (vec.y) m_speed.y = 0;
-	if (vec.y < 0 && std::fabs(m_speed.x) >=  5.f)
-		m_state = Running;
-	else if (vec.y)
-		m_state = Idle;
-	
 	if (vec.y < 0) m_jump.count = 2;
 }
 

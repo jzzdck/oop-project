@@ -65,8 +65,9 @@ int World::CollidesWith (Entity * entity, sf::Vector2f & response, int index) {
 		
 		sf::Rect<float> md = utils::minkowskiDifference(entity_box, platform_box);
 		if (utils::minkowskiCollision(md)) {
-			entity->SetPlatform(&m_platforms[i]);
 			response = utils::getPenetration(md);
+			if (response.y > 0)
+				entity->SetPlatform(&m_platforms[i]);
 			return i;
 		}
 	}
