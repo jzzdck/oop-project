@@ -36,12 +36,9 @@ void Player::LoadKeys() {
 }
 
 void Player::ProcessEvents (sf::Event & e) {
-	jumped = false;
-	
 	if (e.type == sf::Event::KeyPressed) {
 		if (e.key.code == m_input.GetKey("jump") && m_jump.count > 0) {
 			m_state = Jumping;
-			jumped = true;
 			m_speed.y = m_jump.speed;
 			--m_jump.count;
 		}
@@ -65,7 +62,7 @@ void Player::Update() {
 	
 	if (m_platform) {
 		m_sprite.move(m_platform->GetSpeed());
-		if (not jumped) {
+		if (m_speed.y != m_jump.speed) {
 			if (running_dir)
 				m_state = Running;
 			else
@@ -78,9 +75,6 @@ void Player::Update() {
 }
 
 void Player::Render() {
-	if (!m_health.is_alive)
-		return;
-	
 	ms_belly.setPosition(m_sprite.getPosition());
 	utils::flipTexture(m_dir, m_scale, ms_belly);
 	utils::flipTexture(m_dir, m_scale, m_sprite);
@@ -93,7 +87,6 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void Player::ApplyResponse(const sf::Vector2f &vec) {
 	m_sprite.move(vec.x, vec.y);
-	
 	if (vec.y) m_speed.y = 0;
 	if (vec.y < 0) m_jump.count = 2;
 }

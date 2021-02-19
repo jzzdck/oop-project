@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Utils/FileManager.cpp
+current_source=Entity/Player.cpp
 path_char=/
 [source]
 path=main.cpp
@@ -81,7 +81,8 @@ path=Scene/Menu/Menu.cpp
 cursor=104:0
 [source]
 path=Entity/Player.cpp
-cursor=54:4
+cursor=88:1
+open=true
 [source]
 path=Entity/Entity.cpp
 cursor=19:69
@@ -94,7 +95,6 @@ cursor=58:18
 [source]
 path=Utils/FileManager.cpp
 cursor=11:46
-open=true
 [source]
 path=Entity/Projectile/Bullet.cpp
 cursor=6:1
@@ -140,7 +140,7 @@ path=EntitiesFacade/PlayerUpdater.cpp
 cursor=22:40
 [source]
 path=EntitiesFacade/World.cpp
-cursor=21:2
+cursor=20:14
 open=true
 [source]
 path=EntitiesFacade/ProjectileArray.cpp
@@ -253,7 +253,7 @@ path=Scene/Menu/Menu_Principal.h
 cursor=0:0
 [header]
 path=Entity/Player.h
-cursor=11:22
+cursor=45:30
 [header]
 path=Entity/Entity.h
 cursor=15:0

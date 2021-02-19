@@ -44,7 +44,6 @@ private:
 	Jump m_jump;
 	Controls m_input;
 	PlayerAnimation m_animations;
-	bool jumped;
 	HealthData m_health;
 	sf::Sprite ms_belly;
 	float m_topspeed;

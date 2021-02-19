@@ -18,10 +18,7 @@ void World::LoadMap(std::string map_name) {
 	FileManager s1("/maps/" + map_name + ".conf", map_name+"-static");
 	
 	sf::Vector2f aux;
-	if (map_name != "labyrinth")
-		aux = utils::getXY(s1["bounds"]);
-	else
-		aux = utils::getXY(s1["winsize"]);
+	aux = utils::getXY(s1["bounds"]);
 	
 	float scale = std::stof(s1["scale"]);
 	m_bounds = { 0, 0, aux.x*scale, aux.y*scale };
