@@ -1,165 +1,116 @@
 #include "FileManager.h"
 
 FileManager::FileManager(std::string const& FileName,std::string const& KeyWord) :
-	m_FileName(std::string("../res/configuration-files/"+FileName)),
-	m_KeyWord(KeyWord),
-	m_divisor("------------------"),
-	m_NameSign("[###]"),
-	m_BackUpFile_name(std::string("../res/configuration-files/BackUpConf/B_"+FileName))
+	m_filepath("../res/configuration-files/"), m_filename(FileName), m_KeyWord(KeyWord)
 {
-	LoadBackUp();
-	LoadFile();
-	
+	LoadFile();	
 }
-void FileManager::LoadBackUp()
+
+void FileManager::LoadFile() 
 {
-	std::ifstream archi(m_BackUpFile_name);
-	std::string linea;
-	while(getline(archi,linea))
-	{
-		m_default.push_back(linea);
-	}
-	archi.close();
-}
-void FileManager::LoadFile()
-{
-	
 	std::vector<std::string> v_lines_aux;
-	std::ifstream archi(m_FileName);
-	if(!archi.is_open())
+	std::ifstream archi(m_filepath + m_filename);
+	if (!archi.is_open())
+		RestoreAllToDef(FileToString(m_filepath + "BackUpConf/B" + m_filename));
+	v_lines_aux = FileToString(m_filepath + m_filename);
+	
+	std::vector<std::string>::iterator begin, end;
+	begin = std::find(v_lines_aux.begin(),v_lines_aux.end(),"[###]"+m_KeyWord);
+	end = std::find(begin,v_lines_aux.end(),"------------------");
+	
+	if (begin != v_lines_aux.end()) 
 	{
-		RestoreAllToDef();
-	}
-	else
-	{
-		std::string linea;
-		while(getline(archi,linea))
-		{
-			v_lines_aux.push_back(linea);
-		}
-		archi.close();
-	}
-	std::vector<std::string>::iterator it,ite;
-	it=std::find(v_lines_aux.begin(),v_lines_aux.end(),m_NameSign+m_KeyWord);
-	if(it!=v_lines_aux.end())
-	{
-		std::advance(it,1);
-		ite=std::find(it,v_lines_aux.end(),m_divisor);
+		m_start = begin - v_lines_aux.begin() + 1;
+		m_end = end - v_lines_aux.begin();
 		// no queremos el singo ni el divisor, solo los datos de en medio
-		for(;it!=ite;++it){
-			m_lines.push_back(*it); 
+		for(auto it = begin+1; it!=end; ++it) 
+		{
+			size_t divisor = it->find('=');
+			if (!it->empty() && divisor != std::string::npos)
+				m_map.insert({ it->substr(0, divisor), it->substr(divisor+1) }); 
 		}
-	}
+	} 
 	else std::cerr<<"La palabra clave "<<m_KeyWord<<" no encontrada\n";
 }
 
 void FileManager::SaveChanges()
 {
-	std::vector<std::string> v_saved;
-	std::ifstream archi(m_FileName);
-	std::string linea;
-	while(getline(archi,linea))
-	{
-		v_saved.push_back(linea);
-	}
-	archi.close();
+	std::vector<std::string> v_saved = FileToString(m_filepath + m_filename);
+	std::ofstream archo(m_filepath + m_filename);
 	
-	int inicio=0,fin;
-	for(size_t j=0;j<v_saved.size();j++)
+	for (int i=m_start;i<m_end;++i)
 	{
-		if(v_saved[j]==m_NameSign+m_KeyWord)
-		   break;
-		++inicio;
+		auto it = m_map.find(v_saved[i]);
+		if (it != m_map.end())
+			v_saved[i] = it->first + "=" + it->second;
 	}
-	fin=inicio;
-	for(size_t j=inicio;j<v_saved.size();j++)
-	{
-		if(v_saved[j]==m_divisor)
-			break;
-		++fin;
-	}
-	for(std::string& x:m_fields_to_change)
-	{
-		for(int i=inicio;i<fin;++i)
-		{
-			if(v_saved[i].find(x)!=std::string::npos)
-			{
-				std::string line;
-				line=x+"="+this->GetValue(x);
-				v_saved[i]=line;
-			}
-		}
-	}
-	std::ofstream archo(m_FileName,std::ios::trunc);
-	for(std::string &x:v_saved)
+	
+	for (std::string &x : v_saved)
 		archo<<x+"\n";
 	archo.close();
 }
 
- std::string FileManager::GetValue(std::string const& field)const
+std::string FileManager::GetValue(std::string const& field)const
 {
-	std::string value="Invalid";
-	for(std::string x:m_lines)
-	{
-		if(x.find(field)!=std::string::npos){
-			value=x.substr(x.find('=')+1,x.size());
-			break;
-		}
-	}
-	if(value=="Invalid")std::cerr<<field<<" is not a valid field\n";
+	auto it = m_map.find(field);
+	std::string value = (it != m_map.end() ? it->second : "Invalid");
+	
+	if (value == "Invalid") 
+		std::cerr << field << " is not a valid field" << std::endl;
+	
 	return value;
 }
+
 void FileManager::ChangeValue(std::string const& field,std::string const& value)
 {
-	for(std::string& x:m_lines)
-	{
-		if(x.find(field)!=std::string::npos)
-		{
-			x.resize(x.find('=')+1);
-			x+=value;
-			m_fields_to_change.push_back(field);
-			///this function stores witch values must me changed, if you wanne save them, call SaveChanges()
-			break;
-		}
-	}
+	auto it = m_map.find(field);
+	if (it != m_map.end())
+		it->second = value;
+
+	///this function stores wich values must be changed, if you want to save them, call SaveChanges()
 }
+
 void FileManager::RestoreThisToDef(std::string const& field)
 {
-	for(std::string &x:m_default)
+	auto backup = FileToString(m_filepath + "BackUpConf/B" + m_filename);
+	auto it = std::find(backup.begin(),backup.end(), field);
+	if (it != backup.end())
 	{
-		if(x.find(field)!=std::string::npos)
-		{
-			std::string value;
-			value=x.substr(x.find('='),x.size());
-			ChangeValue(field,value);
-			break;
-		}
+		std::string value;
+		value=it->substr(it->find('=') + 1);
+		ChangeValue(field,value);
 	}
 }
-void FileManager::RestoreAllToDef()
+
+void FileManager::RestoreAllToDef(std::vector<std::string> const& backup)
 {
-	std::ofstream archo(m_FileName,std::ios::trunc);
-	for(std::string &x:m_default)
+	std::ofstream archo(m_filepath + m_filename,std::ios::trunc);
+	for(const std::string &x:backup)
 		archo<<x+"\n";
 	archo.close();
-	
 }
+
 std::string FileManager::operator[](std::string const& field)const
 {
 	return GetValue(field);
 }
+
 void FileManager::Reload(std::string const& FileName,std::string const& KeyWord)
 {
-	m_default.erase(m_default.begin(),m_default.end());
-	m_lines.erase(m_lines.begin(),m_lines.end());
-	m_fields_to_change.erase(m_fields_to_change.begin(),m_fields_to_change.end());
-	m_FileName="res/configuration-files/"+FileName;
+	m_map.clear();
+	m_filename=FileName;
 	m_KeyWord=KeyWord;
-	m_BackUpFile_name="res/configuration-files/BackUpConf/B_"+FileName;
 	//reset all variables
 	
-	LoadBackUp();
 	LoadFile();
-	
-	
+}
+
+std::vector<std::string> FileManager::FileToString (std::string filename) 
+{
+	std::vector<std::string> file_data;
+	std::ifstream archi(filename);
+	std::string linea;
+	while(getline(archi,linea))
+		file_data.push_back(linea);
+	return file_data;
 }

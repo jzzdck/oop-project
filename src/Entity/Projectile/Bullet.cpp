@@ -41,7 +41,10 @@ void Bullet::Update ( ) {
 }
 
 sf::Vector2f Bullet::GetPushbackForce ( ) {
-	return {m_dir*2, -2};
+	if (m_sprite.getColor().a == 255)
+		return {m_dir*2, -2};
+	else
+		return {0,0};
 }
 
 void Bullet::Render (DrawingEnviroment & drawEnv) {

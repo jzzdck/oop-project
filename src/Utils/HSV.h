@@ -28,7 +28,7 @@ namespace utils {
 		void SetSat(float sat);
 		/// @brief Set current HSV color's value.
 		void SetVal(float val);
-		void SetAlpha(float alpha) { m_alpha = alpha; }
+		void SetAlpha(float alpha) { m_alpha = std::min(alpha, 99.f); }
 		/// @brief Get current HSV color's hue.
 		int GetHue() const { return m_hue; }
 		/// @brief Get current HSV color's saturation.

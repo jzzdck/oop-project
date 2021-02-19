@@ -2,7 +2,7 @@
 #include "../../Utils/generalUtils.h"
 
 Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
-	Projectile(rect, "bomb", rand()%(500-400) + 2, facing, 0.1f), 
+	Projectile(rect, "bomb", 140.f*utils::randf() + 70.f, facing, 0.1f), 
 	m_trail(m_sprite, false, 2.0f),
 	explosion({nullptr, &m_sprite, "explosion", {7, 0, 0.05f, {40.f, 40.f}}})
 {
@@ -10,6 +10,7 @@ Bomb::Bomb(const sf::Vector2f &vel, const sf::Rect<float> &rect, float facing) :
 	m_speed = vel;
 	explosion.loopable = false;
 	trail_color = { 50, 100, 100 };
+	trail_color.SetAlpha(20);
 	m_trail.SetColor(sf::Color::Black);
 	m_trail.SetLength(14);
 }
@@ -33,6 +34,7 @@ void Bomb::ApplyEffect (Player * target) {
 
 void Bomb::Update ( ) {
 	trail_color.SetHue(trail_color.GetHue() * 0.9999f + 30 * 0.0001f);
+	trail_color.SetAlpha(trail_color.GetAlpha() + 2);
 	m_trail.SetColor(trail_color.MakeRGB());
 	
 	if (!exploding) {
